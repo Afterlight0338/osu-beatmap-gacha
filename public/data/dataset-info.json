@@ -1,6 +1,6 @@
 {
-  "version": "4.0.0",
-  "lastUpdated": "2026-08-23T18:29:41.933Z",
+  "version": "4.1.0",
+  "lastUpdated": "2026-08-23T18:36:51.815Z",
   "totalMaps": 50000,
   "rarityCounts": {
     "Common": 15335,
@@ -14,5 +14,5 @@
     "Divine": 36,
     "GOAT": 10
   },
-  "source": "osu! API v2 Live 50,000 Pool - 10 Tier Rarity System"
+  "source": "osu! API v2 Live 50,000 Pool - Diverse Flagship 10-Tier Hierarchy"
 }
