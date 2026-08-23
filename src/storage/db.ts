@@ -1,5 +1,5 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { CollectionRecord, UserSettings, CollectionExportData } from '../types/collection';
+import { CollectionRecord, UserSettings, CollectionExportData, PullEnergyState } from '../types/collection';
 import { PullResult } from '../types/gacha';
 
 const DB_NAME = 'osu_beatmap_gacha_db';
@@ -161,6 +161,32 @@ export async function getUserSettings(): Promise<UserSettings> {
   const db = await getDB();
   const val = await db.get('meta', 'settings');
   return { ...DEFAULT_SETTINGS, ...(val || {}) };
+}
+
+export const DEFAULT_ENERGY_STATE: PullEnergyState = {
+  current: 50,
+  max: 50,
+  lastRefillTime: Date.now(),
+};
+
+/**
+ * Get pull energy state.
+ */
+export async function getPullEnergyState(): Promise<PullEnergyState> {
+  const db = await getDB();
+  const val = await db.get('meta', 'pullEnergy');
+  if (!val) {
+    return { ...DEFAULT_ENERGY_STATE, lastRefillTime: Date.now() };
+  }
+  return val;
+}
+
+/**
+ * Save pull energy state.
+ */
+export async function savePullEnergyState(state: PullEnergyState): Promise<void> {
+  const db = await getDB();
+  await db.put('meta', state, 'pullEnergy');
 }
 
 /**

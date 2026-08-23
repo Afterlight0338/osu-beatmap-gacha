@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useGacha } from '../context/GachaContext';
 import { downloadCollectionBackup, handleFileImport } from '../storage/exportImport';
+import { SecretPhDModal } from './SecretPhDModal';
 import { sfx } from '../audio/sfx';
 import {
   X,
@@ -14,6 +15,7 @@ import {
   CheckCircle,
   Database,
   Sliders,
+  Atom,
 } from 'lucide-react';
 
 interface SettingsModalProps {
@@ -38,6 +40,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
   }>({ type: null, message: '' });
 
   const [isResetConfirmOpen, setIsResetConfirmOpen] = useState<boolean>(false);
+  const [isSecretOpen, setIsSecretOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
@@ -295,9 +298,27 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 </span>
               </div>
             )}
+
+            {/* Secret Easter Egg Button */}
+            <div className="pt-2 border-t border-slate-800/80 flex justify-end">
+              <button
+                onClick={() => setIsSecretOpen(true)}
+                title="Quantum Theoretical osu! Research Portal"
+                className="opacity-30 hover:opacity-100 transition-opacity p-1 text-[10px] font-mono text-cyan-400 flex items-center space-x-1 hover:underline"
+              >
+                <Atom className="w-3 h-3 text-cyan-400" />
+                <span>[π Exam Portal]</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Secret PhD Exam Modal */}
+      <SecretPhDModal
+        isOpen={isSecretOpen}
+        onClose={() => setIsSecretOpen(false)}
+      />
     </div>
   );
 };

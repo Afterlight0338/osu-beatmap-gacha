@@ -267,14 +267,14 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
             </p>
           </div>
 
-          {/* Results Grid */}
+          {/* Results Grid with Optimized Responsive Sizing */}
           <div
-            className={`grid gap-3 md:gap-4 w-full ${
+            className={`grid gap-3 w-full ${
               results.length === 1
                 ? 'grid-cols-1 max-w-xs mx-auto'
-                : results.length <= 5
-                ? 'grid-cols-2 md:grid-cols-3'
-                : 'grid-cols-2 md:grid-cols-5'
+                : results.length === 5
+                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 max-w-5xl'
+                : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-6xl'
             }`}
           >
             {results.map((res, idx) => (
@@ -290,27 +290,35 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
             ))}
           </div>
 
-          {/* Actions: Pull Again 1x, Pull Again 10x, Close */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-slate-800 w-full">
+          {/* Actions: Pull Again 1x, 5x, 10x, Close */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 border-t border-slate-800 w-full">
             <button
               onClick={() => onPullAgain(1)}
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs md:text-sm flex items-center space-x-2 transition-all hover:scale-105"
+              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs flex items-center space-x-1.5 transition-all hover:scale-105"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span>Pull 1x Again</span>
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Pull 1x (⚡1)</span>
+            </button>
+
+            <button
+              onClick={() => onPullAgain(5)}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs border border-purple-500/60 flex items-center space-x-1.5 transition-all hover:scale-105 shadow-md shadow-purple-900/30"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+              <span>Pull 5x (⚡5)</span>
             </button>
 
             <button
               onClick={() => onPullAgain(10)}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-pink-600/30 flex items-center space-x-2 transition-all hover:scale-105"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-pink-600/30 flex items-center space-x-1.5 transition-all hover:scale-105"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Pull 10x Again</span>
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>Pull 10x (⚡10)</span>
             </button>
 
             <button
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-xs md:text-sm transition-all"
+              className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-xs transition-all"
             >
               Done / Return
             </button>

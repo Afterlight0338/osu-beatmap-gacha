@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { Beatmap, DatasetInfo, RarityTier } from '../types/beatmap';
 import { Banner, PullResult, PullHistoryItem } from '../types/gacha';
-import { CollectionRecord, CollectionStats, UserSettings } from '../types/collection';
+import { CollectionRecord, CollectionStats, UserSettings, PullEnergyState } from '../types/collection';
 import { loadBeatmapDataset, getBeatmapById } from '../data/loader';
 import { BANNERS } from '../gacha/banners';
 import { executeMultiPull } from '../gacha/rng';
@@ -12,13 +12,19 @@ import {
   getTotalPulls,
   getUserSettings,
   saveUserSettings,
+  getPullEnergyState,
+  savePullEnergyState,
   clearAllData,
   toggleFavorite as dbToggleFavorite,
   DEFAULT_SETTINGS,
+  DEFAULT_ENERGY_STATE,
 } from '../storage/db';
 import { sfx } from '../audio/sfx';
 import { previewPlayer } from '../audio/previewPlayer';
 import { compareRarities } from '../gacha/rarity';
+
+const REGEN_INTERVAL_MS = 15000; // 1 pull token every 15 seconds
+const MAX_PULL_ENERGY = 50;
 
 interface GachaContextType {
   pool: Beatmap[];
@@ -34,8 +40,12 @@ interface GachaContextType {
   settings: UserSettings;
   activeBanner: Banner;
   stats: CollectionStats;
+  energy: PullEnergyState;
+  countdownSeconds: number;
+  timeToFullFormatted: string;
   setActiveBanner: (banner: Banner) => void;
   pull: (count: number) => Promise<PullResult[]>;
+  refillEnergy: (amount: number) => Promise<void>;
   toggleFavorite: (beatmapId: number) => Promise<boolean>;
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
   resetCollection: () => Promise<void>;
@@ -59,16 +69,21 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [settings, setSettings] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [activeBanner, setActiveBanner] = useState<Banner>(BANNERS[0]);
 
+  // Pull Energy / Stamina Time Gate State
+  const [energy, setEnergy] = useState<PullEnergyState>(DEFAULT_ENERGY_STATE);
+  const [countdownSeconds, setCountdownSeconds] = useState<number>(15);
+
   // Load beatmap pool and user data on start
   const initData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [loaderRes, savedRecords, savedHistory, savedPulls, userConfig] = await Promise.all([
+      const [loaderRes, savedRecords, savedHistory, savedPulls, userConfig, savedEnergy] = await Promise.all([
         loadBeatmapDataset(),
         getCollectionRecords(),
         getPullHistory(50),
         getTotalPulls(),
         getUserSettings(),
+        getPullEnergyState(),
       ]);
 
       setPool(loaderRes.maps);
@@ -100,6 +115,22 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         .filter(Boolean) as PullHistoryItem[];
       setHistory(hydratedHistory);
 
+      // Calculate offline energy recovery
+      const now = Date.now();
+      const elapsed = Math.max(0, now - savedEnergy.lastRefillTime);
+      const pullsToAdd = Math.floor(elapsed / REGEN_INTERVAL_MS);
+      const newCurrent = Math.min(MAX_PULL_ENERGY, savedEnergy.current + pullsToAdd);
+      const newLastRefill =
+        newCurrent >= MAX_PULL_ENERGY ? now : savedEnergy.lastRefillTime + pullsToAdd * REGEN_INTERVAL_MS;
+
+      const updatedEnergy: PullEnergyState = {
+        current: newCurrent,
+        max: MAX_PULL_ENERGY,
+        lastRefillTime: newLastRefill,
+      };
+      await savePullEnergyState(updatedEnergy);
+      setEnergy(updatedEnergy);
+
       setSettings(userConfig);
       sfx.setEnabled(userConfig.soundEnabled);
       sfx.setVolume(userConfig.sfxVolume);
@@ -116,11 +147,65 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     initData();
   }, [initData]);
 
+  // Real-time Energy Regeneration Timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setEnergy((prev) => {
+        if (prev.current >= prev.max) {
+          setCountdownSeconds(15);
+          return prev;
+        }
+
+        const now = Date.now();
+        const elapsed = Math.max(0, now - prev.lastRefillTime);
+        const pullsToAdd = Math.floor(elapsed / REGEN_INTERVAL_MS);
+
+        if (pullsToAdd > 0) {
+          const nextCurrent = Math.min(prev.max, prev.current + pullsToAdd);
+          const nextRefill =
+            nextCurrent >= prev.max ? now : prev.lastRefillTime + pullsToAdd * REGEN_INTERVAL_MS;
+          const nextState = { ...prev, current: nextCurrent, lastRefillTime: nextRefill };
+          savePullEnergyState(nextState).catch(() => {});
+          return nextState;
+        }
+
+        const remainingMs = REGEN_INTERVAL_MS - (elapsed % REGEN_INTERVAL_MS);
+        setCountdownSeconds(Math.max(1, Math.ceil(remainingMs / 1000)));
+        return prev;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const timeToFullFormatted = useMemo(() => {
+    if (energy.current >= energy.max) return 'MAX';
+    const missingPulls = energy.max - energy.current;
+    const totalSeconds = (missingPulls - 1) * 15 + countdownSeconds;
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }, [energy, countdownSeconds]);
+
+  const refillEnergy = useCallback(async (amount: number) => {
+    setEnergy((prev) => {
+      const nextCurrent = Math.min(prev.max, prev.current + amount);
+      const nextState: PullEnergyState = {
+        ...prev,
+        current: nextCurrent,
+        lastRefillTime: Date.now(),
+      };
+      savePullEnergyState(nextState).catch(() => {});
+      return nextState;
+    });
+  }, []);
+
   const refreshCollection = useCallback(async () => {
-    const [savedRecords, savedHistory, savedPulls] = await Promise.all([
+    const [savedRecords, savedHistory, savedPulls, savedEnergy] = await Promise.all([
       getCollectionRecords(),
       getPullHistory(50),
       getTotalPulls(),
+      getPullEnergyState(),
     ]);
 
     setCollectionRecords(savedRecords);
@@ -129,6 +214,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCollectionMap(colMap);
 
     setTotalPulls(savedPulls);
+    setEnergy(savedEnergy);
 
     const hydratedHistory: PullHistoryItem[] = savedHistory
       .map((h) => {
@@ -153,7 +239,21 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         throw new Error('Beatmap pool is not loaded yet');
       }
 
+      if (energy.current < count) {
+        throw new Error(`Not enough pull stamina! Need ${count} energy (have ${energy.current}).`);
+      }
+
       const results = executeMultiPull(count, pool, collectionMap, activeBanner.id);
+
+      // Deduct energy
+      const now = Date.now();
+      const newEnergyState: PullEnergyState = {
+        ...energy,
+        current: energy.current - count,
+        lastRefillTime: energy.current >= energy.max ? now : energy.lastRefillTime,
+      };
+      setEnergy(newEnergyState);
+      await savePullEnergyState(newEnergyState);
 
       // Save to IndexedDB
       await savePullResults(results);
@@ -189,7 +289,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       return results;
     },
-    [pool, collectionMap, activeBanner.id]
+    [pool, collectionMap, activeBanner.id, energy]
   );
 
   const toggleFavorite = useCallback(async (beatmapId: number): Promise<boolean> => {
@@ -297,8 +397,12 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         settings,
         activeBanner,
         stats,
+        energy,
+        countdownSeconds,
+        timeToFullFormatted,
         setActiveBanner,
         pull,
+        refillEnergy,
         toggleFavorite,
         updateSettings,
         resetCollection,

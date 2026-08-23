@@ -10,6 +10,7 @@ import {
   Volume2,
   VolumeX,
   Disc,
+  Zap,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -25,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSettings,
   onOpenHistory,
 }) => {
-  const { stats, settings, updateSettings, pool } = useGacha();
+  const { stats, settings, updateSettings, pool, energy } = useGacha();
 
   const handleTabClick = (tab: 'gacha' | 'collection' | 'stats') => {
     sfx.playClick();
@@ -108,6 +109,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right Tools & Buttons */}
         <div className="flex items-center space-x-2">
+          {/* Quick Energy / Stamina Pill */}
+          <div
+            title={`Pull Stamina: ${energy.current}/${energy.max} (Regens +1 every 15s)`}
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300"
+          >
+            <Zap className={`w-3.5 h-3.5 ${energy.current > 0 ? 'text-amber-400 animate-pulse' : 'text-slate-600'}`} />
+            <span className="text-amber-300 font-bold">{energy.current}</span>
+            <span className="text-slate-600">/</span>
+            <span className="text-slate-400 text-[11px]">{energy.max}</span>
+          </div>
+
           {/* Quick Pulls Counter Pill */}
           <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 font-mono text-xs text-slate-300">
             <span className="text-slate-500">Pulls:</span>

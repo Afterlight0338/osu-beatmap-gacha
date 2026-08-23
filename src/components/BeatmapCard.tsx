@@ -235,37 +235,39 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
         </div>
 
         {/* Card Body Information */}
-        <div className="p-3.5 flex flex-col flex-grow justify-between z-10 bg-[#12121c]">
+        <div className={`flex flex-col flex-grow justify-between z-10 bg-[#12121c] ${size === 'sm' ? 'p-2.5' : 'p-3.5'}`}>
           {/* Song & Artist Info */}
-          <div>
+          <div className="space-y-0.5">
             <h3
-              className="font-bold text-slate-100 line-clamp-1 group-hover:text-pink-400 transition-colors text-sm md:text-base leading-tight tracking-wide"
+              className={`font-bold text-slate-100 line-clamp-2 group-hover:text-pink-400 transition-colors leading-tight tracking-wide ${
+                size === 'sm' ? 'text-xs min-h-[2rem]' : 'text-sm md:text-base min-h-[2.5rem]'
+              }`}
               title={beatmap.title}
             >
               {beatmap.title}
             </h3>
-            <p className="text-xs text-slate-400 line-clamp-1 mt-0.5" title={beatmap.artist}>
+            <p className="text-[11px] text-slate-400 line-clamp-1 truncate" title={beatmap.artist}>
               {beatmap.artist}
             </p>
           </div>
 
           {/* Difficulty Version & Mapper */}
-          <div className="mt-2.5 py-1.5 px-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+          <div className={`rounded-lg bg-slate-900/70 border border-slate-800/80 ${size === 'sm' ? 'mt-1.5 py-1 px-1.5' : 'mt-2.5 py-1.5 px-2'}`}>
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-pink-300/90 truncate max-w-[65%]" title={beatmap.version}>
                 [{beatmap.version}]
               </span>
-              <span className={`text-[10px] uppercase font-bold px-1.5 py-0.2 rounded border ${statusColor}`}>
+              <span className={`text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border ${statusColor}`}>
                 {beatmap.status}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 truncate mt-0.5">
+            <p className="text-[10px] text-slate-400 truncate mt-0.5">
               by <span className="text-slate-300 hover:underline">{beatmap.creator}</span>
             </p>
           </div>
 
           {/* Beatmap Metrics (BPM, Length, Playcount, Favourites) */}
-          <div className="mt-3 grid grid-cols-2 gap-1 text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-2">
+          <div className={`grid grid-cols-2 gap-1 font-mono text-slate-400 border-t border-slate-800/80 ${size === 'sm' ? 'mt-2 pt-1.5 text-[10px]' : 'mt-3 pt-2 text-[11px]'}`}>
             <div>
               <span className="text-slate-500">BPM: </span>
               <span className="text-slate-200 font-semibold">{beatmap.bpm}</span>

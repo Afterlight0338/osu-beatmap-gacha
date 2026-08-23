@@ -32,8 +32,8 @@ const ICONIC_MAPS = [
     rankedDate: "2012-10-18T10:14:00Z",
   },
   {
-    id: 417244,
-    beatmapsetId: 131891,
+    id: 131891,
+    beatmapsetId: 41823,
     artist: "The Quick Brown Fox",
     artistUnicode: "The Quick Brown Fox",
     title: "The Big Black",
@@ -84,7 +84,7 @@ const ICONIC_MAPS = [
   },
   {
     id: 1007525,
-    beatmapsetId: 477140,
+    beatmapsetId: 981146,
     artist: "Panda Eyes & Teminite",
     artistUnicode: "Panda Eyes & Teminite",
     title: "Highscore",

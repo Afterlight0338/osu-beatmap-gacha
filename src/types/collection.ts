@@ -52,6 +52,12 @@ export interface CollectionStats {
   } | null;
 }
 
+export interface PullEnergyState {
+  current: number;
+  max: number;
+  lastRefillTime: number;
+}
+
 export interface UserSettings {
   soundEnabled: boolean;
   sfxVolume: number;
