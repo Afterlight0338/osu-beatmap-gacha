@@ -15,12 +15,16 @@ interface AuthContextType {
   isLoggedIn: boolean;
   syncStatus: CloudSyncStatus;
   lastSynced: number | null;
+  isLoginModalOpen: boolean;
+  openLoginModal: () => void;
+  closeLoginModal: () => void;
   loginWithOsu: () => void;
   quickLoginWithUsername: (username: string) => Promise<void>;
   logout: () => void;
   syncNow: () => Promise<void>;
   cloudEndpoint: string;
   updateCloudEndpoint: (url: string) => void;
+  oauthError: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,7 +33,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<OsuUserProfile | null>(() => getStoredProfile());
   const [syncStatus, setSyncStatus] = useState<CloudSyncStatus>('idle');
   const [lastSynced, setLastSynced] = useState<number | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [cloudEndpoint, setEndpointState] = useState<string>(() => getCloudEndpoint());
+  const [oauthError, setOauthError] = useState<string | null>(null);
+
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => {
+    setIsLoginModalOpen(false);
+    setOauthError(null);
+  };
 
   const updateCloudEndpoint = (url: string) => {
     setCloudEndpoint(url);
@@ -53,12 +65,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [user]);
 
-  // Handle OAuth code return from URL query (?code=... or #access_token=...)
+  // Handle OAuth code return from URL query (?code=... or error)
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
+    const errorParam = urlParams.get('error');
+
+    if (errorParam) {
+      setOauthError(`osu! Login canceled or denied (${errorParam})`);
+      setIsLoginModalOpen(true);
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+      return;
+    }
 
     if (code) {
       // Clear URL parameter cleanly
@@ -73,16 +94,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           const res = await fetch(`${endpoint}/api/oauth/callback?code=${encodeURIComponent(code)}`);
           if (res.ok) {
             const data = await res.json();
-            if (data.user && data.token) {
-              setStoredToken(data.token);
+            if (data.user) {
+              if (data.token) setStoredToken(data.token);
               setStoredProfile(data.user);
               setUser(data.user);
               setSyncStatus('synced');
               setLastSynced(Date.now());
+              setOauthError(null);
             }
+          } else {
+            const errData = await res.json().catch(() => ({}));
+            setOauthError(errData.error || 'Failed to exchange osu! login token. Check Worker URL.');
+            setIsLoginModalOpen(true);
           }
-        } catch (err) {
+        } catch (err: any) {
           console.warn('OAuth token exchange error:', err);
+          setOauthError(`Could not connect to Worker API: ${err.message || 'Network error'}. Set your Worker URL in Advanced settings.`);
+          setIsLoginModalOpen(true);
         }
       };
 
@@ -93,8 +121,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // osu! OAuth login redirect
   const loginWithOsu = () => {
     const clientId = '64407';
+    // Ensure clean redirect URL matching registered osu! oauth URL
     const redirectUri = window.location.origin + window.location.pathname;
-    const authUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${clientId}&response_type=code&scope=public%20identify&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    const authUrl = `https://osu.ppy.sh/oauth/authorize?client_id=${clientId}&response_type=code&scope=identify%20public&redirect_uri=${encodeURIComponent(redirectUri)}`;
     window.location.href = authUrl;
   };
 
@@ -104,7 +133,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const cleanName = username.trim();
 
     try {
-      // Fetch public profile / avatar
       const profile: OsuUserProfile = {
         id: Math.abs(cleanName.split('').reduce((acc, c) => acc * 31 + c.charCodeAt(0), 0)) % 10000000 + 1000,
         username: cleanName,
@@ -144,12 +172,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         isLoggedIn: !!user,
         syncStatus,
         lastSynced,
+        isLoginModalOpen,
+        openLoginModal,
+        closeLoginModal,
         loginWithOsu,
         quickLoginWithUsername,
         logout,
         syncNow,
         cloudEndpoint,
         updateCloudEndpoint,
+        oauthError,
       }}
     >
       {children}

@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Cloud, CheckCircle2, RefreshCw, LogOut, User } from 'lucide-react';
-import { LoginModal } from './LoginModal';
 
 export const UserProfileBadge: React.FC = () => {
-  const { user, isLoggedIn, syncStatus, logout, syncNow } = useAuth();
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const { user, isLoggedIn, syncStatus, logout, syncNow, openLoginModal } = useAuth();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   if (!isLoggedIn || !user) {
     return (
-      <>
-        <button
-          onClick={() => setIsLoginModalOpen(true)}
-          className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-[#ff66aa]/20 hover:bg-[#ff66aa]/30 text-[#ff66aa] hover:text-pink-200 border border-[#ff66aa]/50 hover:border-[#ff66aa]/80 transition-all duration-200 text-xs font-bold font-mono shadow-sm hover:scale-105 select-none flex-shrink-0"
-        >
-          <User className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Login</span>
-        </button>
-
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-        />
-      </>
+      <button
+        onClick={openLoginModal}
+        className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-[#ff66aa]/20 hover:bg-[#ff66aa]/30 text-[#ff66aa] hover:text-pink-200 border border-[#ff66aa]/50 hover:border-[#ff66aa]/80 transition-all duration-200 text-xs font-bold font-mono shadow-sm hover:scale-105 select-none flex-shrink-0"
+      >
+        <User className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Login</span>
+      </button>
     );
   }
 
@@ -113,11 +104,6 @@ export const UserProfileBadge: React.FC = () => {
           </div>
         </>
       )}
-
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-      />
     </div>
   );
 };

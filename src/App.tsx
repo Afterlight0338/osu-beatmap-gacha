@@ -8,8 +8,10 @@ import { StatsPage } from './pages/StatsPage';
 import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
+import { LoginModal } from './components/LoginModal';
 import { Beatmap } from './types/beatmap';
 import { Disc, AlertCircle } from 'lucide-react';
+import { AuthProvider } from './context/AuthContext';
 
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
@@ -94,11 +96,11 @@ const MainApp: React.FC = () => {
         onClose={() => setSelectedMapForDetail(null)}
         onToggleFavorite={toggleFavorite}
       />
+
+      <LoginModal />
     </div>
   );
 };
-
-import { AuthProvider } from './context/AuthContext';
 
 export const App: React.FC = () => {
   return (
