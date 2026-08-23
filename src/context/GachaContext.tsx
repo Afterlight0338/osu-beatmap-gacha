@@ -22,7 +22,6 @@ import {
 import { sfx } from '../audio/sfx';
 import { previewPlayer } from '../audio/previewPlayer';
 import { compareRarities } from '../gacha/rarity';
-import { uploadProgressToCloud, getStoredProfile } from '../services/cloudSync';
 
 const REGEN_INTERVAL_MS = 15000; // 1 pull token every 15 seconds
 const MAX_PULL_ENERGY = 50;
@@ -288,12 +287,6 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }));
       setHistory((prev) => [...newHistoryItems.reverse(), ...prev].slice(0, 100));
 
-      // Background cloud sync if user is logged in
-      const profile = getStoredProfile();
-      if (profile) {
-        uploadProgressToCloud(profile).catch(() => {});
-      }
-
       return results;
     },
     [pool, collectionMap, activeBanner.id, energy]
@@ -312,13 +305,6 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCollectionRecords((prev) =>
       prev.map((r) => (r.beatmapId === beatmapId ? { ...r, isFavorite: isFav } : r))
     );
-
-    // Background cloud sync if user is logged in
-    const profile = getStoredProfile();
-    if (profile) {
-      uploadProgressToCloud(profile).catch(() => {});
-    }
-
     return isFav;
   }, []);
 

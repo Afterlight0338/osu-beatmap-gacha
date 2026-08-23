@@ -1,215 +1,114 @@
 # 🌸 osu! Beatmap Gacha
 
-[![Deploy to GitHub Pages](https://github.com/Afterlight0338/osu-beatmap-gacha/actions/workflows/deploy.yml/badge.svg)](https://github.com/Afterlight0338/osu-beatmap-gacha/actions/workflows/deploy.yml)
-[![Update Beatmaps Dataset](https://github.com/Afterlight0338/osu-beatmap-gacha/actions/workflows/update-beatmaps.yml/badge.svg)](https://github.com/Afterlight0338/osu-beatmap-gacha/actions/workflows/update-beatmaps.yml)
-[![GitHub Pages URL](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-ff66aa.svg)](https://afterlight0338.github.io/osu-beatmap-gacha/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-ff66aa?style=for-the-badge&logo=github)](https://afterlight0338.github.io/osu-beatmap-gacha/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
+[![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.0-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 
-> A sleek, browser-based collectible card gacha game where you pull **osu! beatmaps** instead of anime characters or players.
+> **A polished, browser-based gacha and collectible card game where you summon iconic osu! beatmaps!**
 
-Explore iconic osu! maps spanning over a decade of community history, discover hidden gems, listen to in-browser audio previews, and complete your personal collection — 100% client-side with zero logins or backend servers required.
+Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatmap-gacha/](https://afterlight0338.github.io/osu-beatmap-gacha/)**
+
+---
+
+## 🌟 Overview
+
+**osu! Beatmap Gacha** is a modern, responsive web application hosted on **GitHub Pages**. Instead of anime characters or heroes, players summon and collect real, ranked osu! beatmaps spanning the history of the game.
+
+* **100% Client-Side**: No backend, no accounts, and no servers required.
+* **Offline-First Storage**: Your collection, duplicates, favorites, and pull history are stored locally in your browser via **IndexedDB**.
+* **Real osu! Metadata**: 6,000+ real ranked & loved beatmaps with artwork, audio previews, BPM, star ratings, and mapper credits.
 
 ---
 
 ## ✨ Features
 
-* **Authentic Beatmap Pulls**: Discover and collect individual difficulties from the top 10,000 most played and loved osu! beatmaps.
-* **Log-Normalized Rarity System**: Rarity is determined by true player desirability (playcount & favourites) rather than mere star rating.
-* **Tactile Gacha Ceremony**: Immersive summoning sequence with tier-based audio chords, glowing auras, foil shaders, and confetti celebrations for high-rarity pulls.
-* **3D Holographic Collectible Cards**: Cards tilt in 3D perspective with foil glare and dynamic rarity lighting.
-* **In-Browser Audio Previews**: Click any card or modal to immediately listen to 30-second beatmap MP3 previews.
-* **Deep Collection Management**: Filter by rarity, status, ownership (including silhouette collection dex mode), and sort by 8+ dimensions.
-* **Zero Backend / Serverless**: Runs completely in your browser on **GitHub Pages**. All user data is persisted in browser **IndexedDB**.
-* **Backup & Restore**: Export your collection to a `.json` backup file anytime, or import/merge backups across devices.
-* **Automated Dataset Updater**: Scheduled GitHub Actions pipeline periodically refreshes the top 10,000 beatmaps directly from osu! API v2.
+### 🎲 Authentic Gacha Summoning
+* **1-Pull, 5-Pull, and 10-Pull**: 10-pulls guarantee at least one **Rare+** beatmap.
+* **3D Card Flip Animation**: Interactive reveal sequences with rarity-specific audio fanfares and confetti particles.
+* **Time-Gated Pull Energy**:
+  * Regenerates **+1 Pull Token every 15 seconds**.
+  * Accumulates up to **50 pulls** for full sessions.
 
 ---
 
-## 💎 Rarity Hierarchy & Probabilities
+### 🏆 8 Rarity Tiers & Dynamic Drop Rates
 
-Rarity is calculated using a **logarithmic normalization** of both global playcount and favourite count to prevent extreme outliers from distorting the tiers:
-
-$$\text{playScore} = \log_{10}(\text{playcount} + 1)$$
-$$\text{favScore} = \log_{10}(\text{favouriteCount} + 1)$$
-$$\text{popularityScore} = 0.70 \times \text{normalized}(\text{playScore}) + 0.30 \times \text{normalized}(\text{favScore})$$
-
-### Rarity Tiers & Percentiles
-
-| Rarity | Tier Color | Pool Percentile | Base Pull Rate | 10-Pull Guarantee Rate |
-| :--- | :--- | :--- | :--- | :--- |
-| **Common** | Slate Silver | Bottom 50.0% | **55.0%** | — |
-| **Uncommon** | Emerald Green | 50.0% – 75.0% | **25.0%** | — |
-| **Rare** | Cyan Sapphire | 75.0% – 90.0% | **12.0%** | **60.0%** |
-| **Epic** | Royal Amethyst | 90.0% – 97.0% | **5.0%** | **25.0%** |
-| **Legendary** | Radiant Gold | 97.0% – 99.2% | **2.0%** | **10.0%** |
-| **Mythic** | Crimson Ruby | 99.2% – 99.85% | **0.8%** | **4.0%** |
-| **Divine** | Rainbow Aurora | **Top 0.15%** | **0.2%** | **1.0%** |
-
-*Every 10-pull guarantees at least one beatmap of **Rare** or higher rarity!*
+| Tier | Rarity | Drop Rate | Description |
+| :--- | :--- | :--- | :--- |
+| **8** | 🐐 **GOAT** | **0.05%** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
+| **7** | 👑 **Divine** | **0.10%** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
+| **6** | ✨ **Mythic** | **0.25%** | Elite 7★+ & 8★+ mechanical landmarks |
+| **5** | 🌟 **Legendary** | **1.00%** | Classic 6★+ high-difficulty ranked maps |
+| **4** | 🟣 **Epic** | **6.00%** | 5★+ Insane/Extra staples |
+| **3** | 🔵 **Rare** | **18.00%** | 4★+ Hard/Insane standards |
+| **2** | 🟢 **Uncommon** | **34.60%** | 3★+ Normal/Hard introductory maps |
+| **1** | ⚪ **Common** | **40.00%** | 1★–2★ Easy/Normal beginnings |
 
 ---
 
-## 📂 Project Architecture
+### 🎪 3 Themed Banners
+1. 🌟 **All-Stars Standard Banner**: The complete database of 6,000+ ranked & loved beatmaps.
+2. ⚡ **Stamina & Stream Legends**: Filtered strictly to deathstream classics, 180+ BPM endurance tests, and legendary stream artists (*xi, DragonForce, Camellia, LeaF, UNDEAD CORPORATION, ICDD, Foreground Eclipse*).
+3. 🔥 **Speed & PP Highlights**: Filtered strictly to fast TV Sizes (≤135s), jump farm maps, and acclaimed farm mappers (*Sotarks, Monstrata, Nevo, Reform, Armin, Doormat, Browiec*).
 
-```text
-osu-beatmap-gacha/
-├── .github/
-│   └── workflows/
-│       ├── deploy.yml             # Builds & deploys frontend to GitHub Pages
-│       └── update-beatmaps.yml    # Scheduled osu! API top dataset generator
-│
-├── public/
-│   ├── data/
-│   │   ├── maps.json              # Active top beatmap pool dataset
-│   │   └── dataset-info.json      # Dataset metadata, version, & counts
-│   └── favicon.svg                # osu! circle logo
-│
-├── scripts/
-│   ├── update-beatmaps.mjs        # osu! API v2 fetcher, ranker, & atomic updater
-│   └── generate-demo-data.mjs     # Standalone seed/demo dataset generator
-│
-├── src/
-│   ├── audio/
-│   │   ├── sfx.ts                 # Web Audio synthesizer for gacha SFX
-│   │   └── previewPlayer.ts       # Beatmap audio preview stream player
-│   │
-│   ├── components/
-│   │   ├── Navbar.tsx             # Tab header, audio controls, & quick stats
-│   │   ├── BannerView.tsx         # Banner showcase & rate-up selector
-│   │   ├── GachaControls.tsx      # 1x / 10x summon buttons & rate breakdown
-│   │   ├── PullRevealModal.tsx    # Immersive summon animation & flip reveal
-│   │   ├── BeatmapCard.tsx        # 3D interactive collectible card
-│   │   ├── RarityBadge.tsx        # Dynamic rarity badge
-│   │   ├── CollectionGrid.tsx     # Paginated collection card grid
-│   │   ├── CollectionFilters.tsx  # Search, rarity pills, & sorting controls
-│   │   ├── BeatmapDetailModal.tsx # Full beatmap stats, links, & downloads
-│   │   ├── SettingsModal.tsx      # SFX volume, JSON Export/Import, & Reset
-│   │   └── PullHistoryModal.tsx   # Chronological pull log
-│   │
-│   ├── context/
-│   │   └── GachaContext.tsx       # Global state provider & storage sync
-│   │
-│   ├── gacha/
-│   │   ├── rarity.ts              # Rarity enum, math formulas, & configs
-│   │   ├── probabilities.ts       # Configurable pull probabilities
-│   │   ├── banners.ts             # Banner pools (Standard, Stream, Farm)
-│   │   └── rng.ts                 # Gacha pull simulation engine
-│   │
-│   ├── storage/
-│   │   ├── db.ts                  # IndexedDB promise client (idb)
-│   │   └── exportImport.ts        # JSON backup export/import & validation
-│   │
-│   ├── pages/
-│   │   ├── GachaPage.tsx          # Main summon page
-│   │   ├── CollectionPage.tsx     # Collection dex & filters
-│   │   └── StatsPage.tsx          # Analytics, completion %, & luck tracking
-│   │
-│   ├── types/                     # TypeScript interfaces
-│   ├── App.tsx                    # Top router & layout
-│   └── main.tsx                   # React root entry
-│
-├── vite.config.ts                 # Base path: /osu-beatmap-gacha/
-├── tailwind.config.js             # Custom osu! & rarity color palette
-├── package.json
-└── README.md
+---
+
+### 🎵 Audio Previews & Direct osu! Links
+* **30-Second Audio Previews**: Stream official song previews directly on beatmap cards and detail modals.
+* **Direct osu! Website Navigation**: Click the external link icon on any card to view the official beatmapset on `osu.ppy.sh`.
+
+---
+
+### 💾 Collection Management & Local Backup
+* **Filter & Sort**: Search by title, artist, mapper, star rating, BPM, or rarity.
+* **Favorites System**: Mark and filter your favorite beatmaps.
+* **Local Player Profile**: Enter your osu! username to display your official avatar directly on the top navigation bar.
+* **Save Backup & Restore**: Export your complete collection to a JSON file and import it anytime to transfer progress between devices.
+* **727 Easter Egg**: A secret challenge hidden inside Settings!
+
+---
+
+## 🛠️ Technology Stack
+
+* **Frontend Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+* **Build Tool**: [Vite 6](https://vitejs.dev/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Local Database**: [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) via [`idb`](https://github.com/jakearchibald/idb)
+* **Icons & SFX**: [Lucide React](https://lucide.dev/) + Web Audio API Synthesis
+* **Visual Effects**: [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)
+* **Hosting**: [GitHub Pages](https://pages.github.com/)
+
+---
+
+## 🚀 Local Development
+
+To run the project locally on your machine:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Afterlight0338/osu-beatmap-gacha.git
+cd osu-beatmap-gacha
+
+# 2. Install dependencies
+npm install
+
+# 3. Start development server
+npm run dev
+
+# 4. Build production bundle
+npm run build
 ```
 
 ---
 
-## 🛠️ Local Development
+## 📜 Disclaimer
 
-### Prerequisites
-
-* **Node.js**: v20 or higher
-* **npm**: v9 or higher
-
-### Installation & Run
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Afterlight0338/osu-beatmap-gacha.git
-   cd osu-beatmap-gacha
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start local development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:5173/osu-beatmap-gacha/` in your browser.
-
-4. Build production static bundle:
-   ```bash
-   npm run build
-   ```
-
----
-
-## 🚀 GitHub Pages Deployment
-
-The repository includes an automated GitHub Actions deployment workflow (`.github/workflows/deploy.yml`).
-
-### Setup Instructions
-
-1. On GitHub, navigate to **Settings** > **Pages**.
-2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
-3. Push any commit to the `main` branch. The action will build the Vite project and deploy it to:
-   ```text
-   https://Afterlight0338.github.io/osu-beatmap-gacha/
-   ```
-
----
-
-## 🔄 Beatmap Dataset Updater & osu! API Setup
-
-The dataset updater script (`scripts/update-beatmaps.mjs`) connects to osu! API v2 to fetch the current global top beatmap pool, rank difficulties by log-normalized popularity, assign rarity tiers, validate the data schema, and atomically update `public/data/maps.json`.
-
-### How to Configure Secrets
-
-1. Go to your [osu! Account Settings](https://osu.ppy.sh/home/account/edit#new-oauth-application) and create a **New OAuth Application**.
-2. Copy the **Client ID** and **Client Secret**.
-3. In your GitHub repository, navigate to **Settings** > **Secrets and variables** > **Actions**.
-4. Add two repository secrets:
-   * `OSU_CLIENT_ID`: Your numerical osu! Client ID (e.g. `12345`)
-   * `OSU_CLIENT_SECRET`: Your osu! Client Secret key string
-
-### Automated & Manual Execution
-
-* **Scheduled**: Runs automatically on the 1st and 15th of every month via GitHub Actions cron.
-* **Manual Dispatch**: Go to the **Actions** tab on GitHub, select **Update Beatmaps Dataset**, and click **Run workflow**.
-* **Local Run**:
-  ```bash
-  export OSU_CLIENT_ID="your_client_id"
-  export OSU_CLIENT_SECRET="your_client_secret"
-  npm run update-maps
-  ```
-
-*Note: If API credentials are not provided, the game automatically falls back to its bundled rich demo dataset without crashing.*
-
----
-
-## 💾 Local Browser Persistence & Privacy
-
-* All collection progress, duplicate counts, favorites, and pull histories are stored locally in the user's browser using **IndexedDB** (`osu_beatmap_gacha_db`).
-* **Zero Tracking / Accounts**: No passwords, personal information, or osu! logins are requested or stored.
-* **Offline Compatible**: Once the dataset is loaded, all gacha mechanics and collection features operate offline.
-* **Backup Export/Import**: Users can download a `.json` backup file or restore their collection at any time in the Settings menu.
-
----
-
-## ⚖️ Legal Disclaimer
-
-This is an unofficial fan project and is **not affiliated with, endorsed by, or sponsored by osu! or ppy Pty Ltd**.
-
-* osu! is a registered trademark of ppy Pty Ltd.
-* All beatmap titles, cover artwork, audio previews, and metadata remain the property of their respective artists, mappers, and rights holders.
-* This web application does not download or redistribute `.osu` beatmap package files; it serves solely as an interactive metadata and collectible card game.
+**osu! Beatmap Gacha** is an unofficial fan project and is not affiliated with, endorsed, or sponsored by **osu!** or **ppy Pty Ltd**. All beatmap artwork, audio previews, and metadata remain the intellectual property of their respective artists, mappers, and rights holders.
 
 ---
 
 ## 📄 License
 
-MIT License. Feel free to fork, customize, and enjoy!
+This project is open-source software licensed under the **[MIT License](./LICENSE)**.

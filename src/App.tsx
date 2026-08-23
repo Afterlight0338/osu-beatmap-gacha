@@ -8,7 +8,7 @@ import { StatsPage } from './pages/StatsPage';
 import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
-import { LoginModal } from './components/LoginModal';
+import { ProfileModal } from './components/ProfileModal';
 import { Beatmap } from './types/beatmap';
 import { Disc, AlertCircle } from 'lucide-react';
 import { AuthProvider } from './context/AuthContext';
@@ -97,7 +97,7 @@ const MainApp: React.FC = () => {
         onToggleFavorite={toggleFavorite}
       />
 
-      <LoginModal />
+      <ProfileModal />
     </div>
   );
 };
