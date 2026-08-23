@@ -1,0 +1,271 @@
+import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { CollectionRecord, UserSettings, CollectionExportData } from '../types/collection';
+import { PullResult } from '../types/gacha';
+
+const DB_NAME = 'osu_beatmap_gacha_db';
+const DB_VERSION = 1;
+
+interface OsuGachaDB extends DBSchema {
+  collection: {
+    key: number;
+    value: CollectionRecord;
+    indexes: {
+      'by-copies': number;
+      'by-lastPulled': number;
+    };
+  };
+  history: {
+    key: string;
+    value: {
+      id: string;
+      beatmapId: number;
+      rarity: string;
+      isNew: boolean;
+      pulledAt: number;
+    };
+    indexes: {
+      'by-pulledAt': number;
+    };
+  };
+  meta: {
+    key: string;
+    value: any;
+  };
+}
+
+let dbPromise: Promise<IDBPDatabase<OsuGachaDB>> | null = null;
+
+export function getDB(): Promise<IDBPDatabase<OsuGachaDB>> {
+  if (!dbPromise) {
+    dbPromise = openDB<OsuGachaDB>(DB_NAME, DB_VERSION, {
+      upgrade(db) {
+        // Collection Store
+        if (!db.objectStoreNames.contains('collection')) {
+          const colStore = db.createObjectStore('collection', { keyPath: 'beatmapId' });
+          colStore.createIndex('by-copies', 'copies');
+          colStore.createIndex('by-lastPulled', 'lastPulledAt');
+        }
+
+        // History Store
+        if (!db.objectStoreNames.contains('history')) {
+          const histStore = db.createObjectStore('history', { keyPath: 'id' });
+          histStore.createIndex('by-pulledAt', 'pulledAt');
+        }
+
+        // Meta Store
+        if (!db.objectStoreNames.contains('meta')) {
+          db.createObjectStore('meta');
+        }
+      },
+    });
+  }
+  return dbPromise;
+}
+
+export const DEFAULT_SETTINGS: UserSettings = {
+  soundEnabled: true,
+  sfxVolume: 0.7,
+  bgmVolume: 0.5,
+  fastAnimation: false,
+  theme: 'dark',
+};
+
+/**
+ * Fetch all collection records from IndexedDB.
+ */
+export async function getCollectionRecords(): Promise<CollectionRecord[]> {
+  const db = await getDB();
+  return db.getAll('collection');
+}
+
+/**
+ * Fetch a single collection record by beatmap ID.
+ */
+export async function getCollectionRecord(beatmapId: number): Promise<CollectionRecord | undefined> {
+  const db = await getDB();
+  return db.get('collection', beatmapId);
+}
+
+/**
+ * Record new pull results into IndexedDB atomically.
+ */
+export async function savePullResults(results: PullResult[]): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction(['collection', 'history', 'meta'], 'readwrite');
+
+  const currentTotalPulls = (await tx.objectStore('meta').get('totalPulls')) || 0;
+  await tx.objectStore('meta').put(currentTotalPulls + results.length, 'totalPulls');
+
+  for (const pull of results) {
+    const existing = await tx.objectStore('collection').get(pull.beatmap.id);
+    const newRecord: CollectionRecord = {
+      beatmapId: pull.beatmap.id,
+      copies: (existing?.copies || 0) + 1,
+      firstPulledAt: existing?.firstPulledAt || pull.pulledAt,
+      lastPulledAt: pull.pulledAt,
+      isFavorite: existing?.isFavorite || false,
+    };
+    await tx.objectStore('collection').put(newRecord);
+
+    // Save history entry
+    const historyId = `${pull.pulledAt}-${pull.beatmap.id}-${Math.random().toString(36).substring(2, 7)}`;
+    await tx.objectStore('history').put({
+      id: historyId,
+      beatmapId: pull.beatmap.id,
+      rarity: pull.beatmap.rarity,
+      isNew: pull.isNew,
+      pulledAt: pull.pulledAt,
+    });
+  }
+
+  await tx.done;
+}
+
+/**
+ * Toggle favorite status of a beatmap in collection.
+ */
+export async function toggleFavorite(beatmapId: number): Promise<boolean> {
+  const db = await getDB();
+  const tx = db.transaction('collection', 'readwrite');
+  const record = await tx.store.get(beatmapId);
+  if (!record) return false;
+
+  record.isFavorite = !record.isFavorite;
+  await tx.store.put(record);
+  await tx.done;
+  return record.isFavorite;
+}
+
+/**
+ * Get pull history logs.
+ */
+export async function getPullHistory(limit: number = 100): Promise<any[]> {
+  const db = await getDB();
+  const items = await db.getAllFromIndex('history', 'by-pulledAt');
+  return items.reverse().slice(0, limit);
+}
+
+/**
+ * Get total pulls counter.
+ */
+export async function getTotalPulls(): Promise<number> {
+  const db = await getDB();
+  const val = await db.get('meta', 'totalPulls');
+  return val || 0;
+}
+
+/**
+ * Get user settings.
+ */
+export async function getUserSettings(): Promise<UserSettings> {
+  const db = await getDB();
+  const val = await db.get('meta', 'settings');
+  return { ...DEFAULT_SETTINGS, ...(val || {}) };
+}
+
+/**
+ * Save user settings.
+ */
+export async function saveUserSettings(settings: Partial<UserSettings>): Promise<void> {
+  const db = await getDB();
+  const current = await getUserSettings();
+  await db.put('meta', { ...current, ...settings }, 'settings');
+}
+
+/**
+ * Export entire collection and history to exportable object.
+ */
+export async function exportAllData(): Promise<CollectionExportData> {
+  const db = await getDB();
+  const records = await db.getAll('collection');
+  const history = await db.getAll('history');
+  const totalPulls = (await db.get('meta', 'totalPulls')) || 0;
+  const settings = await getUserSettings();
+
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    stats: {
+      totalPulls,
+    },
+    records,
+    history: history.map((h) => ({
+      id: h.id,
+      beatmapId: h.beatmapId,
+      rarity: h.rarity as any,
+      isNew: h.isNew,
+      pulledAt: h.pulledAt,
+    })),
+    settings,
+  };
+}
+
+/**
+ * Import collection data from backup JSON.
+ */
+export async function importData(
+  data: CollectionExportData,
+  mode: 'merge' | 'replace' = 'merge'
+): Promise<{ importedRecords: number; importedHistory: number }> {
+  const db = await getDB();
+  const tx = db.transaction(['collection', 'history', 'meta'], 'readwrite');
+
+  if (mode === 'replace') {
+    await tx.objectStore('collection').clear();
+    await tx.objectStore('history').clear();
+    await tx.objectStore('meta').clear();
+  }
+
+  // Import records
+  for (const record of data.records || []) {
+    if (mode === 'merge') {
+      const existing = await tx.objectStore('collection').get(record.beatmapId);
+      if (existing) {
+        await tx.objectStore('collection').put({
+          beatmapId: record.beatmapId,
+          copies: existing.copies + record.copies,
+          firstPulledAt: Math.min(existing.firstPulledAt, record.firstPulledAt),
+          lastPulledAt: Math.max(existing.lastPulledAt, record.lastPulledAt),
+          isFavorite: existing.isFavorite || record.isFavorite,
+        });
+      } else {
+        await tx.objectStore('collection').put(record);
+      }
+    } else {
+      await tx.objectStore('collection').put(record);
+    }
+  }
+
+  // Import history
+  for (const h of data.history || []) {
+    await tx.objectStore('history').put(h);
+  }
+
+  // Update total pulls
+  const currentTotal = (await tx.objectStore('meta').get('totalPulls')) || 0;
+  const newTotal = mode === 'merge' ? currentTotal + (data.stats?.totalPulls || 0) : data.stats?.totalPulls || 0;
+  await tx.objectStore('meta').put(newTotal, 'totalPulls');
+
+  if (data.settings) {
+    await tx.objectStore('meta').put(data.settings, 'settings');
+  }
+
+  await tx.done;
+
+  return {
+    importedRecords: data.records?.length || 0,
+    importedHistory: data.history?.length || 0,
+  };
+}
+
+/**
+ * Clear all collection and history data (Reset).
+ */
+export async function clearAllData(): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction(['collection', 'history', 'meta'], 'readwrite');
+  await tx.objectStore('collection').clear();
+  await tx.objectStore('history').clear();
+  await tx.objectStore('meta').put(0, 'totalPulls');
+  await tx.done;
+}

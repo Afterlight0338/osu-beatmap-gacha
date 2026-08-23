@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-23T16:07:00.717Z",
+  "totalMaps": 1231,
+  "rarityCounts": {
+    "Common": 553,
+    "Uncommon": 333,
+    "Rare": 197,
+    "Epic": 104,
+    "Legendary": 31,
+    "Mythic": 9,
+    "Divine": 4
+  },
+  "source": "Curated osu! Top Pool & Seed Generator"
+}
