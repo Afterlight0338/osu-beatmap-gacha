@@ -98,11 +98,15 @@ const MainApp: React.FC = () => {
   );
 };
 
+import { AuthProvider } from './context/AuthContext';
+
 export const App: React.FC = () => {
   return (
-    <GachaProvider>
-      <MainApp />
-    </GachaProvider>
+    <AuthProvider>
+      <GachaProvider>
+        <MainApp />
+      </GachaProvider>
+    </AuthProvider>
   );
 };
 

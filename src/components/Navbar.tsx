@@ -12,6 +12,7 @@ import {
   Disc,
   Zap,
 } from 'lucide-react';
+import { UserProfileBadge } from './UserProfileBadge';
 
 interface NavbarProps {
   activeTab: 'gacha' | 'collection' | 'stats';
@@ -109,6 +110,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right Tools & Buttons */}
         <div className="flex items-center space-x-2">
+          {/* osu! User Login / Profile Badge */}
+          <UserProfileBadge />
+
           {/* Quick Energy / Stamina Pill */}
           <div
             title={`Pull Stamina: ${energy.current}/${energy.max} (Regens +1 every 15s)`}
