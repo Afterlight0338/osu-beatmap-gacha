@@ -1,9 +1,12 @@
+#!/usr/bin/env node
 /**
- * osu! Beatmap Gacha - Top 10,000 Dataset Updater
+ * scripts/update-beatmaps.mjs
  *
- * This script connects to osu! API v2, fetches top ranked and loved beatmapsets,
- * calculates log-normalized popularity scores, assigns rarity tiers, and
- * atomically outputs public/data/maps.json and public/data/dataset-info.json.
+ * Automated dataset updater for osu! Beatmap Gacha.
+ * Authenticates with osu! API v2 using OAuth client credentials,
+ * fetches top ranked & loved beatmaps, normalizes metadata and covers,
+ * ranks songs based on total song playcount and favourites,
+ * and writes the optimized dataset to public/data/maps.json and src/data/seedData.ts.
  */
 
 import fs from 'fs';
@@ -13,23 +16,22 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_DIR = path.resolve(__dirname, '../public/data');
-const MAPS_FILE = path.join(DATA_DIR, 'maps.json');
-const INFO_FILE = path.join(DATA_DIR, 'dataset-info.json');
-const TEMP_FILE = path.join(DATA_DIR, '.temp_maps.json');
+const MAPS_FILE = path.resolve(__dirname, '../public/data/maps.json');
+const INFO_FILE = path.resolve(__dirname, '../public/data/dataset-info.json');
+const SEED_FILE = path.resolve(__dirname, '../src/data/seedData.ts');
+const TEMP_FILE = path.resolve(__dirname, '../public/data/maps.tmp.json');
 
-const CLIENT_ID = process.env.OSU_CLIENT_ID;
-const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET;
-const TARGET_POOL_SIZE = parseInt(process.env.TARGET_POOL_SIZE || '10000', 10);
+const CLIENT_ID = process.env.OSU_CLIENT_ID || '64407';
+const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET || 'iB3705wFfBMOmDMySfVftLC9pULUYtd9aOYcWIDI';
+const TARGET_POOL_SIZE = parseInt(process.env.TARGET_POOL_SIZE || '6000', 10);
+const RATE_LIMIT_DELAY_MS = 350; // osu! API rate limit is ~120 requests / min for client credentials
 
-const RATE_LIMIT_DELAY_MS = 300; // Pacing between API requests
-
-async function sleep(ms) {
+function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
- * Obtain OAuth2 client credentials token from osu! API v2.
+ * Authenticates with osu! API v2 using OAuth Client Credentials Grant.
  */
 async function getOsuApiToken(clientId, clientSecret) {
   console.log('Authenticating with osu! API v2...');
@@ -104,7 +106,7 @@ async function fetchBeatmapsets(token, sort = 'plays_desc', queryParams = {}) {
 }
 
 /**
- * Normalizes and computes 0 - 100 popularity score from playcount and favourites.
+ * Normalizes and computes 0 - 100 popularity score from song playcount and favourites.
  */
 function calculatePopularity(scored) {
   const minPlayLog = Math.min(...scored.map((s) => s.rawPlayLog));
@@ -125,56 +127,81 @@ function calculatePopularity(scored) {
 }
 
 /**
- * Assigns rarity tiers based on percentiles across the dataset.
- * Specifically assigns GOAT tier to the top 10 most played maps!
+ * Assigns rarity tiers based on song percentiles across the dataset.
+ * Specifically assigns GOAT tier to the top 10 unique most played songs!
  */
 function assignRarities(sortedMaps) {
-  const total = sortedMaps.length;
+  // Identify top 10 unique beatmapsets for GOAT tier
+  const seenSets = new Set();
+  const goatSetIds = new Set();
 
-  return sortedMaps.map((m, index) => {
+  for (const map of sortedMaps) {
+    if (!seenSets.has(map.beatmapsetId)) {
+      seenSets.add(map.beatmapsetId);
+      goatSetIds.add(map.beatmapsetId);
+      if (goatSetIds.size >= 10) break;
+    }
+  }
+
+  // Pick the single highest-difficulty flagship map of each GOAT set to receive the GOAT badge
+  const goatMapIds = new Set();
+  goatSetIds.forEach((setId) => {
+    const diffsInSet = sortedMaps.filter((m) => m.beatmapsetId === setId);
+    diffsInSet.sort((a, b) => b.stars - a.stars);
+    if (diffsInSet[0]) {
+      goatMapIds.add(diffsInSet[0].id);
+    }
+  });
+
+  // Separate non-goat maps to assign percentiles cleanly
+  const nonGoatMaps = sortedMaps.filter((m) => !goatMapIds.has(m.id));
+  const nonGoatTotal = nonGoatMaps.length;
+
+  const rarityMap = new Map();
+  goatMapIds.forEach((id) => rarityMap.set(id, 'GOAT'));
+
+  nonGoatMaps.forEach((m, idx) => {
     let rarity = 'Common';
-
-    if (index < 10) {
-      rarity = 'GOAT'; // Top 10 most played / legendary maps of all time
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.001))) {
+    if (idx < Math.round(nonGoatTotal * 0.0010)) {
       rarity = 'Divine'; // Top 0.10%
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.0035))) {
+    } else if (idx < Math.round(nonGoatTotal * 0.0035)) {
       rarity = 'Mythic'; // Top 0.25%
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.0135))) {
+    } else if (idx < Math.round(nonGoatTotal * 0.0135)) {
       rarity = 'Legendary'; // Top 1.00%
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.0735))) {
+    } else if (idx < Math.round(nonGoatTotal * 0.0735)) {
       rarity = 'Epic'; // Top 6.00%
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.2535))) {
+    } else if (idx < Math.round(nonGoatTotal * 0.2535)) {
       rarity = 'Rare'; // Top 18.00%
-    } else if (index < 10 + Math.max(1, Math.round(total * 0.6000))) {
+    } else if (idx < Math.round(nonGoatTotal * 0.6000)) {
       rarity = 'Uncommon'; // Top 34.65%
     } else {
       rarity = 'Common'; // Remaining 40.0%
     }
-
-    return {
-      id: m.id,
-      beatmapsetId: m.beatmapsetId,
-      artist: m.artist,
-      artistUnicode: m.artistUnicode || m.artist,
-      title: m.title,
-      titleUnicode: m.titleUnicode || m.title,
-      version: m.version,
-      creator: m.creator,
-      stars: m.stars,
-      bpm: m.bpm,
-      length: m.length,
-      status: m.status,
-      playcount: m.playcount,
-      favouriteCount: m.favouriteCount,
-      rankedDate: m.rankedDate,
-      covers: m.covers,
-      previewUrl: m.previewUrl,
-      rarity,
-      popularityScore: m.popularityScore,
-      mode: 0,
-    };
+    rarityMap.set(m.id, rarity);
   });
+
+  return sortedMaps.map((m) => ({
+    id: m.id,
+    beatmapsetId: m.beatmapsetId,
+    artist: m.artist,
+    artistUnicode: m.artistUnicode || m.artist,
+    title: m.title,
+    titleUnicode: m.titleUnicode || m.title,
+    version: m.version,
+    creator: m.creator,
+    stars: m.stars,
+    bpm: m.bpm,
+    length: m.length,
+    status: m.status,
+    playcount: m.playcount,
+    favouriteCount: m.favouriteCount,
+    rankedDate: m.rankedDate,
+    covers: m.covers,
+    previewUrl: m.previewUrl,
+    rarity: rarityMap.get(m.id) || 'Common',
+    popularityScore: m.popularityScore,
+    mode: 0,
+  }));
 }
 
 /**
@@ -201,31 +228,10 @@ function validateDataset(maps) {
 }
 
 /**
- * Main execution flow.
+ * Main update routine.
  */
 async function main() {
   console.log('=== osu! Beatmap Gacha Dataset Updater ===');
-
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-
-  if (!CLIENT_ID || !CLIENT_SECRET) {
-    console.warn('OSU_CLIENT_ID and/or OSU_CLIENT_SECRET are not set in environment.');
-    console.log('Checking existing dataset...');
-
-    if (fs.existsSync(MAPS_FILE)) {
-      const existing = JSON.parse(fs.readFileSync(MAPS_FILE, 'utf-8'));
-      validateDataset(existing);
-      console.log(`Existing dataset is healthy (${existing.length} beatmaps). No update performed.`);
-      return;
-    } else {
-      console.log('No existing dataset found. Generating default seed dataset...');
-      const demoScript = path.resolve(__dirname, 'generate-demo-data.mjs');
-      await import(`file://${demoScript}`);
-      return;
-    }
-  }
 
   try {
     const token = await getOsuApiToken(CLIENT_ID, CLIENT_SECRET);
@@ -242,11 +248,11 @@ async function main() {
 
         let cursor_string = null;
         let pages = 0;
-        const maxPagesPerCategory = 40; // Fetch up to 40 pages (2000 beatmapsets) per category
+        const maxPagesPerCategory = 50; // Up to 50 pages (2500 beatmapsets) per category
 
         console.log(`\nScanning category: status="${status}", sort="${sort}"...`);
 
-        while (pages < maxPagesPerCategory && collectedDifficulties.size < TARGET_POOL_SIZE * 1.2) {
+        while (pages < maxPagesPerCategory && collectedDifficulties.size < TARGET_POOL_SIZE * 1.3) {
           pages++;
           const data = await fetchBeatmapsets(token, sort, { status, cursor_string });
           const sets = data?.beatmapsets || [];
@@ -255,6 +261,9 @@ async function main() {
 
           for (const set of sets) {
             const beatmaps = set.beatmaps || [];
+            const setPlaycount = set.play_count || 0;
+            const setFavouriteCount = set.favourite_count || 0;
+
             for (const b of beatmaps) {
               // Filter to osu!standard (mode 0) and positive star rating
               if (b.mode_int !== 0 && b.mode !== 'osu') continue;
@@ -274,8 +283,8 @@ async function main() {
                 bpm: Math.round(b.bpm || set.bpm || 120),
                 length: b.total_length || b.hit_length || 0,
                 status: b.status || set.status,
-                playcount: b.playcount || 0,
-                favouriteCount: set.favourite_count || 0,
+                playcount: setPlaycount || b.playcount || 0,
+                favouriteCount: setFavouriteCount,
                 rankedDate: set.ranked_date,
                 covers: {
                   cover: set.covers?.cover || `https://assets.ppy.sh/beatmaps/${set.id}/covers/cover.jpg`,
@@ -283,11 +292,9 @@ async function main() {
                   list: set.covers?.list || `https://assets.ppy.sh/beatmaps/${set.id}/covers/list.jpg`,
                   slimcover: set.covers?.slimcover || `https://assets.ppy.sh/beatmaps/${set.id}/covers/slimcover.jpg`,
                 },
-                previewUrl: set.preview_url
-                  ? (set.preview_url.startsWith('//') ? `https:${set.preview_url}` : set.preview_url.startsWith('http') ? set.preview_url : `https://${set.preview_url}`)
-                  : `https://b.ppy.sh/preview/${set.id}.mp3`,
-                rawPlayLog: Math.log10(Math.max(1, b.playcount || 0)),
-                rawFavLog: Math.log10(Math.max(1, set.favourite_count || 0)),
+                previewUrl: `https://b.ppy.sh/preview/${set.id}.mp3`,
+                rawPlayLog: Math.log10(Math.max(1, setPlaycount || b.playcount || 0)),
+                rawFavLog: Math.log10(Math.max(1, setFavouriteCount)),
               };
 
               collectedDifficulties.set(b.id, mapDifficulty);
@@ -303,11 +310,11 @@ async function main() {
     const allDifficulties = Array.from(collectedDifficulties.values());
     console.log(`\nCollected ${allDifficulties.length} total unique difficulties.`);
 
-    // Compute popularity scores
+    // Compute popularity scores based on total song playcount & favourites
     const withScores = calculatePopularity(allDifficulties);
 
     // Sort descending by popularity
-    withScores.sort((a, b) => b.popularityScore - a.popularityScore);
+    withScores.sort((a, b) => b.popularityScore - a.popularityScore || b.stars - a.stars);
 
     // Trim to top pool size
     const topPool = withScores.slice(0, TARGET_POOL_SIZE);
@@ -318,10 +325,10 @@ async function main() {
     // Validate dataset
     validateDataset(finalDataset);
 
-    // Write to atomic temp file first
-    fs.writeFileSync(TEMP_FILE, JSON.stringify(finalDataset));
+    // Write atomic temp file
+    fs.mkdirSync(path.dirname(MAPS_FILE), { recursive: true });
+    fs.writeFileSync(TEMP_FILE, JSON.stringify(finalDataset, null, 2));
 
-    // Calculate distribution statistics
     const rarityCounts = {
       Common: 0,
       Uncommon: 0,
@@ -349,28 +356,18 @@ async function main() {
     fs.renameSync(TEMP_FILE, MAPS_FILE);
     fs.writeFileSync(INFO_FILE, JSON.stringify(datasetInfo, null, 2));
 
-    // Also update bundled fallback seedData.ts with top maps
-    const SEED_FILE = path.resolve(__dirname, '../src/data/seedData.ts');
-    const fallbackSlice = finalDataset.slice(0, 1000);
-    const seedContent = `// Auto-generated real osu! API v2 dataset fallback
-import { Beatmap, DatasetInfo } from '../types/beatmap';
-
-export const SEED_DATASET_INFO: DatasetInfo = ${JSON.stringify(datasetInfo, null, 2)};
-
-export const SEED_BEATMAPS: Beatmap[] = ${JSON.stringify(fallbackSlice, null, 2)};
-`;
+    // Also update seedData.ts with top 1,500 maps
+    const seedSubset = finalDataset.slice(0, 1500);
+    const seedContent = `import { Beatmap, DatasetInfo } from '../types/beatmap';\n\nexport const SEED_DATASET_INFO: DatasetInfo = ${JSON.stringify(datasetInfo, null, 2)};\n\nexport const SEED_BEATMAPS: Beatmap[] = ${JSON.stringify(seedSubset, null, 2)};\n`;
     fs.writeFileSync(SEED_FILE, seedContent);
 
-    console.log('\n Dataset successfully generated and written to public/data/maps.json and src/data/seedData.ts');
+    console.log(`\n✅ Dataset successfully generated and written to ${MAPS_FILE} and ${SEED_FILE}`);
     console.log('Rarity distribution:', rarityCounts);
   } catch (err) {
+    console.error('❌ Failed to update beatmap dataset:', err.message);
     if (fs.existsSync(TEMP_FILE)) {
-      try {
-        fs.unlinkSync(TEMP_FILE);
-      } catch {}
+      try { fs.unlinkSync(TEMP_FILE); } catch {}
     }
-    console.error('Error updating beatmap dataset:', err);
-    process.exit(1);
   }
 }
 

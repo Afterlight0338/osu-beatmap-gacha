@@ -4,15 +4,27 @@ class BeatmapPreviewPlayer {
   private isPlaying: boolean = false;
   private listeners: Set<(isPlaying: boolean, beatmapsetId: number | null) => void> = new Set();
   private volume: number = 0.5;
-  private fallbackTried: boolean = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
       this.audio = new Audio();
-      this.audio.crossOrigin = 'anonymous';
+      // DO NOT set crossOrigin = 'anonymous' because b.ppy.sh CDN does not send CORS headers
+      // and normal <audio> element playback does not require CORS.
       this.audio.volume = this.volume;
-      this.audio.onended = () => this.handleEnd();
-      this.audio.onerror = () => this.handleError();
+      this.audio.preload = 'none';
+
+      this.audio.onended = () => {
+        this.isPlaying = false;
+        this.currentBeatmapsetId = null;
+        this.notify();
+      };
+
+      this.audio.onerror = (e) => {
+        console.warn('Audio preview load error:', e);
+        this.isPlaying = false;
+        this.currentBeatmapsetId = null;
+        this.notify();
+      };
     }
   }
 
@@ -33,47 +45,19 @@ class BeatmapPreviewPlayer {
     this.listeners.forEach((l) => l(this.isPlaying, this.currentBeatmapsetId));
   }
 
-  private handleEnd() {
+  public pause() {
+    if (!this.audio) return;
+    this.audio.pause();
     this.isPlaying = false;
-    this.currentBeatmapsetId = null;
-    this.fallbackTried = false;
     this.notify();
   }
 
-  private handleError() {
-    if (!this.audio || !this.currentBeatmapsetId || this.fallbackTried) {
-      this.handleEnd();
-      return;
+  public toggle(beatmapsetId: number, previewUrl?: string) {
+    if (this.currentBeatmapsetId === beatmapsetId && this.isPlaying) {
+      this.pause();
+    } else {
+      this.play(beatmapsetId, previewUrl);
     }
-
-    // Try fallback URL if primary failed
-    this.fallbackTried = true;
-    const fallbackUrl = `https://catboy.best/preview/audio/${this.currentBeatmapsetId}`;
-    console.warn(`Audio preview primary URL failed. Retrying with fallback: ${fallbackUrl}`);
-    this.audio.src = fallbackUrl;
-    this.audio.play().catch(() => this.handleEnd());
-  }
-
-  private sanitizeUrl(url?: string, beatmapsetId?: number): string {
-    if (!url || typeof url !== 'string') {
-      return `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
-    }
-
-    let clean = url.trim();
-    // Fix double-prefixed protocol
-    while (clean.startsWith('https:https://') || clean.startsWith('http:http://') || clean.startsWith('https://https://')) {
-      clean = clean.replace(/^https?:(https?:\/\/)/, '$1');
-    }
-
-    if (clean.startsWith('//')) {
-      clean = `https:${clean}`;
-    }
-
-    if (!clean.startsWith('http://') && !clean.startsWith('https://')) {
-      return `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
-    }
-
-    return clean;
   }
 
   public play(beatmapsetId: number, previewUrl?: string) {
@@ -84,32 +68,33 @@ class BeatmapPreviewPlayer {
       return;
     }
 
-    const cleanUrl = this.sanitizeUrl(previewUrl, beatmapsetId);
-    this.fallbackTried = false;
+    // Official osu! preview CDN URL
+    const streamUrl = previewUrl || `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
 
-    this.audio.pause();
-    this.audio.src = cleanUrl;
-    this.currentBeatmapsetId = beatmapsetId;
-    this.isPlaying = true;
-    this.notify();
-
-    this.audio.play().catch((err) => {
-      console.warn('Audio preview playback blocked or failed:', err);
-      this.handleError();
-    });
-  }
-
-  public pause() {
-    if (this.audio) {
+    try {
       this.audio.pause();
+      this.audio.currentTime = 0;
+      this.audio.src = streamUrl;
+      this.currentBeatmapsetId = beatmapsetId;
+      this.isPlaying = true;
+      this.notify();
+
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn('Audio play was interrupted or blocked by autoplay policy:', err);
+          this.isPlaying = false;
+          this.notify();
+        });
+      }
+    } catch (err) {
+      console.warn('Audio error during play():', err);
+      this.isPlaying = false;
+      this.notify();
     }
-    this.isPlaying = false;
-    this.currentBeatmapsetId = null;
-    this.fallbackTried = false;
-    this.notify();
   }
 
-  public getStatus() {
+  public getCurrentState(): { isPlaying: boolean; currentBeatmapsetId: number | null } {
     return {
       isPlaying: this.isPlaying,
       currentBeatmapsetId: this.currentBeatmapsetId,
