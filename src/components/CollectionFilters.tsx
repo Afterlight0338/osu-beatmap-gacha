@@ -152,6 +152,7 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
 
           {[
             { field: 'recent' as SortField, label: 'Recently Pulled' },
+            { field: 'rankedDate' as SortField, label: 'Ranked Date' },
             { field: 'copies' as SortField, label: 'Most Copies' },
             { field: 'rarity' as SortField, label: 'Rarity' },
             { field: 'stars' as SortField, label: 'Star Rating' },

@@ -15,6 +15,7 @@ import {
   Clock,
   Activity,
   Flame,
+  Calendar,
 } from 'lucide-react';
 import { getMapsetStarRange } from '../data/loader';
 
@@ -184,7 +185,7 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
               <div className="flex items-center space-x-1.5 text-slate-400 text-xs font-mono">
                 <Activity className="w-3.5 h-3.5 text-pink-400" />
@@ -199,6 +200,18 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
                 <span>Length</span>
               </div>
               <p className="text-base font-bold text-slate-100 mt-1">{formatTime(beatmap.length)}</p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <div className="flex items-center space-x-1.5 text-slate-400 text-xs font-mono">
+                <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Ranked Date</span>
+              </div>
+              <p className="text-sm font-bold text-emerald-300 mt-1 font-mono">
+                {beatmap.rankedDate
+                  ? new Date(beatmap.rankedDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+                  : 'N/A'}
+              </p>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">

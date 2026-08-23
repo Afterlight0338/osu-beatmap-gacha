@@ -22,7 +22,8 @@ export type SortField =
   | 'title'
   | 'artist'
   | 'bpm'
-  | 'length';
+  | 'length'
+  | 'rankedDate';
 
 export type SortOrder = 'asc' | 'desc';
 

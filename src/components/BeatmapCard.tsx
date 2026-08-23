@@ -273,16 +273,21 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
 
           {/* Mapper & Ranked Status */}
           <div className={`rounded-lg bg-slate-900/70 border border-slate-800/80 flex items-center justify-between ${size === 'sm' ? 'mt-1.5 py-1 px-2 text-[10px]' : 'mt-2.5 py-1.5 px-2.5 text-xs'}`}>
-            <div className="truncate pr-2">
+            <div className="truncate pr-2 flex items-center space-x-1">
               <span className="text-slate-400">by </span>
               <span className="text-slate-200 font-semibold">{beatmap.creator}</span>
+              {beatmap.rankedDate && (
+                <span className="text-slate-500 font-mono text-[10px] hidden sm:inline">
+                  • {new Date(beatmap.rankedDate).getFullYear() || ''}
+                </span>
+              )}
             </div>
             <span className={`text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border flex-shrink-0 ${statusColor}`}>
               {beatmap.status}
             </span>
           </div>
 
-          {/* Beatmap Metrics (BPM, Length, Playcount, Favourites) */}
+          {/* Beatmap Metrics (BPM, Length, Playcount, Favourites, Ranked Date) */}
           <div className={`grid grid-cols-2 gap-1 font-mono text-slate-400 border-t border-slate-800/80 ${size === 'sm' ? 'mt-2 pt-1.5 text-[10px]' : 'mt-3 pt-2 text-[11px]'}`}>
             <div>
               <span className="text-slate-500">BPM: </span>
@@ -300,6 +305,14 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
               <span className="text-slate-500">Favs: </span>
               <span className="text-pink-300 font-semibold">{formatNumber(beatmap.favouriteCount)}</span>
             </div>
+            {beatmap.rankedDate && (
+              <div className="col-span-2 pt-1 mt-0.5 border-t border-slate-800/50 flex items-center justify-between text-[10px] text-slate-400">
+                <span className="text-slate-500">Ranked:</span>
+                <span className="text-slate-300 font-semibold font-mono">
+                  {new Date(beatmap.rankedDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

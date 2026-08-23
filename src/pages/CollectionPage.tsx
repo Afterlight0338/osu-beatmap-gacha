@@ -137,6 +137,11 @@ export const CollectionPage: React.FC = () => {
         case 'length':
           cmp = a.beatmap.length - b.beatmap.length;
           break;
+        case 'rankedDate':
+          const dateA = a.beatmap.rankedDate ? new Date(a.beatmap.rankedDate).getTime() : 0;
+          const dateB = b.beatmap.rankedDate ? new Date(b.beatmap.rankedDate).getTime() : 0;
+          cmp = dateA - dateB;
+          break;
         default:
           cmp = 0;
       }
