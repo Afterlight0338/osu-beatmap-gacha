@@ -45,6 +45,11 @@ export interface DatasetInfo {
   version: string;
   lastUpdated: string;
   totalMaps: number;
+  poolComposition?: {
+    globalTopMaps: number;
+    eraPoolMaps: number;
+    eraStartYear: number;
+  };
   rarityCounts: Record<RarityTier, number>;
   source: string;
 }
