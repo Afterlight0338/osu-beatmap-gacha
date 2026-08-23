@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Beatmap } from '../types/beatmap';
 import { CollectionRecord } from '../types/collection';
 import { RarityBadge } from './RarityBadge';
+import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
 import {
@@ -90,18 +91,12 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
       <div className="relative w-full max-w-2xl rounded-2xl bg-[#141420] border border-slate-700 shadow-2xl overflow-hidden my-8">
         {/* Cover Header Banner */}
         <div className="relative w-full h-48 md:h-60 bg-slate-950 overflow-hidden">
-          <img
-            src={beatmap.covers.cover}
+          <BeatmapCoverImage
+            beatmap={beatmap}
             alt={beatmap.title}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.currentTarget;
-              if (target.src !== beatmap.covers.card) {
-                target.src = beatmap.covers.card;
-              }
-            }}
+            className="w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#141420] via-[#141420]/40 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#141420] via-[#141420]/40 to-black/60 pointer-events-none" />
 
           {/* Close Button */}
           <button

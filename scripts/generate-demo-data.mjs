@@ -583,19 +583,27 @@ const MAPPERS = [
   "pkk", "reform", "Log Off Now", "Feryquitous", "handsome", "Alheak", "FrenZ3R", "Doormat"
 ];
 
+const REAL_BEATMAPSET_IDS = [
+  39804, 131891, 65994, 842412, 477140, 58013, 359890, 981146, 694086, 765778,
+  798038, 382400, 302756, 41686, 37658, 325158, 33816, 41823, 593705, 737890,
+  869400, 423527, 704112, 367600, 585002, 642231, 30121, 462100, 814144, 924376,
+  1011011, 1124483, 1074500, 729885, 935234, 990666, 894883, 965252, 727411, 517474,
+  552174, 439811, 286202, 218738, 158023, 1614054, 994348, 1157143, 864537, 751771,
+  682288, 881999, 907000, 1040000, 1100000, 1200000, 1250000, 1300000, 1400000, 1500000
+];
+
 function generateSynthesizedPool(baseCount = 1500) {
   const maps = [...ICONIC_MAPS];
   let currentId = 3000000;
-  let currentSetId = 1500000;
 
   for (let i = 0; i < baseCount; i++) {
     const artist = ARTISTS[i % ARTISTS.length];
     const [title, titleUnicode] = SONG_TITLES[i % SONG_TITLES.length];
     const diffName = DIFFICULTY_NAMES[i % DIFFICULTY_NAMES.length];
     const mapper = MAPPERS[i % MAPPERS.length];
+    const realSetId = REAL_BEATMAPSET_IDS[i % REAL_BEATMAPSET_IDS.length];
 
     currentId++;
-    if (i % 4 === 0) currentSetId++;
 
     // Generate realistic log-distributed playcounts
     // Ranging from 50,000 up to 25,000,000
@@ -610,7 +618,7 @@ function generateSynthesizedPool(baseCount = 1500) {
 
     maps.push({
       id: currentId,
-      beatmapsetId: currentSetId,
+      beatmapsetId: realSetId,
       artist,
       artistUnicode: artist,
       title: `${title} (feat. ${artist})`,

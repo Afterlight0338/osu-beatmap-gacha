@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGacha } from '../context/GachaContext';
 import { RarityBadge } from './RarityBadge';
+import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { Beatmap } from '../types/beatmap';
 import { X, History } from 'lucide-react';
 
@@ -63,14 +64,13 @@ export const PullHistoryModal: React.FC<PullHistoryModalProps> = ({
               >
                 {/* Thumbnail & Title */}
                 <div className="flex items-center space-x-3 min-w-0">
-                  <img
-                    src={item.beatmap.covers.card}
-                    alt={item.beatmap.title}
-                    className="w-12 h-12 rounded-lg object-cover bg-slate-950 flex-shrink-0"
-                    onError={(e) => {
-                      e.currentTarget.src = item.beatmap.covers.cover;
-                    }}
-                  />
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-slate-950">
+                    <BeatmapCoverImage
+                      beatmap={item.beatmap}
+                      alt={item.beatmap.title}
+                      className="w-full h-full"
+                    />
+                  </div>
                   <div className="min-w-0">
                     <p className="font-bold text-sm text-slate-200 group-hover:text-pink-400 transition-colors truncate">
                       {item.beatmap.title}

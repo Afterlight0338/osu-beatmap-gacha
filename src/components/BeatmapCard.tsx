@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Beatmap } from '../types/beatmap';
 import { RarityBadge } from './RarityBadge';
+import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
 import { Play, Square, Heart, Layers } from 'lucide-react';
@@ -165,22 +166,14 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
 
         {/* Top Cover Artwork Container */}
         <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-900 z-10">
-          <img
-            src={beatmap.covers.cover}
+          <BeatmapCoverImage
+            beatmap={beatmap}
             alt={`${beatmap.artist} - ${beatmap.title}`}
-            loading="lazy"
-            onError={(e) => {
-              // Fallback to card or slimcover if primary cover fails
-              const target = e.currentTarget;
-              if (target.src !== beatmap.covers.card) {
-                target.src = beatmap.covers.card;
-              }
-            }}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            className="transition-transform duration-500 ease-out group-hover:scale-105"
           />
 
           {/* Dark gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#12121c] via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#12121c] via-transparent to-black/60 pointer-events-none" />
 
           {/* Top Bar Badges */}
           <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-20">
