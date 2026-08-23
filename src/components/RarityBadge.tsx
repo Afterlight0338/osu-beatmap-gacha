@@ -18,9 +18,9 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
   const config = RARITY_CONFIGS[rarity] || RARITY_CONFIGS.Common;
 
   const sizeClasses = {
-    sm: 'text-xs px-2 py-0.5 space-x-1',
-    md: 'text-xs md:text-sm px-2.5 py-1 space-x-1.5',
-    lg: 'text-sm md:text-base px-3.5 py-1.5 space-x-2 font-bold',
+    sm: 'text-[9px] sm:text-[10px] px-1.5 py-0.5 space-x-0.5 whitespace-nowrap',
+    md: 'text-xs md:text-sm px-2.5 py-1 space-x-1.5 whitespace-nowrap',
+    lg: 'text-sm md:text-base px-3.5 py-1.5 space-x-2 font-bold whitespace-nowrap',
   }[size];
 
   const starString = '★'.repeat(config.stars);
@@ -58,7 +58,10 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
         <span>{config.label}</span>
       </span>
       {showStars && (
-        <span className="text-[0.8em] tracking-tight opacity-90 text-amber-300 font-sans">
+        <span
+          className={`${size === 'sm' ? 'text-[8px] tracking-tighter' : 'text-[10px] tracking-tight'} opacity-90`}
+          style={{ color: isGOAT ? '#0f172a' : config.color }}
+        >
           {starString}
         </span>
       )}
