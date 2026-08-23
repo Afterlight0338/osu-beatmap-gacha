@@ -38,7 +38,7 @@ export interface Beatmap {
   previewUrl?: string;
   rarity: RarityTier;
   popularityScore: number;
-  mode: number; // 0 = osu!standard
+  mode?: number; // 0 = osu!standard
 }
 
 export interface DatasetInfo {

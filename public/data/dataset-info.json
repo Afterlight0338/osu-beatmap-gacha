@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-08-23T16:58:40.988Z",
-  "totalMaps": 6000,
+  "lastUpdated": "2026-08-23T17:30:14.057Z",
+  "totalMaps": 10000,
   "rarityCounts": {
-    "Common": 2396,
-    "Uncommon": 2076,
-    "Rare": 1078,
-    "Epic": 359,
-    "Legendary": 60,
-    "Mythic": 15,
-    "Divine": 6,
+    "Common": 2499,
+    "Uncommon": 3500,
+    "Rare": 2400,
+    "Epic": 1100,
+    "Legendary": 400,
+    "Mythic": 72,
+    "Divine": 19,
     "GOAT": 10
   },
   "source": "osu! API v2 Live Generation"

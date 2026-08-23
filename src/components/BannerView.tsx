@@ -3,7 +3,7 @@ import { useGacha } from '../context/GachaContext';
 import { BANNERS, filterMapsForBanner } from '../gacha/banners';
 import { Banner } from '../types/gacha';
 import { sfx } from '../audio/sfx';
-import { Sparkles, Flame, Zap, Database } from 'lucide-react';
+import { Sparkles, Flame, Zap, Target, Database } from 'lucide-react';
 
 interface BannerViewProps {
   onSelectBanner: (banner: Banner) => void;
@@ -41,6 +41,8 @@ export const BannerView: React.FC<BannerViewProps> = ({ onSelectBanner }) => {
             >
               {b.id === 'standard' ? (
                 <Sparkles className="w-4 h-4 text-pink-400" />
+              ) : b.id === 'aimslop' ? (
+                <Target className="w-4 h-4 text-pink-500" />
               ) : b.id === 'stream' ? (
                 <Zap className="w-4 h-4 text-cyan-400" />
               ) : (
