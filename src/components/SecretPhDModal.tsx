@@ -75,31 +75,98 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
         <div className="p-6 space-y-6">
           {status !== 'success' ? (
             <>
-              {/* LaTeX Question Simulation */}
-              <div className="p-5 rounded-2xl bg-slate-950/90 border border-cyan-500/30 space-y-4 font-mono text-xs text-slate-300">
-                <div className="flex items-center justify-between text-cyan-400 text-[11px] font-bold border-b border-cyan-900/40 pb-2">
+              {/* Typeset Math Question Container */}
+              <div className="p-5 rounded-2xl bg-slate-950/90 border border-cyan-500/30 space-y-4 text-slate-300">
+                <div className="flex items-center justify-between text-cyan-400 text-[11px] font-bold font-mono border-b border-cyan-900/40 pb-2">
                   <span>PROBLEM IV: Meromorphic Residue & Dirichlet Convolution Invariance</span>
-                  <span>CREDITS: 50 PULLS</span>
+                  <span className="px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/40 text-cyan-300">
+                    REWARD: 50 PULLS (⚡MAX)
+                  </span>
                 </div>
 
-                <p className="leading-relaxed text-slate-300 font-serif text-sm">
-                  Let <span className="font-mono text-pink-400 font-bold">\mathcal&#123;M&#125;</span> be a closed Riemann surface of genus <span className="font-mono text-cyan-400 font-bold">g = 1</span> endowed with the standard metric. Consider the meromorphic differential 1-form <span className="font-mono text-amber-300 font-bold">\omega(z)</span> and the arithmetic divisor function <span className="font-mono text-emerald-400 font-bold">\Lambda(n)</span> over the algebraic number field <span className="font-mono text-purple-400 font-bold">\mathbb&#123;Q&#125;(\sqrt&#123;-163&#125;)</span>.
+                <p className="leading-relaxed text-slate-300 text-sm">
+                  Let <span className="font-serif italic font-bold text-pink-400">ℳ</span> be a closed Riemann surface of genus <span className="font-mono text-cyan-400 font-bold">g = 1</span> endowed with the standard flat metric. Consider the meromorphic differential 1-form <span className="font-serif italic font-bold text-amber-300">ω(z)</span> and the arithmetic divisor function <span className="font-serif italic font-bold text-emerald-400">Λ(n)</span> over the imaginary quadratic field <span className="font-serif font-bold text-purple-300">ℚ(√−163)</span>.
                 </p>
 
-                <p className="leading-relaxed text-slate-300 font-serif text-sm">
-                  Evaluate the exact integer value of the spectral trace invariant <span className="font-mono text-yellow-300 font-bold">\mathcal&#123;K&#125; \in \mathbb&#123;Z&#125;^+</span> defined by the contour integral:
+                <p className="leading-relaxed text-slate-300 text-sm">
+                  Evaluate the exact integer value of the spectral trace invariant <span className="font-serif italic font-bold text-yellow-300">𝒦 ∈ ℤ⁺</span> defined by the contour integral:
                 </p>
 
-                <div className="p-4 rounded-xl bg-black/80 border border-slate-800 text-center font-mono text-cyan-200 text-sm overflow-x-auto space-y-2">
-                  <p className="tracking-wide">
-                    \mathcal&#123;K&#125; \;=\; \lim_&#123;N \to \infty&#125; \sum_&#123;n=1&#125;^N \frac&#123;\mu(n)&#125;&#123;n&#125; \left( \sum_&#123;d \mid n&#125; d \cdot \Lambda(n/d) \right) \;+\; \frac&#123;1&#125;&#123;2\pi i&#125; \oint_&#123;|z|=2&#125; \frac&#123;727\,z^&#123;2026&#125; + \sum_&#123;k=1&#125;^&#123;10&#125; \pi^k z^k&#125;&#123;z^&#123;2027&#125; - 1&#125; \, dz
-                  </p>
+                {/* Mathematical Equation Display Box */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-black/90 border border-slate-800 shadow-inner overflow-x-auto my-3">
+                  <div className="min-w-fit flex items-center justify-center space-x-2 text-cyan-200 text-sm sm:text-base font-serif select-none py-1">
+                    <span className="text-yellow-300 font-bold text-xl sm:text-2xl italic mr-1">𝒦</span>
+                    <span className="text-white font-bold text-lg">=</span>
+
+                    {/* Term 1: Dirichlet Limit */}
+                    <div className="inline-flex items-center space-x-1">
+                      <div className="inline-flex flex-col items-center leading-none text-xs">
+                        <span className="font-serif text-sm">lim</span>
+                        <span className="text-[10px] text-slate-400 font-mono">N → ∞</span>
+                      </div>
+
+                      <div className="inline-flex flex-col items-center leading-none text-xs">
+                        <span className="text-[10px] text-slate-400 font-mono">N</span>
+                        <span className="text-xl font-serif">∑</span>
+                        <span className="text-[10px] text-slate-400 font-mono">n=1</span>
+                      </div>
+
+                      <div className="inline-flex flex-col items-center justify-center text-xs px-1">
+                        <span className="border-b border-cyan-400/60 pb-0.5 px-1 font-serif italic text-pink-300">μ(n)</span>
+                        <span className="pt-0.5 px-1 font-mono text-slate-300">n</span>
+                      </div>
+
+                      <div className="inline-flex items-center text-xs">
+                        <span className="text-slate-400 text-base">(</span>
+                        <div className="inline-flex flex-col items-center leading-none px-0.5">
+                          <span className="text-base font-serif">∑</span>
+                          <span className="text-[9px] text-slate-400 font-mono">d | n</span>
+                        </div>
+                        <span className="font-mono text-slate-200">d · <span className="font-serif italic text-emerald-300">Λ</span>(n/d)</span>
+                        <span className="text-slate-400 text-base">)</span>
+                      </div>
+                    </div>
+
+                    <span className="text-white font-bold text-lg px-1">+</span>
+
+                    {/* Term 2: Cauchy Residue Contour Integral */}
+                    <div className="inline-flex items-center space-x-1">
+                      <div className="inline-flex flex-col items-center justify-center text-xs px-1">
+                        <span className="border-b border-cyan-400/60 pb-0.5 px-1 font-mono text-slate-200">1</span>
+                        <span className="pt-0.5 px-1 font-serif text-slate-300">2πi</span>
+                      </div>
+
+                      <div className="inline-flex flex-col items-center leading-none text-xs">
+                        <span className="text-2xl font-serif text-cyan-300 leading-none">∮</span>
+                        <span className="text-[10px] text-cyan-400 font-mono">|z| = 2</span>
+                      </div>
+
+                      <div className="inline-flex flex-col items-center justify-center text-xs px-2 font-mono">
+                        <div className="border-b border-cyan-400/60 pb-1 px-2 flex items-center space-x-1">
+                          <span className="text-yellow-300 font-bold">727</span>
+                          <span>· z<sup>2026</sup></span>
+                          <span>+</span>
+                          <div className="inline-flex flex-col items-center leading-none text-[10px]">
+                            <span className="text-[8px] text-slate-400">10</span>
+                            <span className="text-xs font-serif">∑</span>
+                            <span className="text-[8px] text-slate-400">k=1</span>
+                          </div>
+                          <span>π<sup>k</sup> z<sup>k</sup></span>
+                        </div>
+                        <div className="pt-1 px-2 text-slate-300">
+                          <span>z<sup>2027</sup> − 1</span>
+                        </div>
+                      </div>
+
+                      <span className="font-serif italic text-cyan-300 text-sm sm:text-base ml-1">dz</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-1.5 text-[11px] text-slate-400 pt-2 border-t border-slate-800">
-                  <p>• <span className="text-slate-200 font-bold">\mu(n)</span> denotes the Möbius inversion function.</p>
-                  <p>• <span className="text-slate-200 font-bold">\Lambda(n)</span> denotes the von Mangoldt arithmetic function.</p>
-                  <p>• The contour integral is oriented counterclockwise along the circle <span className="text-slate-200 font-bold">|z| = 2</span> in the complex plane <span className="text-slate-200 font-bold">\mathbb&#123;C&#125;</span>.</p>
+                <div className="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800 font-mono">
+                  <p>• <span className="text-pink-300 font-serif italic font-bold">μ(n)</span> denotes the arithmetic Möbius inversion function.</p>
+                  <p>• <span className="text-emerald-300 font-serif italic font-bold">Λ(n)</span> denotes the von Mangoldt arithmetic function.</p>
+                  <p>• The contour integral is oriented counterclockwise along the circle <span className="text-cyan-300 font-mono font-bold">|z| = 2</span> in the complex plane <span className="text-purple-300 font-serif font-bold">ℂ</span>.</p>
                 </div>
               </div>
 
@@ -114,8 +181,10 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
               {/* Submission Form */}
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono uppercase text-slate-400 font-bold">
-                    Exact Integer Evaluation (\mathcal&#123;K&#125;):
+                  <label className="text-xs font-mono uppercase text-slate-400 font-bold flex items-center space-x-1">
+                    <span>Exact Integer Evaluation (</span>
+                    <span className="font-serif italic text-yellow-300 font-bold">𝒦</span>
+                    <span>):</span>
                   </label>
                   <input
                     type="text"
