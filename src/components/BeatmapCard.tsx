@@ -270,19 +270,15 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
             </p>
           </div>
 
-          {/* Difficulty Version & Mapper */}
-          <div className={`rounded-lg bg-slate-900/70 border border-slate-800/80 ${size === 'sm' ? 'mt-1.5 py-1 px-1.5' : 'mt-2.5 py-1.5 px-2'}`}>
-            <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-pink-300/90 truncate max-w-[65%]" title={beatmap.version}>
-                [{beatmap.version}]
-              </span>
-              <span className={`text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border ${statusColor}`}>
-                {beatmap.status}
-              </span>
+          {/* Mapper & Ranked Status */}
+          <div className={`rounded-lg bg-slate-900/70 border border-slate-800/80 flex items-center justify-between ${size === 'sm' ? 'mt-1.5 py-1 px-2 text-[10px]' : 'mt-2.5 py-1.5 px-2.5 text-xs'}`}>
+            <div className="truncate pr-2">
+              <span className="text-slate-400">by </span>
+              <span className="text-slate-200 font-semibold">{beatmap.creator}</span>
             </div>
-            <p className="text-[10px] text-slate-400 truncate mt-0.5">
-              by <span className="text-slate-300 hover:underline">{beatmap.creator}</span>
-            </p>
+            <span className={`text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border flex-shrink-0 ${statusColor}`}>
+              {beatmap.status}
+            </span>
           </div>
 
           {/* Beatmap Metrics (BPM, Length, Playcount, Favourites) */}
