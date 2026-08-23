@@ -14,11 +14,11 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 ## 🌟 Overview
 
-**osu! Beatmap Gacha** is a modern, responsive web application hosted on **GitHub Pages**. Instead of anime characters or heroes, players summon and collect real, ranked osu! beatmaps spanning the history of the game.
+**osu! Beatmap Gacha** is a modern, responsive web application hosted on **GitHub Pages**. Instead of anime characters or heroes, players summon and collect real, ranked osu! beatmaps spanning the entire history of the game (2007–2026).
 
 * **100% Client-Side**: No backend, no accounts, and no servers required.
 * **Offline-First Storage**: Your collection, duplicates, favorites, and pull history are stored locally in your browser via **IndexedDB**.
-* **Real osu! Metadata**: 6,000+ real ranked & loved beatmaps with artwork, audio previews, BPM, star ratings, and mapper credits.
+* **Real osu! Metadata**: **25,000 unique ranked & loved beatmap difficulties** with artwork, audio previews, BPM, star rating ranges, ranked dates, and mapper credits.
 
 ---
 
@@ -33,25 +33,28 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 ---
 
-### 🏆 8 Rarity Tiers & Dynamic Drop Rates
+### 🏆 8 Rarity Tiers & Strict Pyramidical Distribution
 
-| Tier | Rarity | Drop Rate | Description |
-| :--- | :--- | :--- | :--- |
-| **8** | 🐐 **GOAT** | **0.05%** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
-| **7** | 👑 **Divine** | **0.10%** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
-| **6** | ✨ **Mythic** | **0.25%** | Elite 7★+ & 8★+ mechanical landmarks |
-| **5** | 🌟 **Legendary** | **1.00%** | Classic 6★+ high-difficulty ranked maps |
-| **4** | 🟣 **Epic** | **6.00%** | 5★+ Insane/Extra staples |
-| **3** | 🔵 **Rare** | **18.00%** | 4★+ Hard/Insane standards |
-| **2** | 🟢 **Uncommon** | **34.60%** | 3★+ Normal/Hard introductory maps |
-| **1** | ⚪ **Common** | **40.00%** | 1★–2★ Easy/Normal beginnings |
+| Tier | Rarity | Drop Rate | Pool Count | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **8** | 🐐 **GOAT** | **0.05%** | **10** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
+| **7** | 👑 **Divine** | **0.10%** | **24** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
+| **6** | ✨ **Mythic** | **0.25%** | **117** | Elite 7★+ & 8★+ mechanical landmarks |
+| **5** | 🌟 **Legendary** | **1.00%** | **500** | Classic 6★+ high-difficulty ranked maps |
+| **4** | 🟣 **Epic** | **6.00%** | **1,500** | 5★+ Insane/Extra staples |
+| **3** | 🔵 **Rare** | **18.00%** | **4,500** | 4★+ Hard/Insane standards |
+| **2** | 🟢 **Uncommon** | **34.60%** | **8,500** | 3★+ Normal/Hard introductory maps |
+| **1** | ⚪ **Common** | **40.00%** | **9,849** | 1★–2★ Easy/Normal beginnings |
+
+*Hierarchical Pool Balance: Common (9,849) > Uncommon (8,500) > Rare (4,500) > Epic (1,500) > Legendary (500) > Mythic (117) > Divine (24) > GOAT (10).*
 
 ---
 
-### 🎪 3 Themed Banners
-1. 🌟 **All-Stars Standard Banner**: The complete database of 6,000+ ranked & loved beatmaps.
-2. ⚡ **Stamina & Stream Legends**: Filtered strictly to deathstream classics, 180+ BPM endurance tests, and legendary stream artists (*xi, DragonForce, Camellia, LeaF, UNDEAD CORPORATION, ICDD, Foreground Eclipse*).
-3. 🔥 **Speed & PP Highlights**: Filtered strictly to fast TV Sizes (≤135s), jump farm maps, and acclaimed farm mappers (*Sotarks, Monstrata, Nevo, Reform, Armin, Doormat, Browiec*).
+### 🎪 4 Themed Banners
+1. 🌟 **All-Stars Standard Banner**: The complete database of 25,000+ ranked & loved beatmaps.
+2. 🎯 **Aim Slop (1-2 Jump Farm)**: Filtered strictly to fast TV Sizes, cross-screen 1-2 jump patterns, and famous farm mappers (*Sotarks, Reform, Browiec, Log Off Now, Nevo, fieryrage, Akitoshi, Doormat, Monstrata, Armin*).
+3. ⚡ **Stamina & Stream Legends**: Filtered strictly to deathstream classics, 185+ BPM endurance tests, and legendary stream artists (*xi, DragonForce, Camellia, LeaF, UNDEAD CORPORATION, ICDD, Foreground Eclipse*).
+4. 🔥 **Speed & PP Highlights**: Filtered strictly to high BPM speed bursts, alternate maps, and iconic double-time speed benchmarks.
 
 ---
 
@@ -62,11 +65,10 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 ---
 
 ### 💾 Collection Management & Local Backup
-* **Filter & Sort**: Search by title, artist, mapper, star rating, BPM, or rarity.
+* **Filter & Sort**: Search by title, artist, mapper, star rating range, BPM, ranked date, or rarity.
 * **Favorites System**: Mark and filter your favorite beatmaps.
-* **Local Player Profile**: Enter your osu! username to display your official avatar directly on the top navigation bar.
 * **Save Backup & Restore**: Export your complete collection to a JSON file and import it anytime to transfer progress between devices.
-* **727 Easter Egg**: A secret challenge hidden inside Settings!
+* **727 Easter Egg**: A genuine PhD-level residue contour integral math question hidden in Settings!
 
 ---
 
@@ -103,12 +105,12 @@ npm run build
 
 ---
 
-## 📜 Disclaimer
+## 📜 License
 
-**osu! Beatmap Gacha** is an unofficial fan project and is not affiliated with, endorsed, or sponsored by **osu!** or **ppy Pty Ltd**. All beatmap artwork, audio previews, and metadata remain the intellectual property of their respective artists, mappers, and rights holders.
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
 ---
 
-## 📄 License
+## ⚠️ Disclaimer
 
-This project is open-source software licensed under the **[MIT License](./LICENSE)**.
+osu! Beatmap Gacha is an **unofficial fan-made project** and is not affiliated with, endorsed, or sponsored by **ppy Pty Ltd** or **osu!**. All beatmap metadata, covers, audio samples, and artwork remain the intellectual property of their respective artists, mappers, and rights holders.

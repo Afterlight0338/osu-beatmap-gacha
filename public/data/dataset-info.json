@@ -1,21 +1,16 @@
 {
-  "version": "1.2.0",
-  "lastUpdated": "2026-08-23T17:56:28.567Z",
-  "totalMaps": 15000,
-  "poolComposition": {
-    "globalTopMaps": 10000,
-    "eraPoolMaps": 5000,
-    "eraStartYear": 2019
-  },
+  "version": "2.0.0",
+  "lastUpdated": "2026-08-23T18:04:08.796Z",
+  "totalMaps": 25000,
   "rarityCounts": {
-    "Common": 2655,
-    "Uncommon": 3416,
-    "Rare": 6829,
-    "Epic": 1499,
-    "Legendary": 480,
-    "Mythic": 90,
-    "Divine": 21,
+    "Common": 9849,
+    "Uncommon": 8500,
+    "Rare": 4500,
+    "Epic": 1500,
+    "Legendary": 500,
+    "Mythic": 117,
+    "Divine": 24,
     "GOAT": 10
   },
-  "source": "osu! API v2 Global Top 10k + 5k Era Pool (2019–present)"
+  "source": "osu! API v2 Live 25,000 Pool Generation"
 }
