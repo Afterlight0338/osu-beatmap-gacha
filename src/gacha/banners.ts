@@ -52,7 +52,7 @@ export const BANNERS: Banner[] = [
     id: 'standard',
     name: 'All-Stars Beatmap Pool',
     subtitle: 'Standard Banner • All Ranked Classics',
-    description: 'Pull any beatmap from the global osu! 25,000+ all-time popularity and modern era pool spanning 2007–2026.',
+    description: 'Pull any beatmap from the massive global osu! 50,000+ all-time popularity and modern era pool spanning 2007–2026.',
     badge: 'Standard Pool',
     themeColor: '#ff66aa',
     featuredMapIds: [554519, 397534, 131891, 1264070],

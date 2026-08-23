@@ -1,16 +1,16 @@
 {
-  "version": "2.0.0",
-  "lastUpdated": "2026-08-23T18:04:08.796Z",
-  "totalMaps": 25000,
+  "version": "3.0.0",
+  "lastUpdated": "2026-08-23T18:14:24.373Z",
+  "totalMaps": 50000,
   "rarityCounts": {
-    "Common": 9849,
-    "Uncommon": 8500,
-    "Rare": 4500,
-    "Epic": 1500,
-    "Legendary": 500,
-    "Mythic": 117,
-    "Divine": 24,
+    "Common": 19699,
+    "Uncommon": 17000,
+    "Rare": 9000,
+    "Epic": 3000,
+    "Legendary": 1000,
+    "Mythic": 245,
+    "Divine": 46,
     "GOAT": 10
   },
-  "source": "osu! API v2 Live 25,000 Pool Generation"
+  "source": "osu! API v2 Live 50,000 Pool Generation"
 }

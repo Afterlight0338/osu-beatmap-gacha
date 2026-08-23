@@ -1,20 +1,20 @@
-import { Beatmap, DatasetInfo } from "../types/beatmap";
+import { Beatmap, DatasetInfo } from '../types/beatmap';
 
 export const SEED_DATASET_INFO: DatasetInfo = {
-  "version": "2.0.0",
-  "lastUpdated": "2026-08-23T18:04:08.796Z",
-  "totalMaps": 25000,
+  "version": "3.0.0",
+  "lastUpdated": "2026-08-23T18:14:24.373Z",
+  "totalMaps": 50000,
   "rarityCounts": {
-    "Common": 9849,
-    "Uncommon": 8500,
-    "Rare": 4500,
-    "Epic": 1500,
-    "Legendary": 500,
-    "Mythic": 117,
-    "Divine": 24,
+    "Common": 19699,
+    "Uncommon": 17000,
+    "Rare": 9000,
+    "Epic": 3000,
+    "Legendary": 1000,
+    "Mythic": 245,
+    "Divine": 46,
     "GOAT": 10
   },
-  "source": "osu! API v2 Live 25,000 Pool Generation"
+  "source": "osu! API v2 Live 50,000 Pool Generation"
 };
 
 export const SEED_BEATMAPS: Beatmap[] = ([
@@ -32,7 +32,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 70,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -59,7 +59,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -86,7 +86,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -113,7 +113,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -140,7 +140,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -167,7 +167,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -194,7 +194,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -221,7 +221,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -248,7 +248,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -275,7 +275,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -302,7 +302,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -329,7 +329,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -356,7 +356,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 78,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -383,7 +383,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 80,
     "status": "ranked",
-    "playcount": 130606272,
+    "playcount": 130606434,
     "favouriteCount": 36448,
     "rankedDate": "2015-12-20T20:22:55Z",
     "covers": {
@@ -410,7 +410,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -437,7 +437,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -464,7 +464,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -491,7 +491,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 88,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -518,7 +518,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -545,7 +545,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -572,7 +572,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -599,7 +599,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -626,7 +626,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -653,7 +653,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -680,7 +680,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -707,7 +707,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 107239356,
+    "playcount": 107239419,
     "favouriteCount": 28302,
     "rankedDate": "2017-04-24T06:23:43Z",
     "covers": {
@@ -734,7 +734,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -761,7 +761,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -772,7 +772,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762728,
@@ -788,7 +788,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -799,7 +799,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762730,
@@ -815,7 +815,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -826,7 +826,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762729,
@@ -842,7 +842,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -853,7 +853,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762727,
@@ -869,7 +869,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -880,7 +880,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762733,
@@ -896,7 +896,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -907,7 +907,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1762731,
@@ -923,7 +923,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 119118996,
+    "playcount": 119119068,
     "favouriteCount": 21929,
     "rankedDate": "2018-09-18T14:06:02Z",
     "covers": {
@@ -934,7 +934,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "popularityScore": 97.5,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1627148,
@@ -950,7 +950,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -977,7 +977,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -988,7 +988,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1610746,
@@ -1004,7 +1004,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1015,7 +1015,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1627157,
@@ -1031,7 +1031,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1042,7 +1042,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1610745,
@@ -1058,7 +1058,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1069,7 +1069,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1612453,
@@ -1085,7 +1085,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1096,7 +1096,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1612454,
@@ -1112,7 +1112,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1123,7 +1123,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1610994,
@@ -1139,7 +1139,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1150,7 +1150,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1610022,
@@ -1166,7 +1166,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1177,7 +1177,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1613232,
@@ -1193,7 +1193,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1204,7 +1204,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1614054,
@@ -1220,7 +1220,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1231,7 +1231,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1618411,
@@ -1247,7 +1247,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1258,7 +1258,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1627149,
@@ -1274,7 +1274,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1285,7 +1285,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1617643,
@@ -1301,7 +1301,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 203,
     "length": 49,
     "status": "ranked",
-    "playcount": 124943553,
+    "playcount": 124943778,
     "favouriteCount": 18472,
     "rankedDate": "2018-05-05T04:22:20Z",
     "covers": {
@@ -1312,7 +1312,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1655981,
@@ -1328,7 +1328,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1355,7 +1355,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1366,7 +1366,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1642274,
@@ -1382,7 +1382,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1393,7 +1393,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Divine"
   },
   {
     "id": 1643270,
@@ -1409,7 +1409,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1436,7 +1436,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1463,7 +1463,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1490,8 +1490,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1517,8 +1517,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1544,8 +1544,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1571,7 +1571,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1598,8 +1598,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1625,7 +1625,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1652,8 +1652,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1679,7 +1679,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 86,
     "status": "ranked",
-    "playcount": 95306760,
+    "playcount": 95306841,
     "favouriteCount": 28560,
     "rankedDate": "2018-07-20T22:03:23Z",
     "covers": {
@@ -1706,8 +1706,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 85,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1733,8 +1733,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 85,
     "status": "ranked",
-    "playcount": 85674843,
-    "favouriteCount": 34125,
+    "playcount": 85674897,
+    "favouriteCount": 34126,
     "rankedDate": "2016-03-29T15:01:23Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/399358/covers/cover.jpg?1650636640",
@@ -1841,8 +1841,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -1868,8 +1868,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -1895,8 +1895,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -1922,8 +1922,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -1949,8 +1949,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -1976,8 +1976,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 194,
     "status": "ranked",
-    "playcount": 63887789,
-    "favouriteCount": 39136,
+    "playcount": 63887888,
+    "favouriteCount": 39135,
     "rankedDate": "2015-03-24T22:40:14Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/158023/covers/cover.jpg?1645787427",
@@ -2003,7 +2003,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 257,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2030,7 +2030,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2057,7 +2057,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 241,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2084,7 +2084,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2111,7 +2111,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2138,7 +2138,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 241,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2165,7 +2165,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2192,7 +2192,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 240,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2219,7 +2219,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2246,7 +2246,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 241,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2273,7 +2273,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 241,
     "status": "ranked",
-    "playcount": 66516861,
+    "playcount": 66516897,
     "favouriteCount": 34836,
     "rankedDate": "2015-09-13T12:02:05Z",
     "covers": {
@@ -2300,7 +2300,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 87,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2327,7 +2327,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 160,
     "length": 86,
     "status": "ranked",
-    "playcount": 63974702,
+    "playcount": 63974747,
     "favouriteCount": 37955,
     "rankedDate": "2017-04-12T04:23:36Z",
     "covers": {
@@ -2354,7 +2354,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2381,7 +2381,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2408,7 +2408,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2435,7 +2435,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2462,7 +2462,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2489,7 +2489,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2516,7 +2516,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2543,7 +2543,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 62,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2570,7 +2570,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2597,7 +2597,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2624,7 +2624,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2651,7 +2651,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2678,7 +2678,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2705,7 +2705,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2732,7 +2732,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2759,7 +2759,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2786,7 +2786,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2813,7 +2813,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2840,7 +2840,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2867,7 +2867,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2894,7 +2894,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2921,7 +2921,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2948,7 +2948,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 60,
     "status": "ranked",
-    "playcount": 104169870,
+    "playcount": 104169987,
     "favouriteCount": 15496,
     "rankedDate": "2019-01-06T06:44:06Z",
     "covers": {
@@ -2975,7 +2975,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3002,7 +3002,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3029,7 +3029,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3056,7 +3056,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3083,7 +3083,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3110,7 +3110,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 89,
     "status": "ranked",
-    "playcount": 57019950,
+    "playcount": 57020013,
     "favouriteCount": 37312,
     "rankedDate": "2019-07-24T15:20:02Z",
     "covers": {
@@ -3137,7 +3137,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3164,7 +3164,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3191,7 +3191,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3218,7 +3218,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3245,7 +3245,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3272,7 +3272,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3299,7 +3299,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 240,
     "length": 144,
     "status": "ranked",
-    "playcount": 51225565,
+    "playcount": 51225637,
     "favouriteCount": 41996,
     "rankedDate": "2016-07-20T05:22:22Z",
     "covers": {
@@ -3326,7 +3326,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3353,7 +3353,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3380,7 +3380,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3407,7 +3407,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3434,7 +3434,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3461,7 +3461,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3488,7 +3488,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3515,7 +3515,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3542,7 +3542,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 107,
     "status": "ranked",
-    "playcount": 60790261,
+    "playcount": 60790297,
     "favouriteCount": 27022,
     "rankedDate": "2016-11-28T03:43:28Z",
     "covers": {
@@ -3569,7 +3569,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 166,
     "length": 39,
     "status": "ranked",
-    "playcount": 62186362,
+    "playcount": 62186380,
     "favouriteCount": 23688,
     "rankedDate": "2016-12-31T08:20:43Z",
     "covers": {
@@ -3596,7 +3596,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 166,
     "length": 39,
     "status": "ranked",
-    "playcount": 62186362,
+    "playcount": 62186380,
     "favouriteCount": 23688,
     "rankedDate": "2016-12-31T08:20:43Z",
     "covers": {
@@ -3623,7 +3623,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 166,
     "length": 39,
     "status": "ranked",
-    "playcount": 62186362,
+    "playcount": 62186380,
     "favouriteCount": 23688,
     "rankedDate": "2016-12-31T08:20:43Z",
     "covers": {
@@ -3650,7 +3650,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 166,
     "length": 37,
     "status": "ranked",
-    "playcount": 62186362,
+    "playcount": 62186380,
     "favouriteCount": 23688,
     "rankedDate": "2016-12-31T08:20:43Z",
     "covers": {
@@ -3677,7 +3677,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 166,
     "length": 37,
     "status": "ranked",
-    "playcount": 62186362,
+    "playcount": 62186380,
     "favouriteCount": 23688,
     "rankedDate": "2016-12-31T08:20:43Z",
     "covers": {
@@ -3704,7 +3704,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -3731,7 +3731,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -3758,7 +3758,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -3785,7 +3785,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -3812,7 +3812,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 89,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -3839,7 +3839,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -3866,7 +3866,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -3893,7 +3893,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -3920,7 +3920,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 128,
     "length": 240,
     "status": "ranked",
-    "playcount": 57485345,
+    "playcount": 57485363,
     "favouriteCount": 24551,
     "rankedDate": "2014-01-21T13:02:13Z",
     "covers": {
@@ -3947,7 +3947,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -3974,7 +3974,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -4001,7 +4001,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 128,
     "length": 240,
     "status": "ranked",
-    "playcount": 57485345,
+    "playcount": 57485363,
     "favouriteCount": 24551,
     "rankedDate": "2014-01-21T13:02:13Z",
     "covers": {
@@ -4028,7 +4028,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -4055,7 +4055,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 204,
     "length": 67,
     "status": "ranked",
-    "playcount": 63496008,
+    "playcount": 63496071,
     "favouriteCount": 20573,
     "rankedDate": "2019-04-27T21:20:30Z",
     "covers": {
@@ -4082,7 +4082,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 128,
     "length": 239,
     "status": "ranked",
-    "playcount": 57485345,
+    "playcount": 57485363,
     "favouriteCount": 24551,
     "rankedDate": "2014-01-21T13:02:13Z",
     "covers": {
@@ -4109,7 +4109,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 88,
     "status": "ranked",
-    "playcount": 71398880,
+    "playcount": 71398934,
     "favouriteCount": 17210,
     "rankedDate": "2016-06-14T03:20:46Z",
     "covers": {
@@ -4120,7 +4120,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "popularityScore": 93.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1925194,
@@ -4136,7 +4136,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 178,
     "length": 92,
     "status": "ranked",
-    "playcount": 45349452,
+    "playcount": 45349479,
     "favouriteCount": 23702,
     "rankedDate": "2019-03-14T13:00:37Z",
     "covers": {
@@ -4147,7 +4147,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "popularityScore": 92.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1932649,
@@ -4163,7 +4163,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 178,
     "length": 92,
     "status": "ranked",
-    "playcount": 45349452,
+    "playcount": 45349479,
     "favouriteCount": 23702,
     "rankedDate": "2019-03-14T13:00:37Z",
     "covers": {
@@ -4174,7 +4174,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "popularityScore": 92.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1936122,
@@ -4190,7 +4190,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 178,
     "length": 92,
     "status": "ranked",
-    "playcount": 45349452,
+    "playcount": 45349479,
     "favouriteCount": 23702,
     "rankedDate": "2019-03-14T13:00:37Z",
     "covers": {
@@ -4201,7 +4201,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "popularityScore": 92.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1940335,
@@ -4217,7 +4217,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 178,
     "length": 92,
     "status": "ranked",
-    "playcount": 45349452,
+    "playcount": 45349479,
     "favouriteCount": 23702,
     "rankedDate": "2019-03-14T13:00:37Z",
     "covers": {
@@ -4228,7 +4228,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "popularityScore": 92.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1928891,
@@ -4244,7 +4244,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 178,
     "length": 92,
     "status": "ranked",
-    "playcount": 45349452,
+    "playcount": 45349479,
     "favouriteCount": 23702,
     "rankedDate": "2019-03-14T13:00:37Z",
     "covers": {
@@ -4255,7 +4255,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "popularityScore": 92.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 814293,
@@ -4271,7 +4271,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 132,
     "status": "ranked",
-    "playcount": 45336614,
+    "playcount": 45336632,
     "favouriteCount": 21166,
     "rankedDate": "2015-12-12T17:40:33Z",
     "covers": {
@@ -4282,7 +4282,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 239265,
@@ -4298,7 +4298,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 88,
     "status": "ranked",
-    "playcount": 38680025,
+    "playcount": 38680034,
     "favouriteCount": 27170,
     "rankedDate": "2013-04-27T11:43:14Z",
     "covers": {
@@ -4309,7 +4309,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 827932,
@@ -4325,7 +4325,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 132,
     "status": "ranked",
-    "playcount": 45336614,
+    "playcount": 45336632,
     "favouriteCount": 21166,
     "rankedDate": "2015-12-12T17:40:33Z",
     "covers": {
@@ -4336,7 +4336,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 240011,
@@ -4352,7 +4352,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 88,
     "status": "ranked",
-    "playcount": 38680025,
+    "playcount": 38680034,
     "favouriteCount": 27170,
     "rankedDate": "2013-04-27T11:43:14Z",
     "covers": {
@@ -4363,7 +4363,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 829238,
@@ -4379,7 +4379,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 132,
     "status": "ranked",
-    "playcount": 45336614,
+    "playcount": 45336632,
     "favouriteCount": 21166,
     "rankedDate": "2015-12-12T17:40:33Z",
     "covers": {
@@ -4390,7 +4390,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 814465,
@@ -4406,7 +4406,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 132,
     "status": "ranked",
-    "playcount": 45336614,
+    "playcount": 45336632,
     "favouriteCount": 21166,
     "rankedDate": "2015-12-12T17:40:33Z",
     "covers": {
@@ -4417,7 +4417,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 240192,
@@ -4433,7 +4433,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 88,
     "status": "ranked",
-    "playcount": 38680025,
+    "playcount": 38680034,
     "favouriteCount": 27170,
     "rankedDate": "2013-04-27T11:43:14Z",
     "covers": {
@@ -4444,7 +4444,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 827933,
@@ -4460,7 +4460,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 131,
     "status": "ranked",
-    "playcount": 45336614,
+    "playcount": 45336632,
     "favouriteCount": 21166,
     "rankedDate": "2015-12-12T17:40:33Z",
     "covers": {
@@ -4471,7 +4471,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 240093,
@@ -4487,7 +4487,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 88,
     "status": "ranked",
-    "playcount": 38680025,
+    "playcount": 38680034,
     "favouriteCount": 27170,
     "rankedDate": "2013-04-27T11:43:14Z",
     "covers": {
@@ -4498,7 +4498,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "popularityScore": 92.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1593361,
@@ -4514,7 +4514,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 75,
     "length": 103,
     "status": "ranked",
-    "playcount": 37903671,
+    "playcount": 37903689,
     "favouriteCount": 23310,
     "rankedDate": "2018-04-10T22:21:10Z",
     "covers": {
@@ -4525,7 +4525,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "popularityScore": 91.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1593847,
@@ -4541,7 +4541,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 75,
     "length": 103,
     "status": "ranked",
-    "playcount": 37903671,
+    "playcount": 37903689,
     "favouriteCount": 23310,
     "rankedDate": "2018-04-10T22:21:10Z",
     "covers": {
@@ -4552,7 +4552,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "popularityScore": 91.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1594554,
@@ -4568,7 +4568,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 75,
     "length": 103,
     "status": "ranked",
-    "playcount": 37903671,
+    "playcount": 37903689,
     "favouriteCount": 23310,
     "rankedDate": "2018-04-10T22:21:10Z",
     "covers": {
@@ -4579,7 +4579,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "popularityScore": 91.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1594969,
@@ -4595,7 +4595,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 75,
     "length": 103,
     "status": "ranked",
-    "playcount": 37903671,
+    "playcount": 37903689,
     "favouriteCount": 23310,
     "rankedDate": "2018-04-10T22:21:10Z",
     "covers": {
@@ -4606,7 +4606,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "popularityScore": 91.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2395803,
@@ -4622,7 +4622,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 138,
     "length": 88,
     "status": "ranked",
-    "playcount": 37307304,
+    "playcount": 37307367,
     "favouriteCount": 22926,
     "rankedDate": "2020-04-27T22:42:22Z",
     "covers": {
@@ -4633,7 +4633,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "popularityScore": 91.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2395929,
@@ -4649,7 +4649,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 138,
     "length": 88,
     "status": "ranked",
-    "playcount": 37307304,
+    "playcount": 37307367,
     "favouriteCount": 22926,
     "rankedDate": "2020-04-27T22:42:22Z",
     "covers": {
@@ -4660,7 +4660,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "popularityScore": 91.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2395958,
@@ -4676,7 +4676,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 138,
     "length": 88,
     "status": "ranked",
-    "playcount": 37307304,
+    "playcount": 37307367,
     "favouriteCount": 22926,
     "rankedDate": "2020-04-27T22:42:22Z",
     "covers": {
@@ -4687,7 +4687,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "popularityScore": 91.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2397875,
@@ -4703,7 +4703,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 138,
     "length": 88,
     "status": "ranked",
-    "playcount": 37307304,
+    "playcount": 37307367,
     "favouriteCount": 22926,
     "rankedDate": "2020-04-27T22:42:22Z",
     "covers": {
@@ -4714,7 +4714,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "popularityScore": 91.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2396071,
@@ -4730,7 +4730,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 138,
     "length": 88,
     "status": "ranked",
-    "playcount": 37307304,
+    "playcount": 37307367,
     "favouriteCount": 22926,
     "rankedDate": "2020-04-27T22:42:22Z",
     "covers": {
@@ -4741,7 +4741,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "popularityScore": 91.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1028733,
@@ -4757,8 +4757,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4768,7 +4768,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1029562,
@@ -4784,8 +4784,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4795,7 +4795,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1030374,
@@ -4811,8 +4811,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4822,7 +4822,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1032126,
@@ -4838,8 +4838,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4849,7 +4849,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1033154,
@@ -4865,8 +4865,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4876,7 +4876,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1034889,
@@ -4892,8 +4892,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4903,7 +4903,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1032282,
@@ -4919,8 +4919,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4930,7 +4930,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1031483,
@@ -4946,8 +4946,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 89,
     "status": "ranked",
-    "playcount": 48909520,
-    "favouriteCount": 14030,
+    "playcount": 48909583,
+    "favouriteCount": 14029,
     "rankedDate": "2016-08-22T23:03:33Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/482090/covers/cover.jpg?1645783744",
@@ -4957,7 +4957,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "popularityScore": 91.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 558049,
@@ -4973,7 +4973,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 135,
     "length": 82,
     "status": "ranked",
-    "playcount": 30496868,
+    "playcount": 30496877,
     "favouriteCount": 26165,
     "rankedDate": "2015-01-25T18:21:21Z",
     "covers": {
@@ -4984,7 +4984,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "popularityScore": 90.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 490173,
@@ -5000,7 +5000,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 135,
     "length": 82,
     "status": "ranked",
-    "playcount": 30496868,
+    "playcount": 30496877,
     "favouriteCount": 26165,
     "rankedDate": "2015-01-25T18:21:21Z",
     "covers": {
@@ -5011,7 +5011,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "popularityScore": 90.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 489620,
@@ -5027,7 +5027,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 135,
     "length": 82,
     "status": "ranked",
-    "playcount": 30496868,
+    "playcount": 30496877,
     "favouriteCount": 26165,
     "rankedDate": "2015-01-25T18:21:21Z",
     "covers": {
@@ -5038,7 +5038,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "popularityScore": 90.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 476366,
@@ -5054,7 +5054,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 135,
     "length": 83,
     "status": "ranked",
-    "playcount": 30496868,
+    "playcount": 30496877,
     "favouriteCount": 26165,
     "rankedDate": "2015-01-25T18:21:21Z",
     "covers": {
@@ -5065,7 +5065,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "popularityScore": 90.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 476367,
@@ -5081,7 +5081,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 135,
     "length": 83,
     "status": "ranked",
-    "playcount": 30496868,
+    "playcount": 30496877,
     "favouriteCount": 26165,
     "rankedDate": "2015-01-25T18:21:21Z",
     "covers": {
@@ -5092,7 +5092,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "popularityScore": 90.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 845391,
@@ -5108,7 +5108,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5119,7 +5119,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 847314,
@@ -5135,7 +5135,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5146,7 +5146,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 847313,
@@ -5162,7 +5162,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5173,7 +5173,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 847315,
@@ -5189,7 +5189,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5200,7 +5200,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 847863,
@@ -5216,7 +5216,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5227,7 +5227,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 847316,
@@ -5243,7 +5243,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 165,
     "status": "ranked",
-    "playcount": 36516272,
+    "playcount": 36516317,
     "favouriteCount": 18578,
     "rankedDate": "2016-02-10T16:41:29Z",
     "covers": {
@@ -5254,7 +5254,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "popularityScore": 90.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 658127,
@@ -5270,7 +5270,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5281,7 +5281,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 657917,
@@ -5297,7 +5297,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5308,7 +5308,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385398,
@@ -5324,7 +5324,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -5335,7 +5335,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 657916,
@@ -5351,7 +5351,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5362,7 +5362,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 693288,
@@ -5378,7 +5378,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5389,7 +5389,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385397,
@@ -5405,7 +5405,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -5416,7 +5416,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245772,
@@ -5432,7 +5432,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5443,7 +5443,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245774,
@@ -5459,7 +5459,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5470,7 +5470,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2250747,
@@ -5486,7 +5486,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5497,7 +5497,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245766,
@@ -5513,7 +5513,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5524,7 +5524,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2246465,
@@ -5540,7 +5540,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5551,7 +5551,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245781,
@@ -5567,7 +5567,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5578,7 +5578,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 719594,
@@ -5594,7 +5594,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5605,7 +5605,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245782,
@@ -5621,7 +5621,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5632,7 +5632,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245768,
@@ -5648,7 +5648,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5659,7 +5659,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245777,
@@ -5675,7 +5675,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5686,7 +5686,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245773,
@@ -5702,7 +5702,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5713,7 +5713,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245779,
@@ -5729,7 +5729,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5740,7 +5740,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245860,
@@ -5756,7 +5756,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5767,7 +5767,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385396,
@@ -5783,7 +5783,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -5794,7 +5794,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245771,
@@ -5810,7 +5810,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5821,7 +5821,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245783,
@@ -5837,7 +5837,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5848,7 +5848,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245778,
@@ -5864,7 +5864,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5875,7 +5875,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245767,
@@ -5891,7 +5891,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5902,7 +5902,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2258687,
@@ -5918,7 +5918,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -5929,7 +5929,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 677872,
@@ -5945,7 +5945,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -5956,7 +5956,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385399,
@@ -5972,7 +5972,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -5983,7 +5983,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245787,
@@ -5999,7 +5999,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6010,7 +6010,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245784,
@@ -6026,7 +6026,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6037,7 +6037,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245785,
@@ -6053,7 +6053,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6064,7 +6064,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245775,
@@ -6080,7 +6080,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6091,7 +6091,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245780,
@@ -6107,7 +6107,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6118,7 +6118,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245786,
@@ -6134,7 +6134,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6145,7 +6145,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1464026,
@@ -6161,7 +6161,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -6172,7 +6172,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 110175,
@@ -6188,7 +6188,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 163,
     "length": 141,
     "status": "ranked",
-    "playcount": 29501807,
+    "playcount": 29501816,
     "favouriteCount": 26641,
     "rankedDate": "2011-08-06T18:06:21Z",
     "covers": {
@@ -6199,7 +6199,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245776,
@@ -6215,7 +6215,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6226,7 +6226,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 680920,
@@ -6242,7 +6242,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -6253,7 +6253,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385415,
@@ -6269,7 +6269,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 96,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -6280,7 +6280,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 110334,
@@ -6296,7 +6296,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 163,
     "length": 141,
     "status": "ranked",
-    "playcount": 29501807,
+    "playcount": 29501816,
     "favouriteCount": 26641,
     "rankedDate": "2011-08-06T18:06:21Z",
     "covers": {
@@ -6307,7 +6307,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 688710,
@@ -6323,7 +6323,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -6334,7 +6334,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385400,
@@ -6350,7 +6350,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 95,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -6361,7 +6361,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 110638,
@@ -6377,7 +6377,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 163,
     "length": 140,
     "status": "ranked",
-    "playcount": 29501807,
+    "playcount": 29501816,
     "favouriteCount": 26641,
     "rankedDate": "2011-08-06T18:06:21Z",
     "covers": {
@@ -6388,7 +6388,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2245770,
@@ -6404,7 +6404,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 71645337,
+    "playcount": 71645382,
     "favouriteCount": 5668,
     "rankedDate": "2019-12-24T22:41:17Z",
     "covers": {
@@ -6415,7 +6415,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 680919,
@@ -6431,7 +6431,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 249,
     "status": "ranked",
-    "playcount": 41727447,
+    "playcount": 41727456,
     "favouriteCount": 14573,
     "rankedDate": "2015-08-16T20:00:15Z",
     "covers": {
@@ -6442,7 +6442,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1385401,
@@ -6458,7 +6458,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 110,
     "length": 88,
     "status": "ranked",
-    "playcount": 39098079,
+    "playcount": 39098088,
     "favouriteCount": 16275,
     "rankedDate": "2018-01-16T21:42:22Z",
     "covers": {
@@ -6469,7 +6469,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 111104,
@@ -6485,7 +6485,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 163,
     "length": 141,
     "status": "ranked",
-    "playcount": 29501807,
+    "playcount": 29501816,
     "favouriteCount": 26641,
     "rankedDate": "2011-08-06T18:06:21Z",
     "covers": {
@@ -6496,7 +6496,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "popularityScore": 90.5,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025942,
@@ -6512,7 +6512,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6523,7 +6523,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025938,
@@ -6539,7 +6539,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6550,7 +6550,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025941,
@@ -6566,7 +6566,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6577,7 +6577,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025940,
@@ -6593,7 +6593,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6604,7 +6604,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025939,
@@ -6620,7 +6620,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6631,7 +6631,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2025943,
@@ -6647,7 +6647,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 186,
     "length": 54,
     "status": "ranked",
-    "playcount": 46562400,
+    "playcount": 46562454,
     "favouriteCount": 11701,
     "rankedDate": "2019-05-18T17:40:45Z",
     "covers": {
@@ -6658,7 +6658,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "popularityScore": 90.4,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1442773,
@@ -6674,8 +6674,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 145,
     "length": 94,
     "status": "ranked",
-    "playcount": 41699790,
-    "favouriteCount": 13737,
+    "playcount": 41699799,
+    "favouriteCount": 13738,
     "rankedDate": "2017-11-01T20:00:13Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/682290/covers/cover.jpg?1645786406",
@@ -6685,7 +6685,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "popularityScore": 90.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1442772,
@@ -6701,8 +6701,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 145,
     "length": 94,
     "status": "ranked",
-    "playcount": 41699790,
-    "favouriteCount": 13737,
+    "playcount": 41699799,
+    "favouriteCount": 13738,
     "rankedDate": "2017-11-01T20:00:13Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/682290/covers/cover.jpg?1645786406",
@@ -6712,7 +6712,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "popularityScore": 90.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1442774,
@@ -6728,8 +6728,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 145,
     "length": 94,
     "status": "ranked",
-    "playcount": 41699790,
-    "favouriteCount": 13737,
+    "playcount": 41699799,
+    "favouriteCount": 13738,
     "rankedDate": "2017-11-01T20:00:13Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/682290/covers/cover.jpg?1645786406",
@@ -6739,7 +6739,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "popularityScore": 90.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1442771,
@@ -6755,8 +6755,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 145,
     "length": 93,
     "status": "ranked",
-    "playcount": 41699790,
-    "favouriteCount": 13737,
+    "playcount": 41699799,
+    "favouriteCount": 13738,
     "rankedDate": "2017-11-01T20:00:13Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/682290/covers/cover.jpg?1645786406",
@@ -6766,7 +6766,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "popularityScore": 90.3,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 131891,
@@ -6782,7 +6782,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 360,
     "length": 139,
     "status": "approved",
-    "playcount": 41009344,
+    "playcount": 41009398,
     "favouriteCount": 13535,
     "rankedDate": "2012-02-19T05:51:54Z",
     "covers": {
@@ -6793,7 +6793,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/41823.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2535968,
@@ -6809,7 +6809,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 130,
     "length": 243,
     "status": "ranked",
-    "playcount": 26398067,
+    "playcount": 26398076,
     "favouriteCount": 28799,
     "rankedDate": "2020-09-07T01:44:18Z",
     "covers": {
@@ -6820,7 +6820,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2535967,
@@ -6836,7 +6836,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 130,
     "length": 243,
     "status": "ranked",
-    "playcount": 26398067,
+    "playcount": 26398076,
     "favouriteCount": 28799,
     "rankedDate": "2020-09-07T01:44:18Z",
     "covers": {
@@ -6847,7 +6847,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1810150,
@@ -6863,8 +6863,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -6874,7 +6874,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1810372,
@@ -6890,8 +6890,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -6901,7 +6901,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1815491,
@@ -6917,8 +6917,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -6928,7 +6928,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1810188,
@@ -6944,8 +6944,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -6955,7 +6955,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2538199,
@@ -6971,7 +6971,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 130,
     "length": 243,
     "status": "ranked",
-    "playcount": 26398067,
+    "playcount": 26398076,
     "favouriteCount": 28799,
     "rankedDate": "2020-09-07T01:44:18Z",
     "covers": {
@@ -6982,7 +6982,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1810299,
@@ -6998,8 +6998,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -7009,7 +7009,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2536716,
@@ -7025,7 +7025,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 130,
     "length": 243,
     "status": "ranked",
-    "playcount": 26398067,
+    "playcount": 26398076,
     "favouriteCount": 28799,
     "rankedDate": "2020-09-07T01:44:18Z",
     "covers": {
@@ -7036,7 +7036,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1812793,
@@ -7052,8 +7052,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 88,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -7063,7 +7063,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2535969,
@@ -7079,7 +7079,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 130,
     "length": 243,
     "status": "ranked",
-    "playcount": 26398067,
+    "playcount": 26398076,
     "favouriteCount": 28799,
     "rankedDate": "2020-09-07T01:44:18Z",
     "covers": {
@@ -7090,7 +7090,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1818777,
@@ -7106,8 +7106,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 174,
     "length": 87,
     "status": "ranked",
-    "playcount": 38709765,
-    "favouriteCount": 14857,
+    "playcount": 38709801,
+    "favouriteCount": 14858,
     "rankedDate": "2018-11-08T01:02:27Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/865746/covers/cover.jpg?1650670889",
@@ -7117,7 +7117,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "popularityScore": 90.2,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2014469,
@@ -7133,7 +7133,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 182,
     "length": 83,
     "status": "ranked",
-    "playcount": 40015161,
+    "playcount": 40015224,
     "favouriteCount": 13889,
     "rankedDate": "2019-05-13T12:20:31Z",
     "covers": {
@@ -7144,7 +7144,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2014470,
@@ -7160,7 +7160,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 182,
     "length": 83,
     "status": "ranked",
-    "playcount": 40015161,
+    "playcount": 40015224,
     "favouriteCount": 13889,
     "rankedDate": "2019-05-13T12:20:31Z",
     "covers": {
@@ -7171,7 +7171,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2014468,
@@ -7187,7 +7187,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 182,
     "length": 83,
     "status": "ranked",
-    "playcount": 40015161,
+    "playcount": 40015224,
     "favouriteCount": 13889,
     "rankedDate": "2019-05-13T12:20:31Z",
     "covers": {
@@ -7198,7 +7198,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 2014471,
@@ -7214,7 +7214,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 182,
     "length": 83,
     "status": "ranked",
-    "playcount": 40015161,
+    "playcount": 40015224,
     "favouriteCount": 13889,
     "rankedDate": "2019-05-13T12:20:31Z",
     "covers": {
@@ -7225,7 +7225,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 776951,
@@ -7241,7 +7241,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7252,7 +7252,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 820619,
@@ -7268,7 +7268,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7279,7 +7279,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 786018,
@@ -7295,7 +7295,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7306,7 +7306,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 806376,
@@ -7322,7 +7322,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7333,7 +7333,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 794670,
@@ -7349,7 +7349,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7360,7 +7360,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 828940,
@@ -7376,7 +7376,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7387,7 +7387,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 786021,
@@ -7403,7 +7403,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7414,7 +7414,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 785982,
@@ -7430,7 +7430,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 170,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7441,7 +7441,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 803704,
@@ -7457,7 +7457,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7468,7 +7468,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 830082,
@@ -7484,7 +7484,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7495,7 +7495,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 807983,
@@ -7511,7 +7511,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7522,7 +7522,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 830083,
@@ -7538,7 +7538,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7549,7 +7549,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 804268,
@@ -7565,7 +7565,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7576,7 +7576,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 830081,
@@ -7592,7 +7592,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 172,
     "status": "ranked",
-    "playcount": 31965848,
+    "playcount": 31965875,
     "favouriteCount": 18910,
     "rankedDate": "2015-12-01T09:41:23Z",
     "covers": {
@@ -7603,7 +7603,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1066257,
@@ -7619,7 +7619,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 180,
     "length": 131,
     "status": "ranked",
-    "playcount": 36069101,
+    "playcount": 36069146,
     "favouriteCount": 15215,
     "rankedDate": "2017-07-20T10:03:00Z",
     "covers": {
@@ -7630,7 +7630,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 930249,
@@ -7646,7 +7646,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7657,7 +7657,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 840686,
@@ -7673,7 +7673,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7684,7 +7684,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 854616,
@@ -7700,7 +7700,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7711,7 +7711,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 853926,
@@ -7727,7 +7727,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7738,7 +7738,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 846085,
@@ -7754,7 +7754,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7765,7 +7765,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 844182,
@@ -7781,7 +7781,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7792,7 +7792,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 841587,
@@ -7808,7 +7808,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 173,
     "status": "ranked",
-    "playcount": 34799380,
+    "playcount": 34799389,
     "favouriteCount": 15321,
     "rankedDate": "2016-10-20T20:01:58Z",
     "covers": {
@@ -7819,7 +7819,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1799197,
@@ -7835,7 +7835,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7846,7 +7846,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1797363,
@@ -7862,7 +7862,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7873,7 +7873,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1799101,
@@ -7889,7 +7889,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7900,7 +7900,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1797692,
@@ -7916,7 +7916,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7927,7 +7927,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1796685,
@@ -7943,7 +7943,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7954,7 +7954,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1796684,
@@ -7970,7 +7970,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -7981,7 +7981,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1797366,
@@ -7997,7 +7997,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8008,7 +8008,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1799100,
@@ -8024,7 +8024,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8035,7 +8035,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1796364,
@@ -8051,7 +8051,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8062,7 +8062,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1797365,
@@ -8078,7 +8078,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8089,7 +8089,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1799198,
@@ -8105,7 +8105,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8116,7 +8116,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1796280,
@@ -8132,7 +8132,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8143,7 +8143,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Legendary"
+    "rarity": "Mythic"
   },
   {
     "id": 1797367,
@@ -8159,7 +8159,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8186,7 +8186,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8213,7 +8213,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8240,7 +8240,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8267,7 +8267,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 191,
     "length": 89,
     "status": "ranked",
-    "playcount": 39122325,
+    "playcount": 39122343,
     "favouriteCount": 12259,
     "rankedDate": "2018-10-15T22:22:38Z",
     "covers": {
@@ -8294,7 +8294,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8321,7 +8321,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8348,7 +8348,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8375,7 +8375,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8402,7 +8402,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8429,7 +8429,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8456,7 +8456,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8483,7 +8483,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8510,7 +8510,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 89,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8537,7 +8537,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 165,
     "length": 87,
     "status": "ranked",
-    "playcount": 33364242,
+    "playcount": 33364251,
     "favouriteCount": 15039,
     "rankedDate": "2018-04-14T14:28:35Z",
     "covers": {
@@ -8564,7 +8564,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8591,7 +8591,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8618,7 +8618,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8645,7 +8645,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 133,
     "length": 160,
     "status": "ranked",
-    "playcount": 36081091,
+    "playcount": 36081100,
     "favouriteCount": 12918,
     "rankedDate": "2013-10-25T01:14:30Z",
     "covers": {
@@ -8672,7 +8672,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8699,7 +8699,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8726,7 +8726,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 133,
     "length": 156,
     "status": "ranked",
-    "playcount": 36081091,
+    "playcount": 36081100,
     "favouriteCount": 12918,
     "rankedDate": "2013-10-25T01:14:30Z",
     "covers": {
@@ -8753,7 +8753,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8780,7 +8780,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8807,7 +8807,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 133,
     "length": 156,
     "status": "ranked",
-    "playcount": 36081091,
+    "playcount": 36081100,
     "favouriteCount": 12918,
     "rankedDate": "2013-10-25T01:14:30Z",
     "covers": {
@@ -8834,7 +8834,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 164,
     "length": 53,
     "status": "ranked",
-    "playcount": 42773391,
+    "playcount": 42773463,
     "favouriteCount": 9650,
     "rankedDate": "2019-06-21T00:20:02Z",
     "covers": {
@@ -8861,7 +8861,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 133,
     "length": 156,
     "status": "ranked",
-    "playcount": 36081091,
+    "playcount": 36081100,
     "favouriteCount": 12918,
     "rankedDate": "2013-10-25T01:14:30Z",
     "covers": {
@@ -8888,7 +8888,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -8915,7 +8915,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -8942,7 +8942,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -8969,7 +8969,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -8996,7 +8996,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9023,7 +9023,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9050,7 +9050,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9077,7 +9077,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9104,7 +9104,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9131,7 +9131,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9158,7 +9158,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9185,7 +9185,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9212,7 +9212,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9239,7 +9239,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 170,
     "length": 30,
     "status": "ranked",
-    "playcount": 55154421,
+    "playcount": 55154466,
     "favouriteCount": 5954,
     "rankedDate": "2019-05-26T02:40:01Z",
     "covers": {
@@ -9401,7 +9401,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 30375616,
+    "playcount": 30375634,
     "favouriteCount": 15736,
     "rankedDate": "2017-07-21T14:22:31Z",
     "covers": {
@@ -9428,7 +9428,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 30375616,
+    "playcount": 30375634,
     "favouriteCount": 15736,
     "rankedDate": "2017-07-21T14:22:31Z",
     "covers": {
@@ -9455,7 +9455,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 30375616,
+    "playcount": 30375634,
     "favouriteCount": 15736,
     "rankedDate": "2017-07-21T14:22:31Z",
     "covers": {
@@ -9482,7 +9482,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 30375616,
+    "playcount": 30375634,
     "favouriteCount": 15736,
     "rankedDate": "2017-07-21T14:22:31Z",
     "covers": {
@@ -9509,7 +9509,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 200,
     "length": 90,
     "status": "ranked",
-    "playcount": 30375616,
+    "playcount": 30375634,
     "favouriteCount": 15736,
     "rankedDate": "2017-07-21T14:22:31Z",
     "covers": {
@@ -9833,7 +9833,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9860,7 +9860,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9887,7 +9887,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 176,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9914,7 +9914,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9941,7 +9941,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9968,7 +9968,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -9995,7 +9995,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 96,
     "length": 231,
     "status": "ranked",
-    "playcount": 19398105,
+    "playcount": 19398141,
     "favouriteCount": 29329,
     "rankedDate": "2019-03-02T12:20:22Z",
     "covers": {
@@ -10022,7 +10022,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -10049,7 +10049,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 96,
     "length": 233,
     "status": "ranked",
-    "playcount": 19398105,
+    "playcount": 19398141,
     "favouriteCount": 29329,
     "rankedDate": "2019-03-02T12:20:22Z",
     "covers": {
@@ -10076,7 +10076,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -10103,7 +10103,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 96,
     "length": 231,
     "status": "ranked",
-    "playcount": 19398105,
+    "playcount": 19398141,
     "favouriteCount": 29329,
     "rankedDate": "2019-03-02T12:20:22Z",
     "covers": {
@@ -10130,7 +10130,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 184,
     "length": 170,
     "status": "loved",
-    "playcount": 29901159,
+    "playcount": 29901177,
     "favouriteCount": 13859,
     "rankedDate": "2019-12-11T02:32:06Z",
     "covers": {
@@ -10157,7 +10157,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10184,7 +10184,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10211,7 +10211,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 43,
     "status": "ranked",
-    "playcount": 37845751,
+    "playcount": 37845778,
     "favouriteCount": 9056,
     "rankedDate": "2016-09-27T20:01:14Z",
     "covers": {
@@ -10238,7 +10238,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10265,7 +10265,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 43,
     "status": "ranked",
-    "playcount": 37845751,
+    "playcount": 37845778,
     "favouriteCount": 9056,
     "rankedDate": "2016-09-27T20:01:14Z",
     "covers": {
@@ -10292,7 +10292,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10319,7 +10319,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10346,7 +10346,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 43,
     "status": "ranked",
-    "playcount": 37845751,
+    "playcount": 37845778,
     "favouriteCount": 9056,
     "rankedDate": "2016-09-27T20:01:14Z",
     "covers": {
@@ -10373,7 +10373,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10400,7 +10400,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 181,
     "length": 41,
     "status": "ranked",
-    "playcount": 37845751,
+    "playcount": 37845778,
     "favouriteCount": 9056,
     "rankedDate": "2016-09-27T20:01:14Z",
     "covers": {
@@ -10427,7 +10427,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 103,
     "length": 159,
     "status": "ranked",
-    "playcount": 24826427,
+    "playcount": 24826445,
     "favouriteCount": 18946,
     "rankedDate": "2015-12-07T14:20:58Z",
     "covers": {
@@ -10454,7 +10454,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10481,7 +10481,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10508,7 +10508,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10535,7 +10535,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -10562,7 +10562,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10589,7 +10589,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10616,7 +10616,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10643,7 +10643,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -10670,7 +10670,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10697,7 +10697,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -10724,7 +10724,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10751,7 +10751,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10778,7 +10778,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10805,7 +10805,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10832,7 +10832,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -10859,7 +10859,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10886,7 +10886,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10913,7 +10913,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10940,7 +10940,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -10967,7 +10967,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -10994,7 +10994,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11021,7 +11021,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11048,7 +11048,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11075,7 +11075,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -11085,33 +11085,6 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
     "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
-    "popularityScore": 88.4,
-    "rarity": "Legendary"
-  },
-  {
-    "id": 453358,
-    "beatmapsetId": 190390,
-    "artist": "Rameses B",
-    "artistUnicode": "Rameses B",
-    "title": "Flaklypa",
-    "titleUnicode": "Flåklypa",
-    "version": "Insane",
-    "creator": "-kevincela-",
-    "creatorId": 266596,
-    "stars": 4.4,
-    "bpm": 130,
-    "length": 181,
-    "status": "ranked",
-    "playcount": 36534785,
-    "favouriteCount": 9209,
-    "rankedDate": "2014-07-21T10:02:19Z",
-    "covers": {
-      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
-      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
-      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
-      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
-    },
-    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.4,
     "rarity": "Legendary"
   },
@@ -11129,7 +11102,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11156,7 +11129,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -11183,7 +11156,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -11210,7 +11183,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 147,
     "length": 84,
     "status": "ranked",
-    "playcount": 23845803,
+    "playcount": 23845821,
     "favouriteCount": 19195,
     "rankedDate": "2014-05-29T21:22:10Z",
     "covers": {
@@ -11237,7 +11210,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -11264,7 +11237,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -11291,7 +11264,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -11318,7 +11291,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11345,7 +11318,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 147,
     "length": 84,
     "status": "ranked",
-    "playcount": 23845803,
+    "playcount": 23845821,
     "favouriteCount": 19195,
     "rankedDate": "2014-05-29T21:22:10Z",
     "covers": {
@@ -11355,33 +11328,6 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
     "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
-    "popularityScore": 88.4,
-    "rarity": "Legendary"
-  },
-  {
-    "id": 453357,
-    "beatmapsetId": 190390,
-    "artist": "Rameses B",
-    "artistUnicode": "Rameses B",
-    "title": "Flaklypa",
-    "titleUnicode": "Flåklypa",
-    "version": "Hard",
-    "creator": "-kevincela-",
-    "creatorId": 266596,
-    "stars": 3.05,
-    "bpm": 130,
-    "length": 181,
-    "status": "ranked",
-    "playcount": 36534785,
-    "favouriteCount": 9209,
-    "rankedDate": "2014-07-21T10:02:19Z",
-    "covers": {
-      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
-      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
-      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
-      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
-    },
-    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.4,
     "rarity": "Legendary"
   },
@@ -11399,7 +11345,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 183,
     "length": 88,
     "status": "ranked",
-    "playcount": 42918498,
+    "playcount": 42918516,
     "favouriteCount": 7092,
     "rankedDate": "2019-02-09T11:00:18Z",
     "covers": {
@@ -11426,7 +11372,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 175,
     "length": 86,
     "status": "ranked",
-    "playcount": 37383903,
+    "playcount": 37383966,
     "favouriteCount": 8932,
     "rankedDate": "2018-05-17T04:43:35Z",
     "covers": {
@@ -11453,7 +11399,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 89,
     "length": 46,
     "status": "ranked",
-    "playcount": 46079721,
+    "playcount": 46079748,
     "favouriteCount": 6359,
     "rankedDate": "2018-06-27T07:25:12Z",
     "covers": {
@@ -11480,7 +11426,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 147,
     "length": 86,
     "status": "ranked",
-    "playcount": 23845803,
+    "playcount": 23845821,
     "favouriteCount": 19195,
     "rankedDate": "2014-05-29T21:22:10Z",
     "covers": {
@@ -11507,7 +11453,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 147,
     "length": 84,
     "status": "ranked",
-    "playcount": 23845803,
+    "playcount": 23845821,
     "favouriteCount": 19195,
     "rankedDate": "2014-05-29T21:22:10Z",
     "covers": {
@@ -11517,33 +11463,6 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
     "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
-    "popularityScore": 88.4,
-    "rarity": "Legendary"
-  },
-  {
-    "id": 453359,
-    "beatmapsetId": 190390,
-    "artist": "Rameses B",
-    "artistUnicode": "Rameses B",
-    "title": "Flaklypa",
-    "titleUnicode": "Flåklypa",
-    "version": "Normal",
-    "creator": "-kevincela-",
-    "creatorId": 266596,
-    "stars": 1.8,
-    "bpm": 130,
-    "length": 181,
-    "status": "ranked",
-    "playcount": 36534785,
-    "favouriteCount": 9209,
-    "rankedDate": "2014-07-21T10:02:19Z",
-    "covers": {
-      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
-      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
-      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
-      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
-    },
-    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.4,
     "rarity": "Legendary"
   },
@@ -11561,7 +11480,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 86,
     "status": "ranked",
-    "playcount": 22717544,
+    "playcount": 22717580,
     "favouriteCount": 20341,
     "rankedDate": "2020-10-13T04:42:46Z",
     "covers": {
@@ -11588,7 +11507,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11615,7 +11534,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11642,7 +11561,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 86,
     "status": "ranked",
-    "playcount": 22717544,
+    "playcount": 22717580,
     "favouriteCount": 20341,
     "rankedDate": "2020-10-13T04:42:46Z",
     "covers": {
@@ -11669,7 +11588,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11696,7 +11615,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11723,7 +11642,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11750,7 +11669,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11777,7 +11696,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11804,7 +11723,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11831,7 +11750,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11858,7 +11777,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11885,7 +11804,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11912,7 +11831,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 86,
     "status": "ranked",
-    "playcount": 22717544,
+    "playcount": 22717580,
     "favouriteCount": 20341,
     "rankedDate": "2020-10-13T04:42:46Z",
     "covers": {
@@ -11939,7 +11858,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11949,6 +11868,33 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
     "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
+    "popularityScore": 88.3,
+    "rarity": "Legendary"
+  },
+  {
+    "id": 453358,
+    "beatmapsetId": 190390,
+    "artist": "Rameses B",
+    "artistUnicode": "Rameses B",
+    "title": "Flaklypa",
+    "titleUnicode": "Flåklypa",
+    "version": "Insane",
+    "creator": "-kevincela-",
+    "creatorId": 266596,
+    "stars": 4.4,
+    "bpm": 130,
+    "length": 181,
+    "status": "ranked",
+    "playcount": 36534812,
+    "favouriteCount": 9209,
+    "rankedDate": "2014-07-21T10:02:19Z",
+    "covers": {
+      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
+      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
+      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
+      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
+    },
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.3,
     "rarity": "Legendary"
   },
@@ -11966,7 +11912,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -11993,7 +11939,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 86,
     "status": "ranked",
-    "playcount": 22717544,
+    "playcount": 22717580,
     "favouriteCount": 20341,
     "rankedDate": "2020-10-13T04:42:46Z",
     "covers": {
@@ -12020,7 +11966,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -12030,6 +11976,33 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
     "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
+    "popularityScore": 88.3,
+    "rarity": "Legendary"
+  },
+  {
+    "id": 453357,
+    "beatmapsetId": 190390,
+    "artist": "Rameses B",
+    "artistUnicode": "Rameses B",
+    "title": "Flaklypa",
+    "titleUnicode": "Flåklypa",
+    "version": "Hard",
+    "creator": "-kevincela-",
+    "creatorId": 266596,
+    "stars": 3.05,
+    "bpm": 130,
+    "length": 181,
+    "status": "ranked",
+    "playcount": 36534812,
+    "favouriteCount": 9209,
+    "rankedDate": "2014-07-21T10:02:19Z",
+    "covers": {
+      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
+      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
+      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
+      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
+    },
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.3,
     "rarity": "Legendary"
   },
@@ -12047,7 +12020,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 185,
     "length": 86,
     "status": "ranked",
-    "playcount": 22717544,
+    "playcount": 22717580,
     "favouriteCount": 20341,
     "rankedDate": "2020-10-13T04:42:46Z",
     "covers": {
@@ -12074,7 +12047,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -12084,6 +12057,33 @@ export const SEED_BEATMAPS: Beatmap[] = ([
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
     "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
+    "popularityScore": 88.3,
+    "rarity": "Legendary"
+  },
+  {
+    "id": 453359,
+    "beatmapsetId": 190390,
+    "artist": "Rameses B",
+    "artistUnicode": "Rameses B",
+    "title": "Flaklypa",
+    "titleUnicode": "Flåklypa",
+    "version": "Normal",
+    "creator": "-kevincela-",
+    "creatorId": 266596,
+    "stars": 1.8,
+    "bpm": 130,
+    "length": 181,
+    "status": "ranked",
+    "playcount": 36534812,
+    "favouriteCount": 9209,
+    "rankedDate": "2014-07-21T10:02:19Z",
+    "covers": {
+      "cover": "https://assets.ppy.sh/beatmaps/190390/covers/cover.jpg?1622075765",
+      "card": "https://assets.ppy.sh/beatmaps/190390/covers/card.jpg?1622075765",
+      "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
+      "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
+    },
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "popularityScore": 88.3,
     "rarity": "Legendary"
   },
@@ -12101,7 +12101,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 32,
     "status": "ranked",
-    "playcount": 46808361,
+    "playcount": 46808397,
     "favouriteCount": 5869,
     "rankedDate": "2019-12-10T01:06:03Z",
     "covers": {
@@ -12128,8 +12128,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 300,
     "status": "loved",
-    "playcount": 23556852,
-    "favouriteCount": 18219,
+    "playcount": 23556897,
+    "favouriteCount": 18220,
     "rankedDate": "2018-11-03T19:50:22Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/813569/covers/cover.jpg?1622143597",
@@ -12155,8 +12155,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 300,
     "status": "loved",
-    "playcount": 23556852,
-    "favouriteCount": 18219,
+    "playcount": 23556897,
+    "favouriteCount": 18220,
     "rankedDate": "2018-11-03T19:50:22Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/813569/covers/cover.jpg?1622143597",
@@ -12182,8 +12182,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 300,
     "status": "loved",
-    "playcount": 23556852,
-    "favouriteCount": 18219,
+    "playcount": 23556897,
+    "favouriteCount": 18220,
     "rankedDate": "2018-11-03T19:50:22Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/813569/covers/cover.jpg?1622143597",
@@ -12209,7 +12209,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12236,8 +12236,8 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 190,
     "length": 300,
     "status": "loved",
-    "playcount": 23556852,
-    "favouriteCount": 18219,
+    "playcount": 23556897,
+    "favouriteCount": 18220,
     "rankedDate": "2018-11-03T19:50:22Z",
     "covers": {
       "cover": "https://assets.ppy.sh/beatmaps/813569/covers/cover.jpg?1622143597",
@@ -12263,7 +12263,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12290,7 +12290,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12317,7 +12317,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 41,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12344,7 +12344,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12371,7 +12371,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12398,7 +12398,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12425,7 +12425,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12452,7 +12452,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12479,7 +12479,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12506,7 +12506,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12533,7 +12533,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12560,7 +12560,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12587,7 +12587,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12614,7 +12614,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12641,7 +12641,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 136,
     "length": 44,
     "status": "ranked",
-    "playcount": 57288678,
+    "playcount": 57288714,
     "favouriteCount": 3900,
     "rankedDate": "2017-08-14T16:46:34Z",
     "covers": {
@@ -12776,7 +12776,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 115,
     "length": 52,
     "status": "ranked",
-    "playcount": 34863486,
+    "playcount": 34863504,
     "favouriteCount": 8305,
     "rankedDate": "2015-12-15T14:00:22Z",
     "covers": {
@@ -12803,7 +12803,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 115,
     "length": 52,
     "status": "ranked",
-    "playcount": 34863486,
+    "playcount": 34863504,
     "favouriteCount": 8305,
     "rankedDate": "2015-12-15T14:00:22Z",
     "covers": {
@@ -12830,7 +12830,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 115,
     "length": 52,
     "status": "ranked",
-    "playcount": 34863486,
+    "playcount": 34863504,
     "favouriteCount": 8305,
     "rankedDate": "2015-12-15T14:00:22Z",
     "covers": {
@@ -12857,7 +12857,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 115,
     "length": 52,
     "status": "ranked",
-    "playcount": 34863486,
+    "playcount": 34863504,
     "favouriteCount": 8305,
     "rankedDate": "2015-12-15T14:00:22Z",
     "covers": {
@@ -12884,7 +12884,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 115,
     "length": 52,
     "status": "ranked",
-    "playcount": 34863486,
+    "playcount": 34863504,
     "favouriteCount": 8305,
     "rankedDate": "2015-12-15T14:00:22Z",
     "covers": {
@@ -12911,7 +12911,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -12938,7 +12938,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -12965,7 +12965,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -12992,7 +12992,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13019,7 +13019,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13046,7 +13046,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13073,7 +13073,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13100,7 +13100,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13127,7 +13127,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13154,7 +13154,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13181,7 +13181,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13208,7 +13208,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13235,7 +13235,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13262,7 +13262,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 80,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13289,7 +13289,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 79,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13316,7 +13316,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 77,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13343,7 +13343,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 195,
     "length": 71,
     "status": "ranked",
-    "playcount": 35731287,
+    "playcount": 35731332,
     "favouriteCount": 7844,
     "rankedDate": "2015-09-12T00:01:33Z",
     "covers": {
@@ -13370,7 +13370,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {
@@ -13397,7 +13397,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {
@@ -13424,7 +13424,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {
@@ -13451,7 +13451,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {
@@ -13478,7 +13478,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {
@@ -13505,7 +13505,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     "bpm": 210,
     "length": 89,
     "status": "ranked",
-    "playcount": 39179682,
+    "playcount": 39179709,
     "favouriteCount": 6441,
     "rankedDate": "2019-11-04T01:42:29Z",
     "covers": {

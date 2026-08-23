@@ -18,7 +18,7 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 * **100% Client-Side**: No backend, no accounts, and no servers required.
 * **Offline-First Storage**: Your collection, duplicates, favorites, and pull history are stored locally in your browser via **IndexedDB**.
-* **Real osu! Metadata**: **25,000 unique ranked & loved beatmap difficulties** with artwork, audio previews, BPM, star rating ranges, ranked dates, and mapper credits.
+* **Real osu! Metadata**: **50,000 unique ranked & loved beatmap difficulties** with artwork, audio previews, BPM, star rating ranges, ranked dates, and mapper credits.
 
 ---
 
@@ -38,20 +38,20 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 | Tier | Rarity | Drop Rate | Pool Count | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **8** | 🐐 **GOAT** | **0.05%** | **10** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
-| **7** | 👑 **Divine** | **0.10%** | **24** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
-| **6** | ✨ **Mythic** | **0.25%** | **117** | Elite 7★+ & 8★+ mechanical landmarks |
-| **5** | 🌟 **Legendary** | **1.00%** | **500** | Classic 6★+ high-difficulty ranked maps |
-| **4** | 🟣 **Epic** | **6.00%** | **1,500** | 5★+ Insane/Extra staples |
-| **3** | 🔵 **Rare** | **18.00%** | **4,500** | 4★+ Hard/Insane standards |
-| **2** | 🟢 **Uncommon** | **34.60%** | **8,500** | 3★+ Normal/Hard introductory maps |
-| **1** | ⚪ **Common** | **40.00%** | **9,849** | 1★–2★ Easy/Normal beginnings |
+| **7** | 👑 **Divine** | **0.10%** | **46** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
+| **6** | ✨ **Mythic** | **0.25%** | **245** | Elite 7★+ & 8★+ mechanical landmarks |
+| **5** | 🌟 **Legendary** | **1.00%** | **1,000** | Classic 6★+ high-difficulty ranked maps |
+| **4** | 🟣 **Epic** | **6.00%** | **3,000** | 5★+ Insane/Extra staples |
+| **3** | 🔵 **Rare** | **18.00%** | **9,000** | 4★+ Hard/Insane standards |
+| **2** | 🟢 **Uncommon** | **34.60%** | **17,000** | 3★+ Normal/Hard introductory maps |
+| **1** | ⚪ **Common** | **40.00%** | **19,699** | 1★–2★ Easy/Normal beginnings |
 
-*Hierarchical Pool Balance: Common (9,849) > Uncommon (8,500) > Rare (4,500) > Epic (1,500) > Legendary (500) > Mythic (117) > Divine (24) > GOAT (10).*
+*Hierarchical Pool Balance: Common (19,699) > Uncommon (17,000) > Rare (9,000) > Epic (3,000) > Legendary (1,000) > Mythic (245) > Divine (46) > GOAT (10).*
 
 ---
 
 ### 🎪 4 Themed Banners
-1. 🌟 **All-Stars Standard Banner**: The complete database of 25,000+ ranked & loved beatmaps.
+1. 🌟 **All-Stars Standard Banner**: The complete database of 50,000+ ranked & loved beatmaps.
 2. 🎯 **Aim Slop (1-2 Jump Farm)**: Filtered strictly to fast TV Sizes, cross-screen 1-2 jump patterns, and famous farm mappers (*Sotarks, Reform, Browiec, Log Off Now, Nevo, fieryrage, Akitoshi, Doormat, Monstrata, Armin*).
 3. ⚡ **Stamina & Stream Legends**: Filtered strictly to deathstream classics, 185+ BPM endurance tests, and legendary stream artists (*xi, DragonForce, Camellia, LeaF, UNDEAD CORPORATION, ICDD, Foreground Eclipse*).
 4. 🔥 **Speed & PP Highlights**: Filtered strictly to high BPM speed bursts, alternate maps, and iconic double-time speed benchmarks.
