@@ -336,7 +336,19 @@ async function main() {
     fs.renameSync(TEMP_FILE, MAPS_FILE);
     fs.writeFileSync(INFO_FILE, JSON.stringify(datasetInfo, null, 2));
 
-    console.log('\n Dataset successfully generated and written to public/data/maps.json');
+    // Also update bundled fallback seedData.ts with top maps
+    const SEED_FILE = path.resolve(__dirname, '../src/data/seedData.ts');
+    const fallbackSlice = finalDataset.slice(0, 1000);
+    const seedContent = `// Auto-generated real osu! API v2 dataset fallback
+import { Beatmap, DatasetInfo } from '../types/beatmap';
+
+export const SEED_DATASET_INFO: DatasetInfo = ${JSON.stringify(datasetInfo, null, 2)};
+
+export const SEED_BEATMAPS: Beatmap[] = ${JSON.stringify(fallbackSlice, null, 2)};
+`;
+    fs.writeFileSync(SEED_FILE, seedContent);
+
+    console.log('\n Dataset successfully generated and written to public/data/maps.json and src/data/seedData.ts');
     console.log('Rarity distribution:', rarityCounts);
   } catch (err) {
     if (fs.existsSync(TEMP_FILE)) {
