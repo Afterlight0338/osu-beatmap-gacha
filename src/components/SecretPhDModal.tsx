@@ -25,15 +25,15 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const clean = answerInput.trim().toLowerCase().replace(/\s+/g, '');
+    const clean = answerInput.trim();
 
-    if (clean === '727' || clean === 'wysi' || clean === '727pp' || clean === 'whenyouseeit') {
+    if (clean === '727') {
       sfx.playRarityReveal('Divine');
       setStatus('success');
       await refillEnergy(50);
 
       confetti({
-        particleCount: 180,
+        particleCount: 200,
         spread: 140,
         origin: { y: 0.6 },
         colors: ['#00d2ff', '#ff007f', '#7928ca', '#ffffff', '#ffd700'],
@@ -42,7 +42,7 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
       sfx.playClick();
       setStatus('error');
       setErrorMessage(
-        'Evaluation Diverged! Quantum tensor collapsed without resonance. (Hint: Blue Zenith HDHR 727pp)'
+        'Evaluation Diverged: The spectral residue contour integral failed to evaluate to the integer eigenvalue. Check your pole residues.'
       );
     }
   };
@@ -56,10 +56,10 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
             <Atom className="w-5 h-5 text-cyan-400 animate-spin-slow" />
             <div>
               <h2 className="text-base font-black text-white font-mono tracking-wider">
-                Quantum Circle-Clicking Spectral Invariance Examination
+                Doctoral Qualifying Examination in Analytic Number Theory
               </h2>
               <p className="text-[10px] font-mono text-cyan-400">
-                Department of Advanced Theoretical osu! Dynamics • Doctoral Level Exam
+                Department of Pure Mathematics • Advanced Spectral & Residue Invariants
               </p>
             </div>
           </div>
@@ -78,110 +78,102 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
               {/* LaTeX Question Simulation */}
               <div className="p-5 rounded-2xl bg-slate-950/90 border border-cyan-500/30 space-y-4 font-mono text-xs text-slate-300">
                 <div className="flex items-center justify-between text-cyan-400 text-[11px] font-bold border-b border-cyan-900/40 pb-2">
-                  <span>PROBLEM 727.1 (Nonlinear Harmonic Manifolds)</span>
-                  <span>TIME LIMIT: ∞</span>
+                  <span>PROBLEM IV: Meromorphic Residue & Dirichlet Convolution Invariance</span>
+                  <span>CREDITS: 50 PULLS</span>
                 </div>
 
-                <p className="leading-relaxed text-slate-300">
-                  Let <span className="text-pink-400 font-bold">ℋ</span> be a separable Hilbert space and let{' '}
-                  <span className="text-cyan-400 font-bold">T: ℋ → ℋ</span> be a trace-class Hamiltonian operator
-                  governing the relativistic 4-dimensional finger-control trajectory over the compact Riemann surface{' '}
-                  <span className="text-amber-300 font-bold">Σ_g</span>.
+                <p className="leading-relaxed text-slate-300 font-serif text-sm">
+                  Let <span className="font-mono text-pink-400 font-bold">\mathcal&#123;M&#125;</span> be a closed Riemann surface of genus <span className="font-mono text-cyan-400 font-bold">g = 1</span> endowed with the standard metric. Consider the meromorphic differential 1-form <span className="font-mono text-amber-300 font-bold">\omega(z)</span> and the arithmetic divisor function <span className="font-mono text-emerald-400 font-bold">\Lambda(n)</span> over the algebraic number field <span className="font-mono text-purple-400 font-bold">\mathbb&#123;Q&#125;(\sqrt&#123;-163&#125;)</span>.
                 </p>
 
-                <div className="p-3.5 rounded-xl bg-black/60 border border-slate-800 text-center font-mono text-cyan-200 text-xs sm:text-sm overflow-x-auto space-y-1">
-                  <p>
-                    𝒵(s) = ∮_{'{∂Ω}'} [ det(𝕀 + 𝜖∇²_Cookiezi) / ∏_{'{k=1}'}^{'{727}'}(1 - qᵏ) ] · dz
-                  </p>
-                  <p className="text-[11px] text-pink-300">
-                    lim_{'{s → 1}'} (s - 1)ζ(s) + ⟨BlueZenith | FOUR_DIMENSIONS⟩ ≡ 𝚲 (mod 727)
+                <p className="leading-relaxed text-slate-300 font-serif text-sm">
+                  Evaluate the exact integer value of the spectral trace invariant <span className="font-mono text-yellow-300 font-bold">\mathcal&#123;K&#125; \in \mathbb&#123;Z&#125;^+</span> defined by the contour integral:
+                </p>
+
+                <div className="p-4 rounded-xl bg-black/80 border border-slate-800 text-center font-mono text-cyan-200 text-sm overflow-x-auto space-y-2">
+                  <p className="tracking-wide">
+                    \mathcal&#123;K&#125; \;=\; \lim_&#123;N \to \infty&#125; \sum_&#123;n=1&#125;^N \frac&#123;\mu(n)&#125;&#123;n&#125; \left( \sum_&#123;d \mid n&#125; d \cdot \Lambda(n/d) \right) \;+\; \frac&#123;1&#125;&#123;2\pi i&#125; \oint_&#123;|z|=2&#125; \frac&#123;727\,z^&#123;2026&#125; + \sum_&#123;k=1&#125;^&#123;10&#125; \pi^k z^k&#125;&#123;z^&#123;2027&#125; - 1&#125; \, dz
                   </p>
                 </div>
 
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  Assuming the Birch and Swinnerton-Dyer conjecture holds for the elliptic curve{' '}
-                  <span className="text-white">y² = x³ - 727x</span>, determine the exact positive integer eigenvalue{' '}
-                  <span className="text-amber-300 font-bold">𝚲 ∈ ℤ⁺</span> describing the global performance point resonance.
-                </p>
+                <div className="space-y-1.5 text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+                  <p>• <span className="text-slate-200 font-bold">\mu(n)</span> denotes the Möbius inversion function.</p>
+                  <p>• <span className="text-slate-200 font-bold">\Lambda(n)</span> denotes the von Mangoldt arithmetic function.</p>
+                  <p>• The contour integral is oriented counterclockwise along the circle <span className="text-slate-200 font-bold">|z| = 2</span> in the complex plane <span className="text-slate-200 font-bold">\mathbb&#123;C&#125;</span>.</p>
+                </div>
               </div>
 
-              {/* Form Input */}
-              <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Error Alert */}
+              {status === 'error' && (
+                <div className="p-3.5 rounded-xl bg-rose-950/80 border border-rose-500/80 text-rose-300 text-xs flex items-center space-x-2 animate-shake">
+                  <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-400" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {/* Submission Form */}
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-slate-400 flex items-center justify-between">
-                    <span>Enter your theoretical solution (Integer):</span>
-                    <span className="text-cyan-400 font-mono text-[10px]">Proof required in ℝ</span>
+                  <label className="text-xs font-mono uppercase text-slate-400 font-bold">
+                    Exact Integer Evaluation (\mathcal&#123;K&#125;):
                   </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={answerInput}
-                      onChange={(e) => {
-                        setAnswerInput(e.target.value);
-                        if (status === 'error') setStatus('idle');
-                      }}
-                      placeholder="e.g. 727"
-                      className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 focus:outline-none text-slate-100 font-mono text-sm"
-                      autoFocus
-                    />
-                    <button
-                      type="submit"
-                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold font-mono text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-cyan-600/30"
-                    >
-                      Verify Proof
-                    </button>
-                  </div>
+                  <input
+                    type="text"
+                    value={answerInput}
+                    onChange={(e) => {
+                      setAnswerInput(e.target.value);
+                      if (status === 'error') setStatus('idle');
+                    }}
+                    placeholder="Enter exact integer..."
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-cyan-500/40 text-cyan-200 font-mono text-center text-lg tracking-widest focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                    autoFocus
+                  />
                 </div>
 
-                {status === 'error' && (
-                  <div className="p-3 rounded-xl bg-rose-950/80 border border-rose-600/60 text-rose-300 text-xs font-mono flex items-center space-x-2">
-                    <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-400" />
-                    <span>{errorMessage}</span>
-                  </div>
-                )}
+                <div className="flex space-x-3">
+                  <button
+                    type="submit"
+                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02]"
+                  >
+                    Submit Proof Evaluation
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white font-mono text-xs transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
               </form>
             </>
           ) : (
-            /* SUCCESS 727 / WYSI CELEBRATION */
-            <div className="py-6 text-center space-y-5 animate-scale-up">
-              <div className="relative inline-flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-cyan-500/20 border-2 border-cyan-400 animate-ping absolute" />
-                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-cyan-500 to-pink-500 flex items-center justify-center shadow-xl shadow-cyan-500/50">
-                  <CheckCircle2 className="w-10 h-10 text-white" />
-                </div>
+            /* Success State */
+            <div className="py-8 text-center space-y-4 animate-scale-in">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mx-auto text-emerald-400">
+                <CheckCircle2 className="w-8 h-8" />
               </div>
 
               <div className="space-y-1">
-                <h3 className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300 font-display">
-                  WHEN YOU SEE IT (WYSI)!
+                <h3 className="text-xl font-black text-white font-mono uppercase tracking-wider">
+                  Q.E.D. Proof Invariance Confirmed
                 </h3>
-                <p className="text-xl font-bold font-mono text-cyan-300">
-                  ★ 727 PP RECORD CONFIRMED ★
-                </p>
-                <p className="text-xs font-mono text-slate-300 max-w-md mx-auto pt-2">
-                  "Cookiezi [FOUR DIMENSIONS] +HDHR 727pp" has successfully collapsed the wave function!
+                <p className="text-xs font-mono text-emerald-400">
+                  Residue contour evaluated precisely. Stamina fully refilled to 50 pulls!
                 </p>
               </div>
 
-              {/* Bonus Award Banner */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/80 via-purple-950/80 to-pink-950/80 border border-cyan-400/50 inline-flex items-center space-x-3 text-left">
-                <Zap className="w-8 h-8 text-amber-400 animate-bounce" />
-                <div>
-                  <p className="text-xs font-bold text-slate-100 uppercase font-mono">
-                    Cookiezi's Divine Blessing Awarded:
-                  </p>
-                  <p className="text-sm font-extrabold text-cyan-300 font-mono">
-                    +50 Full Max Pull Energy Instant Recharge! ⚡
-                  </p>
-                </div>
+              <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-2xl bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono text-xs">
+                <Zap className="w-4 h-4 text-amber-400" />
+                <span>Awarded: 50 Summon Tokens (Full Stamina)</span>
               </div>
 
-              <div>
+              <div className="pt-4">
                 <button
                   onClick={onClose}
-                  className="px-8 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold font-mono text-sm tracking-wider uppercase shadow-lg shadow-cyan-600/30 transition-transform hover:scale-105"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider transition-all"
                 >
-                  Return to Summoning
+                  Return to Gacha
                 </button>
               </div>
             </div>

@@ -92,6 +92,13 @@ export const CollectionPage: React.FC = () => {
       baseList = baseList.filter(({ beatmap }) => beatmap.status === filters.status);
     }
 
+    // Apply Star Rating Filter
+    if (filters.minStars > 0 || filters.maxStars < 10) {
+      baseList = baseList.filter(
+        ({ beatmap }) => beatmap.stars >= filters.minStars && beatmap.stars <= filters.maxStars
+      );
+    }
+
     // Apply Sorting
     baseList.sort((a, b) => {
       let cmp = 0;

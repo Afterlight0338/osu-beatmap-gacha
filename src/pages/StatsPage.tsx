@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 export const StatsPage: React.FC = () => {
-  const { stats, datasetInfo, history } = useGacha();
+  const { stats, datasetInfo, history, pool } = useGacha();
 
   // Compute pull counts by rarity from history
   const pullRarityCounts: Record<string, number> = {
@@ -144,8 +144,8 @@ export const StatsPage: React.FC = () => {
             {RARITY_ORDER.slice().reverse().map((tier) => {
               const config = RARITY_CONFIGS[tier];
               const ownedCount = stats.rarityCounts[tier] || 0;
-              const poolTotal = datasetInfo?.rarityCounts[tier] || 1;
-              const percent = poolTotal > 0 ? Math.round((ownedCount / poolTotal) * 100) : 0;
+              const poolTotal = pool.filter((m) => m.rarity === tier).length || datasetInfo?.rarityCounts[tier] || 1;
+              const percent = poolTotal > 0 ? ((ownedCount / poolTotal) * 100).toFixed(1) : '0.0';
 
               return (
                 <div key={tier} className="space-y-1.5">
@@ -154,7 +154,7 @@ export const StatsPage: React.FC = () => {
                       {config.label}
                     </span>
                     <span className="text-slate-300">
-                      {ownedCount} / {poolTotal} ({percent}%)
+                      {ownedCount} / {poolTotal.toLocaleString()} ({percent}%)
                     </span>
                   </div>
 
@@ -163,7 +163,7 @@ export const StatsPage: React.FC = () => {
                       className="h-full rounded-full transition-all duration-500"
                       style={{
                         backgroundColor: config.color,
-                        width: `${Math.min(100, percent)}%`,
+                        width: `${Math.min(100, parseFloat(percent))}%`,
                       }}
                     />
                   </div>
@@ -193,8 +193,8 @@ export const StatsPage: React.FC = () => {
               const config = RARITY_CONFIGS[tier];
               const actualPulled = pullRarityCounts[tier] || 0;
               const historyTotal = history.length || 1;
-              const actualRate = history.length > 0 ? ((actualPulled / historyTotal) * 100).toFixed(1) : '0.0';
-              const expectedRate = (DEFAULT_RARITY_RATES[tier] * 100).toFixed(1);
+              const actualRate = history.length > 0 ? ((actualPulled / historyTotal) * 100).toFixed(2) : '0.00';
+              const expectedRate = (DEFAULT_RARITY_RATES[tier] * 100).toFixed(2);
 
               return (
                 <div key={tier} className="grid grid-cols-3 items-center py-1">
@@ -202,7 +202,7 @@ export const StatsPage: React.FC = () => {
                     {tier}
                   </span>
                   <span className="text-center text-slate-200 font-bold">{actualRate}%</span>
-                  <span className="text-right text-slate-500">{expectedRate}%</span>
+                  <span className="text-right text-slate-400">{expectedRate}%</span>
                 </div>
               );
             })}

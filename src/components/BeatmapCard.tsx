@@ -5,6 +5,7 @@ import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
 import { Play, Square, Heart, Layers, ExternalLink } from 'lucide-react';
+import { getMapsetStarRange } from '../data/loader';
 
 interface BeatmapCardProps {
   beatmap: Beatmap;
@@ -190,7 +191,7 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
               {/* Star Rating Badge */}
               <div className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-amber-400/40 text-amber-300 text-xs font-bold font-mono shadow-sm">
                 <span>★</span>
-                <span>{beatmap.stars.toFixed(2)}</span>
+                <span>{getMapsetStarRange(beatmap.beatmapsetId, beatmap.stars).label}</span>
               </div>
 
               {/* Duplicate Copies Pill */}

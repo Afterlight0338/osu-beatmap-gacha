@@ -3,13 +3,27 @@ import { SEED_BEATMAPS, SEED_DATASET_INFO } from './seedData';
 
 let cachedBeatmaps: Beatmap[] | null = null;
 let cachedInfo: DatasetInfo | null = null;
-let mapLookupCache: Map<number, Beatmap> = new Map();
+const mapLookupCache: Map<number, Beatmap> = new Map();
+const mapsetStarRanges: Map<number, { min: number; max: number }> = new Map();
 
 export interface LoaderResult {
   maps: Beatmap[];
   info: DatasetInfo;
   isFallback: boolean;
   error?: string;
+}
+
+function updateStarRanges(maps: Beatmap[]) {
+  mapsetStarRanges.clear();
+  maps.forEach((m) => {
+    const existing = mapsetStarRanges.get(m.beatmapsetId);
+    if (!existing) {
+      mapsetStarRanges.set(m.beatmapsetId, { min: m.stars, max: m.stars });
+    } else {
+      existing.min = Math.min(existing.min, m.stars);
+      existing.max = Math.max(existing.max, m.stars);
+    }
+  });
 }
 
 /**
@@ -56,6 +70,7 @@ export async function loadBeatmapDataset(): Promise<LoaderResult> {
     cachedInfo = infoData;
     mapLookupCache.clear();
     mapsData.forEach((m) => mapLookupCache.set(m.id, m));
+    updateStarRanges(mapsData);
 
     return {
       maps: mapsData,
@@ -69,6 +84,7 @@ export async function loadBeatmapDataset(): Promise<LoaderResult> {
     cachedInfo = SEED_DATASET_INFO;
     mapLookupCache.clear();
     SEED_BEATMAPS.forEach((m) => mapLookupCache.set(m.id, m));
+    updateStarRanges(SEED_BEATMAPS);
 
     return {
       maps: SEED_BEATMAPS,
@@ -112,4 +128,18 @@ function generateInfoFromMaps(maps: Beatmap[]): DatasetInfo {
  */
 export function getBeatmapById(id: number): Beatmap | undefined {
   return mapLookupCache.get(id);
+}
+
+/**
+ * Returns the min and max star rating range for a beatmapset across all difficulties.
+ */
+export function getMapsetStarRange(beatmapsetId: number, fallbackStars: number = 0): { min: number; max: number; label: string } {
+  const range = mapsetStarRanges.get(beatmapsetId);
+  if (!range) {
+    return { min: fallbackStars, max: fallbackStars, label: fallbackStars.toFixed(2) };
+  }
+  if (Math.abs(range.min - range.max) < 0.05) {
+    return { min: range.min, max: range.max, label: range.min.toFixed(2) };
+  }
+  return { min: range.min, max: range.max, label: `${range.min.toFixed(2)} - ${range.max.toFixed(2)}` };
 }

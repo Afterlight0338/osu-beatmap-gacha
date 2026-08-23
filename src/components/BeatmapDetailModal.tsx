@@ -16,6 +16,7 @@ import {
   Activity,
   Flame,
 } from 'lucide-react';
+import { getMapsetStarRange } from '../data/loader';
 
 interface BeatmapDetailModalProps {
   beatmap: Beatmap | null;
@@ -111,7 +112,7 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
             <RarityBadge rarity={beatmap.rarity} size="md" />
             <div className="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-amber-400/50 text-amber-300 text-xs font-bold font-mono">
               <span>★</span>
-              <span>{beatmap.stars.toFixed(2)}</span>
+              <span>{getMapsetStarRange(beatmap.beatmapsetId, beatmap.stars).label}</span>
             </div>
           </div>
 

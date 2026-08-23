@@ -39,12 +39,12 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   // Trigger confetti for high rarities
   const triggerCelebration = useCallback((rarity: RarityTier) => {
-    if (rarity === 'Divine') {
+    if (rarity === 'GOAT' || rarity === 'Divine') {
       confetti({
-        particleCount: 150,
-        spread: 120,
+        particleCount: 200,
+        spread: 140,
         origin: { y: 0.6 },
-        colors: ['#ff007f', '#7928ca', '#0070f3', '#00dfd8', '#ffdf00', '#ffffff'],
+        colors: ['#ff66aa', '#ff007f', '#7928ca', '#0070f3', '#00dfd8', '#ffdf00', '#ffffff'],
       });
     } else if (rarity === 'Mythic') {
       confetti({
