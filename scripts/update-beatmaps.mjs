@@ -273,7 +273,9 @@ async function main() {
                   list: set.covers?.list || `https://assets.ppy.sh/beatmaps/${set.id}/covers/list.jpg`,
                   slimcover: set.covers?.slimcover || `https://assets.ppy.sh/beatmaps/${set.id}/covers/slimcover.jpg`,
                 },
-                previewUrl: set.preview_url ? `https:${set.preview_url}` : `https://b.ppy.sh/preview/${set.id}.mp3`,
+                previewUrl: set.preview_url
+                  ? (set.preview_url.startsWith('//') ? `https:${set.preview_url}` : set.preview_url.startsWith('http') ? set.preview_url : `https://${set.preview_url}`)
+                  : `https://b.ppy.sh/preview/${set.id}.mp3`,
                 rawPlayLog: Math.log10(Math.max(1, b.playcount || 0)),
                 rawFavLog: Math.log10(Math.max(1, set.favourite_count || 0)),
               };

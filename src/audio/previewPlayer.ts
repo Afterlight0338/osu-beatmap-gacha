@@ -4,13 +4,15 @@ class BeatmapPreviewPlayer {
   private isPlaying: boolean = false;
   private listeners: Set<(isPlaying: boolean, beatmapsetId: number | null) => void> = new Set();
   private volume: number = 0.5;
+  private fallbackTried: boolean = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
       this.audio = new Audio();
+      this.audio.crossOrigin = 'anonymous';
       this.audio.volume = this.volume;
       this.audio.onended = () => this.handleEnd();
-      this.audio.onerror = () => this.handleEnd();
+      this.audio.onerror = () => this.handleError();
     }
   }
 
@@ -34,7 +36,44 @@ class BeatmapPreviewPlayer {
   private handleEnd() {
     this.isPlaying = false;
     this.currentBeatmapsetId = null;
+    this.fallbackTried = false;
     this.notify();
+  }
+
+  private handleError() {
+    if (!this.audio || !this.currentBeatmapsetId || this.fallbackTried) {
+      this.handleEnd();
+      return;
+    }
+
+    // Try fallback URL if primary failed
+    this.fallbackTried = true;
+    const fallbackUrl = `https://catboy.best/preview/audio/${this.currentBeatmapsetId}`;
+    console.warn(`Audio preview primary URL failed. Retrying with fallback: ${fallbackUrl}`);
+    this.audio.src = fallbackUrl;
+    this.audio.play().catch(() => this.handleEnd());
+  }
+
+  private sanitizeUrl(url?: string, beatmapsetId?: number): string {
+    if (!url || typeof url !== 'string') {
+      return `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
+    }
+
+    let clean = url.trim();
+    // Fix double-prefixed protocol
+    while (clean.startsWith('https:https://') || clean.startsWith('http:http://') || clean.startsWith('https://https://')) {
+      clean = clean.replace(/^https?:(https?:\/\/)/, '$1');
+    }
+
+    if (clean.startsWith('//')) {
+      clean = `https:${clean}`;
+    }
+
+    if (!clean.startsWith('http://') && !clean.startsWith('https://')) {
+      return `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
+    }
+
+    return clean;
   }
 
   public play(beatmapsetId: number, previewUrl?: string) {
@@ -45,19 +84,18 @@ class BeatmapPreviewPlayer {
       return;
     }
 
-    const url = previewUrl || `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
+    const cleanUrl = this.sanitizeUrl(previewUrl, beatmapsetId);
+    this.fallbackTried = false;
 
     this.audio.pause();
-    this.audio.src = url;
+    this.audio.src = cleanUrl;
     this.currentBeatmapsetId = beatmapsetId;
     this.isPlaying = true;
     this.notify();
 
     this.audio.play().catch((err) => {
       console.warn('Audio preview playback blocked or failed:', err);
-      this.isPlaying = false;
-      this.currentBeatmapsetId = null;
-      this.notify();
+      this.handleError();
     });
   }
 
@@ -67,6 +105,7 @@ class BeatmapPreviewPlayer {
     }
     this.isPlaying = false;
     this.currentBeatmapsetId = null;
+    this.fallbackTried = false;
     this.notify();
   }
 

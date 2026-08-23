@@ -1,5 +1,5 @@
 // Auto-generated real osu! API v2 dataset fallback
-import { Beatmap, DatasetInfo } from '../types/beatmap';
+import { Beatmap, DatasetInfo } from "../types/beatmap";
 
 export const SEED_DATASET_INFO: DatasetInfo = {
   "version": "1.0.0",
@@ -40,7 +40,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/163112/covers/list.jpg?1631509131",
       "slimcover": "https://assets.ppy.sh/beatmaps/163112/covers/slimcover.jpg?1631509131"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/163112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/163112.mp3",
     "rarity": "Divine",
     "popularityScore": 96.06,
     "mode": 0
@@ -67,7 +67,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/163112/covers/list.jpg?1631509131",
       "slimcover": "https://assets.ppy.sh/beatmaps/163112/covers/slimcover.jpg?1631509131"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/163112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/163112.mp3",
     "rarity": "Divine",
     "popularityScore": 94.79,
     "mode": 0
@@ -94,7 +94,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Divine",
     "popularityScore": 93.9,
     "mode": 0
@@ -121,7 +121,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Divine",
     "popularityScore": 93.16,
     "mode": 0
@@ -148,7 +148,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Mythic",
     "popularityScore": 92.68,
     "mode": 0
@@ -175,7 +175,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Mythic",
     "popularityScore": 92.62,
     "mode": 0
@@ -202,7 +202,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Mythic",
     "popularityScore": 92.46,
     "mode": 0
@@ -229,7 +229,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/41823/covers/list.jpg?1650610126",
       "slimcover": "https://assets.ppy.sh/beatmaps/41823/covers/slimcover.jpg?1650610126"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/41823.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/41823.mp3",
     "rarity": "Mythic",
     "popularityScore": 92.18,
     "mode": 0
@@ -256,7 +256,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/140662/covers/list.jpg?1622070421",
       "slimcover": "https://assets.ppy.sh/beatmaps/140662/covers/slimcover.jpg?1622070421"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/140662.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/140662.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.85,
     "mode": 0
@@ -283,7 +283,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.78,
     "mode": 0
@@ -310,7 +310,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.68,
     "mode": 0
@@ -337,7 +337,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.67,
     "mode": 0
@@ -364,7 +364,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/163112/covers/list.jpg?1631509131",
       "slimcover": "https://assets.ppy.sh/beatmaps/163112/covers/slimcover.jpg?1631509131"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/163112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/163112.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.35,
     "mode": 0
@@ -391,7 +391,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Mythic",
     "popularityScore": 91.16,
     "mode": 0
@@ -418,7 +418,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.94,
     "mode": 0
@@ -445,7 +445,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.71,
     "mode": 0
@@ -472,7 +472,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.65,
     "mode": 0
@@ -499,7 +499,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.59,
     "mode": 0
@@ -526,7 +526,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371128/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371128/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.41,
     "mode": 0
@@ -553,7 +553,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/140662/covers/list.jpg?1622070421",
       "slimcover": "https://assets.ppy.sh/beatmaps/140662/covers/slimcover.jpg?1622070421"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/140662.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/140662.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.34,
     "mode": 0
@@ -580,7 +580,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Mythic",
     "popularityScore": 90.3,
     "mode": 0
@@ -607,7 +607,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Legendary",
     "popularityScore": 90.25,
     "mode": 0
@@ -634,7 +634,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 90.05,
     "mode": 0
@@ -661,7 +661,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.95,
     "mode": 0
@@ -688,7 +688,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.94,
     "mode": 0
@@ -715,7 +715,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.79,
     "mode": 0
@@ -742,7 +742,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/527431/covers/list.jpg?1645788302",
       "slimcover": "https://assets.ppy.sh/beatmaps/527431/covers/slimcover.jpg?1645788302"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/527431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/527431.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.76,
     "mode": 0
@@ -769,7 +769,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/527431/covers/list.jpg?1645788302",
       "slimcover": "https://assets.ppy.sh/beatmaps/527431/covers/slimcover.jpg?1645788302"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/527431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/527431.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.69,
     "mode": 0
@@ -796,7 +796,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.68,
     "mode": 0
@@ -823,7 +823,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.67,
     "mode": 0
@@ -850,7 +850,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.49,
     "mode": 0
@@ -877,7 +877,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.35,
     "mode": 0
@@ -904,7 +904,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.33,
     "mode": 0
@@ -931,7 +931,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.2,
     "mode": 0
@@ -958,7 +958,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.14,
     "mode": 0
@@ -985,7 +985,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.04,
     "mode": 0
@@ -1012,7 +1012,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Legendary",
     "popularityScore": 89.02,
     "mode": 0
@@ -1039,7 +1039,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.7,
     "mode": 0
@@ -1066,7 +1066,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.64,
     "mode": 0
@@ -1093,7 +1093,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.54,
     "mode": 0
@@ -1120,7 +1120,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.53,
     "mode": 0
@@ -1147,7 +1147,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.49,
     "mode": 0
@@ -1174,7 +1174,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.46,
     "mode": 0
@@ -1201,7 +1201,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.36,
     "mode": 0
@@ -1228,7 +1228,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/140662/covers/list.jpg?1622070421",
       "slimcover": "https://assets.ppy.sh/beatmaps/140662/covers/slimcover.jpg?1622070421"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/140662.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/140662.mp3",
     "rarity": "Legendary",
     "popularityScore": 88.1,
     "mode": 0
@@ -1255,7 +1255,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371128/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371128/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.94,
     "mode": 0
@@ -1282,7 +1282,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.72,
     "mode": 0
@@ -1309,7 +1309,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.62,
     "mode": 0
@@ -1336,7 +1336,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.57,
     "mode": 0
@@ -1363,7 +1363,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/868749/covers/list.jpg?1650675166",
       "slimcover": "https://assets.ppy.sh/beatmaps/868749/covers/slimcover.jpg?1650675166"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/868749.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/868749.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.52,
     "mode": 0
@@ -1390,7 +1390,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.38,
     "mode": 0
@@ -1417,7 +1417,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/87630/covers/list.jpg?1650616252",
       "slimcover": "https://assets.ppy.sh/beatmaps/87630/covers/slimcover.jpg?1650616252"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/87630.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.36,
     "mode": 0
@@ -1444,7 +1444,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/757410/covers/list.jpg?1645776895",
       "slimcover": "https://assets.ppy.sh/beatmaps/757410/covers/slimcover.jpg?1645776895"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/757410.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "rarity": "Legendary",
     "popularityScore": 87.15,
     "mode": 0
@@ -1471,7 +1471,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/87630/covers/list.jpg?1650616252",
       "slimcover": "https://assets.ppy.sh/beatmaps/87630/covers/slimcover.jpg?1650616252"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/87630.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.89,
     "mode": 0
@@ -1498,7 +1498,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1147361/covers/list.jpg?1645786245",
       "slimcover": "https://assets.ppy.sh/beatmaps/1147361/covers/slimcover.jpg?1645786245"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1147361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.8,
     "mode": 0
@@ -1525,7 +1525,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.79,
     "mode": 0
@@ -1552,7 +1552,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/962088/covers/list.jpg?1645788534",
       "slimcover": "https://assets.ppy.sh/beatmaps/962088/covers/slimcover.jpg?1645788534"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/962088.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.75,
     "mode": 0
@@ -1579,7 +1579,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.73,
     "mode": 0
@@ -1606,7 +1606,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1147361/covers/list.jpg?1645786245",
       "slimcover": "https://assets.ppy.sh/beatmaps/1147361/covers/slimcover.jpg?1645786245"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1147361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.68,
     "mode": 0
@@ -1633,7 +1633,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.63,
     "mode": 0
@@ -1660,7 +1660,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.58,
     "mode": 0
@@ -1687,7 +1687,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/682290/covers/list.jpg?1645786406",
       "slimcover": "https://assets.ppy.sh/beatmaps/682290/covers/slimcover.jpg?1645786406"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/682290.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.51,
     "mode": 0
@@ -1714,7 +1714,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.49,
     "mode": 0
@@ -1741,7 +1741,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.44,
     "mode": 0
@@ -1768,7 +1768,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.32,
     "mode": 0
@@ -1795,7 +1795,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.24,
     "mode": 0
@@ -1822,7 +1822,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1218852/covers/list.jpg?1645786453",
       "slimcover": "https://assets.ppy.sh/beatmaps/1218852/covers/slimcover.jpg?1645786453"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1218852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.24,
     "mode": 0
@@ -1849,7 +1849,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.15,
     "mode": 0
@@ -1876,7 +1876,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/921889/covers/list.jpg?1650675795",
       "slimcover": "https://assets.ppy.sh/beatmaps/921889/covers/slimcover.jpg?1650675795"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/921889.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.13,
     "mode": 0
@@ -1903,7 +1903,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.06,
     "mode": 0
@@ -1930,7 +1930,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 86.03,
     "mode": 0
@@ -1957,7 +1957,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Legendary",
     "popularityScore": 85.92,
     "mode": 0
@@ -1984,7 +1984,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Legendary",
     "popularityScore": 85.77,
     "mode": 0
@@ -2011,7 +2011,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Legendary",
     "popularityScore": 85.76,
     "mode": 0
@@ -2038,7 +2038,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Legendary",
     "popularityScore": 85.72,
     "mode": 0
@@ -2065,7 +2065,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Legendary",
     "popularityScore": 85.72,
     "mode": 0
@@ -2092,7 +2092,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Epic",
     "popularityScore": 85.6,
     "mode": 0
@@ -2119,7 +2119,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Epic",
     "popularityScore": 85.46,
     "mode": 0
@@ -2146,7 +2146,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Epic",
     "popularityScore": 85.42,
     "mode": 0
@@ -2173,7 +2173,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/12431/covers/list.jpg?1650603408",
       "slimcover": "https://assets.ppy.sh/beatmaps/12431/covers/slimcover.jpg?1650603408"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/12431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/12431.mp3",
     "rarity": "Epic",
     "popularityScore": 85.27,
     "mode": 0
@@ -2200,7 +2200,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/527431/covers/list.jpg?1645788302",
       "slimcover": "https://assets.ppy.sh/beatmaps/527431/covers/slimcover.jpg?1645788302"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/527431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/527431.mp3",
     "rarity": "Epic",
     "popularityScore": 85.11,
     "mode": 0
@@ -2227,7 +2227,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Epic",
     "popularityScore": 85.09,
     "mode": 0
@@ -2254,7 +2254,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 85.05,
     "mode": 0
@@ -2281,7 +2281,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 85.03,
     "mode": 0
@@ -2308,7 +2308,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Epic",
     "popularityScore": 84.92,
     "mode": 0
@@ -2335,7 +2335,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Epic",
     "popularityScore": 84.91,
     "mode": 0
@@ -2362,7 +2362,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 84.9,
     "mode": 0
@@ -2389,7 +2389,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/636839/covers/list.jpg?1641132312",
       "slimcover": "https://assets.ppy.sh/beatmaps/636839/covers/slimcover.jpg?1641132312"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/636839.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/636839.mp3",
     "rarity": "Epic",
     "popularityScore": 84.87,
     "mode": 0
@@ -2416,7 +2416,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Epic",
     "popularityScore": 84.86,
     "mode": 0
@@ -2443,7 +2443,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33842/covers/list.jpg?1622048627",
       "slimcover": "https://assets.ppy.sh/beatmaps/33842/covers/slimcover.jpg?1622048627"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33842.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "rarity": "Epic",
     "popularityScore": 84.85,
     "mode": 0
@@ -2470,7 +2470,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33842/covers/list.jpg?1622048627",
       "slimcover": "https://assets.ppy.sh/beatmaps/33842/covers/slimcover.jpg?1622048627"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33842.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "rarity": "Epic",
     "popularityScore": 84.85,
     "mode": 0
@@ -2497,7 +2497,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 84.8,
     "mode": 0
@@ -2524,7 +2524,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/382400/covers/list.jpg?1622096843",
       "slimcover": "https://assets.ppy.sh/beatmaps/382400/covers/slimcover.jpg?1622096843"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/382400.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/382400.mp3",
     "rarity": "Epic",
     "popularityScore": 84.7,
     "mode": 0
@@ -2551,7 +2551,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Epic",
     "popularityScore": 84.6,
     "mode": 0
@@ -2578,7 +2578,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Epic",
     "popularityScore": 84.58,
     "mode": 0
@@ -2605,7 +2605,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/87630/covers/list.jpg?1650616252",
       "slimcover": "https://assets.ppy.sh/beatmaps/87630/covers/slimcover.jpg?1650616252"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/87630.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "rarity": "Epic",
     "popularityScore": 84.56,
     "mode": 0
@@ -2632,7 +2632,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Epic",
     "popularityScore": 84.56,
     "mode": 0
@@ -2659,7 +2659,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/24313/covers/list.jpg?1645781636",
       "slimcover": "https://assets.ppy.sh/beatmaps/24313/covers/slimcover.jpg?1645781636"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/24313.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/24313.mp3",
     "rarity": "Epic",
     "popularityScore": 84.49,
     "mode": 0
@@ -2686,7 +2686,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/921889/covers/list.jpg?1650675795",
       "slimcover": "https://assets.ppy.sh/beatmaps/921889/covers/slimcover.jpg?1650675795"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/921889.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "rarity": "Epic",
     "popularityScore": 84.45,
     "mode": 0
@@ -2713,7 +2713,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Epic",
     "popularityScore": 84.44,
     "mode": 0
@@ -2740,7 +2740,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/757410/covers/list.jpg?1645776895",
       "slimcover": "https://assets.ppy.sh/beatmaps/757410/covers/slimcover.jpg?1645776895"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/757410.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "rarity": "Epic",
     "popularityScore": 84.43,
     "mode": 0
@@ -2767,7 +2767,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Epic",
     "popularityScore": 84.41,
     "mode": 0
@@ -2794,7 +2794,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Epic",
     "popularityScore": 84.31,
     "mode": 0
@@ -2821,7 +2821,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 84.28,
     "mode": 0
@@ -2848,7 +2848,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/962088/covers/list.jpg?1645788534",
       "slimcover": "https://assets.ppy.sh/beatmaps/962088/covers/slimcover.jpg?1645788534"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/962088.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "rarity": "Epic",
     "popularityScore": 84.24,
     "mode": 0
@@ -2875,7 +2875,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/757410/covers/list.jpg?1645776895",
       "slimcover": "https://assets.ppy.sh/beatmaps/757410/covers/slimcover.jpg?1645776895"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/757410.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "rarity": "Epic",
     "popularityScore": 84.16,
     "mode": 0
@@ -2902,7 +2902,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 84.1,
     "mode": 0
@@ -2929,7 +2929,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/497769/covers/list.jpg?1645785838",
       "slimcover": "https://assets.ppy.sh/beatmaps/497769/covers/slimcover.jpg?1645785838"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/497769.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/497769.mp3",
     "rarity": "Epic",
     "popularityScore": 83.88,
     "mode": 0
@@ -2956,7 +2956,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 83.82,
     "mode": 0
@@ -2983,7 +2983,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Epic",
     "popularityScore": 83.66,
     "mode": 0
@@ -3010,7 +3010,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/921889/covers/list.jpg?1650675795",
       "slimcover": "https://assets.ppy.sh/beatmaps/921889/covers/slimcover.jpg?1650675795"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/921889.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "rarity": "Epic",
     "popularityScore": 83.65,
     "mode": 0
@@ -3037,7 +3037,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Epic",
     "popularityScore": 83.63,
     "mode": 0
@@ -3064,7 +3064,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/201141/covers/list.jpg?1650626397",
       "slimcover": "https://assets.ppy.sh/beatmaps/201141/covers/slimcover.jpg?1650626397"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/201141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "rarity": "Epic",
     "popularityScore": 83.54,
     "mode": 0
@@ -3091,7 +3091,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Epic",
     "popularityScore": 83.5,
     "mode": 0
@@ -3118,7 +3118,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Epic",
     "popularityScore": 83.47,
     "mode": 0
@@ -3145,7 +3145,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/921889/covers/list.jpg?1650675795",
       "slimcover": "https://assets.ppy.sh/beatmaps/921889/covers/slimcover.jpg?1650675795"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/921889.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "rarity": "Epic",
     "popularityScore": 83.43,
     "mode": 0
@@ -3172,7 +3172,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Epic",
     "popularityScore": 83.34,
     "mode": 0
@@ -3199,7 +3199,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Epic",
     "popularityScore": 83.21,
     "mode": 0
@@ -3226,7 +3226,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33842/covers/list.jpg?1622048627",
       "slimcover": "https://assets.ppy.sh/beatmaps/33842/covers/slimcover.jpg?1622048627"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33842.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "rarity": "Epic",
     "popularityScore": 83.15,
     "mode": 0
@@ -3253,7 +3253,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 83.04,
     "mode": 0
@@ -3280,7 +3280,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 82.93,
     "mode": 0
@@ -3307,7 +3307,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Epic",
     "popularityScore": 82.91,
     "mode": 0
@@ -3334,7 +3334,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Epic",
     "popularityScore": 82.89,
     "mode": 0
@@ -3361,7 +3361,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/527431/covers/list.jpg?1645788302",
       "slimcover": "https://assets.ppy.sh/beatmaps/527431/covers/slimcover.jpg?1645788302"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/527431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/527431.mp3",
     "rarity": "Epic",
     "popularityScore": 82.86,
     "mode": 0
@@ -3388,7 +3388,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Epic",
     "popularityScore": 82.77,
     "mode": 0
@@ -3415,7 +3415,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 82.7,
     "mode": 0
@@ -3442,7 +3442,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/123593/covers/list.jpg?1622068626",
       "slimcover": "https://assets.ppy.sh/beatmaps/123593/covers/slimcover.jpg?1622068626"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/123593.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/123593.mp3",
     "rarity": "Epic",
     "popularityScore": 82.61,
     "mode": 0
@@ -3469,7 +3469,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Epic",
     "popularityScore": 82.58,
     "mode": 0
@@ -3496,7 +3496,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 82.58,
     "mode": 0
@@ -3523,7 +3523,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372510/covers/list.jpg?1650634774",
       "slimcover": "https://assets.ppy.sh/beatmaps/372510/covers/slimcover.jpg?1650634774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372510.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372510.mp3",
     "rarity": "Epic",
     "popularityScore": 82.56,
     "mode": 0
@@ -3550,7 +3550,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 82.54,
     "mode": 0
@@ -3577,7 +3577,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/682290/covers/list.jpg?1645786406",
       "slimcover": "https://assets.ppy.sh/beatmaps/682290/covers/slimcover.jpg?1645786406"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/682290.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "rarity": "Epic",
     "popularityScore": 82.49,
     "mode": 0
@@ -3604,7 +3604,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68893/covers/list.jpg?1650614941",
       "slimcover": "https://assets.ppy.sh/beatmaps/68893/covers/slimcover.jpg?1650614941"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68893.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68893.mp3",
     "rarity": "Epic",
     "popularityScore": 82.43,
     "mode": 0
@@ -3631,7 +3631,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Epic",
     "popularityScore": 82.35,
     "mode": 0
@@ -3658,7 +3658,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/842412/covers/list.jpg?1650668705",
       "slimcover": "https://assets.ppy.sh/beatmaps/842412/covers/slimcover.jpg?1650668705"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/842412.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/842412.mp3",
     "rarity": "Epic",
     "popularityScore": 82.31,
     "mode": 0
@@ -3685,7 +3685,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332532/covers/list.jpg?1650631844",
       "slimcover": "https://assets.ppy.sh/beatmaps/332532/covers/slimcover.jpg?1650631844"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "rarity": "Epic",
     "popularityScore": 82.28,
     "mode": 0
@@ -3712,7 +3712,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1218852/covers/list.jpg?1645786453",
       "slimcover": "https://assets.ppy.sh/beatmaps/1218852/covers/slimcover.jpg?1645786453"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1218852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "rarity": "Epic",
     "popularityScore": 82.21,
     "mode": 0
@@ -3739,7 +3739,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/999645/covers/list.jpg?1650682203",
       "slimcover": "https://assets.ppy.sh/beatmaps/999645/covers/slimcover.jpg?1650682203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/999645.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "rarity": "Epic",
     "popularityScore": 82.05,
     "mode": 0
@@ -3766,7 +3766,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 82.02,
     "mode": 0
@@ -3793,7 +3793,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Epic",
     "popularityScore": 81.89,
     "mode": 0
@@ -3820,7 +3820,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/43466/covers/list.jpg?1645780906",
       "slimcover": "https://assets.ppy.sh/beatmaps/43466/covers/slimcover.jpg?1645780906"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/43466.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/43466.mp3",
     "rarity": "Epic",
     "popularityScore": 81.87,
     "mode": 0
@@ -3847,7 +3847,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Epic",
     "popularityScore": 81.8,
     "mode": 0
@@ -3874,7 +3874,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/968171/covers/list.jpg?1645788271",
       "slimcover": "https://assets.ppy.sh/beatmaps/968171/covers/slimcover.jpg?1645788271"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/968171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "rarity": "Epic",
     "popularityScore": 81.79,
     "mode": 0
@@ -3901,7 +3901,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/160201/covers/list.jpg?1650621280",
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/160201.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
     "rarity": "Epic",
     "popularityScore": 81.69,
     "mode": 0
@@ -3928,7 +3928,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/201141/covers/list.jpg?1650626397",
       "slimcover": "https://assets.ppy.sh/beatmaps/201141/covers/slimcover.jpg?1650626397"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/201141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "rarity": "Epic",
     "popularityScore": 81.68,
     "mode": 0
@@ -3955,7 +3955,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/399358/covers/list.jpg?1650636640",
       "slimcover": "https://assets.ppy.sh/beatmaps/399358/covers/slimcover.jpg?1650636640"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/399358.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "rarity": "Epic",
     "popularityScore": 81.65,
     "mode": 0
@@ -3982,7 +3982,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
       "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190390.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "rarity": "Epic",
     "popularityScore": 81.62,
     "mode": 0
@@ -4009,7 +4009,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1089606/covers/list.jpg?1650690279",
       "slimcover": "https://assets.ppy.sh/beatmaps/1089606/covers/slimcover.jpg?1650690279"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1089606.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1089606.mp3",
     "rarity": "Epic",
     "popularityScore": 81.61,
     "mode": 0
@@ -4036,7 +4036,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/984684/covers/list.jpg?1650681093",
       "slimcover": "https://assets.ppy.sh/beatmaps/984684/covers/slimcover.jpg?1650681093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/984684.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/984684.mp3",
     "rarity": "Epic",
     "popularityScore": 81.54,
     "mode": 0
@@ -4063,7 +4063,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/201141/covers/list.jpg?1650626397",
       "slimcover": "https://assets.ppy.sh/beatmaps/201141/covers/slimcover.jpg?1650626397"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/201141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "rarity": "Epic",
     "popularityScore": 81.48,
     "mode": 0
@@ -4090,7 +4090,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387700/covers/list.jpg?1650636202",
       "slimcover": "https://assets.ppy.sh/beatmaps/387700/covers/slimcover.jpg?1650636202"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387700.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387700.mp3",
     "rarity": "Epic",
     "popularityScore": 81.45,
     "mode": 0
@@ -4117,7 +4117,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/527431/covers/list.jpg?1645788302",
       "slimcover": "https://assets.ppy.sh/beatmaps/527431/covers/slimcover.jpg?1645788302"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/527431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/527431.mp3",
     "rarity": "Epic",
     "popularityScore": 81.32,
     "mode": 0
@@ -4144,7 +4144,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
       "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190390.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "rarity": "Epic",
     "popularityScore": 81.27,
     "mode": 0
@@ -4171,7 +4171,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1025171/covers/list.jpg?1650684543",
       "slimcover": "https://assets.ppy.sh/beatmaps/1025171/covers/slimcover.jpg?1650684543"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1025171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1025171.mp3",
     "rarity": "Epic",
     "popularityScore": 81.26,
     "mode": 0
@@ -4198,7 +4198,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/40440/covers/list.jpg?1645779887",
       "slimcover": "https://assets.ppy.sh/beatmaps/40440/covers/slimcover.jpg?1645779887"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/40440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/40440.mp3",
     "rarity": "Epic",
     "popularityScore": 81.13,
     "mode": 0
@@ -4225,7 +4225,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/754219/covers/list.jpg?1650661061",
       "slimcover": "https://assets.ppy.sh/beatmaps/754219/covers/slimcover.jpg?1650661061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/754219.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/754219.mp3",
     "rarity": "Epic",
     "popularityScore": 81.12,
     "mode": 0
@@ -4252,7 +4252,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Epic",
     "popularityScore": 81.11,
     "mode": 0
@@ -4279,7 +4279,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/160201/covers/list.jpg?1650621280",
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/160201.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
     "rarity": "Epic",
     "popularityScore": 81.09,
     "mode": 0
@@ -4306,7 +4306,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/968171/covers/list.jpg?1645788271",
       "slimcover": "https://assets.ppy.sh/beatmaps/968171/covers/slimcover.jpg?1645788271"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/968171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "rarity": "Epic",
     "popularityScore": 81.02,
     "mode": 0
@@ -4333,7 +4333,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/921889/covers/list.jpg?1650675795",
       "slimcover": "https://assets.ppy.sh/beatmaps/921889/covers/slimcover.jpg?1650675795"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/921889.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/921889.mp3",
     "rarity": "Epic",
     "popularityScore": 81,
     "mode": 0
@@ -4360,7 +4360,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 80.98,
     "mode": 0
@@ -4387,7 +4387,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/497769/covers/list.jpg?1645785838",
       "slimcover": "https://assets.ppy.sh/beatmaps/497769/covers/slimcover.jpg?1645785838"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/497769.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/497769.mp3",
     "rarity": "Epic",
     "popularityScore": 80.88,
     "mode": 0
@@ -4414,7 +4414,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190222/covers/list.jpg?1645788403",
       "slimcover": "https://assets.ppy.sh/beatmaps/190222/covers/slimcover.jpg?1645788403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190222.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190222.mp3",
     "rarity": "Epic",
     "popularityScore": 80.87,
     "mode": 0
@@ -4441,7 +4441,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Epic",
     "popularityScore": 80.77,
     "mode": 0
@@ -4468,7 +4468,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Epic",
     "popularityScore": 80.76,
     "mode": 0
@@ -4495,7 +4495,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Epic",
     "popularityScore": 80.74,
     "mode": 0
@@ -4522,7 +4522,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1218852/covers/list.jpg?1645786453",
       "slimcover": "https://assets.ppy.sh/beatmaps/1218852/covers/slimcover.jpg?1645786453"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1218852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "rarity": "Epic",
     "popularityScore": 80.71,
     "mode": 0
@@ -4549,7 +4549,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325112/covers/list.jpg?1650631180",
       "slimcover": "https://assets.ppy.sh/beatmaps/325112/covers/slimcover.jpg?1650631180"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325112.mp3",
     "rarity": "Epic",
     "popularityScore": 80.64,
     "mode": 0
@@ -4576,7 +4576,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Epic",
     "popularityScore": 80.6,
     "mode": 0
@@ -4603,7 +4603,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 80.5,
     "mode": 0
@@ -4630,7 +4630,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Epic",
     "popularityScore": 80.43,
     "mode": 0
@@ -4657,7 +4657,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/134151/covers/list.jpg?1650621307",
       "slimcover": "https://assets.ppy.sh/beatmaps/134151/covers/slimcover.jpg?1650621307"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/134151.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/134151.mp3",
     "rarity": "Epic",
     "popularityScore": 80.43,
     "mode": 0
@@ -4684,7 +4684,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Epic",
     "popularityScore": 80.38,
     "mode": 0
@@ -4711,7 +4711,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Epic",
     "popularityScore": 80.34,
     "mode": 0
@@ -4738,7 +4738,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/123593/covers/list.jpg?1622068626",
       "slimcover": "https://assets.ppy.sh/beatmaps/123593/covers/slimcover.jpg?1622068626"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/123593.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/123593.mp3",
     "rarity": "Epic",
     "popularityScore": 80.32,
     "mode": 0
@@ -4765,7 +4765,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Epic",
     "popularityScore": 80.28,
     "mode": 0
@@ -4792,7 +4792,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/40440/covers/list.jpg?1645779887",
       "slimcover": "https://assets.ppy.sh/beatmaps/40440/covers/slimcover.jpg?1645779887"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/40440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/40440.mp3",
     "rarity": "Epic",
     "popularityScore": 80.22,
     "mode": 0
@@ -4819,7 +4819,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/87630/covers/list.jpg?1650616252",
       "slimcover": "https://assets.ppy.sh/beatmaps/87630/covers/slimcover.jpg?1650616252"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/87630.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/87630.mp3",
     "rarity": "Epic",
     "popularityScore": 80.17,
     "mode": 0
@@ -4846,7 +4846,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1270438/covers/list.jpg?1650702015",
       "slimcover": "https://assets.ppy.sh/beatmaps/1270438/covers/slimcover.jpg?1650702015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1270438.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1270438.mp3",
     "rarity": "Epic",
     "popularityScore": 80.17,
     "mode": 0
@@ -4873,7 +4873,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/151878/covers/list.jpg?1622071759",
       "slimcover": "https://assets.ppy.sh/beatmaps/151878/covers/slimcover.jpg?1622071759"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/151878.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/151878.mp3",
     "rarity": "Epic",
     "popularityScore": 80.16,
     "mode": 0
@@ -4900,7 +4900,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/12431/covers/list.jpg?1650603408",
       "slimcover": "https://assets.ppy.sh/beatmaps/12431/covers/slimcover.jpg?1650603408"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/12431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/12431.mp3",
     "rarity": "Epic",
     "popularityScore": 80.16,
     "mode": 0
@@ -4927,7 +4927,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/201141/covers/list.jpg?1650626397",
       "slimcover": "https://assets.ppy.sh/beatmaps/201141/covers/slimcover.jpg?1650626397"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/201141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "rarity": "Epic",
     "popularityScore": 80.14,
     "mode": 0
@@ -4954,7 +4954,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/594429/covers/list.jpg?1645781351",
       "slimcover": "https://assets.ppy.sh/beatmaps/594429/covers/slimcover.jpg?1645781351"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/594429.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/594429.mp3",
     "rarity": "Epic",
     "popularityScore": 80.11,
     "mode": 0
@@ -4981,7 +4981,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 80.04,
     "mode": 0
@@ -5008,7 +5008,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372510/covers/list.jpg?1650634774",
       "slimcover": "https://assets.ppy.sh/beatmaps/372510/covers/slimcover.jpg?1650634774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372510.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372510.mp3",
     "rarity": "Epic",
     "popularityScore": 79.84,
     "mode": 0
@@ -5035,7 +5035,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Epic",
     "popularityScore": 79.81,
     "mode": 0
@@ -5062,7 +5062,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Epic",
     "popularityScore": 79.72,
     "mode": 0
@@ -5089,7 +5089,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1089606/covers/list.jpg?1650690279",
       "slimcover": "https://assets.ppy.sh/beatmaps/1089606/covers/slimcover.jpg?1650690279"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1089606.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1089606.mp3",
     "rarity": "Epic",
     "popularityScore": 79.7,
     "mode": 0
@@ -5116,7 +5116,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/456986/covers/list.jpg?1645783310",
       "slimcover": "https://assets.ppy.sh/beatmaps/456986/covers/slimcover.jpg?1645783310"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/456986.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/456986.mp3",
     "rarity": "Epic",
     "popularityScore": 79.63,
     "mode": 0
@@ -5143,7 +5143,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/12431/covers/list.jpg?1650603408",
       "slimcover": "https://assets.ppy.sh/beatmaps/12431/covers/slimcover.jpg?1650603408"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/12431.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/12431.mp3",
     "rarity": "Epic",
     "popularityScore": 79.58,
     "mode": 0
@@ -5170,7 +5170,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Epic",
     "popularityScore": 79.56,
     "mode": 0
@@ -5197,7 +5197,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Epic",
     "popularityScore": 79.55,
     "mode": 0
@@ -5224,7 +5224,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/593620/covers/list.jpg?1650648613",
       "slimcover": "https://assets.ppy.sh/beatmaps/593620/covers/slimcover.jpg?1650648613"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/593620.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "rarity": "Epic",
     "popularityScore": 79.54,
     "mode": 0
@@ -5251,7 +5251,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/594429/covers/list.jpg?1645781351",
       "slimcover": "https://assets.ppy.sh/beatmaps/594429/covers/slimcover.jpg?1645781351"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/594429.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/594429.mp3",
     "rarity": "Epic",
     "popularityScore": 79.53,
     "mode": 0
@@ -5278,7 +5278,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/18260/covers/list.jpg?1622037998",
       "slimcover": "https://assets.ppy.sh/beatmaps/18260/covers/slimcover.jpg?1622037998"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/18260.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/18260.mp3",
     "rarity": "Epic",
     "popularityScore": 79.43,
     "mode": 0
@@ -5305,7 +5305,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/968171/covers/list.jpg?1645788271",
       "slimcover": "https://assets.ppy.sh/beatmaps/968171/covers/slimcover.jpg?1645788271"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/968171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "rarity": "Epic",
     "popularityScore": 79.42,
     "mode": 0
@@ -5332,7 +5332,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/39804/covers/list.jpg?1650612317",
       "slimcover": "https://assets.ppy.sh/beatmaps/39804/covers/slimcover.jpg?1650612317"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/39804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/39804.mp3",
     "rarity": "Epic",
     "popularityScore": 79.42,
     "mode": 0
@@ -5359,7 +5359,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/241526/covers/list.jpg?1622080332",
       "slimcover": "https://assets.ppy.sh/beatmaps/241526/covers/slimcover.jpg?1622080332"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/241526.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/241526.mp3",
     "rarity": "Epic",
     "popularityScore": 79.39,
     "mode": 0
@@ -5386,7 +5386,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/594429/covers/list.jpg?1645781351",
       "slimcover": "https://assets.ppy.sh/beatmaps/594429/covers/slimcover.jpg?1645781351"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/594429.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/594429.mp3",
     "rarity": "Epic",
     "popularityScore": 79.3,
     "mode": 0
@@ -5413,7 +5413,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68500/covers/list.jpg?1622060634",
       "slimcover": "https://assets.ppy.sh/beatmaps/68500/covers/slimcover.jpg?1622060634"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68500.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68500.mp3",
     "rarity": "Epic",
     "popularityScore": 79.3,
     "mode": 0
@@ -5440,7 +5440,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1270438/covers/list.jpg?1650702015",
       "slimcover": "https://assets.ppy.sh/beatmaps/1270438/covers/slimcover.jpg?1650702015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1270438.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1270438.mp3",
     "rarity": "Epic",
     "popularityScore": 79.24,
     "mode": 0
@@ -5467,7 +5467,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/123593/covers/list.jpg?1622068626",
       "slimcover": "https://assets.ppy.sh/beatmaps/123593/covers/slimcover.jpg?1622068626"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/123593.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/123593.mp3",
     "rarity": "Epic",
     "popularityScore": 79.21,
     "mode": 0
@@ -5494,7 +5494,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68500/covers/list.jpg?1622060634",
       "slimcover": "https://assets.ppy.sh/beatmaps/68500/covers/slimcover.jpg?1622060634"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68500.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68500.mp3",
     "rarity": "Epic",
     "popularityScore": 79.17,
     "mode": 0
@@ -5521,7 +5521,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/201141/covers/list.jpg?1650626397",
       "slimcover": "https://assets.ppy.sh/beatmaps/201141/covers/slimcover.jpg?1650626397"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/201141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/201141.mp3",
     "rarity": "Epic",
     "popularityScore": 79.15,
     "mode": 0
@@ -5548,7 +5548,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/18260/covers/list.jpg?1622037998",
       "slimcover": "https://assets.ppy.sh/beatmaps/18260/covers/slimcover.jpg?1622037998"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/18260.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/18260.mp3",
     "rarity": "Epic",
     "popularityScore": 79.14,
     "mode": 0
@@ -5575,7 +5575,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Epic",
     "popularityScore": 79.04,
     "mode": 0
@@ -5602,7 +5602,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Epic",
     "popularityScore": 78.95,
     "mode": 0
@@ -5629,7 +5629,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/39804/covers/list.jpg?1650612317",
       "slimcover": "https://assets.ppy.sh/beatmaps/39804/covers/slimcover.jpg?1650612317"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/39804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/39804.mp3",
     "rarity": "Epic",
     "popularityScore": 78.89,
     "mode": 0
@@ -5656,7 +5656,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Epic",
     "popularityScore": 78.85,
     "mode": 0
@@ -5683,7 +5683,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Epic",
     "popularityScore": 78.83,
     "mode": 0
@@ -5710,7 +5710,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Epic",
     "popularityScore": 78.79,
     "mode": 0
@@ -5737,7 +5737,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/868749/covers/list.jpg?1650675166",
       "slimcover": "https://assets.ppy.sh/beatmaps/868749/covers/slimcover.jpg?1650675166"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/868749.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/868749.mp3",
     "rarity": "Epic",
     "popularityScore": 78.77,
     "mode": 0
@@ -5764,7 +5764,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/158023/covers/list.jpg?1645787427",
       "slimcover": "https://assets.ppy.sh/beatmaps/158023/covers/slimcover.jpg?1645787427"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/158023.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "rarity": "Epic",
     "popularityScore": 78.73,
     "mode": 0
@@ -5791,7 +5791,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1270438/covers/list.jpg?1650702015",
       "slimcover": "https://assets.ppy.sh/beatmaps/1270438/covers/slimcover.jpg?1650702015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1270438.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1270438.mp3",
     "rarity": "Epic",
     "popularityScore": 78.73,
     "mode": 0
@@ -5818,7 +5818,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/757410/covers/list.jpg?1645776895",
       "slimcover": "https://assets.ppy.sh/beatmaps/757410/covers/slimcover.jpg?1645776895"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/757410.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/757410.mp3",
     "rarity": "Epic",
     "popularityScore": 78.72,
     "mode": 0
@@ -5845,7 +5845,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/36858/covers/list.jpg?1622049909",
       "slimcover": "https://assets.ppy.sh/beatmaps/36858/covers/slimcover.jpg?1622049909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/36858.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/36858.mp3",
     "rarity": "Epic",
     "popularityScore": 78.71,
     "mode": 0
@@ -5872,7 +5872,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1147361/covers/list.jpg?1645786245",
       "slimcover": "https://assets.ppy.sh/beatmaps/1147361/covers/slimcover.jpg?1645786245"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1147361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "rarity": "Epic",
     "popularityScore": 78.59,
     "mode": 0
@@ -5899,7 +5899,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Epic",
     "popularityScore": 78.57,
     "mode": 0
@@ -5926,7 +5926,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Epic",
     "popularityScore": 78.57,
     "mode": 0
@@ -5953,7 +5953,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/968171/covers/list.jpg?1645788271",
       "slimcover": "https://assets.ppy.sh/beatmaps/968171/covers/slimcover.jpg?1645788271"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/968171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "rarity": "Epic",
     "popularityScore": 78.55,
     "mode": 0
@@ -5980,7 +5980,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/874948/covers/list.jpg?1650671383",
       "slimcover": "https://assets.ppy.sh/beatmaps/874948/covers/slimcover.jpg?1650671383"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/874948.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/874948.mp3",
     "rarity": "Epic",
     "popularityScore": 78.55,
     "mode": 0
@@ -6007,7 +6007,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Epic",
     "popularityScore": 78.54,
     "mode": 0
@@ -6034,7 +6034,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372510/covers/list.jpg?1650634774",
       "slimcover": "https://assets.ppy.sh/beatmaps/372510/covers/slimcover.jpg?1650634774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372510.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372510.mp3",
     "rarity": "Epic",
     "popularityScore": 78.4,
     "mode": 0
@@ -6061,7 +6061,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Epic",
     "popularityScore": 78.35,
     "mode": 0
@@ -6088,7 +6088,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Epic",
     "popularityScore": 78.34,
     "mode": 0
@@ -6115,7 +6115,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325112/covers/list.jpg?1650631180",
       "slimcover": "https://assets.ppy.sh/beatmaps/325112/covers/slimcover.jpg?1650631180"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325112.mp3",
     "rarity": "Epic",
     "popularityScore": 78.33,
     "mode": 0
@@ -6142,7 +6142,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/351630/covers/list.jpg?1622092984",
       "slimcover": "https://assets.ppy.sh/beatmaps/351630/covers/slimcover.jpg?1622092984"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/351630.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/351630.mp3",
     "rarity": "Epic",
     "popularityScore": 78.32,
     "mode": 0
@@ -6169,7 +6169,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/10435/covers/list.jpg?1622029203",
       "slimcover": "https://assets.ppy.sh/beatmaps/10435/covers/slimcover.jpg?1622029203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/10435.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/10435.mp3",
     "rarity": "Epic",
     "popularityScore": 78.3,
     "mode": 0
@@ -6196,7 +6196,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Epic",
     "popularityScore": 78.27,
     "mode": 0
@@ -6223,7 +6223,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Epic",
     "popularityScore": 78.25,
     "mode": 0
@@ -6250,7 +6250,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1025171/covers/list.jpg?1650684543",
       "slimcover": "https://assets.ppy.sh/beatmaps/1025171/covers/slimcover.jpg?1650684543"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1025171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1025171.mp3",
     "rarity": "Epic",
     "popularityScore": 78.25,
     "mode": 0
@@ -6277,7 +6277,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Epic",
     "popularityScore": 78.12,
     "mode": 0
@@ -6304,7 +6304,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/984684/covers/list.jpg?1650681093",
       "slimcover": "https://assets.ppy.sh/beatmaps/984684/covers/slimcover.jpg?1650681093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/984684.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/984684.mp3",
     "rarity": "Epic",
     "popularityScore": 78.11,
     "mode": 0
@@ -6331,7 +6331,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Epic",
     "popularityScore": 78.1,
     "mode": 0
@@ -6358,7 +6358,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68500/covers/list.jpg?1622060634",
       "slimcover": "https://assets.ppy.sh/beatmaps/68500/covers/slimcover.jpg?1622060634"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68500.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68500.mp3",
     "rarity": "Epic",
     "popularityScore": 78.1,
     "mode": 0
@@ -6385,7 +6385,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/503141/covers/list.jpg?1650642836",
       "slimcover": "https://assets.ppy.sh/beatmaps/503141/covers/slimcover.jpg?1650642836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/503141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/503141.mp3",
     "rarity": "Epic",
     "popularityScore": 78.07,
     "mode": 0
@@ -6412,7 +6412,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1322727/covers/list.jpg?1650705701",
       "slimcover": "https://assets.ppy.sh/beatmaps/1322727/covers/slimcover.jpg?1650705701"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1322727.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1322727.mp3",
     "rarity": "Epic",
     "popularityScore": 78.02,
     "mode": 0
@@ -6439,7 +6439,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Epic",
     "popularityScore": 77.98,
     "mode": 0
@@ -6466,7 +6466,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Epic",
     "popularityScore": 77.97,
     "mode": 0
@@ -6493,7 +6493,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Epic",
     "popularityScore": 77.7,
     "mode": 0
@@ -6520,7 +6520,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/868749/covers/list.jpg?1650675166",
       "slimcover": "https://assets.ppy.sh/beatmaps/868749/covers/slimcover.jpg?1650675166"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/868749.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/868749.mp3",
     "rarity": "Epic",
     "popularityScore": 77.7,
     "mode": 0
@@ -6547,7 +6547,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Epic",
     "popularityScore": 77.68,
     "mode": 0
@@ -6574,7 +6574,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Epic",
     "popularityScore": 77.63,
     "mode": 0
@@ -6601,7 +6601,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/816264/covers/list.jpg?1622143933",
       "slimcover": "https://assets.ppy.sh/beatmaps/816264/covers/slimcover.jpg?1622143933"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/816264.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/816264.mp3",
     "rarity": "Epic",
     "popularityScore": 77.62,
     "mode": 0
@@ -6628,7 +6628,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Epic",
     "popularityScore": 77.52,
     "mode": 0
@@ -6655,7 +6655,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/36858/covers/list.jpg?1622049909",
       "slimcover": "https://assets.ppy.sh/beatmaps/36858/covers/slimcover.jpg?1622049909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/36858.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/36858.mp3",
     "rarity": "Epic",
     "popularityScore": 77.48,
     "mode": 0
@@ -6682,7 +6682,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33651/covers/list.jpg?1622048536",
       "slimcover": "https://assets.ppy.sh/beatmaps/33651/covers/slimcover.jpg?1622048536"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33651.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33651.mp3",
     "rarity": "Epic",
     "popularityScore": 77.45,
     "mode": 0
@@ -6709,7 +6709,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372510/covers/list.jpg?1650634774",
       "slimcover": "https://assets.ppy.sh/beatmaps/372510/covers/slimcover.jpg?1650634774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372510.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372510.mp3",
     "rarity": "Epic",
     "popularityScore": 77.4,
     "mode": 0
@@ -6736,7 +6736,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/754219/covers/list.jpg?1650661061",
       "slimcover": "https://assets.ppy.sh/beatmaps/754219/covers/slimcover.jpg?1650661061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/754219.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/754219.mp3",
     "rarity": "Epic",
     "popularityScore": 77.35,
     "mode": 0
@@ -6763,7 +6763,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/160201/covers/list.jpg?1650621280",
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/160201.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
     "rarity": "Epic",
     "popularityScore": 77.3,
     "mode": 0
@@ -6790,7 +6790,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Epic",
     "popularityScore": 77.29,
     "mode": 0
@@ -6817,7 +6817,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744762/covers/list.jpg?1622135318",
       "slimcover": "https://assets.ppy.sh/beatmaps/744762/covers/slimcover.jpg?1622135318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744762.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744762.mp3",
     "rarity": "Rare",
     "popularityScore": 77.28,
     "mode": 0
@@ -6844,7 +6844,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Rare",
     "popularityScore": 77.26,
     "mode": 0
@@ -6871,7 +6871,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 77.26,
     "mode": 0
@@ -6898,7 +6898,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/896080/covers/list.jpg?1650673178",
       "slimcover": "https://assets.ppy.sh/beatmaps/896080/covers/slimcover.jpg?1650673178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/896080.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/896080.mp3",
     "rarity": "Rare",
     "popularityScore": 77.25,
     "mode": 0
@@ -6925,7 +6925,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223871/covers/list.jpg?1622078656",
       "slimcover": "https://assets.ppy.sh/beatmaps/223871/covers/slimcover.jpg?1622078656"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223871.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223871.mp3",
     "rarity": "Rare",
     "popularityScore": 77.23,
     "mode": 0
@@ -6952,7 +6952,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Rare",
     "popularityScore": 77.14,
     "mode": 0
@@ -6979,7 +6979,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/682290/covers/list.jpg?1645786406",
       "slimcover": "https://assets.ppy.sh/beatmaps/682290/covers/slimcover.jpg?1645786406"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/682290.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "rarity": "Rare",
     "popularityScore": 77.08,
     "mode": 0
@@ -7006,7 +7006,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28705/covers/list.jpg?1650608282",
       "slimcover": "https://assets.ppy.sh/beatmaps/28705/covers/slimcover.jpg?1650608282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28705.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28705.mp3",
     "rarity": "Rare",
     "popularityScore": 77.08,
     "mode": 0
@@ -7033,7 +7033,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371128/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371128/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "rarity": "Rare",
     "popularityScore": 77.04,
     "mode": 0
@@ -7060,7 +7060,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 77.03,
     "mode": 0
@@ -7087,7 +7087,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33842/covers/list.jpg?1622048627",
       "slimcover": "https://assets.ppy.sh/beatmaps/33842/covers/slimcover.jpg?1622048627"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33842.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33842.mp3",
     "rarity": "Rare",
     "popularityScore": 77.01,
     "mode": 0
@@ -7114,7 +7114,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Rare",
     "popularityScore": 76.96,
     "mode": 0
@@ -7141,7 +7141,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190222/covers/list.jpg?1645788403",
       "slimcover": "https://assets.ppy.sh/beatmaps/190222/covers/slimcover.jpg?1645788403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190222.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190222.mp3",
     "rarity": "Rare",
     "popularityScore": 76.92,
     "mode": 0
@@ -7168,7 +7168,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Rare",
     "popularityScore": 76.91,
     "mode": 0
@@ -7195,7 +7195,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Rare",
     "popularityScore": 76.9,
     "mode": 0
@@ -7222,7 +7222,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Rare",
     "popularityScore": 76.89,
     "mode": 0
@@ -7249,7 +7249,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744762/covers/list.jpg?1622135318",
       "slimcover": "https://assets.ppy.sh/beatmaps/744762/covers/slimcover.jpg?1622135318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744762.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744762.mp3",
     "rarity": "Rare",
     "popularityScore": 76.86,
     "mode": 0
@@ -7276,7 +7276,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/151878/covers/list.jpg?1622071759",
       "slimcover": "https://assets.ppy.sh/beatmaps/151878/covers/slimcover.jpg?1622071759"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/151878.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/151878.mp3",
     "rarity": "Rare",
     "popularityScore": 76.84,
     "mode": 0
@@ -7303,7 +7303,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/874948/covers/list.jpg?1650671383",
       "slimcover": "https://assets.ppy.sh/beatmaps/874948/covers/slimcover.jpg?1650671383"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/874948.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/874948.mp3",
     "rarity": "Rare",
     "popularityScore": 76.82,
     "mode": 0
@@ -7330,7 +7330,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Rare",
     "popularityScore": 76.79,
     "mode": 0
@@ -7357,7 +7357,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/320118/covers/list.jpg?1650632079",
       "slimcover": "https://assets.ppy.sh/beatmaps/320118/covers/slimcover.jpg?1650632079"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/320118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/320118.mp3",
     "rarity": "Rare",
     "popularityScore": 76.78,
     "mode": 0
@@ -7384,7 +7384,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Rare",
     "popularityScore": 76.77,
     "mode": 0
@@ -7411,7 +7411,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Rare",
     "popularityScore": 76.76,
     "mode": 0
@@ -7438,7 +7438,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Rare",
     "popularityScore": 76.73,
     "mode": 0
@@ -7465,7 +7465,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Rare",
     "popularityScore": 76.73,
     "mode": 0
@@ -7492,7 +7492,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/232935/covers/list.jpg?1650625808",
       "slimcover": "https://assets.ppy.sh/beatmaps/232935/covers/slimcover.jpg?1650625808"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/232935.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/232935.mp3",
     "rarity": "Rare",
     "popularityScore": 76.68,
     "mode": 0
@@ -7519,7 +7519,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1287/covers/list.jpg?1622019251",
       "slimcover": "https://assets.ppy.sh/beatmaps/1287/covers/slimcover.jpg?1622019251"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1287.mp3",
     "rarity": "Rare",
     "popularityScore": 76.63,
     "mode": 0
@@ -7546,7 +7546,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Rare",
     "popularityScore": 76.62,
     "mode": 0
@@ -7573,7 +7573,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/241526/covers/list.jpg?1622080332",
       "slimcover": "https://assets.ppy.sh/beatmaps/241526/covers/slimcover.jpg?1622080332"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/241526.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/241526.mp3",
     "rarity": "Rare",
     "popularityScore": 76.6,
     "mode": 0
@@ -7600,7 +7600,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Rare",
     "popularityScore": 76.54,
     "mode": 0
@@ -7627,7 +7627,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Rare",
     "popularityScore": 76.52,
     "mode": 0
@@ -7654,7 +7654,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Rare",
     "popularityScore": 76.52,
     "mode": 0
@@ -7681,7 +7681,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Rare",
     "popularityScore": 76.47,
     "mode": 0
@@ -7708,7 +7708,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1053509/covers/list.jpg?1650686981",
       "slimcover": "https://assets.ppy.sh/beatmaps/1053509/covers/slimcover.jpg?1650686981"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1053509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1053509.mp3",
     "rarity": "Rare",
     "popularityScore": 76.41,
     "mode": 0
@@ -7735,7 +7735,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Rare",
     "popularityScore": 76.38,
     "mode": 0
@@ -7762,7 +7762,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/354537/covers/list.jpg?1650633472",
       "slimcover": "https://assets.ppy.sh/beatmaps/354537/covers/slimcover.jpg?1650633472"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/354537.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/354537.mp3",
     "rarity": "Rare",
     "popularityScore": 76.34,
     "mode": 0
@@ -7789,7 +7789,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/282345/covers/list.jpg?1622082761",
       "slimcover": "https://assets.ppy.sh/beatmaps/282345/covers/slimcover.jpg?1622082761"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/282345.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/282345.mp3",
     "rarity": "Rare",
     "popularityScore": 76.28,
     "mode": 0
@@ -7816,7 +7816,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744762/covers/list.jpg?1622135318",
       "slimcover": "https://assets.ppy.sh/beatmaps/744762/covers/slimcover.jpg?1622135318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744762.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744762.mp3",
     "rarity": "Rare",
     "popularityScore": 76.27,
     "mode": 0
@@ -7843,7 +7843,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/19789/covers/list.jpg?1645778675",
       "slimcover": "https://assets.ppy.sh/beatmaps/19789/covers/slimcover.jpg?1645778675"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/19789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/19789.mp3",
     "rarity": "Rare",
     "popularityScore": 76.27,
     "mode": 0
@@ -7870,7 +7870,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Rare",
     "popularityScore": 76,
     "mode": 0
@@ -7897,7 +7897,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/19789/covers/list.jpg?1645778675",
       "slimcover": "https://assets.ppy.sh/beatmaps/19789/covers/slimcover.jpg?1645778675"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/19789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/19789.mp3",
     "rarity": "Rare",
     "popularityScore": 75.98,
     "mode": 0
@@ -7924,7 +7924,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/423527/covers/list.jpg?1650640646",
       "slimcover": "https://assets.ppy.sh/beatmaps/423527/covers/slimcover.jpg?1650640646"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/423527.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/423527.mp3",
     "rarity": "Rare",
     "popularityScore": 75.95,
     "mode": 0
@@ -7951,7 +7951,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/298208/covers/list.jpg?1645787882",
       "slimcover": "https://assets.ppy.sh/beatmaps/298208/covers/slimcover.jpg?1645787882"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/298208.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/298208.mp3",
     "rarity": "Rare",
     "popularityScore": 75.84,
     "mode": 0
@@ -7978,7 +7978,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.83,
     "mode": 0
@@ -8005,7 +8005,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28705/covers/list.jpg?1650608282",
       "slimcover": "https://assets.ppy.sh/beatmaps/28705/covers/slimcover.jpg?1650608282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28705.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28705.mp3",
     "rarity": "Rare",
     "popularityScore": 75.82,
     "mode": 0
@@ -8032,7 +8032,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Rare",
     "popularityScore": 75.79,
     "mode": 0
@@ -8059,7 +8059,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.69,
     "mode": 0
@@ -8086,7 +8086,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1053509/covers/list.jpg?1650686981",
       "slimcover": "https://assets.ppy.sh/beatmaps/1053509/covers/slimcover.jpg?1650686981"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1053509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1053509.mp3",
     "rarity": "Rare",
     "popularityScore": 75.68,
     "mode": 0
@@ -8113,7 +8113,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Rare",
     "popularityScore": 75.67,
     "mode": 0
@@ -8140,7 +8140,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Rare",
     "popularityScore": 75.65,
     "mode": 0
@@ -8167,7 +8167,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325158/covers/list.jpg?1650631447",
       "slimcover": "https://assets.ppy.sh/beatmaps/325158/covers/slimcover.jpg?1650631447"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325158.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325158.mp3",
     "rarity": "Rare",
     "popularityScore": 75.61,
     "mode": 0
@@ -8194,7 +8194,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Rare",
     "popularityScore": 75.53,
     "mode": 0
@@ -8221,7 +8221,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 75.52,
     "mode": 0
@@ -8248,7 +8248,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 75.5,
     "mode": 0
@@ -8275,7 +8275,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Rare",
     "popularityScore": 75.5,
     "mode": 0
@@ -8302,7 +8302,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/53857/covers/list.jpg?1650613297",
       "slimcover": "https://assets.ppy.sh/beatmaps/53857/covers/slimcover.jpg?1650613297"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/53857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/53857.mp3",
     "rarity": "Rare",
     "popularityScore": 75.49,
     "mode": 0
@@ -8329,7 +8329,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1147361/covers/list.jpg?1645786245",
       "slimcover": "https://assets.ppy.sh/beatmaps/1147361/covers/slimcover.jpg?1645786245"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1147361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "rarity": "Rare",
     "popularityScore": 75.47,
     "mode": 0
@@ -8356,7 +8356,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.46,
     "mode": 0
@@ -8383,7 +8383,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1218852/covers/list.jpg?1645786453",
       "slimcover": "https://assets.ppy.sh/beatmaps/1218852/covers/slimcover.jpg?1645786453"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1218852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "rarity": "Rare",
     "popularityScore": 75.41,
     "mode": 0
@@ -8410,7 +8410,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1322727/covers/list.jpg?1650705701",
       "slimcover": "https://assets.ppy.sh/beatmaps/1322727/covers/slimcover.jpg?1650705701"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1322727.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1322727.mp3",
     "rarity": "Rare",
     "popularityScore": 75.4,
     "mode": 0
@@ -8437,7 +8437,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/532522/covers/list.jpg?1622111230",
       "slimcover": "https://assets.ppy.sh/beatmaps/532522/covers/slimcover.jpg?1622111230"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/532522.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/532522.mp3",
     "rarity": "Rare",
     "popularityScore": 75.34,
     "mode": 0
@@ -8464,7 +8464,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/93523/covers/list.jpg?1650616896",
       "slimcover": "https://assets.ppy.sh/beatmaps/93523/covers/slimcover.jpg?1650616896"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/93523.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/93523.mp3",
     "rarity": "Rare",
     "popularityScore": 75.33,
     "mode": 0
@@ -8491,7 +8491,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/462386/covers/list.jpg?1650643367",
       "slimcover": "https://assets.ppy.sh/beatmaps/462386/covers/slimcover.jpg?1650643367"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/462386.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/462386.mp3",
     "rarity": "Rare",
     "popularityScore": 75.32,
     "mode": 0
@@ -8518,7 +8518,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/185250/covers/list.jpg?1650631939",
       "slimcover": "https://assets.ppy.sh/beatmaps/185250/covers/slimcover.jpg?1650631939"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/185250.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/185250.mp3",
     "rarity": "Rare",
     "popularityScore": 75.32,
     "mode": 0
@@ -8545,7 +8545,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/36858/covers/list.jpg?1622049909",
       "slimcover": "https://assets.ppy.sh/beatmaps/36858/covers/slimcover.jpg?1622049909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/36858.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/36858.mp3",
     "rarity": "Rare",
     "popularityScore": 75.29,
     "mode": 0
@@ -8572,7 +8572,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/232935/covers/list.jpg?1650625808",
       "slimcover": "https://assets.ppy.sh/beatmaps/232935/covers/slimcover.jpg?1650625808"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/232935.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/232935.mp3",
     "rarity": "Rare",
     "popularityScore": 75.26,
     "mode": 0
@@ -8599,7 +8599,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.24,
     "mode": 0
@@ -8626,7 +8626,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Rare",
     "popularityScore": 75.22,
     "mode": 0
@@ -8653,7 +8653,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413117/covers/list.jpg?1650685850",
       "slimcover": "https://assets.ppy.sh/beatmaps/413117/covers/slimcover.jpg?1650685850"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413117.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413117.mp3",
     "rarity": "Rare",
     "popularityScore": 75.22,
     "mode": 0
@@ -8680,7 +8680,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.15,
     "mode": 0
@@ -8707,7 +8707,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/134151/covers/list.jpg?1650621307",
       "slimcover": "https://assets.ppy.sh/beatmaps/134151/covers/slimcover.jpg?1650621307"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/134151.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/134151.mp3",
     "rarity": "Rare",
     "popularityScore": 75.15,
     "mode": 0
@@ -8734,7 +8734,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Rare",
     "popularityScore": 75.12,
     "mode": 0
@@ -8761,7 +8761,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Rare",
     "popularityScore": 75.08,
     "mode": 0
@@ -8788,7 +8788,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/40440/covers/list.jpg?1645779887",
       "slimcover": "https://assets.ppy.sh/beatmaps/40440/covers/slimcover.jpg?1645779887"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/40440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/40440.mp3",
     "rarity": "Rare",
     "popularityScore": 75.06,
     "mode": 0
@@ -8815,7 +8815,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/58951/covers/list.jpg?1650616586",
       "slimcover": "https://assets.ppy.sh/beatmaps/58951/covers/slimcover.jpg?1650616586"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/58951.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/58951.mp3",
     "rarity": "Rare",
     "popularityScore": 75.06,
     "mode": 0
@@ -8842,7 +8842,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Rare",
     "popularityScore": 75.02,
     "mode": 0
@@ -8869,7 +8869,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 75.01,
     "mode": 0
@@ -8896,7 +8896,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/594429/covers/list.jpg?1645781351",
       "slimcover": "https://assets.ppy.sh/beatmaps/594429/covers/slimcover.jpg?1645781351"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/594429.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/594429.mp3",
     "rarity": "Rare",
     "popularityScore": 74.97,
     "mode": 0
@@ -8923,7 +8923,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1377/covers/list.jpg?1631328797",
       "slimcover": "https://assets.ppy.sh/beatmaps/1377/covers/slimcover.jpg?1631328797"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1377.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1377.mp3",
     "rarity": "Rare",
     "popularityScore": 74.97,
     "mode": 0
@@ -8950,7 +8950,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/127712/covers/list.jpg?1650619119",
       "slimcover": "https://assets.ppy.sh/beatmaps/127712/covers/slimcover.jpg?1650619119"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/127712.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/127712.mp3",
     "rarity": "Rare",
     "popularityScore": 74.93,
     "mode": 0
@@ -8977,7 +8977,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/480765/covers/list.jpg?1650646117",
       "slimcover": "https://assets.ppy.sh/beatmaps/480765/covers/slimcover.jpg?1650646117"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/480765.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/480765.mp3",
     "rarity": "Rare",
     "popularityScore": 74.92,
     "mode": 0
@@ -9004,7 +9004,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Rare",
     "popularityScore": 74.9,
     "mode": 0
@@ -9031,7 +9031,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190390/covers/list.jpg?1622075765",
       "slimcover": "https://assets.ppy.sh/beatmaps/190390/covers/slimcover.jpg?1622075765"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190390.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190390.mp3",
     "rarity": "Rare",
     "popularityScore": 74.84,
     "mode": 0
@@ -9058,7 +9058,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/781509/covers/list.jpg?1650664944",
       "slimcover": "https://assets.ppy.sh/beatmaps/781509/covers/slimcover.jpg?1650664944"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/781509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "rarity": "Rare",
     "popularityScore": 74.83,
     "mode": 0
@@ -9085,7 +9085,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/462386/covers/list.jpg?1650643367",
       "slimcover": "https://assets.ppy.sh/beatmaps/462386/covers/slimcover.jpg?1650643367"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/462386.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/462386.mp3",
     "rarity": "Rare",
     "popularityScore": 74.82,
     "mode": 0
@@ -9112,7 +9112,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Rare",
     "popularityScore": 74.8,
     "mode": 0
@@ -9139,7 +9139,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/984684/covers/list.jpg?1650681093",
       "slimcover": "https://assets.ppy.sh/beatmaps/984684/covers/slimcover.jpg?1650681093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/984684.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/984684.mp3",
     "rarity": "Rare",
     "popularityScore": 74.78,
     "mode": 0
@@ -9166,7 +9166,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/206284/covers/list.jpg?1622077156",
       "slimcover": "https://assets.ppy.sh/beatmaps/206284/covers/slimcover.jpg?1622077156"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/206284.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/206284.mp3",
     "rarity": "Rare",
     "popularityScore": 74.77,
     "mode": 0
@@ -9193,7 +9193,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/63112/covers/list.jpg?1650614282",
       "slimcover": "https://assets.ppy.sh/beatmaps/63112/covers/slimcover.jpg?1650614282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/63112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/63112.mp3",
     "rarity": "Rare",
     "popularityScore": 74.7,
     "mode": 0
@@ -9220,7 +9220,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Rare",
     "popularityScore": 74.59,
     "mode": 0
@@ -9247,7 +9247,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/423527/covers/list.jpg?1650640646",
       "slimcover": "https://assets.ppy.sh/beatmaps/423527/covers/slimcover.jpg?1650640646"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/423527.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/423527.mp3",
     "rarity": "Rare",
     "popularityScore": 74.58,
     "mode": 0
@@ -9274,7 +9274,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Rare",
     "popularityScore": 74.57,
     "mode": 0
@@ -9301,7 +9301,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Rare",
     "popularityScore": 74.57,
     "mode": 0
@@ -9328,7 +9328,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/575330/covers/list.jpg?1633532938",
       "slimcover": "https://assets.ppy.sh/beatmaps/575330/covers/slimcover.jpg?1633532938"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/575330.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/575330.mp3",
     "rarity": "Rare",
     "popularityScore": 74.55,
     "mode": 0
@@ -9355,7 +9355,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/123593/covers/list.jpg?1622068626",
       "slimcover": "https://assets.ppy.sh/beatmaps/123593/covers/slimcover.jpg?1622068626"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/123593.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/123593.mp3",
     "rarity": "Rare",
     "popularityScore": 74.52,
     "mode": 0
@@ -9382,7 +9382,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/19789/covers/list.jpg?1645778675",
       "slimcover": "https://assets.ppy.sh/beatmaps/19789/covers/slimcover.jpg?1645778675"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/19789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/19789.mp3",
     "rarity": "Rare",
     "popularityScore": 74.5,
     "mode": 0
@@ -9409,7 +9409,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/222671/covers/list.jpg?1645786539",
       "slimcover": "https://assets.ppy.sh/beatmaps/222671/covers/slimcover.jpg?1645786539"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/222671.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/222671.mp3",
     "rarity": "Rare",
     "popularityScore": 74.5,
     "mode": 0
@@ -9436,7 +9436,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 74.48,
     "mode": 0
@@ -9463,7 +9463,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/513590/covers/list.jpg?1650644032",
       "slimcover": "https://assets.ppy.sh/beatmaps/513590/covers/slimcover.jpg?1650644032"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/513590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/513590.mp3",
     "rarity": "Rare",
     "popularityScore": 74.46,
     "mode": 0
@@ -9490,7 +9490,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/462386/covers/list.jpg?1650643367",
       "slimcover": "https://assets.ppy.sh/beatmaps/462386/covers/slimcover.jpg?1650643367"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/462386.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/462386.mp3",
     "rarity": "Rare",
     "popularityScore": 74.45,
     "mode": 0
@@ -9517,7 +9517,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 74.43,
     "mode": 0
@@ -9544,7 +9544,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/232935/covers/list.jpg?1650625808",
       "slimcover": "https://assets.ppy.sh/beatmaps/232935/covers/slimcover.jpg?1650625808"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/232935.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/232935.mp3",
     "rarity": "Rare",
     "popularityScore": 74.37,
     "mode": 0
@@ -9571,7 +9571,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/298208/covers/list.jpg?1645787882",
       "slimcover": "https://assets.ppy.sh/beatmaps/298208/covers/slimcover.jpg?1645787882"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/298208.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/298208.mp3",
     "rarity": "Rare",
     "popularityScore": 74.37,
     "mode": 0
@@ -9598,7 +9598,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1017271/covers/list.jpg?1650683889",
       "slimcover": "https://assets.ppy.sh/beatmaps/1017271/covers/slimcover.jpg?1650683889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1017271.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1017271.mp3",
     "rarity": "Rare",
     "popularityScore": 74.35,
     "mode": 0
@@ -9625,7 +9625,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1061287/covers/list.jpg?1650688170",
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1061287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
     "rarity": "Rare",
     "popularityScore": 74.32,
     "mode": 0
@@ -9652,7 +9652,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/705423/covers/list.jpg?1645788448",
       "slimcover": "https://assets.ppy.sh/beatmaps/705423/covers/slimcover.jpg?1645788448"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/705423.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/705423.mp3",
     "rarity": "Rare",
     "popularityScore": 74.25,
     "mode": 0
@@ -9679,7 +9679,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/423527/covers/list.jpg?1650640646",
       "slimcover": "https://assets.ppy.sh/beatmaps/423527/covers/slimcover.jpg?1650640646"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/423527.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/423527.mp3",
     "rarity": "Rare",
     "popularityScore": 74.25,
     "mode": 0
@@ -9706,7 +9706,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1785/covers/list.jpg?1622019589",
       "slimcover": "https://assets.ppy.sh/beatmaps/1785/covers/slimcover.jpg?1622019589"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1785.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1785.mp3",
     "rarity": "Rare",
     "popularityScore": 74.25,
     "mode": 0
@@ -9733,7 +9733,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1207609/covers/list.jpg?1645786654",
       "slimcover": "https://assets.ppy.sh/beatmaps/1207609/covers/slimcover.jpg?1645786654"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1207609.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1207609.mp3",
     "rarity": "Rare",
     "popularityScore": 74.24,
     "mode": 0
@@ -9760,7 +9760,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 74.22,
     "mode": 0
@@ -9787,7 +9787,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Rare",
     "popularityScore": 74.2,
     "mode": 0
@@ -9814,7 +9814,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Rare",
     "popularityScore": 74.18,
     "mode": 0
@@ -9841,7 +9841,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/357777/covers/list.jpg?1650641012",
       "slimcover": "https://assets.ppy.sh/beatmaps/357777/covers/slimcover.jpg?1650641012"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/357777.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/357777.mp3",
     "rarity": "Rare",
     "popularityScore": 74.18,
     "mode": 0
@@ -9868,7 +9868,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Rare",
     "popularityScore": 74.14,
     "mode": 0
@@ -9895,7 +9895,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33651/covers/list.jpg?1622048536",
       "slimcover": "https://assets.ppy.sh/beatmaps/33651/covers/slimcover.jpg?1622048536"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33651.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33651.mp3",
     "rarity": "Rare",
     "popularityScore": 74.14,
     "mode": 0
@@ -9922,7 +9922,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68500/covers/list.jpg?1622060634",
       "slimcover": "https://assets.ppy.sh/beatmaps/68500/covers/slimcover.jpg?1622060634"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68500.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68500.mp3",
     "rarity": "Rare",
     "popularityScore": 74.12,
     "mode": 0
@@ -9949,7 +9949,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/116306/covers/list.jpg?1650619061",
       "slimcover": "https://assets.ppy.sh/beatmaps/116306/covers/slimcover.jpg?1650619061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/116306.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/116306.mp3",
     "rarity": "Rare",
     "popularityScore": 74.06,
     "mode": 0
@@ -9976,7 +9976,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 74.02,
     "mode": 0
@@ -10003,7 +10003,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/222671/covers/list.jpg?1645786539",
       "slimcover": "https://assets.ppy.sh/beatmaps/222671/covers/slimcover.jpg?1645786539"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/222671.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/222671.mp3",
     "rarity": "Rare",
     "popularityScore": 74.02,
     "mode": 0
@@ -10030,7 +10030,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/754219/covers/list.jpg?1650661061",
       "slimcover": "https://assets.ppy.sh/beatmaps/754219/covers/slimcover.jpg?1650661061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/754219.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/754219.mp3",
     "rarity": "Rare",
     "popularityScore": 74.01,
     "mode": 0
@@ -10057,7 +10057,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/153776/covers/list.jpg?1650621428",
       "slimcover": "https://assets.ppy.sh/beatmaps/153776/covers/slimcover.jpg?1650621428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/153776.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/153776.mp3",
     "rarity": "Rare",
     "popularityScore": 74.01,
     "mode": 0
@@ -10084,7 +10084,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Rare",
     "popularityScore": 73.92,
     "mode": 0
@@ -10111,7 +10111,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Rare",
     "popularityScore": 73.91,
     "mode": 0
@@ -10138,7 +10138,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1533028/covers/list.jpg?1645788428",
       "slimcover": "https://assets.ppy.sh/beatmaps/1533028/covers/slimcover.jpg?1645788428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1533028.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1533028.mp3",
     "rarity": "Rare",
     "popularityScore": 73.88,
     "mode": 0
@@ -10165,7 +10165,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/623924/covers/list.jpg?1650656237",
       "slimcover": "https://assets.ppy.sh/beatmaps/623924/covers/slimcover.jpg?1650656237"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/623924.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/623924.mp3",
     "rarity": "Rare",
     "popularityScore": 73.84,
     "mode": 0
@@ -10192,7 +10192,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/476691/covers/list.jpg?1650642192",
       "slimcover": "https://assets.ppy.sh/beatmaps/476691/covers/slimcover.jpg?1650642192"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/476691.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/476691.mp3",
     "rarity": "Rare",
     "popularityScore": 73.84,
     "mode": 0
@@ -10219,7 +10219,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/462386/covers/list.jpg?1650643367",
       "slimcover": "https://assets.ppy.sh/beatmaps/462386/covers/slimcover.jpg?1650643367"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/462386.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/462386.mp3",
     "rarity": "Rare",
     "popularityScore": 73.81,
     "mode": 0
@@ -10246,7 +10246,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Rare",
     "popularityScore": 73.77,
     "mode": 0
@@ -10273,7 +10273,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1171789/covers/list.jpg?1622188996",
       "slimcover": "https://assets.ppy.sh/beatmaps/1171789/covers/slimcover.jpg?1622188996"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1171789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1171789.mp3",
     "rarity": "Rare",
     "popularityScore": 73.77,
     "mode": 0
@@ -10300,7 +10300,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/18260/covers/list.jpg?1622037998",
       "slimcover": "https://assets.ppy.sh/beatmaps/18260/covers/slimcover.jpg?1622037998"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/18260.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/18260.mp3",
     "rarity": "Rare",
     "popularityScore": 73.77,
     "mode": 0
@@ -10327,7 +10327,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223871/covers/list.jpg?1622078656",
       "slimcover": "https://assets.ppy.sh/beatmaps/223871/covers/slimcover.jpg?1622078656"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223871.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223871.mp3",
     "rarity": "Rare",
     "popularityScore": 73.75,
     "mode": 0
@@ -10354,7 +10354,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1147361/covers/list.jpg?1645786245",
       "slimcover": "https://assets.ppy.sh/beatmaps/1147361/covers/slimcover.jpg?1645786245"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1147361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1147361.mp3",
     "rarity": "Rare",
     "popularityScore": 73.73,
     "mode": 0
@@ -10381,7 +10381,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/950289/covers/list.jpg?1650680553",
       "slimcover": "https://assets.ppy.sh/beatmaps/950289/covers/slimcover.jpg?1650680553"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/950289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/950289.mp3",
     "rarity": "Rare",
     "popularityScore": 73.72,
     "mode": 0
@@ -10408,7 +10408,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/984684/covers/list.jpg?1650681093",
       "slimcover": "https://assets.ppy.sh/beatmaps/984684/covers/slimcover.jpg?1650681093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/984684.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/984684.mp3",
     "rarity": "Rare",
     "popularityScore": 73.69,
     "mode": 0
@@ -10435,7 +10435,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1330999/covers/list.jpg?1650705313",
       "slimcover": "https://assets.ppy.sh/beatmaps/1330999/covers/slimcover.jpg?1650705313"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1330999.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1330999.mp3",
     "rarity": "Rare",
     "popularityScore": 73.66,
     "mode": 0
@@ -10462,7 +10462,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1322727/covers/list.jpg?1650705701",
       "slimcover": "https://assets.ppy.sh/beatmaps/1322727/covers/slimcover.jpg?1650705701"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1322727.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1322727.mp3",
     "rarity": "Rare",
     "popularityScore": 73.63,
     "mode": 0
@@ -10489,7 +10489,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/18260/covers/list.jpg?1622037998",
       "slimcover": "https://assets.ppy.sh/beatmaps/18260/covers/slimcover.jpg?1622037998"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/18260.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/18260.mp3",
     "rarity": "Rare",
     "popularityScore": 73.58,
     "mode": 0
@@ -10516,7 +10516,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Rare",
     "popularityScore": 73.56,
     "mode": 0
@@ -10543,7 +10543,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/894883/covers/list.jpg?1645788261",
       "slimcover": "https://assets.ppy.sh/beatmaps/894883/covers/slimcover.jpg?1645788261"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/894883.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/894883.mp3",
     "rarity": "Rare",
     "popularityScore": 73.54,
     "mode": 0
@@ -10570,7 +10570,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/160201/covers/list.jpg?1650621280",
       "slimcover": "https://assets.ppy.sh/beatmaps/160201/covers/slimcover.jpg?1650621280"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/160201.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/160201.mp3",
     "rarity": "Rare",
     "popularityScore": 73.53,
     "mode": 0
@@ -10597,7 +10597,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1053509/covers/list.jpg?1650686981",
       "slimcover": "https://assets.ppy.sh/beatmaps/1053509/covers/slimcover.jpg?1650686981"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1053509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1053509.mp3",
     "rarity": "Rare",
     "popularityScore": 73.5,
     "mode": 0
@@ -10624,7 +10624,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372851/covers/list.jpg?1650634157",
       "slimcover": "https://assets.ppy.sh/beatmaps/372851/covers/slimcover.jpg?1650634157"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372851.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372851.mp3",
     "rarity": "Rare",
     "popularityScore": 73.48,
     "mode": 0
@@ -10651,7 +10651,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765169/covers/list.jpg?1650662185",
       "slimcover": "https://assets.ppy.sh/beatmaps/765169/covers/slimcover.jpg?1650662185"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765169.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765169.mp3",
     "rarity": "Rare",
     "popularityScore": 73.47,
     "mode": 0
@@ -10678,7 +10678,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Rare",
     "popularityScore": 73.41,
     "mode": 0
@@ -10705,7 +10705,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68893/covers/list.jpg?1650614941",
       "slimcover": "https://assets.ppy.sh/beatmaps/68893/covers/slimcover.jpg?1650614941"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68893.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68893.mp3",
     "rarity": "Rare",
     "popularityScore": 73.36,
     "mode": 0
@@ -10732,7 +10732,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/72740/covers/list.jpg?1650615359",
       "slimcover": "https://assets.ppy.sh/beatmaps/72740/covers/slimcover.jpg?1650615359"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/72740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/72740.mp3",
     "rarity": "Rare",
     "popularityScore": 73.36,
     "mode": 0
@@ -10759,7 +10759,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/623924/covers/list.jpg?1650656237",
       "slimcover": "https://assets.ppy.sh/beatmaps/623924/covers/slimcover.jpg?1650656237"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/623924.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/623924.mp3",
     "rarity": "Rare",
     "popularityScore": 73.34,
     "mode": 0
@@ -10786,7 +10786,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 73.31,
     "mode": 0
@@ -10813,7 +10813,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1025171/covers/list.jpg?1650684543",
       "slimcover": "https://assets.ppy.sh/beatmaps/1025171/covers/slimcover.jpg?1650684543"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1025171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1025171.mp3",
     "rarity": "Rare",
     "popularityScore": 73.28,
     "mode": 0
@@ -10840,7 +10840,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Rare",
     "popularityScore": 73.26,
     "mode": 0
@@ -10867,7 +10867,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/962088/covers/list.jpg?1645788534",
       "slimcover": "https://assets.ppy.sh/beatmaps/962088/covers/slimcover.jpg?1645788534"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/962088.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "rarity": "Rare",
     "popularityScore": 73.25,
     "mode": 0
@@ -10894,7 +10894,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Rare",
     "popularityScore": 73.23,
     "mode": 0
@@ -10921,7 +10921,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/251391/covers/list.jpg?1650627372",
       "slimcover": "https://assets.ppy.sh/beatmaps/251391/covers/slimcover.jpg?1650627372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/251391.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/251391.mp3",
     "rarity": "Rare",
     "popularityScore": 73.23,
     "mode": 0
@@ -10948,7 +10948,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/43466/covers/list.jpg?1645780906",
       "slimcover": "https://assets.ppy.sh/beatmaps/43466/covers/slimcover.jpg?1645780906"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/43466.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/43466.mp3",
     "rarity": "Rare",
     "popularityScore": 73.21,
     "mode": 0
@@ -10975,7 +10975,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Rare",
     "popularityScore": 73.15,
     "mode": 0
@@ -11002,7 +11002,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Rare",
     "popularityScore": 73.12,
     "mode": 0
@@ -11029,7 +11029,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1171789/covers/list.jpg?1622188996",
       "slimcover": "https://assets.ppy.sh/beatmaps/1171789/covers/slimcover.jpg?1622188996"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1171789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1171789.mp3",
     "rarity": "Rare",
     "popularityScore": 73.12,
     "mode": 0
@@ -11056,7 +11056,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Rare",
     "popularityScore": 73.1,
     "mode": 0
@@ -11083,7 +11083,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/134151/covers/list.jpg?1650621307",
       "slimcover": "https://assets.ppy.sh/beatmaps/134151/covers/slimcover.jpg?1650621307"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/134151.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/134151.mp3",
     "rarity": "Rare",
     "popularityScore": 73.1,
     "mode": 0
@@ -11110,7 +11110,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/153776/covers/list.jpg?1650621428",
       "slimcover": "https://assets.ppy.sh/beatmaps/153776/covers/slimcover.jpg?1650621428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/153776.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/153776.mp3",
     "rarity": "Rare",
     "popularityScore": 73.02,
     "mode": 0
@@ -11137,7 +11137,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Rare",
     "popularityScore": 73.01,
     "mode": 0
@@ -11164,7 +11164,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744762/covers/list.jpg?1622135318",
       "slimcover": "https://assets.ppy.sh/beatmaps/744762/covers/slimcover.jpg?1622135318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744762.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744762.mp3",
     "rarity": "Rare",
     "popularityScore": 72.97,
     "mode": 0
@@ -11191,7 +11191,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/410162/covers/list.jpg?1631509500",
       "slimcover": "https://assets.ppy.sh/beatmaps/410162/covers/slimcover.jpg?1631509500"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/410162.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/410162.mp3",
     "rarity": "Rare",
     "popularityScore": 72.96,
     "mode": 0
@@ -11218,7 +11218,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223180/covers/list.jpg?1650625206",
       "slimcover": "https://assets.ppy.sh/beatmaps/223180/covers/slimcover.jpg?1650625206"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223180.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223180.mp3",
     "rarity": "Rare",
     "popularityScore": 72.95,
     "mode": 0
@@ -11245,7 +11245,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 72.93,
     "mode": 0
@@ -11272,7 +11272,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Rare",
     "popularityScore": 72.91,
     "mode": 0
@@ -11299,7 +11299,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/269969/covers/list.jpg?1622082019",
       "slimcover": "https://assets.ppy.sh/beatmaps/269969/covers/slimcover.jpg?1622082019"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/269969.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/269969.mp3",
     "rarity": "Rare",
     "popularityScore": 72.88,
     "mode": 0
@@ -11326,7 +11326,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/282345/covers/list.jpg?1622082761",
       "slimcover": "https://assets.ppy.sh/beatmaps/282345/covers/slimcover.jpg?1622082761"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/282345.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/282345.mp3",
     "rarity": "Rare",
     "popularityScore": 72.87,
     "mode": 0
@@ -11353,7 +11353,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Rare",
     "popularityScore": 72.81,
     "mode": 0
@@ -11380,7 +11380,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/141329/covers/list.jpg?1650619921",
       "slimcover": "https://assets.ppy.sh/beatmaps/141329/covers/slimcover.jpg?1650619921"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/141329.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/141329.mp3",
     "rarity": "Rare",
     "popularityScore": 72.81,
     "mode": 0
@@ -11407,7 +11407,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/456986/covers/list.jpg?1645783310",
       "slimcover": "https://assets.ppy.sh/beatmaps/456986/covers/slimcover.jpg?1645783310"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/456986.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/456986.mp3",
     "rarity": "Rare",
     "popularityScore": 72.8,
     "mode": 0
@@ -11434,7 +11434,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Rare",
     "popularityScore": 72.8,
     "mode": 0
@@ -11461,7 +11461,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1218852/covers/list.jpg?1645786453",
       "slimcover": "https://assets.ppy.sh/beatmaps/1218852/covers/slimcover.jpg?1645786453"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1218852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1218852.mp3",
     "rarity": "Rare",
     "popularityScore": 72.75,
     "mode": 0
@@ -11488,7 +11488,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/441155/covers/list.jpg?1650638315",
       "slimcover": "https://assets.ppy.sh/beatmaps/441155/covers/slimcover.jpg?1650638315"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/441155.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/441155.mp3",
     "rarity": "Rare",
     "popularityScore": 72.75,
     "mode": 0
@@ -11515,7 +11515,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/378559/covers/list.jpg?1645787474",
       "slimcover": "https://assets.ppy.sh/beatmaps/378559/covers/slimcover.jpg?1645787474"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/378559.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/378559.mp3",
     "rarity": "Rare",
     "popularityScore": 72.74,
     "mode": 0
@@ -11542,7 +11542,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325112/covers/list.jpg?1650631180",
       "slimcover": "https://assets.ppy.sh/beatmaps/325112/covers/slimcover.jpg?1650631180"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325112.mp3",
     "rarity": "Rare",
     "popularityScore": 72.72,
     "mode": 0
@@ -11569,7 +11569,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Rare",
     "popularityScore": 72.65,
     "mode": 0
@@ -11596,7 +11596,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/130223/covers/list.jpg?1650619235",
       "slimcover": "https://assets.ppy.sh/beatmaps/130223/covers/slimcover.jpg?1650619235"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/130223.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/130223.mp3",
     "rarity": "Rare",
     "popularityScore": 72.61,
     "mode": 0
@@ -11623,7 +11623,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1089606/covers/list.jpg?1650690279",
       "slimcover": "https://assets.ppy.sh/beatmaps/1089606/covers/slimcover.jpg?1650690279"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1089606.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1089606.mp3",
     "rarity": "Rare",
     "popularityScore": 72.58,
     "mode": 0
@@ -11650,7 +11650,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/10435/covers/list.jpg?1622029203",
       "slimcover": "https://assets.ppy.sh/beatmaps/10435/covers/slimcover.jpg?1622029203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/10435.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/10435.mp3",
     "rarity": "Rare",
     "popularityScore": 72.57,
     "mode": 0
@@ -11677,7 +11677,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/115873/covers/list.jpg?1650618093",
       "slimcover": "https://assets.ppy.sh/beatmaps/115873/covers/slimcover.jpg?1650618093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/115873.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/115873.mp3",
     "rarity": "Rare",
     "popularityScore": 72.55,
     "mode": 0
@@ -11704,7 +11704,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1287/covers/list.jpg?1622019251",
       "slimcover": "https://assets.ppy.sh/beatmaps/1287/covers/slimcover.jpg?1622019251"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1287.mp3",
     "rarity": "Rare",
     "popularityScore": 72.53,
     "mode": 0
@@ -11731,7 +11731,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/594429/covers/list.jpg?1645781351",
       "slimcover": "https://assets.ppy.sh/beatmaps/594429/covers/slimcover.jpg?1645781351"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/594429.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/594429.mp3",
     "rarity": "Rare",
     "popularityScore": 72.51,
     "mode": 0
@@ -11758,7 +11758,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/127712/covers/list.jpg?1650619119",
       "slimcover": "https://assets.ppy.sh/beatmaps/127712/covers/slimcover.jpg?1650619119"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/127712.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/127712.mp3",
     "rarity": "Rare",
     "popularityScore": 72.46,
     "mode": 0
@@ -11785,7 +11785,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/682290/covers/list.jpg?1645786406",
       "slimcover": "https://assets.ppy.sh/beatmaps/682290/covers/slimcover.jpg?1645786406"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/682290.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/682290.mp3",
     "rarity": "Rare",
     "popularityScore": 72.45,
     "mode": 0
@@ -11812,7 +11812,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/230989/covers/list.jpg?1622079318",
       "slimcover": "https://assets.ppy.sh/beatmaps/230989/covers/slimcover.jpg?1622079318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/230989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/230989.mp3",
     "rarity": "Rare",
     "popularityScore": 72.43,
     "mode": 0
@@ -11839,7 +11839,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Rare",
     "popularityScore": 72.38,
     "mode": 0
@@ -11866,7 +11866,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/186318/covers/list.jpg?1650623687",
       "slimcover": "https://assets.ppy.sh/beatmaps/186318/covers/slimcover.jpg?1650623687"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/186318.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/186318.mp3",
     "rarity": "Rare",
     "popularityScore": 72.37,
     "mode": 0
@@ -11893,7 +11893,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/769917/covers/list.jpg?1650663270",
       "slimcover": "https://assets.ppy.sh/beatmaps/769917/covers/slimcover.jpg?1650663270"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/769917.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/769917.mp3",
     "rarity": "Rare",
     "popularityScore": 72.35,
     "mode": 0
@@ -11920,7 +11920,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/241526/covers/list.jpg?1622080332",
       "slimcover": "https://assets.ppy.sh/beatmaps/241526/covers/slimcover.jpg?1622080332"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/241526.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/241526.mp3",
     "rarity": "Rare",
     "popularityScore": 72.29,
     "mode": 0
@@ -11947,7 +11947,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/481451/covers/list.jpg?1650642294",
       "slimcover": "https://assets.ppy.sh/beatmaps/481451/covers/slimcover.jpg?1650642294"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/481451.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/481451.mp3",
     "rarity": "Rare",
     "popularityScore": 72.28,
     "mode": 0
@@ -11974,7 +11974,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1061287/covers/list.jpg?1650688170",
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1061287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
     "rarity": "Rare",
     "popularityScore": 72.27,
     "mode": 0
@@ -12001,7 +12001,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1017271/covers/list.jpg?1650683889",
       "slimcover": "https://assets.ppy.sh/beatmaps/1017271/covers/slimcover.jpg?1650683889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1017271.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1017271.mp3",
     "rarity": "Rare",
     "popularityScore": 72.27,
     "mode": 0
@@ -12028,7 +12028,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33688/covers/list.jpg?1650609688",
       "slimcover": "https://assets.ppy.sh/beatmaps/33688/covers/slimcover.jpg?1650609688"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33688.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33688.mp3",
     "rarity": "Rare",
     "popularityScore": 72.27,
     "mode": 0
@@ -12055,7 +12055,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765778/covers/list.jpg?1650663123",
       "slimcover": "https://assets.ppy.sh/beatmaps/765778/covers/slimcover.jpg?1650663123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765778.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "rarity": "Rare",
     "popularityScore": 72.25,
     "mode": 0
@@ -12082,7 +12082,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1270438/covers/list.jpg?1650702015",
       "slimcover": "https://assets.ppy.sh/beatmaps/1270438/covers/slimcover.jpg?1650702015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1270438.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1270438.mp3",
     "rarity": "Rare",
     "popularityScore": 72.23,
     "mode": 0
@@ -12109,7 +12109,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/115873/covers/list.jpg?1650618093",
       "slimcover": "https://assets.ppy.sh/beatmaps/115873/covers/slimcover.jpg?1650618093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/115873.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/115873.mp3",
     "rarity": "Rare",
     "popularityScore": 72.22,
     "mode": 0
@@ -12136,7 +12136,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/476691/covers/list.jpg?1650642192",
       "slimcover": "https://assets.ppy.sh/beatmaps/476691/covers/slimcover.jpg?1650642192"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/476691.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/476691.mp3",
     "rarity": "Rare",
     "popularityScore": 72.21,
     "mode": 0
@@ -12163,7 +12163,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Rare",
     "popularityScore": 72.19,
     "mode": 0
@@ -12190,7 +12190,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/249939/covers/list.jpg?1650626835",
       "slimcover": "https://assets.ppy.sh/beatmaps/249939/covers/slimcover.jpg?1650626835"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/249939.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/249939.mp3",
     "rarity": "Rare",
     "popularityScore": 72.17,
     "mode": 0
@@ -12217,7 +12217,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/219380/covers/list.jpg?1650632979",
       "slimcover": "https://assets.ppy.sh/beatmaps/219380/covers/slimcover.jpg?1650632979"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/219380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/219380.mp3",
     "rarity": "Rare",
     "popularityScore": 72.15,
     "mode": 0
@@ -12244,7 +12244,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Rare",
     "popularityScore": 72.09,
     "mode": 0
@@ -12271,7 +12271,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/737128/covers/list.jpg?1650659486",
       "slimcover": "https://assets.ppy.sh/beatmaps/737128/covers/slimcover.jpg?1650659486"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/737128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/737128.mp3",
     "rarity": "Rare",
     "popularityScore": 72.08,
     "mode": 0
@@ -12298,7 +12298,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952725/covers/list.jpg?1650680768",
       "slimcover": "https://assets.ppy.sh/beatmaps/952725/covers/slimcover.jpg?1650680768"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952725.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952725.mp3",
     "rarity": "Rare",
     "popularityScore": 72.08,
     "mode": 0
@@ -12325,7 +12325,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Rare",
     "popularityScore": 72.07,
     "mode": 0
@@ -12352,7 +12352,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Rare",
     "popularityScore": 72.07,
     "mode": 0
@@ -12379,7 +12379,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459149/covers/list.jpg?1622104099",
       "slimcover": "https://assets.ppy.sh/beatmaps/459149/covers/slimcover.jpg?1622104099"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459149.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459149.mp3",
     "rarity": "Rare",
     "popularityScore": 72,
     "mode": 0
@@ -12406,7 +12406,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/237768/covers/list.jpg?1632036015",
       "slimcover": "https://assets.ppy.sh/beatmaps/237768/covers/slimcover.jpg?1632036015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/237768.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/237768.mp3",
     "rarity": "Rare",
     "popularityScore": 72,
     "mode": 0
@@ -12433,7 +12433,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28107/covers/list.jpg?1622045706",
       "slimcover": "https://assets.ppy.sh/beatmaps/28107/covers/slimcover.jpg?1622045706"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28107.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28107.mp3",
     "rarity": "Rare",
     "popularityScore": 71.93,
     "mode": 0
@@ -12460,7 +12460,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/366864/covers/list.jpg?1622095199",
       "slimcover": "https://assets.ppy.sh/beatmaps/366864/covers/slimcover.jpg?1622095199"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/366864.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/366864.mp3",
     "rarity": "Rare",
     "popularityScore": 71.92,
     "mode": 0
@@ -12487,7 +12487,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292077/covers/list.jpg?1650629132",
       "slimcover": "https://assets.ppy.sh/beatmaps/292077/covers/slimcover.jpg?1650629132"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292077.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292077.mp3",
     "rarity": "Rare",
     "popularityScore": 71.91,
     "mode": 0
@@ -12514,7 +12514,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1270438/covers/list.jpg?1650702015",
       "slimcover": "https://assets.ppy.sh/beatmaps/1270438/covers/slimcover.jpg?1650702015"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1270438.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1270438.mp3",
     "rarity": "Rare",
     "popularityScore": 71.9,
     "mode": 0
@@ -12541,7 +12541,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1061287/covers/list.jpg?1650688170",
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1061287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
     "rarity": "Rare",
     "popularityScore": 71.89,
     "mode": 0
@@ -12568,7 +12568,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/600702/covers/list.jpg?1650649403",
       "slimcover": "https://assets.ppy.sh/beatmaps/600702/covers/slimcover.jpg?1650649403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/600702.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/600702.mp3",
     "rarity": "Rare",
     "popularityScore": 71.88,
     "mode": 0
@@ -12595,7 +12595,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Rare",
     "popularityScore": 71.86,
     "mode": 0
@@ -12622,7 +12622,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/664315/covers/list.jpg?1650655909",
       "slimcover": "https://assets.ppy.sh/beatmaps/664315/covers/slimcover.jpg?1650655909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/664315.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/664315.mp3",
     "rarity": "Rare",
     "popularityScore": 71.83,
     "mode": 0
@@ -12649,7 +12649,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Rare",
     "popularityScore": 71.81,
     "mode": 0
@@ -12676,7 +12676,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/966190/covers/list.jpg?1645787297",
       "slimcover": "https://assets.ppy.sh/beatmaps/966190/covers/slimcover.jpg?1645787297"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/966190.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/966190.mp3",
     "rarity": "Rare",
     "popularityScore": 71.8,
     "mode": 0
@@ -12703,7 +12703,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/596704/covers/list.jpg?1650648964",
       "slimcover": "https://assets.ppy.sh/beatmaps/596704/covers/slimcover.jpg?1650648964"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/596704.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/596704.mp3",
     "rarity": "Rare",
     "popularityScore": 71.78,
     "mode": 0
@@ -12730,7 +12730,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952409/covers/list.jpg?1645787548",
       "slimcover": "https://assets.ppy.sh/beatmaps/952409/covers/slimcover.jpg?1645787548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952409.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952409.mp3",
     "rarity": "Rare",
     "popularityScore": 71.75,
     "mode": 0
@@ -12757,7 +12757,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Rare",
     "popularityScore": 71.72,
     "mode": 0
@@ -12784,7 +12784,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Rare",
     "popularityScore": 71.66,
     "mode": 0
@@ -12811,7 +12811,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/865746/covers/list.jpg?1650670889",
       "slimcover": "https://assets.ppy.sh/beatmaps/865746/covers/slimcover.jpg?1650670889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/865746.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/865746.mp3",
     "rarity": "Rare",
     "popularityScore": 71.64,
     "mode": 0
@@ -12838,7 +12838,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28705/covers/list.jpg?1650608282",
       "slimcover": "https://assets.ppy.sh/beatmaps/28705/covers/slimcover.jpg?1650608282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28705.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28705.mp3",
     "rarity": "Rare",
     "popularityScore": 71.64,
     "mode": 0
@@ -12865,7 +12865,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 71.62,
     "mode": 0
@@ -12892,7 +12892,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/486142/covers/list.jpg?1631509649",
       "slimcover": "https://assets.ppy.sh/beatmaps/486142/covers/slimcover.jpg?1631509649"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/486142.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/486142.mp3",
     "rarity": "Rare",
     "popularityScore": 71.62,
     "mode": 0
@@ -12919,7 +12919,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/63112/covers/list.jpg?1650614282",
       "slimcover": "https://assets.ppy.sh/beatmaps/63112/covers/slimcover.jpg?1650614282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/63112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/63112.mp3",
     "rarity": "Rare",
     "popularityScore": 71.62,
     "mode": 0
@@ -12946,7 +12946,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1388906/covers/list.jpg?1650707731",
       "slimcover": "https://assets.ppy.sh/beatmaps/1388906/covers/slimcover.jpg?1650707731"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1388906.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1388906.mp3",
     "rarity": "Rare",
     "popularityScore": 71.6,
     "mode": 0
@@ -12973,7 +12973,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1089606/covers/list.jpg?1650690279",
       "slimcover": "https://assets.ppy.sh/beatmaps/1089606/covers/slimcover.jpg?1650690279"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1089606.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1089606.mp3",
     "rarity": "Rare",
     "popularityScore": 71.57,
     "mode": 0
@@ -13000,7 +13000,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/53857/covers/list.jpg?1650613297",
       "slimcover": "https://assets.ppy.sh/beatmaps/53857/covers/slimcover.jpg?1650613297"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/53857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/53857.mp3",
     "rarity": "Rare",
     "popularityScore": 71.55,
     "mode": 0
@@ -13027,7 +13027,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/956590/covers/list.jpg?1650678751",
       "slimcover": "https://assets.ppy.sh/beatmaps/956590/covers/slimcover.jpg?1650678751"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/956590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/956590.mp3",
     "rarity": "Rare",
     "popularityScore": 71.5,
     "mode": 0
@@ -13054,7 +13054,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/40440/covers/list.jpg?1645779887",
       "slimcover": "https://assets.ppy.sh/beatmaps/40440/covers/slimcover.jpg?1645779887"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/40440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/40440.mp3",
     "rarity": "Rare",
     "popularityScore": 71.48,
     "mode": 0
@@ -13081,7 +13081,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/354537/covers/list.jpg?1650633472",
       "slimcover": "https://assets.ppy.sh/beatmaps/354537/covers/slimcover.jpg?1650633472"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/354537.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/354537.mp3",
     "rarity": "Rare",
     "popularityScore": 71.45,
     "mode": 0
@@ -13108,7 +13108,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/147962/covers/list.jpg?1650620437",
       "slimcover": "https://assets.ppy.sh/beatmaps/147962/covers/slimcover.jpg?1650620437"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/147962.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/147962.mp3",
     "rarity": "Rare",
     "popularityScore": 71.44,
     "mode": 0
@@ -13135,7 +13135,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Rare",
     "popularityScore": 71.41,
     "mode": 0
@@ -13162,7 +13162,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223180/covers/list.jpg?1650625206",
       "slimcover": "https://assets.ppy.sh/beatmaps/223180/covers/slimcover.jpg?1650625206"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223180.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223180.mp3",
     "rarity": "Rare",
     "popularityScore": 71.41,
     "mode": 0
@@ -13189,7 +13189,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/299224/covers/list.jpg?1622084535",
       "slimcover": "https://assets.ppy.sh/beatmaps/299224/covers/slimcover.jpg?1622084535"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/299224.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/299224.mp3",
     "rarity": "Rare",
     "popularityScore": 71.4,
     "mode": 0
@@ -13216,7 +13216,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1280506/covers/list.jpg?1645786525",
       "slimcover": "https://assets.ppy.sh/beatmaps/1280506/covers/slimcover.jpg?1645786525"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1280506.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1280506.mp3",
     "rarity": "Rare",
     "popularityScore": 71.39,
     "mode": 0
@@ -13243,7 +13243,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Rare",
     "popularityScore": 71.39,
     "mode": 0
@@ -13270,7 +13270,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/115873/covers/list.jpg?1650618093",
       "slimcover": "https://assets.ppy.sh/beatmaps/115873/covers/slimcover.jpg?1650618093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/115873.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/115873.mp3",
     "rarity": "Rare",
     "popularityScore": 71.38,
     "mode": 0
@@ -13297,7 +13297,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/151878/covers/list.jpg?1622071759",
       "slimcover": "https://assets.ppy.sh/beatmaps/151878/covers/slimcover.jpg?1622071759"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/151878.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/151878.mp3",
     "rarity": "Rare",
     "popularityScore": 71.35,
     "mode": 0
@@ -13324,7 +13324,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1287/covers/list.jpg?1622019251",
       "slimcover": "https://assets.ppy.sh/beatmaps/1287/covers/slimcover.jpg?1622019251"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1287.mp3",
     "rarity": "Rare",
     "popularityScore": 71.31,
     "mode": 0
@@ -13351,7 +13351,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325307/covers/list.jpg?1650635136",
       "slimcover": "https://assets.ppy.sh/beatmaps/325307/covers/slimcover.jpg?1650635136"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325307.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325307.mp3",
     "rarity": "Rare",
     "popularityScore": 71.28,
     "mode": 0
@@ -13378,7 +13378,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Rare",
     "popularityScore": 71.25,
     "mode": 0
@@ -13405,7 +13405,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1108263/covers/list.jpg?1631513516",
       "slimcover": "https://assets.ppy.sh/beatmaps/1108263/covers/slimcover.jpg?1631513516"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1108263.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1108263.mp3",
     "rarity": "Rare",
     "popularityScore": 71.24,
     "mode": 0
@@ -13432,7 +13432,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325307/covers/list.jpg?1650635136",
       "slimcover": "https://assets.ppy.sh/beatmaps/325307/covers/slimcover.jpg?1650635136"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325307.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325307.mp3",
     "rarity": "Rare",
     "popularityScore": 71.23,
     "mode": 0
@@ -13459,7 +13459,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1388906/covers/list.jpg?1650707731",
       "slimcover": "https://assets.ppy.sh/beatmaps/1388906/covers/slimcover.jpg?1650707731"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1388906.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1388906.mp3",
     "rarity": "Rare",
     "popularityScore": 71.22,
     "mode": 0
@@ -13486,7 +13486,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1171789/covers/list.jpg?1622188996",
       "slimcover": "https://assets.ppy.sh/beatmaps/1171789/covers/slimcover.jpg?1622188996"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1171789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1171789.mp3",
     "rarity": "Rare",
     "popularityScore": 71.2,
     "mode": 0
@@ -13513,7 +13513,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Rare",
     "popularityScore": 71.15,
     "mode": 0
@@ -13540,7 +13540,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/79116/covers/list.jpg?1650615751",
       "slimcover": "https://assets.ppy.sh/beatmaps/79116/covers/slimcover.jpg?1650615751"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/79116.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/79116.mp3",
     "rarity": "Rare",
     "popularityScore": 71.13,
     "mode": 0
@@ -13567,7 +13567,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/337527/covers/list.jpg?1650631454",
       "slimcover": "https://assets.ppy.sh/beatmaps/337527/covers/slimcover.jpg?1650631454"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/337527.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/337527.mp3",
     "rarity": "Rare",
     "popularityScore": 71.11,
     "mode": 0
@@ -13594,7 +13594,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/856627/covers/list.jpg?1650680662",
       "slimcover": "https://assets.ppy.sh/beatmaps/856627/covers/slimcover.jpg?1650680662"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/856627.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/856627.mp3",
     "rarity": "Rare",
     "popularityScore": 71.08,
     "mode": 0
@@ -13621,7 +13621,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 71.02,
     "mode": 0
@@ -13648,7 +13648,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/671199/covers/list.jpg?1650657296",
       "slimcover": "https://assets.ppy.sh/beatmaps/671199/covers/slimcover.jpg?1650657296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/671199.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/671199.mp3",
     "rarity": "Rare",
     "popularityScore": 71.02,
     "mode": 0
@@ -13675,7 +13675,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444335/covers/list.jpg?1650638834",
       "slimcover": "https://assets.ppy.sh/beatmaps/444335/covers/slimcover.jpg?1650638834"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444335.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444335.mp3",
     "rarity": "Rare",
     "popularityScore": 71,
     "mode": 0
@@ -13702,7 +13702,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/185250/covers/list.jpg?1650631939",
       "slimcover": "https://assets.ppy.sh/beatmaps/185250/covers/slimcover.jpg?1650631939"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/185250.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/185250.mp3",
     "rarity": "Rare",
     "popularityScore": 70.96,
     "mode": 0
@@ -13729,7 +13729,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Rare",
     "popularityScore": 70.92,
     "mode": 0
@@ -13756,7 +13756,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387784/covers/list.jpg?1650635195",
       "slimcover": "https://assets.ppy.sh/beatmaps/387784/covers/slimcover.jpg?1650635195"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387784.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387784.mp3",
     "rarity": "Rare",
     "popularityScore": 70.86,
     "mode": 0
@@ -13783,7 +13783,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1207609/covers/list.jpg?1645786654",
       "slimcover": "https://assets.ppy.sh/beatmaps/1207609/covers/slimcover.jpg?1645786654"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1207609.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1207609.mp3",
     "rarity": "Rare",
     "popularityScore": 70.85,
     "mode": 0
@@ -13810,7 +13810,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/116306/covers/list.jpg?1650619061",
       "slimcover": "https://assets.ppy.sh/beatmaps/116306/covers/slimcover.jpg?1650619061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/116306.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/116306.mp3",
     "rarity": "Rare",
     "popularityScore": 70.82,
     "mode": 0
@@ -13837,7 +13837,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/438535/covers/list.jpg?1650638407",
       "slimcover": "https://assets.ppy.sh/beatmaps/438535/covers/slimcover.jpg?1650638407"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/438535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/438535.mp3",
     "rarity": "Rare",
     "popularityScore": 70.79,
     "mode": 0
@@ -13864,7 +13864,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325307/covers/list.jpg?1650635136",
       "slimcover": "https://assets.ppy.sh/beatmaps/325307/covers/slimcover.jpg?1650635136"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325307.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325307.mp3",
     "rarity": "Rare",
     "popularityScore": 70.76,
     "mode": 0
@@ -13891,7 +13891,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/10435/covers/list.jpg?1622029203",
       "slimcover": "https://assets.ppy.sh/beatmaps/10435/covers/slimcover.jpg?1622029203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/10435.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/10435.mp3",
     "rarity": "Rare",
     "popularityScore": 70.76,
     "mode": 0
@@ -13918,7 +13918,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Rare",
     "popularityScore": 70.74,
     "mode": 0
@@ -13945,7 +13945,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/54373/covers/list.jpg?1650612752",
       "slimcover": "https://assets.ppy.sh/beatmaps/54373/covers/slimcover.jpg?1650612752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/54373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/54373.mp3",
     "rarity": "Rare",
     "popularityScore": 70.58,
     "mode": 0
@@ -13972,7 +13972,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Rare",
     "popularityScore": 70.57,
     "mode": 0
@@ -13999,7 +13999,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/232935/covers/list.jpg?1650625808",
       "slimcover": "https://assets.ppy.sh/beatmaps/232935/covers/slimcover.jpg?1650625808"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/232935.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/232935.mp3",
     "rarity": "Rare",
     "popularityScore": 70.57,
     "mode": 0
@@ -14026,7 +14026,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/481451/covers/list.jpg?1650642294",
       "slimcover": "https://assets.ppy.sh/beatmaps/481451/covers/slimcover.jpg?1650642294"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/481451.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/481451.mp3",
     "rarity": "Rare",
     "popularityScore": 70.57,
     "mode": 0
@@ -14053,7 +14053,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1053509/covers/list.jpg?1650686981",
       "slimcover": "https://assets.ppy.sh/beatmaps/1053509/covers/slimcover.jpg?1650686981"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1053509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1053509.mp3",
     "rarity": "Rare",
     "popularityScore": 70.54,
     "mode": 0
@@ -14080,7 +14080,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/221954/covers/list.jpg?1650625685",
       "slimcover": "https://assets.ppy.sh/beatmaps/221954/covers/slimcover.jpg?1650625685"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/221954.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/221954.mp3",
     "rarity": "Rare",
     "popularityScore": 70.54,
     "mode": 0
@@ -14107,7 +14107,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/584575/covers/list.jpg?1650649660",
       "slimcover": "https://assets.ppy.sh/beatmaps/584575/covers/slimcover.jpg?1650649660"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/584575.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/584575.mp3",
     "rarity": "Rare",
     "popularityScore": 70.53,
     "mode": 0
@@ -14134,7 +14134,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/713688/covers/list.jpg?1622130774",
       "slimcover": "https://assets.ppy.sh/beatmaps/713688/covers/slimcover.jpg?1622130774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/713688.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/713688.mp3",
     "rarity": "Rare",
     "popularityScore": 70.52,
     "mode": 0
@@ -14161,7 +14161,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1280506/covers/list.jpg?1645786525",
       "slimcover": "https://assets.ppy.sh/beatmaps/1280506/covers/slimcover.jpg?1645786525"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1280506.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1280506.mp3",
     "rarity": "Rare",
     "popularityScore": 70.5,
     "mode": 0
@@ -14188,7 +14188,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/769917/covers/list.jpg?1650663270",
       "slimcover": "https://assets.ppy.sh/beatmaps/769917/covers/slimcover.jpg?1650663270"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/769917.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/769917.mp3",
     "rarity": "Rare",
     "popularityScore": 70.48,
     "mode": 0
@@ -14215,7 +14215,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/326920/covers/list.jpg?1650644794",
       "slimcover": "https://assets.ppy.sh/beatmaps/326920/covers/slimcover.jpg?1650644794"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/326920.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/326920.mp3",
     "rarity": "Rare",
     "popularityScore": 70.47,
     "mode": 0
@@ -14242,7 +14242,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Rare",
     "popularityScore": 70.46,
     "mode": 0
@@ -14269,7 +14269,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/206750/covers/list.jpg?1645788401",
       "slimcover": "https://assets.ppy.sh/beatmaps/206750/covers/slimcover.jpg?1645788401"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/206750.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/206750.mp3",
     "rarity": "Rare",
     "popularityScore": 70.46,
     "mode": 0
@@ -14296,7 +14296,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/956590/covers/list.jpg?1650678751",
       "slimcover": "https://assets.ppy.sh/beatmaps/956590/covers/slimcover.jpg?1650678751"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/956590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/956590.mp3",
     "rarity": "Rare",
     "popularityScore": 70.46,
     "mode": 0
@@ -14323,7 +14323,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68893/covers/list.jpg?1650614941",
       "slimcover": "https://assets.ppy.sh/beatmaps/68893/covers/slimcover.jpg?1650614941"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68893.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68893.mp3",
     "rarity": "Rare",
     "popularityScore": 70.43,
     "mode": 0
@@ -14350,7 +14350,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/968171/covers/list.jpg?1645788271",
       "slimcover": "https://assets.ppy.sh/beatmaps/968171/covers/slimcover.jpg?1645788271"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/968171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/968171.mp3",
     "rarity": "Rare",
     "popularityScore": 70.42,
     "mode": 0
@@ -14377,7 +14377,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1001507/covers/list.jpg?1650685521",
       "slimcover": "https://assets.ppy.sh/beatmaps/1001507/covers/slimcover.jpg?1650685521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1001507.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1001507.mp3",
     "rarity": "Rare",
     "popularityScore": 70.4,
     "mode": 0
@@ -14404,7 +14404,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/874948/covers/list.jpg?1650671383",
       "slimcover": "https://assets.ppy.sh/beatmaps/874948/covers/slimcover.jpg?1650671383"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/874948.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/874948.mp3",
     "rarity": "Rare",
     "popularityScore": 70.39,
     "mode": 0
@@ -14431,7 +14431,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/919827/covers/list.jpg?1650675777",
       "slimcover": "https://assets.ppy.sh/beatmaps/919827/covers/slimcover.jpg?1650675777"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/919827.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/919827.mp3",
     "rarity": "Rare",
     "popularityScore": 70.33,
     "mode": 0
@@ -14458,7 +14458,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/705423/covers/list.jpg?1645788448",
       "slimcover": "https://assets.ppy.sh/beatmaps/705423/covers/slimcover.jpg?1645788448"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/705423.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/705423.mp3",
     "rarity": "Rare",
     "popularityScore": 70.32,
     "mode": 0
@@ -14485,7 +14485,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Rare",
     "popularityScore": 70.31,
     "mode": 0
@@ -14512,7 +14512,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459149/covers/list.jpg?1622104099",
       "slimcover": "https://assets.ppy.sh/beatmaps/459149/covers/slimcover.jpg?1622104099"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459149.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459149.mp3",
     "rarity": "Rare",
     "popularityScore": 70.29,
     "mode": 0
@@ -14539,7 +14539,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352714/covers/list.jpg?1650632774",
       "slimcover": "https://assets.ppy.sh/beatmaps/352714/covers/slimcover.jpg?1650632774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352714.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352714.mp3",
     "rarity": "Rare",
     "popularityScore": 70.29,
     "mode": 0
@@ -14566,7 +14566,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/141329/covers/list.jpg?1650619921",
       "slimcover": "https://assets.ppy.sh/beatmaps/141329/covers/slimcover.jpg?1650619921"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/141329.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/141329.mp3",
     "rarity": "Rare",
     "popularityScore": 70.27,
     "mode": 0
@@ -14593,7 +14593,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/503141/covers/list.jpg?1650642836",
       "slimcover": "https://assets.ppy.sh/beatmaps/503141/covers/slimcover.jpg?1650642836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/503141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/503141.mp3",
     "rarity": "Rare",
     "popularityScore": 70.26,
     "mode": 0
@@ -14620,7 +14620,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387784/covers/list.jpg?1650635195",
       "slimcover": "https://assets.ppy.sh/beatmaps/387784/covers/slimcover.jpg?1650635195"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387784.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387784.mp3",
     "rarity": "Rare",
     "popularityScore": 70.24,
     "mode": 0
@@ -14647,7 +14647,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/919827/covers/list.jpg?1650675777",
       "slimcover": "https://assets.ppy.sh/beatmaps/919827/covers/slimcover.jpg?1650675777"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/919827.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/919827.mp3",
     "rarity": "Rare",
     "popularityScore": 70.21,
     "mode": 0
@@ -14674,7 +14674,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/438535/covers/list.jpg?1650638407",
       "slimcover": "https://assets.ppy.sh/beatmaps/438535/covers/slimcover.jpg?1650638407"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/438535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/438535.mp3",
     "rarity": "Rare",
     "popularityScore": 70.2,
     "mode": 0
@@ -14701,7 +14701,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/611956/covers/list.jpg?1650649880",
       "slimcover": "https://assets.ppy.sh/beatmaps/611956/covers/slimcover.jpg?1650649880"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/611956.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/611956.mp3",
     "rarity": "Rare",
     "popularityScore": 70.2,
     "mode": 0
@@ -14728,7 +14728,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1249048/covers/list.jpg?1650700671",
       "slimcover": "https://assets.ppy.sh/beatmaps/1249048/covers/slimcover.jpg?1650700671"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1249048.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1249048.mp3",
     "rarity": "Rare",
     "popularityScore": 70.16,
     "mode": 0
@@ -14755,7 +14755,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952725/covers/list.jpg?1650680768",
       "slimcover": "https://assets.ppy.sh/beatmaps/952725/covers/slimcover.jpg?1650680768"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952725.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952725.mp3",
     "rarity": "Rare",
     "popularityScore": 70.14,
     "mode": 0
@@ -14782,7 +14782,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1575739/covers/list.jpg?1645781587",
       "slimcover": "https://assets.ppy.sh/beatmaps/1575739/covers/slimcover.jpg?1645781587"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1575739.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1575739.mp3",
     "rarity": "Rare",
     "popularityScore": 70.11,
     "mode": 0
@@ -14809,7 +14809,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Rare",
     "popularityScore": 70.1,
     "mode": 0
@@ -14836,7 +14836,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/269969/covers/list.jpg?1622082019",
       "slimcover": "https://assets.ppy.sh/beatmaps/269969/covers/slimcover.jpg?1622082019"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/269969.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/269969.mp3",
     "rarity": "Rare",
     "popularityScore": 70.1,
     "mode": 0
@@ -14863,7 +14863,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Rare",
     "popularityScore": 70.07,
     "mode": 0
@@ -14890,7 +14890,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Rare",
     "popularityScore": 70.04,
     "mode": 0
@@ -14917,7 +14917,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/985788/covers/list.jpg?1650681317",
       "slimcover": "https://assets.ppy.sh/beatmaps/985788/covers/slimcover.jpg?1650681317"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/985788.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/985788.mp3",
     "rarity": "Rare",
     "popularityScore": 70.03,
     "mode": 0
@@ -14944,7 +14944,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/326920/covers/list.jpg?1650644794",
       "slimcover": "https://assets.ppy.sh/beatmaps/326920/covers/slimcover.jpg?1650644794"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/326920.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/326920.mp3",
     "rarity": "Rare",
     "popularityScore": 70.02,
     "mode": 0
@@ -14971,7 +14971,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/486535/covers/list.jpg?1631509836",
       "slimcover": "https://assets.ppy.sh/beatmaps/486535/covers/slimcover.jpg?1631509836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/486535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/486535.mp3",
     "rarity": "Rare",
     "popularityScore": 70,
     "mode": 0
@@ -14998,7 +14998,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Rare",
     "popularityScore": 69.99,
     "mode": 0
@@ -15025,7 +15025,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Rare",
     "popularityScore": 69.99,
     "mode": 0
@@ -15052,7 +15052,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/378559/covers/list.jpg?1645787474",
       "slimcover": "https://assets.ppy.sh/beatmaps/378559/covers/slimcover.jpg?1645787474"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/378559.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/378559.mp3",
     "rarity": "Rare",
     "popularityScore": 69.99,
     "mode": 0
@@ -15079,7 +15079,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/65853/covers/list.jpg?1650614814",
       "slimcover": "https://assets.ppy.sh/beatmaps/65853/covers/slimcover.jpg?1650614814"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/65853.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/65853.mp3",
     "rarity": "Rare",
     "popularityScore": 69.97,
     "mode": 0
@@ -15106,7 +15106,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Rare",
     "popularityScore": 69.96,
     "mode": 0
@@ -15133,7 +15133,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Rare",
     "popularityScore": 69.94,
     "mode": 0
@@ -15160,7 +15160,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325158/covers/list.jpg?1650631447",
       "slimcover": "https://assets.ppy.sh/beatmaps/325158/covers/slimcover.jpg?1650631447"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325158.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325158.mp3",
     "rarity": "Rare",
     "popularityScore": 69.94,
     "mode": 0
@@ -15187,7 +15187,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/52361/covers/list.jpg?1650612281",
       "slimcover": "https://assets.ppy.sh/beatmaps/52361/covers/slimcover.jpg?1650612281"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/52361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/52361.mp3",
     "rarity": "Rare",
     "popularityScore": 69.94,
     "mode": 0
@@ -15214,7 +15214,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/231640/covers/list.jpg?1650625752",
       "slimcover": "https://assets.ppy.sh/beatmaps/231640/covers/slimcover.jpg?1650625752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/231640.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/231640.mp3",
     "rarity": "Rare",
     "popularityScore": 69.93,
     "mode": 0
@@ -15241,7 +15241,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/856627/covers/list.jpg?1650680662",
       "slimcover": "https://assets.ppy.sh/beatmaps/856627/covers/slimcover.jpg?1650680662"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/856627.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/856627.mp3",
     "rarity": "Rare",
     "popularityScore": 69.91,
     "mode": 0
@@ -15268,7 +15268,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Rare",
     "popularityScore": 69.86,
     "mode": 0
@@ -15295,7 +15295,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/373373/covers/list.jpg?1622095855",
       "slimcover": "https://assets.ppy.sh/beatmaps/373373/covers/slimcover.jpg?1622095855"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/373373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/373373.mp3",
     "rarity": "Rare",
     "popularityScore": 69.8,
     "mode": 0
@@ -15322,7 +15322,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1973430/covers/list.jpg?1681693286",
       "slimcover": "https://assets.ppy.sh/beatmaps/1973430/covers/slimcover.jpg?1681693286"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1973430.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1973430.mp3",
     "rarity": "Rare",
     "popularityScore": 69.77,
     "mode": 0
@@ -15349,7 +15349,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/185250/covers/list.jpg?1650631939",
       "slimcover": "https://assets.ppy.sh/beatmaps/185250/covers/slimcover.jpg?1650631939"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/185250.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/185250.mp3",
     "rarity": "Rare",
     "popularityScore": 69.75,
     "mode": 0
@@ -15376,7 +15376,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Rare",
     "popularityScore": 69.73,
     "mode": 0
@@ -15403,7 +15403,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/53857/covers/list.jpg?1650613297",
       "slimcover": "https://assets.ppy.sh/beatmaps/53857/covers/slimcover.jpg?1650613297"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/53857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/53857.mp3",
     "rarity": "Rare",
     "popularityScore": 69.73,
     "mode": 0
@@ -15430,7 +15430,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Rare",
     "popularityScore": 69.71,
     "mode": 0
@@ -15457,7 +15457,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1388906/covers/list.jpg?1650707731",
       "slimcover": "https://assets.ppy.sh/beatmaps/1388906/covers/slimcover.jpg?1650707731"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1388906.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1388906.mp3",
     "rarity": "Rare",
     "popularityScore": 69.67,
     "mode": 0
@@ -15484,7 +15484,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/63112/covers/list.jpg?1650614282",
       "slimcover": "https://assets.ppy.sh/beatmaps/63112/covers/slimcover.jpg?1650614282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/63112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/63112.mp3",
     "rarity": "Rare",
     "popularityScore": 69.65,
     "mode": 0
@@ -15511,7 +15511,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190222/covers/list.jpg?1645788403",
       "slimcover": "https://assets.ppy.sh/beatmaps/190222/covers/slimcover.jpg?1645788403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190222.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190222.mp3",
     "rarity": "Rare",
     "popularityScore": 69.64,
     "mode": 0
@@ -15538,7 +15538,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/366440/covers/list.jpg?1622095148",
       "slimcover": "https://assets.ppy.sh/beatmaps/366440/covers/slimcover.jpg?1622095148"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/366440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/366440.mp3",
     "rarity": "Rare",
     "popularityScore": 69.63,
     "mode": 0
@@ -15565,7 +15565,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/456986/covers/list.jpg?1645783310",
       "slimcover": "https://assets.ppy.sh/beatmaps/456986/covers/slimcover.jpg?1645783310"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/456986.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/456986.mp3",
     "rarity": "Rare",
     "popularityScore": 69.62,
     "mode": 0
@@ -15592,7 +15592,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/48979/covers/list.jpg?1650611593",
       "slimcover": "https://assets.ppy.sh/beatmaps/48979/covers/slimcover.jpg?1650611593"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/48979.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/48979.mp3",
     "rarity": "Rare",
     "popularityScore": 69.61,
     "mode": 0
@@ -15619,7 +15619,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Rare",
     "popularityScore": 69.58,
     "mode": 0
@@ -15646,7 +15646,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/19789/covers/list.jpg?1645778675",
       "slimcover": "https://assets.ppy.sh/beatmaps/19789/covers/slimcover.jpg?1645778675"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/19789.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/19789.mp3",
     "rarity": "Rare",
     "popularityScore": 69.57,
     "mode": 0
@@ -15673,7 +15673,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/53519/covers/list.jpg?1633531557",
       "slimcover": "https://assets.ppy.sh/beatmaps/53519/covers/slimcover.jpg?1633531557"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/53519.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/53519.mp3",
     "rarity": "Rare",
     "popularityScore": 69.52,
     "mode": 0
@@ -15700,7 +15700,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/357777/covers/list.jpg?1650641012",
       "slimcover": "https://assets.ppy.sh/beatmaps/357777/covers/slimcover.jpg?1650641012"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/357777.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/357777.mp3",
     "rarity": "Rare",
     "popularityScore": 69.51,
     "mode": 0
@@ -15727,7 +15727,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Rare",
     "popularityScore": 69.5,
     "mode": 0
@@ -15754,7 +15754,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28705/covers/list.jpg?1650608282",
       "slimcover": "https://assets.ppy.sh/beatmaps/28705/covers/slimcover.jpg?1650608282"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28705.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28705.mp3",
     "rarity": "Rare",
     "popularityScore": 69.5,
     "mode": 0
@@ -15781,7 +15781,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/488238/covers/list.jpg?1631509747",
       "slimcover": "https://assets.ppy.sh/beatmaps/488238/covers/slimcover.jpg?1631509747"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/488238.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/488238.mp3",
     "rarity": "Rare",
     "popularityScore": 69.47,
     "mode": 0
@@ -15808,7 +15808,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/896080/covers/list.jpg?1650673178",
       "slimcover": "https://assets.ppy.sh/beatmaps/896080/covers/slimcover.jpg?1650673178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/896080.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/896080.mp3",
     "rarity": "Rare",
     "popularityScore": 69.47,
     "mode": 0
@@ -15835,7 +15835,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Rare",
     "popularityScore": 69.46,
     "mode": 0
@@ -15862,7 +15862,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Rare",
     "popularityScore": 69.45,
     "mode": 0
@@ -15889,7 +15889,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Rare",
     "popularityScore": 69.44,
     "mode": 0
@@ -15916,7 +15916,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17066/covers/list.jpg?1650604846",
       "slimcover": "https://assets.ppy.sh/beatmaps/17066/covers/slimcover.jpg?1650604846"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17066.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17066.mp3",
     "rarity": "Rare",
     "popularityScore": 69.44,
     "mode": 0
@@ -15943,7 +15943,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Rare",
     "popularityScore": 69.43,
     "mode": 0
@@ -15970,7 +15970,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Rare",
     "popularityScore": 69.42,
     "mode": 0
@@ -15997,7 +15997,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/664315/covers/list.jpg?1650655909",
       "slimcover": "https://assets.ppy.sh/beatmaps/664315/covers/slimcover.jpg?1650655909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/664315.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/664315.mp3",
     "rarity": "Rare",
     "popularityScore": 69.4,
     "mode": 0
@@ -16024,7 +16024,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372510/covers/list.jpg?1650634774",
       "slimcover": "https://assets.ppy.sh/beatmaps/372510/covers/slimcover.jpg?1650634774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372510.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372510.mp3",
     "rarity": "Rare",
     "popularityScore": 69.36,
     "mode": 0
@@ -16051,7 +16051,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/664315/covers/list.jpg?1650655909",
       "slimcover": "https://assets.ppy.sh/beatmaps/664315/covers/slimcover.jpg?1650655909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/664315.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/664315.mp3",
     "rarity": "Rare",
     "popularityScore": 69.35,
     "mode": 0
@@ -16078,7 +16078,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Rare",
     "popularityScore": 69.3,
     "mode": 0
@@ -16105,7 +16105,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325307/covers/list.jpg?1650635136",
       "slimcover": "https://assets.ppy.sh/beatmaps/325307/covers/slimcover.jpg?1650635136"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325307.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325307.mp3",
     "rarity": "Rare",
     "popularityScore": 69.27,
     "mode": 0
@@ -16132,7 +16132,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/600702/covers/list.jpg?1650649403",
       "slimcover": "https://assets.ppy.sh/beatmaps/600702/covers/slimcover.jpg?1650649403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/600702.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/600702.mp3",
     "rarity": "Rare",
     "popularityScore": 69.27,
     "mode": 0
@@ -16159,7 +16159,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/497942/covers/list.jpg?1650645186",
       "slimcover": "https://assets.ppy.sh/beatmaps/497942/covers/slimcover.jpg?1650645186"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/497942.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/497942.mp3",
     "rarity": "Rare",
     "popularityScore": 69.26,
     "mode": 0
@@ -16186,7 +16186,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/416153/covers/list.jpg?1650639459",
       "slimcover": "https://assets.ppy.sh/beatmaps/416153/covers/slimcover.jpg?1650639459"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/416153.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/416153.mp3",
     "rarity": "Rare",
     "popularityScore": 69.24,
     "mode": 0
@@ -16213,7 +16213,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Rare",
     "popularityScore": 69.23,
     "mode": 0
@@ -16240,7 +16240,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/357777/covers/list.jpg?1650641012",
       "slimcover": "https://assets.ppy.sh/beatmaps/357777/covers/slimcover.jpg?1650641012"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/357777.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/357777.mp3",
     "rarity": "Rare",
     "popularityScore": 69.23,
     "mode": 0
@@ -16267,7 +16267,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/705423/covers/list.jpg?1645788448",
       "slimcover": "https://assets.ppy.sh/beatmaps/705423/covers/slimcover.jpg?1645788448"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/705423.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/705423.mp3",
     "rarity": "Rare",
     "popularityScore": 69.21,
     "mode": 0
@@ -16294,7 +16294,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/185250/covers/list.jpg?1650631939",
       "slimcover": "https://assets.ppy.sh/beatmaps/185250/covers/slimcover.jpg?1650631939"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/185250.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/185250.mp3",
     "rarity": "Rare",
     "popularityScore": 69.21,
     "mode": 0
@@ -16321,7 +16321,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444632/covers/list.jpg?1650639095",
       "slimcover": "https://assets.ppy.sh/beatmaps/444632/covers/slimcover.jpg?1650639095"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444632.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444632.mp3",
     "rarity": "Rare",
     "popularityScore": 69.21,
     "mode": 0
@@ -16348,7 +16348,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/856627/covers/list.jpg?1650680662",
       "slimcover": "https://assets.ppy.sh/beatmaps/856627/covers/slimcover.jpg?1650680662"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/856627.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/856627.mp3",
     "rarity": "Rare",
     "popularityScore": 69.2,
     "mode": 0
@@ -16375,7 +16375,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Rare",
     "popularityScore": 69.19,
     "mode": 0
@@ -16402,7 +16402,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/54373/covers/list.jpg?1650612752",
       "slimcover": "https://assets.ppy.sh/beatmaps/54373/covers/slimcover.jpg?1650612752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/54373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/54373.mp3",
     "rarity": "Rare",
     "popularityScore": 69.19,
     "mode": 0
@@ -16429,7 +16429,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Rare",
     "popularityScore": 69.16,
     "mode": 0
@@ -16456,7 +16456,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1224414/covers/list.jpg?1622194315",
       "slimcover": "https://assets.ppy.sh/beatmaps/1224414/covers/slimcover.jpg?1622194315"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1224414.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1224414.mp3",
     "rarity": "Rare",
     "popularityScore": 69.15,
     "mode": 0
@@ -16483,7 +16483,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/819112/covers/list.jpg?1650668141",
       "slimcover": "https://assets.ppy.sh/beatmaps/819112/covers/slimcover.jpg?1650668141"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/819112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/819112.mp3",
     "rarity": "Rare",
     "popularityScore": 69.14,
     "mode": 0
@@ -16510,7 +16510,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1017271/covers/list.jpg?1650683889",
       "slimcover": "https://assets.ppy.sh/beatmaps/1017271/covers/slimcover.jpg?1650683889"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1017271.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1017271.mp3",
     "rarity": "Rare",
     "popularityScore": 69.14,
     "mode": 0
@@ -16537,7 +16537,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1190710/covers/list.jpg?1650697013",
       "slimcover": "https://assets.ppy.sh/beatmaps/1190710/covers/slimcover.jpg?1650697013"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1190710.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1190710.mp3",
     "rarity": "Rare",
     "popularityScore": 69.11,
     "mode": 0
@@ -16564,7 +16564,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/236292/covers/list.jpg?1631509201",
       "slimcover": "https://assets.ppy.sh/beatmaps/236292/covers/slimcover.jpg?1631509201"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/236292.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/236292.mp3",
     "rarity": "Rare",
     "popularityScore": 69.09,
     "mode": 0
@@ -16591,7 +16591,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/301138/covers/list.jpg?1650629048",
       "slimcover": "https://assets.ppy.sh/beatmaps/301138/covers/slimcover.jpg?1650629048"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/301138.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/301138.mp3",
     "rarity": "Rare",
     "popularityScore": 69.05,
     "mode": 0
@@ -16618,7 +16618,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1193588/covers/list.jpg?1645781099",
       "slimcover": "https://assets.ppy.sh/beatmaps/1193588/covers/slimcover.jpg?1645781099"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1193588.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1193588.mp3",
     "rarity": "Rare",
     "popularityScore": 69.04,
     "mode": 0
@@ -16645,7 +16645,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371128/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371128/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371128.mp3",
     "rarity": "Rare",
     "popularityScore": 69.02,
     "mode": 0
@@ -16672,7 +16672,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Rare",
     "popularityScore": 69.02,
     "mode": 0
@@ -16699,7 +16699,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Rare",
     "popularityScore": 69.02,
     "mode": 0
@@ -16726,7 +16726,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1224414/covers/list.jpg?1622194315",
       "slimcover": "https://assets.ppy.sh/beatmaps/1224414/covers/slimcover.jpg?1622194315"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1224414.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1224414.mp3",
     "rarity": "Rare",
     "popularityScore": 69.02,
     "mode": 0
@@ -16753,7 +16753,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/372851/covers/list.jpg?1650634157",
       "slimcover": "https://assets.ppy.sh/beatmaps/372851/covers/slimcover.jpg?1650634157"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/372851.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/372851.mp3",
     "rarity": "Rare",
     "popularityScore": 69.01,
     "mode": 0
@@ -16780,7 +16780,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Rare",
     "popularityScore": 69,
     "mode": 0
@@ -16807,7 +16807,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/486142/covers/list.jpg?1631509649",
       "slimcover": "https://assets.ppy.sh/beatmaps/486142/covers/slimcover.jpg?1631509649"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/486142.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/486142.mp3",
     "rarity": "Rare",
     "popularityScore": 69,
     "mode": 0
@@ -16834,7 +16834,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/269969/covers/list.jpg?1622082019",
       "slimcover": "https://assets.ppy.sh/beatmaps/269969/covers/slimcover.jpg?1622082019"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/269969.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/269969.mp3",
     "rarity": "Rare",
     "popularityScore": 68.97,
     "mode": 0
@@ -16861,7 +16861,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Rare",
     "popularityScore": 68.95,
     "mode": 0
@@ -16888,7 +16888,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/874948/covers/list.jpg?1650671383",
       "slimcover": "https://assets.ppy.sh/beatmaps/874948/covers/slimcover.jpg?1650671383"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/874948.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/874948.mp3",
     "rarity": "Rare",
     "popularityScore": 68.95,
     "mode": 0
@@ -16915,7 +16915,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/503141/covers/list.jpg?1650642836",
       "slimcover": "https://assets.ppy.sh/beatmaps/503141/covers/slimcover.jpg?1650642836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/503141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/503141.mp3",
     "rarity": "Rare",
     "popularityScore": 68.88,
     "mode": 0
@@ -16942,7 +16942,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/671199/covers/list.jpg?1650657296",
       "slimcover": "https://assets.ppy.sh/beatmaps/671199/covers/slimcover.jpg?1650657296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/671199.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/671199.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.88,
     "mode": 0
@@ -16969,7 +16969,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1209835/covers/list.jpg?1650698753",
       "slimcover": "https://assets.ppy.sh/beatmaps/1209835/covers/slimcover.jpg?1650698753"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1209835.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1209835.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.86,
     "mode": 0
@@ -16996,7 +16996,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1249048/covers/list.jpg?1650700671",
       "slimcover": "https://assets.ppy.sh/beatmaps/1249048/covers/slimcover.jpg?1650700671"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1249048.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1249048.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.86,
     "mode": 0
@@ -17023,7 +17023,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721804/covers/list.jpg?1650659527",
       "slimcover": "https://assets.ppy.sh/beatmaps/721804/covers/slimcover.jpg?1650659527"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721804.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721804.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.86,
     "mode": 0
@@ -17050,7 +17050,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/141329/covers/list.jpg?1650619921",
       "slimcover": "https://assets.ppy.sh/beatmaps/141329/covers/slimcover.jpg?1650619921"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/141329.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/141329.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.85,
     "mode": 0
@@ -17077,7 +17077,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.84,
     "mode": 0
@@ -17104,7 +17104,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1330999/covers/list.jpg?1650705313",
       "slimcover": "https://assets.ppy.sh/beatmaps/1330999/covers/slimcover.jpg?1650705313"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1330999.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1330999.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.82,
     "mode": 0
@@ -17131,7 +17131,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/100049/covers/list.jpg?1650620890",
       "slimcover": "https://assets.ppy.sh/beatmaps/100049/covers/slimcover.jpg?1650620890"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/100049.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/100049.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.81,
     "mode": 0
@@ -17158,7 +17158,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/398176/covers/list.jpg?1645787059",
       "slimcover": "https://assets.ppy.sh/beatmaps/398176/covers/slimcover.jpg?1645787059"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/398176.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/398176.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.8,
     "mode": 0
@@ -17185,7 +17185,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.79,
     "mode": 0
@@ -17212,7 +17212,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/368985/covers/list.jpg?1650633858",
       "slimcover": "https://assets.ppy.sh/beatmaps/368985/covers/slimcover.jpg?1650633858"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/368985.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/368985.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.79,
     "mode": 0
@@ -17239,7 +17239,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.76,
     "mode": 0
@@ -17266,7 +17266,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/231640/covers/list.jpg?1650625752",
       "slimcover": "https://assets.ppy.sh/beatmaps/231640/covers/slimcover.jpg?1650625752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/231640.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/231640.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.74,
     "mode": 0
@@ -17293,7 +17293,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/956590/covers/list.jpg?1650678751",
       "slimcover": "https://assets.ppy.sh/beatmaps/956590/covers/slimcover.jpg?1650678751"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/956590.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/956590.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.74,
     "mode": 0
@@ -17320,7 +17320,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/485056/covers/list.jpg?1650642198",
       "slimcover": "https://assets.ppy.sh/beatmaps/485056/covers/slimcover.jpg?1650642198"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/485056.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/485056.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.7,
     "mode": 0
@@ -17347,7 +17347,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/437055/covers/list.jpg?1650638468",
       "slimcover": "https://assets.ppy.sh/beatmaps/437055/covers/slimcover.jpg?1650638468"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/437055.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/437055.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.67,
     "mode": 0
@@ -17374,7 +17374,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.67,
     "mode": 0
@@ -17401,7 +17401,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.64,
     "mode": 0
@@ -17428,7 +17428,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/222671/covers/list.jpg?1645786539",
       "slimcover": "https://assets.ppy.sh/beatmaps/222671/covers/slimcover.jpg?1645786539"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/222671.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/222671.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.64,
     "mode": 0
@@ -17455,7 +17455,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/474376/covers/list.jpg?1650642830",
       "slimcover": "https://assets.ppy.sh/beatmaps/474376/covers/slimcover.jpg?1650642830"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/474376.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/474376.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.64,
     "mode": 0
@@ -17482,7 +17482,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.63,
     "mode": 0
@@ -17509,7 +17509,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/438535/covers/list.jpg?1650638407",
       "slimcover": "https://assets.ppy.sh/beatmaps/438535/covers/slimcover.jpg?1650638407"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/438535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/438535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.62,
     "mode": 0
@@ -17536,7 +17536,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1575739/covers/list.jpg?1645781587",
       "slimcover": "https://assets.ppy.sh/beatmaps/1575739/covers/slimcover.jpg?1645781587"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1575739.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1575739.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.62,
     "mode": 0
@@ -17563,7 +17563,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/875289/covers/list.jpg?1650671642",
       "slimcover": "https://assets.ppy.sh/beatmaps/875289/covers/slimcover.jpg?1650671642"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/875289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/875289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.61,
     "mode": 0
@@ -17590,7 +17590,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/623924/covers/list.jpg?1650656237",
       "slimcover": "https://assets.ppy.sh/beatmaps/623924/covers/slimcover.jpg?1650656237"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/623924.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/623924.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.58,
     "mode": 0
@@ -17617,7 +17617,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/326920/covers/list.jpg?1650644794",
       "slimcover": "https://assets.ppy.sh/beatmaps/326920/covers/slimcover.jpg?1650644794"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/326920.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/326920.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.58,
     "mode": 0
@@ -17644,7 +17644,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/299224/covers/list.jpg?1622084535",
       "slimcover": "https://assets.ppy.sh/beatmaps/299224/covers/slimcover.jpg?1622084535"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/299224.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/299224.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.58,
     "mode": 0
@@ -17671,7 +17671,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223180/covers/list.jpg?1650625206",
       "slimcover": "https://assets.ppy.sh/beatmaps/223180/covers/slimcover.jpg?1650625206"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223180.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223180.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.58,
     "mode": 0
@@ -17698,7 +17698,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.57,
     "mode": 0
@@ -17725,7 +17725,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/354537/covers/list.jpg?1650633472",
       "slimcover": "https://assets.ppy.sh/beatmaps/354537/covers/slimcover.jpg?1650633472"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/354537.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/354537.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.57,
     "mode": 0
@@ -17752,7 +17752,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/984684/covers/list.jpg?1650681093",
       "slimcover": "https://assets.ppy.sh/beatmaps/984684/covers/slimcover.jpg?1650681093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/984684.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/984684.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.55,
     "mode": 0
@@ -17779,7 +17779,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.55,
     "mode": 0
@@ -17806,7 +17806,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/482090/covers/list.jpg?1645783744",
       "slimcover": "https://assets.ppy.sh/beatmaps/482090/covers/slimcover.jpg?1645783744"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/482090.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/482090.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.48,
     "mode": 0
@@ -17833,7 +17833,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/950289/covers/list.jpg?1650680553",
       "slimcover": "https://assets.ppy.sh/beatmaps/950289/covers/slimcover.jpg?1650680553"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/950289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/950289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.47,
     "mode": 0
@@ -17860,7 +17860,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/713688/covers/list.jpg?1622130774",
       "slimcover": "https://assets.ppy.sh/beatmaps/713688/covers/slimcover.jpg?1622130774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/713688.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/713688.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.47,
     "mode": 0
@@ -17887,7 +17887,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1004468/covers/list.jpg?1645781181",
       "slimcover": "https://assets.ppy.sh/beatmaps/1004468/covers/slimcover.jpg?1645781181"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1004468.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1004468.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.46,
     "mode": 0
@@ -17914,7 +17914,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770306/covers/list.jpg?1650662952",
       "slimcover": "https://assets.ppy.sh/beatmaps/770306/covers/slimcover.jpg?1650662952"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770306.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770306.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.41,
     "mode": 0
@@ -17941,7 +17941,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/894883/covers/list.jpg?1645788261",
       "slimcover": "https://assets.ppy.sh/beatmaps/894883/covers/slimcover.jpg?1645788261"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/894883.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/894883.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.4,
     "mode": 0
@@ -17968,7 +17968,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/623924/covers/list.jpg?1650656237",
       "slimcover": "https://assets.ppy.sh/beatmaps/623924/covers/slimcover.jpg?1650656237"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/623924.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/623924.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.37,
     "mode": 0
@@ -17995,7 +17995,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/597111/covers/list.jpg?1650649247",
       "slimcover": "https://assets.ppy.sh/beatmaps/597111/covers/slimcover.jpg?1650649247"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/597111.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/597111.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.36,
     "mode": 0
@@ -18022,7 +18022,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/895391/covers/list.jpg?1645788047",
       "slimcover": "https://assets.ppy.sh/beatmaps/895391/covers/slimcover.jpg?1645788047"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/895391.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/895391.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.36,
     "mode": 0
@@ -18049,7 +18049,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/440169/covers/list.jpg?1650639548",
       "slimcover": "https://assets.ppy.sh/beatmaps/440169/covers/slimcover.jpg?1650639548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/440169.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/440169.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.35,
     "mode": 0
@@ -18076,7 +18076,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/35375/covers/list.jpg?1650613416",
       "slimcover": "https://assets.ppy.sh/beatmaps/35375/covers/slimcover.jpg?1650613416"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/35375.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/35375.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.35,
     "mode": 0
@@ -18103,7 +18103,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/36858/covers/list.jpg?1622049909",
       "slimcover": "https://assets.ppy.sh/beatmaps/36858/covers/slimcover.jpg?1622049909"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/36858.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/36858.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.34,
     "mode": 0
@@ -18130,7 +18130,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.33,
     "mode": 0
@@ -18157,7 +18157,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/751785/covers/list.jpg?1650660791",
       "slimcover": "https://assets.ppy.sh/beatmaps/751785/covers/slimcover.jpg?1650660791"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/751785.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/751785.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.29,
     "mode": 0
@@ -18184,7 +18184,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/486535/covers/list.jpg?1631509836",
       "slimcover": "https://assets.ppy.sh/beatmaps/486535/covers/slimcover.jpg?1631509836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/486535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/486535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.27,
     "mode": 0
@@ -18211,7 +18211,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.25,
     "mode": 0
@@ -18238,7 +18238,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/105656/covers/list.jpg?1622066238",
       "slimcover": "https://assets.ppy.sh/beatmaps/105656/covers/slimcover.jpg?1622066238"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/105656.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/105656.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.24,
     "mode": 0
@@ -18265,7 +18265,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/481451/covers/list.jpg?1650642294",
       "slimcover": "https://assets.ppy.sh/beatmaps/481451/covers/slimcover.jpg?1650642294"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/481451.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/481451.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.23,
     "mode": 0
@@ -18292,7 +18292,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/751785/covers/list.jpg?1650660791",
       "slimcover": "https://assets.ppy.sh/beatmaps/751785/covers/slimcover.jpg?1650660791"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/751785.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/751785.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.21,
     "mode": 0
@@ -18319,7 +18319,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/269969/covers/list.jpg?1622082019",
       "slimcover": "https://assets.ppy.sh/beatmaps/269969/covers/slimcover.jpg?1622082019"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/269969.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/269969.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.19,
     "mode": 0
@@ -18346,7 +18346,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.18,
     "mode": 0
@@ -18373,7 +18373,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.15,
     "mode": 0
@@ -18400,7 +18400,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33651/covers/list.jpg?1622048536",
       "slimcover": "https://assets.ppy.sh/beatmaps/33651/covers/slimcover.jpg?1622048536"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33651.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33651.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.15,
     "mode": 0
@@ -18427,7 +18427,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/143397/covers/list.jpg?1650625350",
       "slimcover": "https://assets.ppy.sh/beatmaps/143397/covers/slimcover.jpg?1650625350"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/143397.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/143397.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.13,
     "mode": 0
@@ -18454,7 +18454,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/894883/covers/list.jpg?1645788261",
       "slimcover": "https://assets.ppy.sh/beatmaps/894883/covers/slimcover.jpg?1645788261"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/894883.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/894883.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.1,
     "mode": 0
@@ -18481,7 +18481,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/326920/covers/list.jpg?1650644794",
       "slimcover": "https://assets.ppy.sh/beatmaps/326920/covers/slimcover.jpg?1650644794"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/326920.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/326920.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.1,
     "mode": 0
@@ -18508,7 +18508,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/484532/covers/list.jpg?1650648029",
       "slimcover": "https://assets.ppy.sh/beatmaps/484532/covers/slimcover.jpg?1650648029"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/484532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/484532.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.1,
     "mode": 0
@@ -18535,7 +18535,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.08,
     "mode": 0
@@ -18562,7 +18562,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/111760/covers/list.jpg?1622067118",
       "slimcover": "https://assets.ppy.sh/beatmaps/111760/covers/slimcover.jpg?1622067118"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/111760.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/111760.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.06,
     "mode": 0
@@ -18589,7 +18589,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459149/covers/list.jpg?1622104099",
       "slimcover": "https://assets.ppy.sh/beatmaps/459149/covers/slimcover.jpg?1622104099"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459149.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459149.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.05,
     "mode": 0
@@ -18616,7 +18616,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.03,
     "mode": 0
@@ -18643,7 +18643,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/515069/covers/list.jpg?1622109509",
       "slimcover": "https://assets.ppy.sh/beatmaps/515069/covers/slimcover.jpg?1622109509"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/515069.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/515069.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.02,
     "mode": 0
@@ -18670,7 +18670,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17066/covers/list.jpg?1650604846",
       "slimcover": "https://assets.ppy.sh/beatmaps/17066/covers/slimcover.jpg?1650604846"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17066.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17066.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68.01,
     "mode": 0
@@ -18697,7 +18697,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387784/covers/list.jpg?1650635195",
       "slimcover": "https://assets.ppy.sh/beatmaps/387784/covers/slimcover.jpg?1650635195"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387784.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387784.mp3",
     "rarity": "Uncommon",
     "popularityScore": 68,
     "mode": 0
@@ -18724,7 +18724,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.98,
     "mode": 0
@@ -18751,7 +18751,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/361740/covers/list.jpg?1645788409",
       "slimcover": "https://assets.ppy.sh/beatmaps/361740/covers/slimcover.jpg?1645788409"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/361740.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.97,
     "mode": 0
@@ -18778,7 +18778,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/486535/covers/list.jpg?1631509836",
       "slimcover": "https://assets.ppy.sh/beatmaps/486535/covers/slimcover.jpg?1631509836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/486535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/486535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.97,
     "mode": 0
@@ -18805,7 +18805,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/770300/covers/list.jpg?1650662945",
       "slimcover": "https://assets.ppy.sh/beatmaps/770300/covers/slimcover.jpg?1650662945"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/770300.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/770300.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.93,
     "mode": 0
@@ -18832,7 +18832,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/269969/covers/list.jpg?1622082019",
       "slimcover": "https://assets.ppy.sh/beatmaps/269969/covers/slimcover.jpg?1622082019"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/269969.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/269969.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.93,
     "mode": 0
@@ -18859,7 +18859,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/437055/covers/list.jpg?1650638468",
       "slimcover": "https://assets.ppy.sh/beatmaps/437055/covers/slimcover.jpg?1650638468"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/437055.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/437055.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.91,
     "mode": 0
@@ -18886,7 +18886,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/313718/covers/list.jpg?1650630607",
       "slimcover": "https://assets.ppy.sh/beatmaps/313718/covers/slimcover.jpg?1650630607"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/313718.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/313718.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.91,
     "mode": 0
@@ -18913,7 +18913,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1209835/covers/list.jpg?1650698753",
       "slimcover": "https://assets.ppy.sh/beatmaps/1209835/covers/slimcover.jpg?1650698753"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1209835.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1209835.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.89,
     "mode": 0
@@ -18940,7 +18940,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/819112/covers/list.jpg?1650668141",
       "slimcover": "https://assets.ppy.sh/beatmaps/819112/covers/slimcover.jpg?1650668141"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/819112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/819112.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.89,
     "mode": 0
@@ -18967,7 +18967,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/206750/covers/list.jpg?1645788401",
       "slimcover": "https://assets.ppy.sh/beatmaps/206750/covers/slimcover.jpg?1645788401"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/206750.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/206750.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.87,
     "mode": 0
@@ -18994,7 +18994,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.86,
     "mode": 0
@@ -19021,7 +19021,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/10435/covers/list.jpg?1622029203",
       "slimcover": "https://assets.ppy.sh/beatmaps/10435/covers/slimcover.jpg?1622029203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/10435.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/10435.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.86,
     "mode": 0
@@ -19048,7 +19048,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1533028/covers/list.jpg?1645788428",
       "slimcover": "https://assets.ppy.sh/beatmaps/1533028/covers/slimcover.jpg?1645788428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1533028.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1533028.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.86,
     "mode": 0
@@ -19075,7 +19075,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/373373/covers/list.jpg?1622095855",
       "slimcover": "https://assets.ppy.sh/beatmaps/373373/covers/slimcover.jpg?1622095855"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/373373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/373373.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.86,
     "mode": 0
@@ -19102,7 +19102,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.85,
     "mode": 0
@@ -19129,7 +19129,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/751785/covers/list.jpg?1650660791",
       "slimcover": "https://assets.ppy.sh/beatmaps/751785/covers/slimcover.jpg?1650660791"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/751785.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/751785.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.85,
     "mode": 0
@@ -19156,7 +19156,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.81,
     "mode": 0
@@ -19183,7 +19183,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325158/covers/list.jpg?1650631447",
       "slimcover": "https://assets.ppy.sh/beatmaps/325158/covers/slimcover.jpg?1650631447"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325158.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325158.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.81,
     "mode": 0
@@ -19210,7 +19210,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292077/covers/list.jpg?1650629132",
       "slimcover": "https://assets.ppy.sh/beatmaps/292077/covers/slimcover.jpg?1650629132"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292077.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292077.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.79,
     "mode": 0
@@ -19237,7 +19237,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/441155/covers/list.jpg?1650638315",
       "slimcover": "https://assets.ppy.sh/beatmaps/441155/covers/slimcover.jpg?1650638315"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/441155.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/441155.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.71,
     "mode": 0
@@ -19264,7 +19264,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/147962/covers/list.jpg?1650620437",
       "slimcover": "https://assets.ppy.sh/beatmaps/147962/covers/slimcover.jpg?1650620437"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/147962.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/147962.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.69,
     "mode": 0
@@ -19291,7 +19291,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/769917/covers/list.jpg?1650663270",
       "slimcover": "https://assets.ppy.sh/beatmaps/769917/covers/slimcover.jpg?1650663270"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/769917.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/769917.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.68,
     "mode": 0
@@ -19318,7 +19318,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/326920/covers/list.jpg?1650644794",
       "slimcover": "https://assets.ppy.sh/beatmaps/326920/covers/slimcover.jpg?1650644794"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/326920.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/326920.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.66,
     "mode": 0
@@ -19345,7 +19345,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/357777/covers/list.jpg?1650641012",
       "slimcover": "https://assets.ppy.sh/beatmaps/357777/covers/slimcover.jpg?1650641012"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/357777.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/357777.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.66,
     "mode": 0
@@ -19372,7 +19372,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/420765/covers/list.jpg?1650640091",
       "slimcover": "https://assets.ppy.sh/beatmaps/420765/covers/slimcover.jpg?1650640091"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/420765.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/420765.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.65,
     "mode": 0
@@ -19399,7 +19399,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.64,
     "mode": 0
@@ -19426,7 +19426,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1209835/covers/list.jpg?1650698753",
       "slimcover": "https://assets.ppy.sh/beatmaps/1209835/covers/slimcover.jpg?1650698753"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1209835.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1209835.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.64,
     "mode": 0
@@ -19453,7 +19453,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/919827/covers/list.jpg?1650675777",
       "slimcover": "https://assets.ppy.sh/beatmaps/919827/covers/slimcover.jpg?1650675777"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/919827.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/919827.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.62,
     "mode": 0
@@ -19480,7 +19480,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/592509/covers/list.jpg?1622117088",
       "slimcover": "https://assets.ppy.sh/beatmaps/592509/covers/slimcover.jpg?1622117088"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/592509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/592509.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.6,
     "mode": 0
@@ -19507,7 +19507,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/366440/covers/list.jpg?1622095148",
       "slimcover": "https://assets.ppy.sh/beatmaps/366440/covers/slimcover.jpg?1622095148"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/366440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/366440.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.58,
     "mode": 0
@@ -19534,7 +19534,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.56,
     "mode": 0
@@ -19561,7 +19561,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/398176/covers/list.jpg?1645787059",
       "slimcover": "https://assets.ppy.sh/beatmaps/398176/covers/slimcover.jpg?1645787059"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/398176.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/398176.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.56,
     "mode": 0
@@ -19588,7 +19588,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/931452/covers/list.jpg?1650678433",
       "slimcover": "https://assets.ppy.sh/beatmaps/931452/covers/slimcover.jpg?1650678433"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/931452.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/931452.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.54,
     "mode": 0
@@ -19615,7 +19615,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.54,
     "mode": 0
@@ -19642,7 +19642,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/58951/covers/list.jpg?1650616586",
       "slimcover": "https://assets.ppy.sh/beatmaps/58951/covers/slimcover.jpg?1650616586"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/58951.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/58951.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.54,
     "mode": 0
@@ -19669,7 +19669,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1053509/covers/list.jpg?1650686981",
       "slimcover": "https://assets.ppy.sh/beatmaps/1053509/covers/slimcover.jpg?1650686981"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1053509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1053509.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.52,
     "mode": 0
@@ -19696,7 +19696,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/534404/covers/list.jpg?1622111551",
       "slimcover": "https://assets.ppy.sh/beatmaps/534404/covers/slimcover.jpg?1622111551"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/534404.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/534404.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.52,
     "mode": 0
@@ -19723,7 +19723,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/611956/covers/list.jpg?1650649880",
       "slimcover": "https://assets.ppy.sh/beatmaps/611956/covers/slimcover.jpg?1650649880"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/611956.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/611956.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.5,
     "mode": 0
@@ -19750,7 +19750,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1533028/covers/list.jpg?1645788428",
       "slimcover": "https://assets.ppy.sh/beatmaps/1533028/covers/slimcover.jpg?1645788428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1533028.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1533028.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.5,
     "mode": 0
@@ -19777,7 +19777,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.49,
     "mode": 0
@@ -19804,7 +19804,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/440169/covers/list.jpg?1650639548",
       "slimcover": "https://assets.ppy.sh/beatmaps/440169/covers/slimcover.jpg?1650639548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/440169.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/440169.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.49,
     "mode": 0
@@ -19831,7 +19831,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/488238/covers/list.jpg?1631509747",
       "slimcover": "https://assets.ppy.sh/beatmaps/488238/covers/slimcover.jpg?1631509747"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/488238.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/488238.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.48,
     "mode": 0
@@ -19858,7 +19858,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.46,
     "mode": 0
@@ -19885,7 +19885,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.44,
     "mode": 0
@@ -19912,7 +19912,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/894883/covers/list.jpg?1645788261",
       "slimcover": "https://assets.ppy.sh/beatmaps/894883/covers/slimcover.jpg?1645788261"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/894883.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/894883.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.44,
     "mode": 0
@@ -19939,7 +19939,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/480765/covers/list.jpg?1650646117",
       "slimcover": "https://assets.ppy.sh/beatmaps/480765/covers/slimcover.jpg?1650646117"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/480765.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/480765.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.44,
     "mode": 0
@@ -19966,7 +19966,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/671199/covers/list.jpg?1650657296",
       "slimcover": "https://assets.ppy.sh/beatmaps/671199/covers/slimcover.jpg?1650657296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/671199.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/671199.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.44,
     "mode": 0
@@ -19993,7 +19993,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/10435/covers/list.jpg?1622029203",
       "slimcover": "https://assets.ppy.sh/beatmaps/10435/covers/slimcover.jpg?1622029203"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/10435.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/10435.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.42,
     "mode": 0
@@ -20020,7 +20020,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292077/covers/list.jpg?1650629132",
       "slimcover": "https://assets.ppy.sh/beatmaps/292077/covers/slimcover.jpg?1650629132"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292077.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292077.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.42,
     "mode": 0
@@ -20047,7 +20047,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/391953/covers/list.jpg?1650636786",
       "slimcover": "https://assets.ppy.sh/beatmaps/391953/covers/slimcover.jpg?1650636786"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/391953.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/391953.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.41,
     "mode": 0
@@ -20074,7 +20074,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1973430/covers/list.jpg?1681693286",
       "slimcover": "https://assets.ppy.sh/beatmaps/1973430/covers/slimcover.jpg?1681693286"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1973430.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1973430.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.41,
     "mode": 0
@@ -20101,7 +20101,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.4,
     "mode": 0
@@ -20128,7 +20128,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1001507/covers/list.jpg?1650685521",
       "slimcover": "https://assets.ppy.sh/beatmaps/1001507/covers/slimcover.jpg?1650685521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1001507.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1001507.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.4,
     "mode": 0
@@ -20155,7 +20155,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/380545/covers/list.jpg?1622096656",
       "slimcover": "https://assets.ppy.sh/beatmaps/380545/covers/slimcover.jpg?1622096656"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/380545.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/380545.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.39,
     "mode": 0
@@ -20182,7 +20182,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/671199/covers/list.jpg?1650657296",
       "slimcover": "https://assets.ppy.sh/beatmaps/671199/covers/slimcover.jpg?1650657296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/671199.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/671199.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.39,
     "mode": 0
@@ -20209,7 +20209,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/357466/covers/list.jpg?1622093891",
       "slimcover": "https://assets.ppy.sh/beatmaps/357466/covers/slimcover.jpg?1622093891"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/357466.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/357466.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.39,
     "mode": 0
@@ -20236,7 +20236,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/58951/covers/list.jpg?1650616586",
       "slimcover": "https://assets.ppy.sh/beatmaps/58951/covers/slimcover.jpg?1650616586"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/58951.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/58951.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.38,
     "mode": 0
@@ -20263,7 +20263,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/901880/covers/list.jpg?1650673732",
       "slimcover": "https://assets.ppy.sh/beatmaps/901880/covers/slimcover.jpg?1650673732"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/901880.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/901880.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.36,
     "mode": 0
@@ -20290,7 +20290,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/130223/covers/list.jpg?1650619235",
       "slimcover": "https://assets.ppy.sh/beatmaps/130223/covers/slimcover.jpg?1650619235"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/130223.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/130223.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.35,
     "mode": 0
@@ -20317,7 +20317,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1377/covers/list.jpg?1631328797",
       "slimcover": "https://assets.ppy.sh/beatmaps/1377/covers/slimcover.jpg?1631328797"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1377.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1377.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.33,
     "mode": 0
@@ -20344,7 +20344,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/409214/covers/list.jpg?1650650600",
       "slimcover": "https://assets.ppy.sh/beatmaps/409214/covers/slimcover.jpg?1650650600"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/409214.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/409214.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.32,
     "mode": 0
@@ -20371,7 +20371,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/863227/covers/list.jpg?1650672519",
       "slimcover": "https://assets.ppy.sh/beatmaps/863227/covers/slimcover.jpg?1650672519"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/863227.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/863227.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.31,
     "mode": 0
@@ -20398,7 +20398,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/153776/covers/list.jpg?1650621428",
       "slimcover": "https://assets.ppy.sh/beatmaps/153776/covers/slimcover.jpg?1650621428"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/153776.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/153776.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.31,
     "mode": 0
@@ -20425,7 +20425,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/671199/covers/list.jpg?1650657296",
       "slimcover": "https://assets.ppy.sh/beatmaps/671199/covers/slimcover.jpg?1650657296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/671199.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/671199.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.31,
     "mode": 0
@@ -20452,7 +20452,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/76623/covers/list.jpg?1650615337",
       "slimcover": "https://assets.ppy.sh/beatmaps/76623/covers/slimcover.jpg?1650615337"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/76623.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/76623.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.31,
     "mode": 0
@@ -20479,7 +20479,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1004468/covers/list.jpg?1645781181",
       "slimcover": "https://assets.ppy.sh/beatmaps/1004468/covers/slimcover.jpg?1645781181"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1004468.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1004468.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.29,
     "mode": 0
@@ -20506,7 +20506,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/345450/covers/list.jpg?1631509391",
       "slimcover": "https://assets.ppy.sh/beatmaps/345450/covers/slimcover.jpg?1631509391"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/345450.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/345450.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.27,
     "mode": 0
@@ -20533,7 +20533,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/206750/covers/list.jpg?1645788401",
       "slimcover": "https://assets.ppy.sh/beatmaps/206750/covers/slimcover.jpg?1645788401"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/206750.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/206750.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.22,
     "mode": 0
@@ -20560,7 +20560,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1328989/covers/list.jpg?1650707689",
       "slimcover": "https://assets.ppy.sh/beatmaps/1328989/covers/slimcover.jpg?1650707689"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1328989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1328989.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.21,
     "mode": 0
@@ -20587,7 +20587,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/232935/covers/list.jpg?1650625808",
       "slimcover": "https://assets.ppy.sh/beatmaps/232935/covers/slimcover.jpg?1650625808"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/232935.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/232935.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.2,
     "mode": 0
@@ -20614,7 +20614,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.18,
     "mode": 0
@@ -20641,7 +20641,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33651/covers/list.jpg?1622048536",
       "slimcover": "https://assets.ppy.sh/beatmaps/33651/covers/slimcover.jpg?1622048536"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33651.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33651.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.17,
     "mode": 0
@@ -20668,7 +20668,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/50771/covers/list.jpg?1622056109",
       "slimcover": "https://assets.ppy.sh/beatmaps/50771/covers/slimcover.jpg?1622056109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/50771.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/50771.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.17,
     "mode": 0
@@ -20695,7 +20695,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.14,
     "mode": 0
@@ -20722,7 +20722,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/96103/covers/list.jpg?1650616986",
       "slimcover": "https://assets.ppy.sh/beatmaps/96103/covers/slimcover.jpg?1650616986"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/96103.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/96103.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.11,
     "mode": 0
@@ -20749,7 +20749,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/875289/covers/list.jpg?1650671642",
       "slimcover": "https://assets.ppy.sh/beatmaps/875289/covers/slimcover.jpg?1650671642"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/875289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/875289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.08,
     "mode": 0
@@ -20776,7 +20776,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1317896/covers/list.jpg?1650704635",
       "slimcover": "https://assets.ppy.sh/beatmaps/1317896/covers/slimcover.jpg?1650704635"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1317896.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1317896.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.08,
     "mode": 0
@@ -20803,7 +20803,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/721240/covers/list.jpg?1650658540",
       "slimcover": "https://assets.ppy.sh/beatmaps/721240/covers/slimcover.jpg?1650658540"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/721240.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/721240.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.06,
     "mode": 0
@@ -20830,7 +20830,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.05,
     "mode": 0
@@ -20857,7 +20857,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1068768/covers/list.jpg?1645787898",
       "slimcover": "https://assets.ppy.sh/beatmaps/1068768/covers/slimcover.jpg?1645787898"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1068768.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1068768.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.05,
     "mode": 0
@@ -20884,7 +20884,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/875289/covers/list.jpg?1650671642",
       "slimcover": "https://assets.ppy.sh/beatmaps/875289/covers/slimcover.jpg?1650671642"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/875289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/875289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.05,
     "mode": 0
@@ -20911,7 +20911,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413117/covers/list.jpg?1650685850",
       "slimcover": "https://assets.ppy.sh/beatmaps/413117/covers/slimcover.jpg?1650685850"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413117.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413117.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67.04,
     "mode": 0
@@ -20938,7 +20938,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67,
     "mode": 0
@@ -20965,7 +20965,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/68893/covers/list.jpg?1650614941",
       "slimcover": "https://assets.ppy.sh/beatmaps/68893/covers/slimcover.jpg?1650614941"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/68893.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/68893.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67,
     "mode": 0
@@ -20992,7 +20992,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/919827/covers/list.jpg?1650675777",
       "slimcover": "https://assets.ppy.sh/beatmaps/919827/covers/slimcover.jpg?1650675777"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/919827.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/919827.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67,
     "mode": 0
@@ -21019,7 +21019,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/345450/covers/list.jpg?1631509391",
       "slimcover": "https://assets.ppy.sh/beatmaps/345450/covers/slimcover.jpg?1631509391"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/345450.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/345450.mp3",
     "rarity": "Uncommon",
     "popularityScore": 67,
     "mode": 0
@@ -21046,7 +21046,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.99,
     "mode": 0
@@ -21073,7 +21073,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1123162/covers/list.jpg?1650692615",
       "slimcover": "https://assets.ppy.sh/beatmaps/1123162/covers/slimcover.jpg?1650692615"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1123162.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1123162.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.98,
     "mode": 0
@@ -21100,7 +21100,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/493273/covers/list.jpg?1645788238",
       "slimcover": "https://assets.ppy.sh/beatmaps/493273/covers/slimcover.jpg?1645788238"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/493273.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/493273.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.96,
     "mode": 0
@@ -21127,7 +21127,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/522857/covers/list.jpg?1650644485",
       "slimcover": "https://assets.ppy.sh/beatmaps/522857/covers/slimcover.jpg?1650644485"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/522857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/522857.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.96,
     "mode": 0
@@ -21154,7 +21154,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/950289/covers/list.jpg?1650680553",
       "slimcover": "https://assets.ppy.sh/beatmaps/950289/covers/slimcover.jpg?1650680553"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/950289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/950289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.94,
     "mode": 0
@@ -21181,7 +21181,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1001507/covers/list.jpg?1650685521",
       "slimcover": "https://assets.ppy.sh/beatmaps/1001507/covers/slimcover.jpg?1650685521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1001507.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1001507.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.93,
     "mode": 0
@@ -21208,7 +21208,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/8284/covers/list.jpg?1622026457",
       "slimcover": "https://assets.ppy.sh/beatmaps/8284/covers/slimcover.jpg?1622026457"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/8284.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/8284.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.93,
     "mode": 0
@@ -21235,7 +21235,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/488396/covers/list.jpg?1650642647",
       "slimcover": "https://assets.ppy.sh/beatmaps/488396/covers/slimcover.jpg?1650642647"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/488396.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/488396.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.92,
     "mode": 0
@@ -21262,7 +21262,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28751/covers/list.jpg?1645787954",
       "slimcover": "https://assets.ppy.sh/beatmaps/28751/covers/slimcover.jpg?1645787954"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28751.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28751.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.92,
     "mode": 0
@@ -21289,7 +21289,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/292301/covers/list.jpg?1650630372",
       "slimcover": "https://assets.ppy.sh/beatmaps/292301/covers/slimcover.jpg?1650630372"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/292301.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/292301.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.89,
     "mode": 0
@@ -21316,7 +21316,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/713688/covers/list.jpg?1622130774",
       "slimcover": "https://assets.ppy.sh/beatmaps/713688/covers/slimcover.jpg?1622130774"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/713688.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/713688.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.89,
     "mode": 0
@@ -21343,7 +21343,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/384772/covers/list.jpg?1650716263",
       "slimcover": "https://assets.ppy.sh/beatmaps/384772/covers/slimcover.jpg?1650716263"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/384772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.88,
     "mode": 0
@@ -21370,7 +21370,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/82282/covers/list.jpg?1650616737",
       "slimcover": "https://assets.ppy.sh/beatmaps/82282/covers/slimcover.jpg?1650616737"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/82282.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/82282.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.87,
     "mode": 0
@@ -21397,7 +21397,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/213629/covers/list.jpg?1650627414",
       "slimcover": "https://assets.ppy.sh/beatmaps/213629/covers/slimcover.jpg?1650627414"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/213629.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/213629.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.85,
     "mode": 0
@@ -21424,7 +21424,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.84,
     "mode": 0
@@ -21451,7 +21451,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1061287/covers/list.jpg?1650688170",
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1061287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.84,
     "mode": 0
@@ -21478,7 +21478,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.84,
     "mode": 0
@@ -21505,7 +21505,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/141329/covers/list.jpg?1650619921",
       "slimcover": "https://assets.ppy.sh/beatmaps/141329/covers/slimcover.jpg?1650619921"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/141329.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/141329.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.84,
     "mode": 0
@@ -21532,7 +21532,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1377/covers/list.jpg?1631328797",
       "slimcover": "https://assets.ppy.sh/beatmaps/1377/covers/slimcover.jpg?1631328797"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1377.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1377.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.84,
     "mode": 0
@@ -21559,7 +21559,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1061287/covers/list.jpg?1650688170",
       "slimcover": "https://assets.ppy.sh/beatmaps/1061287/covers/slimcover.jpg?1650688170"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1061287.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1061287.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.82,
     "mode": 0
@@ -21586,7 +21586,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.82,
     "mode": 0
@@ -21613,7 +21613,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.82,
     "mode": 0
@@ -21640,7 +21640,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1440767/covers/list.jpg?1650709123",
       "slimcover": "https://assets.ppy.sh/beatmaps/1440767/covers/slimcover.jpg?1650709123"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1440767.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1440767.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.82,
     "mode": 0
@@ -21667,7 +21667,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.81,
     "mode": 0
@@ -21694,7 +21694,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17852/covers/list.jpg?1650605049",
       "slimcover": "https://assets.ppy.sh/beatmaps/17852/covers/slimcover.jpg?1650605049"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17852.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.8,
     "mode": 0
@@ -21721,7 +21721,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/360107/covers/list.jpg?1645778668",
       "slimcover": "https://assets.ppy.sh/beatmaps/360107/covers/slimcover.jpg?1645778668"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/360107.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/360107.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.8,
     "mode": 0
@@ -21748,7 +21748,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/950289/covers/list.jpg?1650680553",
       "slimcover": "https://assets.ppy.sh/beatmaps/950289/covers/slimcover.jpg?1650680553"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/950289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/950289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.77,
     "mode": 0
@@ -21775,7 +21775,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.75,
     "mode": 0
@@ -21802,7 +21802,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/28107/covers/list.jpg?1622045706",
       "slimcover": "https://assets.ppy.sh/beatmaps/28107/covers/slimcover.jpg?1622045706"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/28107.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/28107.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.74,
     "mode": 0
@@ -21829,7 +21829,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17852/covers/list.jpg?1650605049",
       "slimcover": "https://assets.ppy.sh/beatmaps/17852/covers/slimcover.jpg?1650605049"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17852.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17852.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.7,
     "mode": 0
@@ -21856,7 +21856,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/143397/covers/list.jpg?1650625350",
       "slimcover": "https://assets.ppy.sh/beatmaps/143397/covers/slimcover.jpg?1650625350"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/143397.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/143397.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.69,
     "mode": 0
@@ -21883,7 +21883,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.67,
     "mode": 0
@@ -21910,7 +21910,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.67,
     "mode": 0
@@ -21937,7 +21937,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/522857/covers/list.jpg?1650644485",
       "slimcover": "https://assets.ppy.sh/beatmaps/522857/covers/slimcover.jpg?1650644485"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/522857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/522857.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.66,
     "mode": 0
@@ -21964,7 +21964,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/754219/covers/list.jpg?1650661061",
       "slimcover": "https://assets.ppy.sh/beatmaps/754219/covers/slimcover.jpg?1650661061"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/754219.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/754219.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.64,
     "mode": 0
@@ -21991,7 +21991,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/737128/covers/list.jpg?1650659486",
       "slimcover": "https://assets.ppy.sh/beatmaps/737128/covers/slimcover.jpg?1650659486"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/737128.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/737128.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.64,
     "mode": 0
@@ -22018,7 +22018,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/438535/covers/list.jpg?1650638407",
       "slimcover": "https://assets.ppy.sh/beatmaps/438535/covers/slimcover.jpg?1650638407"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/438535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/438535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.6,
     "mode": 0
@@ -22045,7 +22045,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/351280/covers/list.jpg?1650639956",
       "slimcover": "https://assets.ppy.sh/beatmaps/351280/covers/slimcover.jpg?1650639956"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/351280.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/351280.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.6,
     "mode": 0
@@ -22072,7 +22072,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/703957/covers/list.jpg?1650658558",
       "slimcover": "https://assets.ppy.sh/beatmaps/703957/covers/slimcover.jpg?1650658558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/703957.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/703957.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.57,
     "mode": 0
@@ -22099,7 +22099,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/39031/covers/list.jpg?1622050729",
       "slimcover": "https://assets.ppy.sh/beatmaps/39031/covers/slimcover.jpg?1622050729"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/39031.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/39031.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.56,
     "mode": 0
@@ -22126,7 +22126,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/52361/covers/list.jpg?1650612281",
       "slimcover": "https://assets.ppy.sh/beatmaps/52361/covers/slimcover.jpg?1650612281"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/52361.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/52361.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.55,
     "mode": 0
@@ -22153,7 +22153,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/493273/covers/list.jpg?1645788238",
       "slimcover": "https://assets.ppy.sh/beatmaps/493273/covers/slimcover.jpg?1645788238"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/493273.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/493273.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.54,
     "mode": 0
@@ -22180,7 +22180,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/440169/covers/list.jpg?1650639548",
       "slimcover": "https://assets.ppy.sh/beatmaps/440169/covers/slimcover.jpg?1650639548"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/440169.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/440169.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.54,
     "mode": 0
@@ -22207,7 +22207,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/130104/covers/list.jpg?1650619228",
       "slimcover": "https://assets.ppy.sh/beatmaps/130104/covers/slimcover.jpg?1650619228"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/130104.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/130104.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.51,
     "mode": 0
@@ -22234,7 +22234,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.5,
     "mode": 0
@@ -22261,7 +22261,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/597111/covers/list.jpg?1650649247",
       "slimcover": "https://assets.ppy.sh/beatmaps/597111/covers/slimcover.jpg?1650649247"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/597111.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/597111.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.5,
     "mode": 0
@@ -22288,7 +22288,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/661919/covers/list.jpg?1650653913",
       "slimcover": "https://assets.ppy.sh/beatmaps/661919/covers/slimcover.jpg?1650653913"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/661919.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/661919.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.5,
     "mode": 0
@@ -22315,7 +22315,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.45,
     "mode": 0
@@ -22342,7 +22342,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.45,
     "mode": 0
@@ -22369,7 +22369,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1209835/covers/list.jpg?1650698753",
       "slimcover": "https://assets.ppy.sh/beatmaps/1209835/covers/slimcover.jpg?1650698753"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1209835.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1209835.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.42,
     "mode": 0
@@ -22396,7 +22396,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/727908/covers/list.jpg?1650660219",
       "slimcover": "https://assets.ppy.sh/beatmaps/727908/covers/slimcover.jpg?1650660219"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/727908.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/727908.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.42,
     "mode": 0
@@ -22423,7 +22423,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/819112/covers/list.jpg?1650668141",
       "slimcover": "https://assets.ppy.sh/beatmaps/819112/covers/slimcover.jpg?1650668141"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/819112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/819112.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.41,
     "mode": 0
@@ -22450,7 +22450,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1880007/covers/list.jpg?1670740849",
       "slimcover": "https://assets.ppy.sh/beatmaps/1880007/covers/slimcover.jpg?1670740849"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1880007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1880007.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.4,
     "mode": 0
@@ -22477,7 +22477,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/271339/covers/list.jpg?1622082108",
       "slimcover": "https://assets.ppy.sh/beatmaps/271339/covers/slimcover.jpg?1622082108"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/271339.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/271339.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.38,
     "mode": 0
@@ -22504,7 +22504,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325158/covers/list.jpg?1650631447",
       "slimcover": "https://assets.ppy.sh/beatmaps/325158/covers/slimcover.jpg?1650631447"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325158.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325158.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.37,
     "mode": 0
@@ -22531,7 +22531,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/100049/covers/list.jpg?1650620890",
       "slimcover": "https://assets.ppy.sh/beatmaps/100049/covers/slimcover.jpg?1650620890"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/100049.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/100049.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.37,
     "mode": 0
@@ -22558,7 +22558,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/409164/covers/list.jpg?1650636524",
       "slimcover": "https://assets.ppy.sh/beatmaps/409164/covers/slimcover.jpg?1650636524"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/409164.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/409164.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.33,
     "mode": 0
@@ -22585,7 +22585,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/208112/covers/list.jpg?1622077296",
       "slimcover": "https://assets.ppy.sh/beatmaps/208112/covers/slimcover.jpg?1622077296"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/208112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/208112.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.33,
     "mode": 0
@@ -22612,7 +22612,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/488396/covers/list.jpg?1650642647",
       "slimcover": "https://assets.ppy.sh/beatmaps/488396/covers/slimcover.jpg?1650642647"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/488396.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/488396.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.31,
     "mode": 0
@@ -22639,7 +22639,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/478405/covers/list.jpg?1650647231",
       "slimcover": "https://assets.ppy.sh/beatmaps/478405/covers/slimcover.jpg?1650647231"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/478405.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/478405.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.3,
     "mode": 0
@@ -22666,7 +22666,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/745312/covers/list.jpg?1650660483",
       "slimcover": "https://assets.ppy.sh/beatmaps/745312/covers/slimcover.jpg?1650660483"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/745312.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/745312.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.29,
     "mode": 0
@@ -22693,7 +22693,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/51245/covers/list.jpg?1650612283",
       "slimcover": "https://assets.ppy.sh/beatmaps/51245/covers/slimcover.jpg?1650612283"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/51245.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/51245.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.29,
     "mode": 0
@@ -22720,7 +22720,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1206286/covers/list.jpg?1650697985",
       "slimcover": "https://assets.ppy.sh/beatmaps/1206286/covers/slimcover.jpg?1650697985"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1206286.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1206286.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.29,
     "mode": 0
@@ -22747,7 +22747,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/451316/covers/list.jpg?1650640109",
       "slimcover": "https://assets.ppy.sh/beatmaps/451316/covers/slimcover.jpg?1650640109"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/451316.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/451316.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.27,
     "mode": 0
@@ -22774,7 +22774,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.27,
     "mode": 0
@@ -22801,7 +22801,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/701330/covers/list.jpg?1650657287",
       "slimcover": "https://assets.ppy.sh/beatmaps/701330/covers/slimcover.jpg?1650657287"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/701330.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/701330.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.27,
     "mode": 0
@@ -22828,7 +22828,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/423527/covers/list.jpg?1650640646",
       "slimcover": "https://assets.ppy.sh/beatmaps/423527/covers/slimcover.jpg?1650640646"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/423527.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/423527.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.26,
     "mode": 0
@@ -22855,7 +22855,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17066/covers/list.jpg?1650604846",
       "slimcover": "https://assets.ppy.sh/beatmaps/17066/covers/slimcover.jpg?1650604846"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17066.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17066.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.23,
     "mode": 0
@@ -22882,7 +22882,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.22,
     "mode": 0
@@ -22909,7 +22909,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/230989/covers/list.jpg?1622079318",
       "slimcover": "https://assets.ppy.sh/beatmaps/230989/covers/slimcover.jpg?1622079318"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/230989.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/230989.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.21,
     "mode": 0
@@ -22936,7 +22936,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942866/covers/list.jpg?1650678288",
       "slimcover": "https://assets.ppy.sh/beatmaps/942866/covers/slimcover.jpg?1650678288"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942866.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942866.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.18,
     "mode": 0
@@ -22963,7 +22963,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/966339/covers/list.jpg?1650679952",
       "slimcover": "https://assets.ppy.sh/beatmaps/966339/covers/slimcover.jpg?1650679952"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/966339.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/966339.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.17,
     "mode": 0
@@ -22990,7 +22990,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/919827/covers/list.jpg?1650675777",
       "slimcover": "https://assets.ppy.sh/beatmaps/919827/covers/slimcover.jpg?1650675777"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/919827.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/919827.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.15,
     "mode": 0
@@ -23017,7 +23017,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/572897/covers/list.jpg?1650647386",
       "slimcover": "https://assets.ppy.sh/beatmaps/572897/covers/slimcover.jpg?1650647386"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/572897.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/572897.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.14,
     "mode": 0
@@ -23044,7 +23044,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1209835/covers/list.jpg?1650698753",
       "slimcover": "https://assets.ppy.sh/beatmaps/1209835/covers/slimcover.jpg?1650698753"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1209835.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1209835.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.13,
     "mode": 0
@@ -23071,7 +23071,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.12,
     "mode": 0
@@ -23098,7 +23098,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/758101/covers/list.jpg?1650661558",
       "slimcover": "https://assets.ppy.sh/beatmaps/758101/covers/slimcover.jpg?1650661558"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/758101.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/758101.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.12,
     "mode": 0
@@ -23125,7 +23125,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/104986/covers/list.jpg?1650617328",
       "slimcover": "https://assets.ppy.sh/beatmaps/104986/covers/slimcover.jpg?1650617328"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/104986.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/104986.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.12,
     "mode": 0
@@ -23152,7 +23152,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/611956/covers/list.jpg?1650649880",
       "slimcover": "https://assets.ppy.sh/beatmaps/611956/covers/slimcover.jpg?1650649880"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/611956.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/611956.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.11,
     "mode": 0
@@ -23179,7 +23179,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325158/covers/list.jpg?1650631447",
       "slimcover": "https://assets.ppy.sh/beatmaps/325158/covers/slimcover.jpg?1650631447"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325158.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325158.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.09,
     "mode": 0
@@ -23206,7 +23206,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/488238/covers/list.jpg?1631509747",
       "slimcover": "https://assets.ppy.sh/beatmaps/488238/covers/slimcover.jpg?1631509747"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/488238.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/488238.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.09,
     "mode": 0
@@ -23233,7 +23233,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942866/covers/list.jpg?1650678288",
       "slimcover": "https://assets.ppy.sh/beatmaps/942866/covers/slimcover.jpg?1650678288"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942866.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942866.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.08,
     "mode": 0
@@ -23260,7 +23260,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/416153/covers/list.jpg?1650639459",
       "slimcover": "https://assets.ppy.sh/beatmaps/416153/covers/slimcover.jpg?1650639459"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/416153.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/416153.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.08,
     "mode": 0
@@ -23287,7 +23287,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/366440/covers/list.jpg?1622095148",
       "slimcover": "https://assets.ppy.sh/beatmaps/366440/covers/slimcover.jpg?1622095148"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/366440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/366440.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.05,
     "mode": 0
@@ -23314,7 +23314,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/39031/covers/list.jpg?1622050729",
       "slimcover": "https://assets.ppy.sh/beatmaps/39031/covers/slimcover.jpg?1622050729"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/39031.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/39031.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66.05,
     "mode": 0
@@ -23341,7 +23341,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66,
     "mode": 0
@@ -23368,7 +23368,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371118/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371118/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371118.mp3",
     "rarity": "Uncommon",
     "popularityScore": 66,
     "mode": 0
@@ -23395,7 +23395,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/40344/covers/list.jpg?1650610012",
       "slimcover": "https://assets.ppy.sh/beatmaps/40344/covers/slimcover.jpg?1650610012"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/40344.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/40344.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.99,
     "mode": 0
@@ -23422,7 +23422,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/438535/covers/list.jpg?1650638407",
       "slimcover": "https://assets.ppy.sh/beatmaps/438535/covers/slimcover.jpg?1650638407"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/438535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/438535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.97,
     "mode": 0
@@ -23449,7 +23449,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/497942/covers/list.jpg?1650645186",
       "slimcover": "https://assets.ppy.sh/beatmaps/497942/covers/slimcover.jpg?1650645186"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/497942.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/497942.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.95,
     "mode": 0
@@ -23476,7 +23476,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/366440/covers/list.jpg?1622095148",
       "slimcover": "https://assets.ppy.sh/beatmaps/366440/covers/slimcover.jpg?1622095148"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/366440.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/366440.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.94,
     "mode": 0
@@ -23503,7 +23503,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/186318/covers/list.jpg?1650623687",
       "slimcover": "https://assets.ppy.sh/beatmaps/186318/covers/slimcover.jpg?1650623687"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/186318.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/186318.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.94,
     "mode": 0
@@ -23530,7 +23530,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/100049/covers/list.jpg?1650620890",
       "slimcover": "https://assets.ppy.sh/beatmaps/100049/covers/slimcover.jpg?1650620890"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/100049.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/100049.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.94,
     "mode": 0
@@ -23557,7 +23557,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/611956/covers/list.jpg?1650649880",
       "slimcover": "https://assets.ppy.sh/beatmaps/611956/covers/slimcover.jpg?1650649880"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/611956.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/611956.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.93,
     "mode": 0
@@ -23584,7 +23584,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1384619/covers/list.jpg?1650707631",
       "slimcover": "https://assets.ppy.sh/beatmaps/1384619/covers/slimcover.jpg?1650707631"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1384619.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1384619.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.91,
     "mode": 0
@@ -23611,7 +23611,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/396077/covers/list.jpg?1650645908",
       "slimcover": "https://assets.ppy.sh/beatmaps/396077/covers/slimcover.jpg?1650645908"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/396077.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/396077.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.91,
     "mode": 0
@@ -23638,7 +23638,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1068768/covers/list.jpg?1645787898",
       "slimcover": "https://assets.ppy.sh/beatmaps/1068768/covers/slimcover.jpg?1645787898"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1068768.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1068768.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.9,
     "mode": 0
@@ -23665,7 +23665,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/503141/covers/list.jpg?1650642836",
       "slimcover": "https://assets.ppy.sh/beatmaps/503141/covers/slimcover.jpg?1650642836"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/503141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/503141.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.89,
     "mode": 0
@@ -23692,7 +23692,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/223871/covers/list.jpg?1622078656",
       "slimcover": "https://assets.ppy.sh/beatmaps/223871/covers/slimcover.jpg?1622078656"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/223871.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/223871.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.89,
     "mode": 0
@@ -23719,7 +23719,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/387784/covers/list.jpg?1650635195",
       "slimcover": "https://assets.ppy.sh/beatmaps/387784/covers/slimcover.jpg?1650635195"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/387784.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/387784.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.88,
     "mode": 0
@@ -23746,7 +23746,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/371118/covers/list.jpg?1650634565",
       "slimcover": "https://assets.ppy.sh/beatmaps/371118/covers/slimcover.jpg?1650634565"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/371118.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/371118.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.87,
     "mode": 0
@@ -23773,7 +23773,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/586121/covers/list.jpg?1645787729",
       "slimcover": "https://assets.ppy.sh/beatmaps/586121/covers/slimcover.jpg?1645787729"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/586121.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/586121.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.87,
     "mode": 0
@@ -23800,7 +23800,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/79116/covers/list.jpg?1650615751",
       "slimcover": "https://assets.ppy.sh/beatmaps/79116/covers/slimcover.jpg?1650615751"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/79116.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/79116.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.86,
     "mode": 0
@@ -23827,7 +23827,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1001507/covers/list.jpg?1650685521",
       "slimcover": "https://assets.ppy.sh/beatmaps/1001507/covers/slimcover.jpg?1650685521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1001507.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1001507.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.84,
     "mode": 0
@@ -23854,7 +23854,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325112/covers/list.jpg?1650631180",
       "slimcover": "https://assets.ppy.sh/beatmaps/325112/covers/slimcover.jpg?1650631180"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325112.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325112.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.82,
     "mode": 0
@@ -23881,7 +23881,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.8,
     "mode": 0
@@ -23908,7 +23908,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/935111/covers/list.jpg?1650676791",
       "slimcover": "https://assets.ppy.sh/beatmaps/935111/covers/slimcover.jpg?1650676791"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/935111.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/935111.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.78,
     "mode": 0
@@ -23935,7 +23935,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/325307/covers/list.jpg?1650635136",
       "slimcover": "https://assets.ppy.sh/beatmaps/325307/covers/slimcover.jpg?1650635136"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/325307.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/325307.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.77,
     "mode": 0
@@ -23962,7 +23962,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/54373/covers/list.jpg?1650612752",
       "slimcover": "https://assets.ppy.sh/beatmaps/54373/covers/slimcover.jpg?1650612752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/54373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/54373.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.75,
     "mode": 0
@@ -23989,7 +23989,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1249048/covers/list.jpg?1650700671",
       "slimcover": "https://assets.ppy.sh/beatmaps/1249048/covers/slimcover.jpg?1650700671"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1249048.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1249048.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.74,
     "mode": 0
@@ -24016,7 +24016,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1973430/covers/list.jpg?1681693286",
       "slimcover": "https://assets.ppy.sh/beatmaps/1973430/covers/slimcover.jpg?1681693286"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1973430.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1973430.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.73,
     "mode": 0
@@ -24043,7 +24043,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/653534/covers/list.jpg?1650652798",
       "slimcover": "https://assets.ppy.sh/beatmaps/653534/covers/slimcover.jpg?1650652798"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/653534.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/653534.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.71,
     "mode": 0
@@ -24070,7 +24070,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.69,
     "mode": 0
@@ -24097,7 +24097,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1206286/covers/list.jpg?1650697985",
       "slimcover": "https://assets.ppy.sh/beatmaps/1206286/covers/slimcover.jpg?1650697985"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1206286.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1206286.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.69,
     "mode": 0
@@ -24124,7 +24124,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.68,
     "mode": 0
@@ -24151,7 +24151,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/572897/covers/list.jpg?1650647386",
       "slimcover": "https://assets.ppy.sh/beatmaps/572897/covers/slimcover.jpg?1650647386"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/572897.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/572897.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.67,
     "mode": 0
@@ -24178,7 +24178,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413117/covers/list.jpg?1650685850",
       "slimcover": "https://assets.ppy.sh/beatmaps/413117/covers/slimcover.jpg?1650685850"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413117.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413117.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.66,
     "mode": 0
@@ -24205,7 +24205,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/143397/covers/list.jpg?1650625350",
       "slimcover": "https://assets.ppy.sh/beatmaps/143397/covers/slimcover.jpg?1650625350"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/143397.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/143397.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.64,
     "mode": 0
@@ -24232,7 +24232,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1124391/covers/list.jpg?1650692695",
       "slimcover": "https://assets.ppy.sh/beatmaps/1124391/covers/slimcover.jpg?1650692695"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1124391.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1124391.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.64,
     "mode": 0
@@ -24259,7 +24259,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.62,
     "mode": 0
@@ -24286,7 +24286,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/355573/covers/list.jpg?1631509644",
       "slimcover": "https://assets.ppy.sh/beatmaps/355573/covers/slimcover.jpg?1631509644"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/355573.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/355573.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.62,
     "mode": 0
@@ -24313,7 +24313,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1115477/covers/list.jpg?1650693288",
       "slimcover": "https://assets.ppy.sh/beatmaps/1115477/covers/slimcover.jpg?1650693288"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1115477.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1115477.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.61,
     "mode": 0
@@ -24340,7 +24340,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.58,
     "mode": 0
@@ -24367,7 +24367,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1025171/covers/list.jpg?1650684543",
       "slimcover": "https://assets.ppy.sh/beatmaps/1025171/covers/slimcover.jpg?1650684543"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1025171.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1025171.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.58,
     "mode": 0
@@ -24394,7 +24394,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/452230/covers/list.jpg?1622103378",
       "slimcover": "https://assets.ppy.sh/beatmaps/452230/covers/slimcover.jpg?1622103378"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/452230.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/452230.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.57,
     "mode": 0
@@ -24421,7 +24421,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/299224/covers/list.jpg?1622084535",
       "slimcover": "https://assets.ppy.sh/beatmaps/299224/covers/slimcover.jpg?1622084535"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/299224.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/299224.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.55,
     "mode": 0
@@ -24448,7 +24448,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859608/covers/list.jpg?1650669977",
       "slimcover": "https://assets.ppy.sh/beatmaps/859608/covers/slimcover.jpg?1650669977"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859608.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.54,
     "mode": 0
@@ -24475,7 +24475,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.53,
     "mode": 0
@@ -24502,7 +24502,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/764602/covers/list.jpg?1650662178",
       "slimcover": "https://assets.ppy.sh/beatmaps/764602/covers/slimcover.jpg?1650662178"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/764602.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/764602.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.49,
     "mode": 0
@@ -24529,7 +24529,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/484532/covers/list.jpg?1650648029",
       "slimcover": "https://assets.ppy.sh/beatmaps/484532/covers/slimcover.jpg?1650648029"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/484532.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/484532.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.49,
     "mode": 0
@@ -24556,7 +24556,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.45,
     "mode": 0
@@ -24583,7 +24583,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/437055/covers/list.jpg?1650638468",
       "slimcover": "https://assets.ppy.sh/beatmaps/437055/covers/slimcover.jpg?1650638468"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/437055.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/437055.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.45,
     "mode": 0
@@ -24610,7 +24610,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/352570/covers/list.jpg?1650634611",
       "slimcover": "https://assets.ppy.sh/beatmaps/352570/covers/slimcover.jpg?1650634611"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/352570.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.44,
     "mode": 0
@@ -24637,7 +24637,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/515069/covers/list.jpg?1622109509",
       "slimcover": "https://assets.ppy.sh/beatmaps/515069/covers/slimcover.jpg?1622109509"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/515069.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/515069.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.44,
     "mode": 0
@@ -24664,7 +24664,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/798007/covers/list.jpg?1650665377",
       "slimcover": "https://assets.ppy.sh/beatmaps/798007/covers/slimcover.jpg?1650665377"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/798007.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/798007.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.43,
     "mode": 0
@@ -24691,7 +24691,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/409164/covers/list.jpg?1650636524",
       "slimcover": "https://assets.ppy.sh/beatmaps/409164/covers/slimcover.jpg?1650636524"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/409164.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/409164.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.42,
     "mode": 0
@@ -24718,7 +24718,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/55644/covers/list.jpg?1650613207",
       "slimcover": "https://assets.ppy.sh/beatmaps/55644/covers/slimcover.jpg?1650613207"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/55644.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/55644.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.38,
     "mode": 0
@@ -24745,7 +24745,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1124391/covers/list.jpg?1650692695",
       "slimcover": "https://assets.ppy.sh/beatmaps/1124391/covers/slimcover.jpg?1650692695"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1124391.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1124391.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.37,
     "mode": 0
@@ -24772,7 +24772,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1002271/covers/list.jpg?1650682465",
       "slimcover": "https://assets.ppy.sh/beatmaps/1002271/covers/slimcover.jpg?1650682465"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1002271.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1002271.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.35,
     "mode": 0
@@ -24799,7 +24799,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/476691/covers/list.jpg?1650642192",
       "slimcover": "https://assets.ppy.sh/beatmaps/476691/covers/slimcover.jpg?1650642192"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/476691.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/476691.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.35,
     "mode": 0
@@ -24826,7 +24826,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/373114/covers/list.jpg?1650634235",
       "slimcover": "https://assets.ppy.sh/beatmaps/373114/covers/slimcover.jpg?1650634235"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/373114.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/373114.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.33,
     "mode": 0
@@ -24853,7 +24853,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/901880/covers/list.jpg?1650673732",
       "slimcover": "https://assets.ppy.sh/beatmaps/901880/covers/slimcover.jpg?1650673732"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/901880.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/901880.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.3,
     "mode": 0
@@ -24880,7 +24880,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/65853/covers/list.jpg?1650614814",
       "slimcover": "https://assets.ppy.sh/beatmaps/65853/covers/slimcover.jpg?1650614814"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/65853.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/65853.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.3,
     "mode": 0
@@ -24907,7 +24907,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/744772/covers/list.jpg?1650676934",
       "slimcover": "https://assets.ppy.sh/beatmaps/744772/covers/slimcover.jpg?1650676934"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/744772.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/744772.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.28,
     "mode": 0
@@ -24934,7 +24934,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/931452/covers/list.jpg?1650678433",
       "slimcover": "https://assets.ppy.sh/beatmaps/931452/covers/slimcover.jpg?1650678433"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/931452.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/931452.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.27,
     "mode": 0
@@ -24961,7 +24961,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942866/covers/list.jpg?1650678288",
       "slimcover": "https://assets.ppy.sh/beatmaps/942866/covers/slimcover.jpg?1650678288"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942866.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942866.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.27,
     "mode": 0
@@ -24988,7 +24988,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/7380/covers/list.jpg?1622025400",
       "slimcover": "https://assets.ppy.sh/beatmaps/7380/covers/slimcover.jpg?1622025400"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/7380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/7380.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.26,
     "mode": 0
@@ -25015,7 +25015,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/985788/covers/list.jpg?1650681317",
       "slimcover": "https://assets.ppy.sh/beatmaps/985788/covers/slimcover.jpg?1650681317"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/985788.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/985788.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.24,
     "mode": 0
@@ -25042,7 +25042,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/542081/covers/list.jpg?1650647147",
       "slimcover": "https://assets.ppy.sh/beatmaps/542081/covers/slimcover.jpg?1650647147"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/542081.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/542081.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.23,
     "mode": 0
@@ -25069,7 +25069,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/105656/covers/list.jpg?1622066238",
       "slimcover": "https://assets.ppy.sh/beatmaps/105656/covers/slimcover.jpg?1622066238"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/105656.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/105656.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.23,
     "mode": 0
@@ -25096,7 +25096,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1004468/covers/list.jpg?1645781181",
       "slimcover": "https://assets.ppy.sh/beatmaps/1004468/covers/slimcover.jpg?1645781181"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1004468.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1004468.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.22,
     "mode": 0
@@ -25123,7 +25123,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/874948/covers/list.jpg?1650671383",
       "slimcover": "https://assets.ppy.sh/beatmaps/874948/covers/slimcover.jpg?1650671383"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/874948.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/874948.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.22,
     "mode": 0
@@ -25150,7 +25150,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/17066/covers/list.jpg?1650604846",
       "slimcover": "https://assets.ppy.sh/beatmaps/17066/covers/slimcover.jpg?1650604846"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/17066.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/17066.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.22,
     "mode": 0
@@ -25177,7 +25177,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/952725/covers/list.jpg?1650680768",
       "slimcover": "https://assets.ppy.sh/beatmaps/952725/covers/slimcover.jpg?1650680768"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/952725.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/952725.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.21,
     "mode": 0
@@ -25204,7 +25204,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/740535/covers/list.jpg?1650659770",
       "slimcover": "https://assets.ppy.sh/beatmaps/740535/covers/slimcover.jpg?1650659770"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/740535.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/740535.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.2,
     "mode": 0
@@ -25231,7 +25231,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/7380/covers/list.jpg?1622025400",
       "slimcover": "https://assets.ppy.sh/beatmaps/7380/covers/slimcover.jpg?1622025400"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/7380.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/7380.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.19,
     "mode": 0
@@ -25258,7 +25258,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/420765/covers/list.jpg?1650640091",
       "slimcover": "https://assets.ppy.sh/beatmaps/420765/covers/slimcover.jpg?1650640091"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/420765.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/420765.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.17,
     "mode": 0
@@ -25285,7 +25285,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444632/covers/list.jpg?1650639095",
       "slimcover": "https://assets.ppy.sh/beatmaps/444632/covers/slimcover.jpg?1650639095"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444632.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444632.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.17,
     "mode": 0
@@ -25312,7 +25312,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/378559/covers/list.jpg?1645787474",
       "slimcover": "https://assets.ppy.sh/beatmaps/378559/covers/slimcover.jpg?1645787474"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/378559.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/378559.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.16,
     "mode": 0
@@ -25339,7 +25339,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/816264/covers/list.jpg?1622143933",
       "slimcover": "https://assets.ppy.sh/beatmaps/816264/covers/slimcover.jpg?1622143933"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/816264.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/816264.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.15,
     "mode": 0
@@ -25366,7 +25366,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/373373/covers/list.jpg?1622095855",
       "slimcover": "https://assets.ppy.sh/beatmaps/373373/covers/slimcover.jpg?1622095855"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/373373.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/373373.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.15,
     "mode": 0
@@ -25393,7 +25393,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/370819/covers/list.jpg?1650634494",
       "slimcover": "https://assets.ppy.sh/beatmaps/370819/covers/slimcover.jpg?1650634494"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/370819.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/370819.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.15,
     "mode": 0
@@ -25420,7 +25420,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1068768/covers/list.jpg?1645787898",
       "slimcover": "https://assets.ppy.sh/beatmaps/1068768/covers/slimcover.jpg?1645787898"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1068768.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1068768.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.14,
     "mode": 0
@@ -25447,7 +25447,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/332623/covers/list.jpg?1650632573",
       "slimcover": "https://assets.ppy.sh/beatmaps/332623/covers/slimcover.jpg?1650632573"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/332623.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/332623.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.14,
     "mode": 0
@@ -25474,7 +25474,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/632130/covers/list.jpg?1650652699",
       "slimcover": "https://assets.ppy.sh/beatmaps/632130/covers/slimcover.jpg?1650652699"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/632130.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/632130.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.1,
     "mode": 0
@@ -25501,7 +25501,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/942642/covers/list.jpg?1650677241",
       "slimcover": "https://assets.ppy.sh/beatmaps/942642/covers/slimcover.jpg?1650677241"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/942642.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/942642.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.08,
     "mode": 0
@@ -25528,7 +25528,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/497769/covers/list.jpg?1645785838",
       "slimcover": "https://assets.ppy.sh/beatmaps/497769/covers/slimcover.jpg?1645785838"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/497769.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/497769.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.06,
     "mode": 0
@@ -25555,7 +25555,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1148073/covers/list.jpg?1645788262",
       "slimcover": "https://assets.ppy.sh/beatmaps/1148073/covers/slimcover.jpg?1645788262"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1148073.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1148073.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.06,
     "mode": 0
@@ -25582,7 +25582,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/632130/covers/list.jpg?1650652699",
       "slimcover": "https://assets.ppy.sh/beatmaps/632130/covers/slimcover.jpg?1650652699"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/632130.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/632130.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.05,
     "mode": 0
@@ -25609,7 +25609,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/485056/covers/list.jpg?1650642198",
       "slimcover": "https://assets.ppy.sh/beatmaps/485056/covers/slimcover.jpg?1650642198"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/485056.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/485056.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.04,
     "mode": 0
@@ -25636,7 +25636,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1035167/covers/list.jpg?1650685496",
       "slimcover": "https://assets.ppy.sh/beatmaps/1035167/covers/slimcover.jpg?1650685496"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1035167.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1035167.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.04,
     "mode": 0
@@ -25663,7 +25663,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/368985/covers/list.jpg?1650633858",
       "slimcover": "https://assets.ppy.sh/beatmaps/368985/covers/slimcover.jpg?1650633858"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/368985.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/368985.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.02,
     "mode": 0
@@ -25690,7 +25690,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/115873/covers/list.jpg?1650618093",
       "slimcover": "https://assets.ppy.sh/beatmaps/115873/covers/slimcover.jpg?1650618093"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/115873.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/115873.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.01,
     "mode": 0
@@ -25717,7 +25717,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/83560/covers/list.jpg?1650627619",
       "slimcover": "https://assets.ppy.sh/beatmaps/83560/covers/slimcover.jpg?1650627619"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/83560.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/83560.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65.01,
     "mode": 0
@@ -25744,7 +25744,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/128931/covers/list.jpg?1645785502",
       "slimcover": "https://assets.ppy.sh/beatmaps/128931/covers/slimcover.jpg?1645785502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/128931.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/128931.mp3",
     "rarity": "Uncommon",
     "popularityScore": 65,
     "mode": 0
@@ -25771,7 +25771,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.99,
     "mode": 0
@@ -25798,7 +25798,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/765169/covers/list.jpg?1650662185",
       "slimcover": "https://assets.ppy.sh/beatmaps/765169/covers/slimcover.jpg?1650662185"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/765169.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/765169.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.99,
     "mode": 0
@@ -25825,7 +25825,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/141329/covers/list.jpg?1650619921",
       "slimcover": "https://assets.ppy.sh/beatmaps/141329/covers/slimcover.jpg?1650619921"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/141329.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/141329.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.98,
     "mode": 0
@@ -25852,7 +25852,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/906786/covers/list.jpg?1650674521",
       "slimcover": "https://assets.ppy.sh/beatmaps/906786/covers/slimcover.jpg?1650674521"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/906786.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/906786.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.97,
     "mode": 0
@@ -25879,7 +25879,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/61447/covers/list.jpg?1650613969",
       "slimcover": "https://assets.ppy.sh/beatmaps/61447/covers/slimcover.jpg?1650613969"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/61447.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/61447.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.96,
     "mode": 0
@@ -25906,7 +25906,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413117/covers/list.jpg?1650685850",
       "slimcover": "https://assets.ppy.sh/beatmaps/413117/covers/slimcover.jpg?1650685850"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413117.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413117.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.92,
     "mode": 0
@@ -25933,7 +25933,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/983942/covers/list.jpg?1650681431",
       "slimcover": "https://assets.ppy.sh/beatmaps/983942/covers/slimcover.jpg?1650681431"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/983942.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/983942.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.92,
     "mode": 0
@@ -25960,7 +25960,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/313718/covers/list.jpg?1650630607",
       "slimcover": "https://assets.ppy.sh/beatmaps/313718/covers/slimcover.jpg?1650630607"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/313718.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/313718.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.92,
     "mode": 0
@@ -25987,7 +25987,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/355573/covers/list.jpg?1631509644",
       "slimcover": "https://assets.ppy.sh/beatmaps/355573/covers/slimcover.jpg?1631509644"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/355573.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/355573.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.91,
     "mode": 0
@@ -26014,7 +26014,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/231640/covers/list.jpg?1650625752",
       "slimcover": "https://assets.ppy.sh/beatmaps/231640/covers/slimcover.jpg?1650625752"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/231640.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/231640.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.9,
     "mode": 0
@@ -26041,7 +26041,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/895391/covers/list.jpg?1645788047",
       "slimcover": "https://assets.ppy.sh/beatmaps/895391/covers/slimcover.jpg?1645788047"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/895391.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/895391.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.88,
     "mode": 0
@@ -26068,7 +26068,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1190710/covers/list.jpg?1650697013",
       "slimcover": "https://assets.ppy.sh/beatmaps/1190710/covers/slimcover.jpg?1650697013"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1190710.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1190710.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.87,
     "mode": 0
@@ -26095,7 +26095,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/61447/covers/list.jpg?1650613969",
       "slimcover": "https://assets.ppy.sh/beatmaps/61447/covers/slimcover.jpg?1650613969"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/61447.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/61447.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.86,
     "mode": 0
@@ -26122,7 +26122,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1317896/covers/list.jpg?1650704635",
       "slimcover": "https://assets.ppy.sh/beatmaps/1317896/covers/slimcover.jpg?1650704635"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1317896.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1317896.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.86,
     "mode": 0
@@ -26149,7 +26149,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/426693/covers/list.jpg?1645780854",
       "slimcover": "https://assets.ppy.sh/beatmaps/426693/covers/slimcover.jpg?1645780854"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/426693.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/426693.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.86,
     "mode": 0
@@ -26176,7 +26176,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/33761/covers/list.jpg?1650608831",
       "slimcover": "https://assets.ppy.sh/beatmaps/33761/covers/slimcover.jpg?1650608831"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/33761.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/33761.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.83,
     "mode": 0
@@ -26203,7 +26203,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/875289/covers/list.jpg?1650671642",
       "slimcover": "https://assets.ppy.sh/beatmaps/875289/covers/slimcover.jpg?1650671642"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/875289.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/875289.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.8,
     "mode": 0
@@ -26230,7 +26230,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/873811/covers/list.jpg?1650672502",
       "slimcover": "https://assets.ppy.sh/beatmaps/873811/covers/slimcover.jpg?1650672502"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/873811.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.79,
     "mode": 0
@@ -26257,7 +26257,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.79,
     "mode": 0
@@ -26284,7 +26284,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/186141/covers/list.jpg?1622075381",
       "slimcover": "https://assets.ppy.sh/beatmaps/186141/covers/slimcover.jpg?1622075381"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/186141.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/186141.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.79,
     "mode": 0
@@ -26311,7 +26311,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/477640/covers/list.jpg?1650641367",
       "slimcover": "https://assets.ppy.sh/beatmaps/477640/covers/slimcover.jpg?1650641367"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/477640.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/477640.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.78,
     "mode": 0
@@ -26338,7 +26338,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/506483/covers/list.jpg?1622108647",
       "slimcover": "https://assets.ppy.sh/beatmaps/506483/covers/slimcover.jpg?1622108647"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/506483.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/506483.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.78,
     "mode": 0
@@ -26365,7 +26365,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.76,
     "mode": 0
@@ -26392,7 +26392,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1073074/covers/list.jpg?1650689325",
       "slimcover": "https://assets.ppy.sh/beatmaps/1073074/covers/slimcover.jpg?1650689325"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1073074.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1073074.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.75,
     "mode": 0
@@ -26419,7 +26419,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/769917/covers/list.jpg?1650663270",
       "slimcover": "https://assets.ppy.sh/beatmaps/769917/covers/slimcover.jpg?1650663270"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/769917.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/769917.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.73,
     "mode": 0
@@ -26446,7 +26446,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/459293/covers/list.jpg?1650639721",
       "slimcover": "https://assets.ppy.sh/beatmaps/459293/covers/slimcover.jpg?1650639721"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/459293.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/459293.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.72,
     "mode": 0
@@ -26473,7 +26473,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/862547/covers/list.jpg?1650670299",
       "slimcover": "https://assets.ppy.sh/beatmaps/862547/covers/slimcover.jpg?1650670299"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/862547.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/862547.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.72,
     "mode": 0
@@ -26500,7 +26500,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/485056/covers/list.jpg?1650642198",
       "slimcover": "https://assets.ppy.sh/beatmaps/485056/covers/slimcover.jpg?1650642198"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/485056.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/485056.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.7,
     "mode": 0
@@ -26527,7 +26527,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/186318/covers/list.jpg?1650623687",
       "slimcover": "https://assets.ppy.sh/beatmaps/186318/covers/slimcover.jpg?1650623687"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/186318.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/186318.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.7,
     "mode": 0
@@ -26554,7 +26554,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/147962/covers/list.jpg?1650620437",
       "slimcover": "https://assets.ppy.sh/beatmaps/147962/covers/slimcover.jpg?1650620437"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/147962.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/147962.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.69,
     "mode": 0
@@ -26581,7 +26581,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/522857/covers/list.jpg?1650644485",
       "slimcover": "https://assets.ppy.sh/beatmaps/522857/covers/slimcover.jpg?1650644485"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/522857.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/522857.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.69,
     "mode": 0
@@ -26608,7 +26608,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/859783/covers/list.jpg?1650679901",
       "slimcover": "https://assets.ppy.sh/beatmaps/859783/covers/slimcover.jpg?1650679901"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/859783.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/859783.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.68,
     "mode": 0
@@ -26635,7 +26635,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/413707/covers/list.jpg?1650644445",
       "slimcover": "https://assets.ppy.sh/beatmaps/413707/covers/slimcover.jpg?1650644445"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/413707.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/413707.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.68,
     "mode": 0
@@ -26662,7 +26662,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/901880/covers/list.jpg?1650673732",
       "slimcover": "https://assets.ppy.sh/beatmaps/901880/covers/slimcover.jpg?1650673732"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/901880.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/901880.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.66,
     "mode": 0
@@ -26689,7 +26689,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/331190/covers/list.jpg?1650632046",
       "slimcover": "https://assets.ppy.sh/beatmaps/331190/covers/slimcover.jpg?1650632046"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/331190.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/331190.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.66,
     "mode": 0
@@ -26716,7 +26716,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/901880/covers/list.jpg?1650673732",
       "slimcover": "https://assets.ppy.sh/beatmaps/901880/covers/slimcover.jpg?1650673732"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/901880.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/901880.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.65,
     "mode": 0
@@ -26743,7 +26743,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/1123162/covers/list.jpg?1650692615",
       "slimcover": "https://assets.ppy.sh/beatmaps/1123162/covers/slimcover.jpg?1650692615"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/1123162.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/1123162.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.62,
     "mode": 0
@@ -26770,7 +26770,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/444632/covers/list.jpg?1650639095",
       "slimcover": "https://assets.ppy.sh/beatmaps/444632/covers/slimcover.jpg?1650639095"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/444632.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/444632.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.57,
     "mode": 0
@@ -26797,7 +26797,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/966190/covers/list.jpg?1645787297",
       "slimcover": "https://assets.ppy.sh/beatmaps/966190/covers/slimcover.jpg?1645787297"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/966190.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/966190.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.56,
     "mode": 0
@@ -26824,7 +26824,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/597111/covers/list.jpg?1650649247",
       "slimcover": "https://assets.ppy.sh/beatmaps/597111/covers/slimcover.jpg?1650649247"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/597111.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/597111.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.54,
     "mode": 0
@@ -26851,7 +26851,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/592509/covers/list.jpg?1622117088",
       "slimcover": "https://assets.ppy.sh/beatmaps/592509/covers/slimcover.jpg?1622117088"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/592509.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/592509.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.52,
     "mode": 0
@@ -26878,7 +26878,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/108461/covers/list.jpg?1650617736",
       "slimcover": "https://assets.ppy.sh/beatmaps/108461/covers/slimcover.jpg?1650617736"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/108461.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/108461.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.5,
     "mode": 0
@@ -26905,7 +26905,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/862547/covers/list.jpg?1650670299",
       "slimcover": "https://assets.ppy.sh/beatmaps/862547/covers/slimcover.jpg?1650670299"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/862547.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/862547.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.48,
     "mode": 0
@@ -26932,7 +26932,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/271339/covers/list.jpg?1622082108",
       "slimcover": "https://assets.ppy.sh/beatmaps/271339/covers/slimcover.jpg?1622082108"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/271339.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/271339.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.48,
     "mode": 0
@@ -26959,7 +26959,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/190222/covers/list.jpg?1645788403",
       "slimcover": "https://assets.ppy.sh/beatmaps/190222/covers/slimcover.jpg?1645788403"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/190222.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/190222.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.47,
     "mode": 0
@@ -26986,7 +26986,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/515069/covers/list.jpg?1622109509",
       "slimcover": "https://assets.ppy.sh/beatmaps/515069/covers/slimcover.jpg?1622109509"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/515069.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/515069.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.47,
     "mode": 0
@@ -27013,7 +27013,7 @@ export const SEED_BEATMAPS: Beatmap[] = [
       "list": "https://assets.ppy.sh/beatmaps/727908/covers/list.jpg?1650660219",
       "slimcover": "https://assets.ppy.sh/beatmaps/727908/covers/slimcover.jpg?1650660219"
     },
-    "previewUrl": "https:https://b.ppy.sh/preview/727908.mp3",
+    "previewUrl": "https://b.ppy.sh/preview/727908.mp3",
     "rarity": "Uncommon",
     "popularityScore": 64.46,
     "mode": 0
