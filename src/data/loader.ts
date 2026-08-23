@@ -102,10 +102,12 @@ function generateInfoFromMaps(maps: Beatmap[]): DatasetInfo {
   const counts: Record<RarityTier, number> = {
     Common: 0,
     Uncommon: 0,
+    'Uncommon+': 0,
     Rare: 0,
     Epic: 0,
     Legendary: 0,
     Mythic: 0,
+    Celestial: 0,
     Divine: 0,
     GOAT: 0,
   };

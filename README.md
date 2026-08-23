@@ -33,20 +33,22 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 ---
 
-### 🏆 8 Rarity Tiers & Strict Pyramidical Distribution
+### 🏆 10 Rarity Tiers & Strict Pyramidical Distribution
 
-| Tier | Rarity | Drop Rate | Pool Count | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| **8** | 🐐 **GOAT** | **0.05%** | **10** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
-| **7** | 👑 **Divine** | **0.10%** | **46** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
-| **6** | ✨ **Mythic** | **0.25%** | **245** | Elite 7★+ & 8★+ mechanical landmarks |
-| **5** | 🌟 **Legendary** | **1.00%** | **1,000** | Classic 6★+ high-difficulty ranked maps |
-| **4** | 🟣 **Epic** | **6.00%** | **3,000** | 5★+ Insane/Extra staples |
-| **3** | 🔵 **Rare** | **18.00%** | **9,000** | 4★+ Hard/Insane standards |
-| **2** | 🟢 **Uncommon** | **34.60%** | **17,000** | 3★+ Normal/Hard introductory maps |
-| **1** | ⚪ **Common** | **40.00%** | **19,699** | 1★–2★ Easy/Normal beginnings |
+| Tier | Icon & Rarity | Suggested Pull Rate | Pool Count | Description |
+| :--- | :--- | :---: | :---: | :--- |
+| **10** | 🐐 **GOAT** | **0.01%** | **10** | **Top 10 most played songs in osu! history** (*No title, Harumachi Clover, Make a Move, Hitorigoto, quaver, Black Rover, Silhouette, My Love, Highscore, Everything will freeze*) |
+| **9** | 👑 **Divine** | **0.09%** | **36** | Monumental community masterworks & legendary tournament anthems (*FREEDOM DiVE, Blue Zenith, The Big Black, Tengaku, Galaxy Collapse, Apparition*) |
+| **8** | ✨ **Celestial** | **0.15%** | **69** | Holy grails of speed, precision, and all-time tournament showcases |
+| **7** | 🔥 **Mythic** | **0.30%** | **150** | Elite 7★+ & 8★+ mechanical landmarks |
+| **6** | 🔴 **Legendary** | **0.75%** | **400** | Classic 6★+ high-difficulty ranked maps |
+| **5** | 🟠 **Epic** | **4.00%** | **2,000** | 5★+ Insane/Extra staples |
+| **4** | 🟣 **Rare** | **12.00%** | **6,000** | 4★+ Hard/Insane standards |
+| **3** | 🔵 **Uncommon+** | **25.00%** | **12,000** | 3.5★+ high Normal/Hard transitional maps |
+| **2** | 🟢 **Uncommon** | **27.70%** | **14,000** | 2.5★–3.5★ Normal/Hard introductory maps |
+| **1** | ⚪ **Common** | **30.00%** | **15,335** | 1★–2.5★ Easy/Normal beginnings |
 
-*Hierarchical Pool Balance: Common (19,699) > Uncommon (17,000) > Rare (9,000) > Epic (3,000) > Legendary (1,000) > Mythic (245) > Divine (46) > GOAT (10).*
+*Hierarchical Pool Balance: Common (15,335) > Uncommon (14,000) > Uncommon+ (12,000) > Rare (6,000) > Epic (2,000) > Legendary (400) > Mythic (150) > Celestial (69) > Divine (36) > GOAT (10).*
 
 ---
 
@@ -58,6 +60,15 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 ---
 
+### 🎓 15 PhD Pure Mathematics Qualifying Challenges
+* **15 Rigorous Proof Problems**: Test your knowledge of Analytic Number Theory, Modular Forms, Monstrous Moonshine, Lie Algebras ($E_8, F_4$), Calabi–Yau Threefolds, Leech Lattices ($\Lambda_{24}$), and Riemann Surfaces.
+* **Huge Summon Rewards**:
+  * **Problem I**: Evaluates to `727` for **50 Pulls (⚡ Max Stamina)**.
+  * **Problems II–XV**: Real unguessable PhD mathematical invariants rewarding **+100 Pulls each** (totaling up to 1,450 bonus summons!).
+  * **Progress Tracker**: Automatically saves your solved problems in local storage.
+
+---
+
 ### 🎵 Audio Previews & Direct osu! Links
 * **30-Second Audio Previews**: Stream official song previews directly on beatmap cards and detail modals.
 * **Direct osu! Website Navigation**: Click the external link icon on any card to view the official beatmapset on `osu.ppy.sh`.
@@ -65,10 +76,9 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 ---
 
 ### 💾 Collection Management & Local Backup
-* **Filter & Sort**: Search by title, artist, mapper, star rating range, BPM, ranked date, or rarity.
+* **Filter & Sort**: Search by title, artist, mapper, star rating range, BPM, ranked date, or rarity tier.
 * **Favorites System**: Mark and filter your favorite beatmaps.
 * **Save Backup & Restore**: Export your complete collection to a JSON file and import it anytime to transfer progress between devices.
-* **727 Easter Egg**: A genuine PhD-level residue contour integral math question hidden in Settings!
 
 ---
 

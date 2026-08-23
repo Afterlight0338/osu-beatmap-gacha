@@ -46,6 +46,13 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
         origin: { y: 0.6 },
         colors: ['#ff66aa', '#ff007f', '#7928ca', '#0070f3', '#00dfd8', '#ffdf00', '#ffffff'],
       });
+    } else if (rarity === 'Celestial') {
+      confetti({
+        particleCount: 140,
+        spread: 110,
+        origin: { y: 0.6 },
+        colors: ['#06b6d4', '#38bdf8', '#818cf8', '#ffffff', '#2dd4bf'],
+      });
     } else if (rarity === 'Mythic') {
       confetti({
         particleCount: 90,
@@ -58,7 +65,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
         particleCount: 60,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#f59e0b', '#fbbf24', '#fef08a', '#ffffff'],
+        colors: ['#ef4444', '#f87171', '#fca5a5', '#ffffff'],
       });
     }
   }, []);

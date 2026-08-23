@@ -39,7 +39,12 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const isHighTier = beatmap.rarity === 'Legendary' || beatmap.rarity === 'Mythic' || beatmap.rarity === 'Divine' || beatmap.rarity === 'GOAT';
+  const isHighTier =
+    beatmap.rarity === 'Legendary' ||
+    beatmap.rarity === 'Mythic' ||
+    beatmap.rarity === 'Celestial' ||
+    beatmap.rarity === 'Divine' ||
+    beatmap.rarity === 'GOAT';
 
   // Listen to audio player
   useEffect(() => {
@@ -134,14 +139,18 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
             ? 'border-yellow-300 shadow-[0_0_30px_rgba(255,215,0,0.6)] ring-1 ring-yellow-400/50'
             : beatmap.rarity === 'Divine'
             ? 'border-pink-400/80 shadow-[0_0_25px_rgba(255,0,127,0.4)]'
+            : beatmap.rarity === 'Celestial'
+            ? 'border-cyan-300/80 shadow-[0_0_22px_rgba(6,182,212,0.4)] ring-1 ring-cyan-400/40'
             : beatmap.rarity === 'Mythic'
             ? 'border-rose-500/80 shadow-[0_0_20px_rgba(239,68,68,0.35)]'
             : beatmap.rarity === 'Legendary'
-            ? 'border-amber-400/75 shadow-[0_0_18px_rgba(245,158,11,0.3)]'
+            ? 'border-red-500/75 shadow-[0_0_18px_rgba(239,68,68,0.3)]'
             : beatmap.rarity === 'Epic'
-            ? 'border-purple-500/60 shadow-[0_0_12px_rgba(168,85,247,0.25)]'
+            ? 'border-orange-500/60 shadow-[0_0_14px_rgba(249,115,22,0.25)]'
             : beatmap.rarity === 'Rare'
-            ? 'border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.2)]'
+            ? 'border-purple-500/50 shadow-[0_0_10px_rgba(139,92,246,0.2)]'
+            : beatmap.rarity === 'Uncommon+'
+            ? 'border-sky-500/40'
             : beatmap.rarity === 'Uncommon'
             ? 'border-emerald-500/40'
             : 'border-slate-800'
@@ -157,12 +166,15 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
           />
         )}
 
-        {/* Ambient Glow for GOAT / Divine */}
+        {/* Ambient Glow for GOAT / Divine / Celestial */}
         {beatmap.rarity === 'GOAT' && !isUnowned && (
           <div className="pointer-events-none absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 opacity-75 blur-xs animate-pulse z-0" />
         )}
         {beatmap.rarity === 'Divine' && !isUnowned && (
           <div className="pointer-events-none absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 opacity-60 blur-xs animate-divine-rainbow z-0" />
+        )}
+        {beatmap.rarity === 'Celestial' && !isUnowned && (
+          <div className="pointer-events-none absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-500 opacity-60 blur-xs animate-pulse z-0" />
         )}
 
         {/* Top Cover Artwork Container */}

@@ -107,7 +107,7 @@ class SoundEffectsManager {
       chordNotes.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = rarity === 'Divine' || rarity === 'Mythic' ? 'sine' : 'triangle';
+        osc.type = rarity === 'Divine' || rarity === 'Celestial' || rarity === 'Mythic' ? 'sine' : 'triangle';
         osc.frequency.setValueAtTime(freq, now + idx * 0.05);
 
         const startTime = now + idx * 0.05;
@@ -116,6 +116,8 @@ class SoundEffectsManager {
             ? 2.2
             : rarity === 'Divine'
             ? 1.8
+            : rarity === 'Celestial'
+            ? 1.6
             : rarity === 'Mythic'
             ? 1.4
             : rarity === 'Legendary'
@@ -133,8 +135,8 @@ class SoundEffectsManager {
         osc.stop(startTime + duration + 0.05);
       });
 
-      // Special bass drop impact for Legendary, Mythic, Divine, GOAT
-      if (rarity === 'Legendary' || rarity === 'Mythic' || rarity === 'Divine' || rarity === 'GOAT') {
+      // Special bass drop impact for Legendary, Mythic, Celestial, Divine, GOAT
+      if (rarity === 'Legendary' || rarity === 'Mythic' || rarity === 'Celestial' || rarity === 'Divine' || rarity === 'GOAT') {
         const subOsc = ctx.createOscillator();
         const subGain = ctx.createGain();
         subOsc.type = 'sine';

@@ -9,18 +9,20 @@ export interface RarityConfig {
   textColor: string;
   borderColor: string;
   bgGradient: string;
-  percentileThreshold: number; // Top X percentile threshold
-  pullProbability: number; // Default pull rate
+  percentileThreshold: number;
+  pullProbability: number;
   soundPitch: number;
 }
 
 export const RARITY_ORDER: RarityTier[] = [
   'Common',
   'Uncommon',
+  'Uncommon+',
   'Rare',
   'Epic',
   'Legendary',
   'Mythic',
+  'Celestial',
   'Divine',
   'GOAT',
 ];
@@ -35,8 +37,8 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     textColor: 'text-slate-300',
     borderColor: 'border-slate-500/50',
     bgGradient: 'from-slate-700/40 via-slate-800/60 to-slate-950/80',
-    percentileThreshold: 0.50, // Bottom 50%
-    pullProbability: 0.40,    // 40%
+    percentileThreshold: 0.70,
+    pullProbability: 0.30,     // 30.0%
     soundPitch: 1.0,
   },
   Uncommon: {
@@ -48,93 +50,116 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     textColor: 'text-emerald-400',
     borderColor: 'border-emerald-500/60',
     bgGradient: 'from-emerald-900/40 via-emerald-950/60 to-slate-950/80',
-    percentileThreshold: 0.25, // 50th - 75th percentile
-    pullProbability: 0.346,   // 34.6%
-    soundPitch: 1.15,
+    percentileThreshold: 0.42,
+    pullProbability: 0.277,    // 27.7%
+    soundPitch: 1.1,
+  },
+  'Uncommon+': {
+    tier: 'Uncommon+',
+    stars: 3,
+    label: 'UNCOMMON+',
+    color: '#0284c7',
+    glowColor: 'rgba(2, 132, 199, 0.6)',
+    textColor: 'text-sky-300',
+    borderColor: 'border-sky-500/60',
+    bgGradient: 'from-sky-900/40 via-sky-950/60 to-slate-950/80',
+    percentileThreshold: 0.17,
+    pullProbability: 0.25,     // 25.0%
+    soundPitch: 1.22,
   },
   Rare: {
     tier: 'Rare',
-    stars: 3,
+    stars: 4,
     label: 'RARE',
-    color: '#06b6d4',
-    glowColor: 'rgba(6, 182, 212, 0.6)',
-    textColor: 'text-cyan-400',
-    borderColor: 'border-cyan-500/60',
-    bgGradient: 'from-cyan-900/40 via-cyan-950/60 to-slate-950/80',
-    percentileThreshold: 0.10, // 75th - 90th percentile
-    pullProbability: 0.18,    // 18%
-    soundPitch: 1.3,
+    color: '#8b5cf6',
+    glowColor: 'rgba(139, 92, 246, 0.65)',
+    textColor: 'text-purple-300',
+    borderColor: 'border-purple-500/60',
+    bgGradient: 'from-purple-900/40 via-purple-950/60 to-slate-950/80',
+    percentileThreshold: 0.05,
+    pullProbability: 0.12,     // 12.0%
+    soundPitch: 1.35,
   },
   Epic: {
     tier: 'Epic',
-    stars: 4,
+    stars: 5,
     label: 'EPIC',
-    color: '#a855f7',
-    glowColor: 'rgba(168, 85, 247, 0.7)',
-    textColor: 'text-purple-400',
-    borderColor: 'border-purple-500/70',
-    bgGradient: 'from-purple-900/50 via-purple-950/60 to-slate-950/85',
-    percentileThreshold: 0.03, // 90th - 97th percentile
-    pullProbability: 0.06,    // 6%
+    color: '#f97316',
+    glowColor: 'rgba(249, 115, 22, 0.75)',
+    textColor: 'text-orange-300',
+    borderColor: 'border-orange-500/70',
+    bgGradient: 'from-orange-900/50 via-orange-950/60 to-slate-950/85',
+    percentileThreshold: 0.013,
+    pullProbability: 0.04,     // 4.0%
     soundPitch: 1.5,
   },
   Legendary: {
     tier: 'Legendary',
-    stars: 5,
+    stars: 6,
     label: 'LEGENDARY',
-    color: '#f59e0b',
-    glowColor: 'rgba(245, 158, 11, 0.85)',
-    textColor: 'text-amber-300',
-    borderColor: 'border-amber-500/80',
-    bgGradient: 'from-amber-600/40 via-amber-950/60 to-slate-950/90',
-    percentileThreshold: 0.008, // 97th - 99.2th percentile
-    pullProbability: 0.01,     // 1%
-    soundPitch: 1.75,
+    color: '#ef4444',
+    glowColor: 'rgba(239, 68, 68, 0.85)',
+    textColor: 'text-red-300',
+    borderColor: 'border-red-500/80',
+    bgGradient: 'from-red-900/50 via-red-950/70 to-slate-950/90',
+    percentileThreshold: 0.005,
+    pullProbability: 0.0075,   // 0.75%
+    soundPitch: 1.7,
   },
   Mythic: {
     tier: 'Mythic',
-    stars: 6,
+    stars: 7,
     label: 'MYTHIC',
-    color: '#ef4444',
-    glowColor: 'rgba(239, 68, 68, 0.95)',
-    textColor: 'text-rose-400',
+    color: '#f43f5e',
+    glowColor: 'rgba(244, 63, 94, 0.95)',
+    textColor: 'text-rose-300',
     borderColor: 'border-rose-500/90',
-    bgGradient: 'from-rose-800/50 via-red-950/70 to-slate-950/95',
-    percentileThreshold: 0.0015, // 99.2th - 99.85th percentile
-    pullProbability: 0.0025,   // 0.25%
-    soundPitch: 2.0,
+    bgGradient: 'from-rose-900/50 via-pink-950/70 to-slate-950/95',
+    percentileThreshold: 0.002,
+    pullProbability: 0.0030,   // 0.30%
+    soundPitch: 1.9,
+  },
+  Celestial: {
+    tier: 'Celestial',
+    stars: 8,
+    label: 'CELESTIAL',
+    color: '#06b6d4',
+    glowColor: 'rgba(6, 182, 212, 1)',
+    textColor: 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-indigo-300 animate-pulse font-bold',
+    borderColor: 'border-cyan-400',
+    bgGradient: 'from-cyan-900/60 via-indigo-950/80 to-slate-950/95',
+    percentileThreshold: 0.0008,
+    pullProbability: 0.0015,   // 0.15%
+    soundPitch: 2.15,
   },
   Divine: {
     tier: 'Divine',
-    stars: 7,
+    stars: 9,
     label: 'DIVINE',
-    color: '#ff007f',
-    glowColor: 'rgba(255, 0, 127, 1)',
-    textColor: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 animate-pulse',
-    borderColor: 'border-pink-500',
+    color: '#ec4899',
+    glowColor: 'rgba(236, 72, 153, 1)',
+    textColor: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 animate-pulse font-bold',
+    borderColor: 'border-pink-400',
     bgGradient: 'from-pink-900/60 via-purple-950/80 to-slate-950/95',
-    percentileThreshold: 0.0002, // Top 0.1%
-    pullProbability: 0.001,    // 0.1%
-    soundPitch: 2.4,
+    percentileThreshold: 0.0002,
+    pullProbability: 0.0009,   // 0.09%
+    soundPitch: 2.45,
   },
   GOAT: {
     tier: 'GOAT',
-    stars: 8,
+    stars: 10,
     label: 'GOAT',
     color: '#ffd700',
     glowColor: 'rgba(255, 215, 0, 1)',
     textColor: 'text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-500 font-black animate-pulse',
     borderColor: 'border-yellow-400',
     bgGradient: 'from-amber-600/60 via-yellow-950/80 to-slate-950/95',
-    percentileThreshold: 0.0,  // Top 10 maps
-    pullProbability: 0.0005,   // 0.05%
+    percentileThreshold: 0.0,
+    pullProbability: 0.0001,   // 0.01%
     soundPitch: 2.8,
   },
 };
 
-/**
- * Calculates raw popularity score from playcount and favourite count using log10 transformation.
- */
 export function calculatePopularityScore(
   playcount: number,
   favouriteCount: number,
@@ -152,9 +177,8 @@ export function calculatePopularityScore(
   const boundedPlay = Math.max(0, Math.min(1, normPlay));
   const boundedFav = Math.max(0, Math.min(1, normFav));
 
-  // 70% playcount weight + 30% favourite weight
   const rawScore = 0.70 * boundedPlay + 0.30 * boundedFav;
-  return Math.round(rawScore * 10000) / 100; // 0.00 - 100.00 score
+  return Math.round(rawScore * 10000) / 100;
 }
 
 export function getRarityRank(rarity: RarityTier): number {

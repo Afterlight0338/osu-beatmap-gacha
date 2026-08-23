@@ -1,20 +1,22 @@
-import { Beatmap, DatasetInfo } from '../types/beatmap';
+import { Beatmap, DatasetInfo } from "../types/beatmap";
 
 export const SEED_DATASET_INFO: DatasetInfo = {
-  "version": "3.0.0",
-  "lastUpdated": "2026-08-23T18:14:24.373Z",
+  "version": "4.0.0",
+  "lastUpdated": "2026-08-23T18:29:41.933Z",
   "totalMaps": 50000,
   "rarityCounts": {
-    "Common": 19699,
-    "Uncommon": 17000,
-    "Rare": 9000,
-    "Epic": 3000,
-    "Legendary": 1000,
-    "Mythic": 245,
-    "Divine": 46,
+    "Common": 15335,
+    "Uncommon": 14000,
+    "Uncommon+": 12000,
+    "Rare": 6000,
+    "Epic": 2000,
+    "Legendary": 400,
+    "Mythic": 150,
+    "Celestial": 69,
+    "Divine": 36,
     "GOAT": 10
   },
-  "source": "osu! API v2 Live 50,000 Pool Generation"
+  "source": "osu! API v2 Live 50,000 Pool - 10 Tier Rarity System"
 };
 
 export const SEED_BEATMAPS: Beatmap[] = ([
@@ -1123,7 +1125,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1610994,
@@ -1150,7 +1152,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1610022,
@@ -1177,7 +1179,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1613232,
@@ -1204,7 +1206,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1614054,
@@ -1231,7 +1233,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1618411,
@@ -1258,7 +1260,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1627149,
@@ -1285,7 +1287,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1617643,
@@ -1312,7 +1314,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/765778.mp3",
     "popularityScore": 97.2,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1655981,
@@ -1366,7 +1368,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1642274,
@@ -1393,7 +1395,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Divine"
+    "rarity": "Celestial"
   },
   {
     "id": 1643270,
@@ -1420,7 +1422,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1642169,
@@ -1447,7 +1449,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1645698,
@@ -1474,7 +1476,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 869197,
@@ -1528,7 +1530,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 885030,
@@ -1555,7 +1557,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1645699,
@@ -1582,7 +1584,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 896855,
@@ -1609,7 +1611,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1645700,
@@ -1636,7 +1638,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 871446,
@@ -1663,7 +1665,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1655999,
@@ -1690,7 +1692,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/781509.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 906953,
@@ -1717,7 +1719,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 892534,
@@ -1744,7 +1746,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/399358.mp3",
     "popularityScore": 97.1,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 397535,
@@ -1798,7 +1800,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/163112.mp3",
     "popularityScore": 96.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 397536,
@@ -1825,7 +1827,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/163112.mp3",
     "popularityScore": 96.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 555797,
@@ -1879,7 +1881,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "popularityScore": 95.9,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 553131,
@@ -1906,7 +1908,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "popularityScore": 95.9,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 554519,
@@ -1933,7 +1935,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "popularityScore": 95.9,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 553728,
@@ -1960,7 +1962,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "popularityScore": 95.9,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 510731,
@@ -1987,7 +1989,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/158023.mp3",
     "popularityScore": 95.9,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 736215,
@@ -2068,7 +2070,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256373,
@@ -2095,7 +2097,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256136,
@@ -2122,7 +2124,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 736213,
@@ -2149,7 +2151,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256532,
@@ -2176,7 +2178,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 760034,
@@ -2203,7 +2205,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256295,
@@ -2230,7 +2232,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 736216,
@@ -2257,7 +2259,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 736217,
@@ -2284,7 +2286,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/332532.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256370,
@@ -2311,7 +2313,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1256135,
@@ -2338,7 +2340,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/593620.mp3",
     "popularityScore": 95.8,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1849273,
@@ -2365,7 +2367,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1826438,
@@ -2392,7 +2394,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1829925,
@@ -2419,7 +2421,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1857519,
@@ -2446,7 +2448,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1849433,
@@ -2473,7 +2475,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1836484,
@@ -2500,7 +2502,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1828136,
@@ -2527,7 +2529,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1843653,
@@ -2554,7 +2556,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827324,
@@ -2581,7 +2583,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827558,
@@ -2608,7 +2610,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827323,
@@ -2635,7 +2637,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1854034,
@@ -2662,7 +2664,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1859185,
@@ -2689,7 +2691,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1836274,
@@ -2716,7 +2718,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1836302,
@@ -2743,7 +2745,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1829038,
@@ -2770,7 +2772,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1846237,
@@ -2797,7 +2799,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1846226,
@@ -2824,7 +2826,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827412,
@@ -2851,7 +2853,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827252,
@@ -2878,7 +2880,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1827144,
@@ -2905,7 +2907,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1854033,
@@ -2932,7 +2934,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 1854032,
@@ -2959,7 +2961,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/873811.mp3",
     "popularityScore": 95.6,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090844,
@@ -2986,7 +2988,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090847,
@@ -3013,7 +3015,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090846,
@@ -3040,7 +3042,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090845,
@@ -3067,7 +3069,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090848,
@@ -3094,7 +3096,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 2090843,
@@ -3121,7 +3123,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/999645.mp3",
     "popularityScore": 95.2,
-    "rarity": "Mythic"
+    "rarity": "Celestial"
   },
   {
     "id": 846105,
@@ -7198,7 +7200,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 2014471,
@@ -7225,7 +7227,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/962088.mp3",
     "popularityScore": 90.1,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 776951,
@@ -7252,7 +7254,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 820619,
@@ -7279,7 +7281,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 786018,
@@ -7306,7 +7308,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 806376,
@@ -7333,7 +7335,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 794670,
@@ -7360,7 +7362,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 828940,
@@ -7387,7 +7389,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 786021,
@@ -7414,7 +7416,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 785982,
@@ -7441,7 +7443,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 803704,
@@ -7468,7 +7470,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 830082,
@@ -7495,7 +7497,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 807983,
@@ -7522,7 +7524,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 830083,
@@ -7549,7 +7551,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 804268,
@@ -7576,7 +7578,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 830081,
@@ -7603,7 +7605,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/352570.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1066257,
@@ -7630,7 +7632,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/361740.mp3",
     "popularityScore": 89.9,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 930249,
@@ -7657,7 +7659,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 840686,
@@ -7684,7 +7686,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 854616,
@@ -7711,7 +7713,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 853926,
@@ -7738,7 +7740,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 846085,
@@ -7765,7 +7767,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 844182,
@@ -7792,7 +7794,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 841587,
@@ -7819,7 +7821,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/384772.mp3",
     "popularityScore": 89.7,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1799197,
@@ -7846,7 +7848,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1797363,
@@ -7873,7 +7875,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1799101,
@@ -7900,7 +7902,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1797692,
@@ -7927,7 +7929,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1796685,
@@ -7954,7 +7956,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1796684,
@@ -7981,7 +7983,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1797366,
@@ -8008,7 +8010,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1799100,
@@ -8035,7 +8037,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1796364,
@@ -8062,7 +8064,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1797365,
@@ -8089,7 +8091,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1799198,
@@ -8116,7 +8118,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1796280,
@@ -8143,7 +8145,7 @@ export const SEED_BEATMAPS: Beatmap[] = ([
     },
     "previewUrl": "https://b.ppy.sh/preview/859608.mp3",
     "popularityScore": 89.6,
-    "rarity": "Mythic"
+    "rarity": "Legendary"
   },
   {
     "id": 1797367,

@@ -1,10 +1,12 @@
 export type RarityTier =
   | 'Common'
   | 'Uncommon'
+  | 'Uncommon+'
   | 'Rare'
   | 'Epic'
   | 'Legendary'
   | 'Mythic'
+  | 'Celestial'
   | 'Divine'
   | 'GOAT';
 
