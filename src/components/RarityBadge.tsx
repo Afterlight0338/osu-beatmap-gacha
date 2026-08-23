@@ -25,6 +25,7 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
 
   const starString = '★'.repeat(config.stars);
 
+  const isGOAT = rarity === 'GOAT';
   const isDivine = rarity === 'Divine';
   const isMythic = rarity === 'Mythic';
   const isLegendary = rarity === 'Legendary';
@@ -32,7 +33,9 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
   return (
     <div
       className={`inline-flex items-center rounded-full font-mono tracking-wider uppercase border select-none transition-all duration-300 ${sizeClasses} ${
-        isDivine
+        isGOAT
+          ? 'bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-black border-yellow-300 shadow-[0_0_20px_rgba(255,215,0,0.8)] animate-pulse'
+          : isDivine
           ? 'bg-gradient-to-r from-pink-600/80 via-purple-600/80 to-cyan-500/80 text-white border-pink-400 shadow-lg shadow-pink-500/40 animate-pulse'
           : isMythic
           ? 'bg-red-950/80 text-rose-300 border-red-500 shadow-md shadow-red-600/30'
@@ -47,10 +50,13 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
           : 'bg-slate-900/80 text-slate-300 border-slate-600'
       } ${className}`}
       style={{
-        textShadow: isDivine || isMythic || isLegendary ? '0 0 8px currentColor' : undefined,
+        textShadow: isGOAT ? 'none' : isDivine || isMythic || isLegendary ? '0 0 8px currentColor' : undefined,
       }}
     >
-      <span className="font-extrabold">{config.label}</span>
+      <span className="font-black flex items-center space-x-1">
+        {isGOAT && <span className="text-[1.1em]">🐐</span>}
+        <span>{config.label}</span>
+      </span>
       {showStars && (
         <span className="text-[0.8em] tracking-tight opacity-90 text-amber-300 font-sans">
           {starString}

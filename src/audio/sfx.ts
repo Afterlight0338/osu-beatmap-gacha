@@ -111,7 +111,16 @@ class SoundEffectsManager {
         osc.frequency.setValueAtTime(freq, now + idx * 0.05);
 
         const startTime = now + idx * 0.05;
-        const duration = rarity === 'Divine' ? 1.8 : rarity === 'Mythic' ? 1.4 : rarity === 'Legendary' ? 1.1 : 0.6;
+        const duration =
+          rarity === 'GOAT'
+            ? 2.2
+            : rarity === 'Divine'
+            ? 1.8
+            : rarity === 'Mythic'
+            ? 1.4
+            : rarity === 'Legendary'
+            ? 1.1
+            : 0.6;
 
         gain.gain.setValueAtTime(0.001, startTime);
         gain.gain.linearRampToValueAtTime(0.25 * this.volume, startTime + 0.05);
@@ -124,8 +133,8 @@ class SoundEffectsManager {
         osc.stop(startTime + duration + 0.05);
       });
 
-      // Special bass drop impact for Legendary, Mythic, Divine
-      if (rarity === 'Legendary' || rarity === 'Mythic' || rarity === 'Divine') {
+      // Special bass drop impact for Legendary, Mythic, Divine, GOAT
+      if (rarity === 'Legendary' || rarity === 'Mythic' || rarity === 'Divine' || rarity === 'GOAT') {
         const subOsc = ctx.createOscillator();
         const subGain = ctx.createGain();
         subOsc.type = 'sine';

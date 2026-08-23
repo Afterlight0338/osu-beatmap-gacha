@@ -4,7 +4,7 @@ import { RarityBadge } from './RarityBadge';
 import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
-import { Play, Square, Heart, Layers } from 'lucide-react';
+import { Play, Square, Heart, Layers, ExternalLink } from 'lucide-react';
 
 interface BeatmapCardProps {
   beatmap: Beatmap;
@@ -128,7 +128,9 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
       {/* Outer Card Frame with Dynamic Rarity Border */}
       <div
         className={`relative overflow-hidden rounded-2xl border-2 transition-all duration-300 bg-[#12121c] flex flex-col ${
-          beatmap.rarity === 'Divine'
+          beatmap.rarity === 'GOAT'
+            ? 'border-yellow-300 shadow-[0_0_30px_rgba(255,215,0,0.6)] ring-1 ring-yellow-400/50'
+            : beatmap.rarity === 'Divine'
             ? 'border-pink-400/80 shadow-[0_0_25px_rgba(255,0,127,0.4)]'
             : beatmap.rarity === 'Mythic'
             ? 'border-rose-500/80 shadow-[0_0_20px_rgba(239,68,68,0.35)]'
@@ -149,7 +151,9 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
             className="pointer-events-none absolute inset-0 z-30 opacity-40 mix-blend-overlay transition-opacity duration-300"
             style={{
               background: `radial-gradient(circle 250px at ${glarePos.x}% ${glarePos.y}%, ${
-                beatmap.rarity === 'Divine'
+                beatmap.rarity === 'GOAT'
+                  ? 'rgba(255, 230, 0, 0.9), rgba(255, 170, 0, 0.7), transparent 70%'
+                  : beatmap.rarity === 'Divine'
                   ? 'rgba(255, 0, 150, 0.8), rgba(0, 210, 255, 0.6), transparent 70%'
                   : isHighTier
                   ? 'rgba(255, 220, 100, 0.7), transparent 70%'
@@ -159,7 +163,10 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
           />
         )}
 
-        {/* Divine Animated Border Shimmer */}
+        {/* GOAT / Divine Animated Border Shimmer */}
+        {beatmap.rarity === 'GOAT' && !isUnowned && (
+          <div className="pointer-events-none absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 opacity-80 blur-xs animate-pulse z-0" />
+        )}
         {beatmap.rarity === 'Divine' && !isUnowned && (
           <div className="pointer-events-none absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 opacity-60 blur-xs animate-divine-rainbow z-0" />
         )}
@@ -232,6 +239,18 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
               <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current' : ''}`} />
             </button>
           )}
+
+          {/* External osu! Web Link Button */}
+          <a
+            href={`https://osu.ppy.sh/beatmapsets/${beatmap.beatmapsetId}#osu/${beatmap.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            title="Open on osu! website"
+            className="absolute bottom-2 left-10 z-20 p-2 rounded-full backdrop-blur-md border border-white/20 bg-black/50 text-slate-400 hover:text-cyan-300 hover:bg-cyan-950/80 hover:border-cyan-400/60 transition-all duration-200"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         {/* Card Body Information */}

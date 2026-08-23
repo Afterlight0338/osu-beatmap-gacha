@@ -6,13 +6,14 @@ import { RarityRates } from '../types/gacha';
  * Total sum equals 1.0 (100%).
  */
 export const DEFAULT_RARITY_RATES: RarityRates = {
-  Common: 0.55,      // 55.0%
-  Uncommon: 0.25,    // 25.0%
-  Rare: 0.12,        // 12.0%
-  Epic: 0.05,        //  5.0%
-  Legendary: 0.02,   //  2.0%
-  Mythic: 0.008,     //  0.8%
-  Divine: 0.002,     //  0.2%
+  Common: 0.40,      // 40.0%
+  Uncommon: 0.346,   // 34.6%
+  Rare: 0.18,        // 18.0%
+  Epic: 0.06,        //  6.0%
+  Legendary: 0.01,   //  1.0%
+  Mythic: 0.0025,    //  0.25%
+  Divine: 0.001,     //  0.1%
+  GOAT: 0.0005,      //  0.05%
 };
 
 /**
@@ -21,11 +22,12 @@ export const DEFAULT_RARITY_RATES: RarityRates = {
 export const GUARANTEED_RARE_RATES: RarityRates = {
   Common: 0.0,
   Uncommon: 0.0,
-  Rare: 0.60,        // 60%
+  Rare: 0.65,        // 65%
   Epic: 0.25,        // 25%
-  Legendary: 0.10,   // 10%
-  Mythic: 0.04,      //  4%
-  Divine: 0.01,      //  1%
+  Legendary: 0.08,   //  8%
+  Mythic: 0.015,     //  1.5%
+  Divine: 0.004,     //  0.4%
+  GOAT: 0.001,       //  0.1%
 };
 
 /**
@@ -41,7 +43,7 @@ export function validateRates(rates: RarityRates): boolean {
  */
 export function getCumulativeRates(rates: RarityRates): Array<{ tier: RarityTier; threshold: number }> {
   let acc = 0;
-  const tiers: RarityTier[] = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Divine'];
+  const tiers: RarityTier[] = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Divine', 'GOAT'];
   return tiers.map((tier) => {
     acc += rates[tier] || 0;
     return { tier, threshold: acc };

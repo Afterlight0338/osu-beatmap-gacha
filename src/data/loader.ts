@@ -91,6 +91,7 @@ function generateInfoFromMaps(maps: Beatmap[]): DatasetInfo {
     Legendary: 0,
     Mythic: 0,
     Divine: 0,
+    GOAT: 0,
   };
 
   maps.forEach((m) => {

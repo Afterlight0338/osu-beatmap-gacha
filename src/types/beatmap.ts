@@ -5,7 +5,8 @@ export type RarityTier =
   | 'Epic'
   | 'Legendary'
   | 'Mythic'
-  | 'Divine';
+  | 'Divine'
+  | 'GOAT';
 
 export type BeatmapStatus = 'ranked' | 'approved' | 'qualified' | 'loved' | 'unranked';
 

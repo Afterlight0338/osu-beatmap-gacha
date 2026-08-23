@@ -156,16 +156,18 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {RARITY_ORDER.slice().reverse().map((tier) => {
               const config = RARITY_CONFIGS[tier];
-              const rate = (DEFAULT_RARITY_RATES[tier] * 100).toFixed(1);
+              const pct = DEFAULT_RARITY_RATES[tier] * 100;
+              const rateStr = pct < 0.1 ? pct.toFixed(2) : pct < 1 ? pct.toFixed(2) : pct.toFixed(1);
               return (
                 <div
                   key={tier}
                   className="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80 flex flex-col justify-between"
                 >
-                  <span className="font-bold truncate" style={{ color: config.color }}>
-                    {tier}
+                  <span className="font-bold truncate flex items-center space-x-1" style={{ color: config.color }}>
+                    {tier === 'GOAT' && <span>🐐</span>}
+                    <span>{tier}</span>
                   </span>
-                  <span className="font-mono text-slate-300 font-semibold mt-1">{rate}%</span>
+                  <span className="font-mono text-slate-300 font-semibold mt-1">{rateStr}%</span>
                 </div>
               );
             })}

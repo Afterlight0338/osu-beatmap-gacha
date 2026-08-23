@@ -25,6 +25,7 @@ export const StatsPage: React.FC = () => {
     Legendary: 0,
     Mythic: 0,
     Divine: 0,
+    GOAT: 0,
   };
 
   history.forEach((h) => {

@@ -344,6 +344,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       Legendary: 0,
       Mythic: 0,
       Divine: 0,
+      GOAT: 0,
     };
 
     let highestRarity: RarityTier | null = null;

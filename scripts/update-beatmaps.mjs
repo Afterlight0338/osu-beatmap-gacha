@@ -126,21 +126,31 @@ function calculatePopularity(scored) {
 
 /**
  * Assigns rarity tiers based on percentiles across the dataset.
+ * Specifically assigns GOAT tier to the top 10 most played maps!
  */
 function assignRarities(sortedMaps) {
   const total = sortedMaps.length;
 
   return sortedMaps.map((m, index) => {
-    const percentile = (total - index) / total;
-
     let rarity = 'Common';
-    if (percentile >= 0.9985) rarity = 'Divine';     // Top 0.15%
-    else if (percentile >= 0.9920) rarity = 'Mythic'; // Top 0.8%
-    else if (percentile >= 0.9700) rarity = 'Legendary'; // Top 3%
-    else if (percentile >= 0.9000) rarity = 'Epic';       // Top 10%
-    else if (percentile >= 0.7500) rarity = 'Rare';       // Top 25%
-    else if (percentile >= 0.5000) rarity = 'Uncommon';   // Top 50%
-    else rarity = 'Common';
+
+    if (index < 10) {
+      rarity = 'GOAT'; // Top 10 most played / legendary maps of all time
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.001))) {
+      rarity = 'Divine'; // Top 0.10%
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.0035))) {
+      rarity = 'Mythic'; // Top 0.25%
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.0135))) {
+      rarity = 'Legendary'; // Top 1.00%
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.0735))) {
+      rarity = 'Epic'; // Top 6.00%
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.2535))) {
+      rarity = 'Rare'; // Top 18.00%
+    } else if (index < 10 + Math.max(1, Math.round(total * 0.6000))) {
+      rarity = 'Uncommon'; // Top 34.65%
+    } else {
+      rarity = 'Common'; // Remaining 40.0%
+    }
 
     return {
       id: m.id,
@@ -232,7 +242,7 @@ async function main() {
 
         let cursor_string = null;
         let pages = 0;
-        const maxPagesPerCategory = 25; // Fetch up to 25 pages (1250 beatmapsets) per category
+        const maxPagesPerCategory = 40; // Fetch up to 40 pages (2000 beatmapsets) per category
 
         console.log(`\nScanning category: status="${status}", sort="${sort}"...`);
 
@@ -320,6 +330,7 @@ async function main() {
       Legendary: 0,
       Mythic: 0,
       Divine: 0,
+      GOAT: 0,
     };
 
     finalDataset.forEach((m) => {
