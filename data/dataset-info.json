@@ -1,18 +1,18 @@
 {
-  "totalBeatmaps": 37102,
-  "uniqueBeatmapsets": 37102,
-  "lastUpdated": "2026-08-24T11:41:14.634Z",
+  "version": "4.2.0",
+  "lastUpdated": "2026-08-24T11:55:37.086Z",
+  "totalMaps": 37102,
   "rarityDistribution": {
     "GOAT": 10,
-    "Divine": 30,
-    "Celestial": 75,
-    "Mythic": 150,
-    "Legendary": 400,
-    "Epic": 2000,
-    "Rare": 6000,
-    "Uncommon+": 10000,
-    "Uncommon": 11000,
-    "Common": 7437
+    "Divine": 35,
+    "Celestial": 100,
+    "Mythic": 250,
+    "Legendary": 600,
+    "Epic": 2500,
+    "Rare": 7000,
+    "Uncommon+": 11000,
+    "Uncommon": 10000,
+    "Common": 5607
   },
-  "description": "37,000+ 100% unique beatmap songs (Top Difficulty only) across 10 rarity tiers"
+  "description": "37,102 100% unique beatmap songs (Top Difficulty only) across 10 rarity tiers"
 }
