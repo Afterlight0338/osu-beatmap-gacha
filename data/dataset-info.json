@@ -1,0 +1,18 @@
+{
+  "totalBeatmaps": 37102,
+  "uniqueBeatmapsets": 37102,
+  "lastUpdated": "2026-08-24T11:41:14.634Z",
+  "rarityDistribution": {
+    "GOAT": 10,
+    "Divine": 30,
+    "Celestial": 75,
+    "Mythic": 150,
+    "Legendary": 400,
+    "Epic": 2000,
+    "Rare": 6000,
+    "Uncommon+": 10000,
+    "Uncommon": 11000,
+    "Common": 7437
+  },
+  "description": "37,000+ 100% unique beatmap songs (Top Difficulty only) across 10 rarity tiers"
+}
