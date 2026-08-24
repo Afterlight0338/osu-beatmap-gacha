@@ -4,7 +4,7 @@
  */
 
 export interface Env {
-  DB: D1Database;
+  osu_gacha_db: D1Database;
   OSU_CLIENT_ID: string;
   OSU_CLIENT_SECRET: string;
   FRONTEND_URL?: string;
@@ -83,7 +83,7 @@ async function authenticateUser(request: Request, env: Env): Promise<{ osuId: nu
   if (!token) return null;
 
   // Lookup active session in D1
-  const session = await env.DB.prepare(
+  const session = await env.osu_gacha_db.prepare(
     `SELECT token, osu_id, expires_at FROM user_sessions WHERE token = ? AND datetime(expires_at) > datetime('now')`
   )
     .bind(token)
@@ -92,7 +92,7 @@ async function authenticateUser(request: Request, env: Env): Promise<{ osuId: nu
   if (!session) return null;
 
   // Lookup user info in D1
-  const user = await env.DB.prepare(
+  const user = await env.osu_gacha_db.prepare(
     `SELECT osu_id, username, avatar_url, country_code, global_rank, created_at, last_login, total_pulls, pity_count FROM users WHERE osu_id = ?`
   )
     .bind(session.osu_id)
@@ -239,7 +239,7 @@ export default {
         const osuUser = (await meRes.json()) as OsuUserResponse;
 
         // Upsert user in Cloudflare D1
-        await env.DB.prepare(
+        await env.osu_gacha_db.prepare(
           `INSERT INTO users (osu_id, username, avatar_url, country_code, global_rank, last_login)
            VALUES (?, ?, ?, ?, ?, datetime('now'))
            ON CONFLICT(osu_id) DO UPDATE SET
@@ -262,7 +262,7 @@ export default {
         const sessionToken = `${crypto.randomUUID().replace(/-/g, '')}${crypto.randomUUID().replace(/-/g, '')}`;
 
         // Store session in D1 (30 days validity)
-        await env.DB.prepare(
+        await env.osu_gacha_db.prepare(
           `INSERT INTO user_sessions (token, osu_id, expires_at)
            VALUES (?, ?, datetime('now', '+30 days'))`
         )
@@ -287,7 +287,7 @@ export default {
         }
 
         // Fetch collection stats count
-        const countRes = await env.DB.prepare(
+        const countRes = await env.osu_gacha_db.prepare(
           `SELECT COUNT(*) as unique_cards, COALESCE(SUM(copies), 0) as total_copies FROM user_collection WHERE osu_id = ?`
         )
           .bind(auth.osuId)
@@ -323,7 +323,7 @@ export default {
         const authHeader = request.headers.get('Authorization');
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7).trim();
-          await env.DB.prepare(`DELETE FROM user_sessions WHERE token = ?`).bind(token).run();
+          await env.osu_gacha_db.prepare(`DELETE FROM user_sessions WHERE token = ?`).bind(token).run();
         }
         return jsonResponse({ success: true, message: 'Logged out successfully.' }, 200, request, env);
       }
@@ -338,7 +338,7 @@ export default {
         }
 
         // Fetch collection rows
-        const collectionRows = await env.DB.prepare(
+        const collectionRows = await env.osu_gacha_db.prepare(
           `SELECT beatmap_id as beatmapId, copies, first_pulled_at as firstPulledAt, last_pulled_at as lastPulledAt, is_favorite as isFavorite
            FROM user_collection WHERE osu_id = ?`
         )
@@ -352,7 +352,7 @@ export default {
           }>();
 
         // Fetch pull history (most recent 50 pulls)
-        const historyRows = await env.DB.prepare(
+        const historyRows = await env.osu_gacha_db.prepare(
           `SELECT id, beatmap_id as beatmapId, rarity, pulled_at as pulledAt
            FROM user_history WHERE osu_id = ? ORDER BY pulled_at DESC LIMIT 50`
         )
@@ -412,7 +412,7 @@ export default {
         // 1. Update user total pulls and pity count
         if (typeof payload.totalPulls === 'number' || typeof payload.pityCount === 'number') {
           statements.push(
-            env.DB.prepare(
+            env.osu_gacha_db.prepare(
               `UPDATE users SET
                  total_pulls = MAX(total_pulls, ?),
                  pity_count = COALESCE(?, pity_count)
@@ -425,7 +425,7 @@ export default {
         if (payload.collection && Array.isArray(payload.collection)) {
           for (const item of payload.collection) {
             statements.push(
-              env.DB.prepare(
+              env.osu_gacha_db.prepare(
                 `INSERT INTO user_collection (osu_id, beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite)
                  VALUES (?, ?, ?, ?, ?, ?)
                  ON CONFLICT(osu_id, beatmap_id) DO UPDATE SET
@@ -449,7 +449,7 @@ export default {
         if (payload.history && Array.isArray(payload.history)) {
           for (const h of payload.history) {
             statements.push(
-              env.DB.prepare(
+              env.osu_gacha_db.prepare(
                 `INSERT OR IGNORE INTO user_history (id, osu_id, beatmap_id, rarity, pulled_at)
                  VALUES (?, ?, ?, ?, ?)`
               ).bind(h.id || crypto.randomUUID(), auth.osuId, h.beatmapId, h.rarity || 'Common', h.pulledAt || Date.now())
@@ -462,12 +462,12 @@ export default {
           const CHUNK_SIZE = 80;
           for (let i = 0; i < statements.length; i += CHUNK_SIZE) {
             const chunk = statements.slice(i, i + CHUNK_SIZE);
-            await env.DB.batch(chunk);
+            await env.osu_gacha_db.batch(chunk);
           }
         }
 
         // Return updated stats
-        const countRes = await env.DB.prepare(
+        const countRes = await env.osu_gacha_db.prepare(
           `SELECT COUNT(*) as unique_cards, COALESCE(SUM(copies), 0) as total_copies FROM user_collection WHERE osu_id = ?`
         )
           .bind(auth.osuId)

@@ -5,3 +5,4 @@
  */
 export const WORKER_API_URL =
   import.meta.env.VITE_WORKER_URL || 'https://osu-beatmap-gacha-worker.afterlight0338.workers.dev';
+

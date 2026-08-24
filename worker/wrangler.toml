@@ -9,9 +9,9 @@ FRONTEND_URL = "https://afterlight0338.github.io/osu-beatmap-gacha"
 # D1 Database Binding
 # Replace `database_id` with your Cloudflare D1 Database UUID after running `wrangler d1 create osu-gacha-db`
 [[d1_databases]]
-binding = "DB"
+binding = "osu_gacha_db"
 database_name = "osu-gacha-db"
-database_id = "YOUR_D1_DATABASE_ID_HERE"
+database_id = "481fe966-833a-44a2-892b-a836d92187df"
 
 # Sensitive Secrets (Configure via `npx wrangler secret put <NAME>`):
 # - OSU_CLIENT_ID (e.g. 12345)
