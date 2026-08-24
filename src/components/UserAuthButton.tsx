@@ -19,7 +19,7 @@ interface UserAuthButtonProps {
 }
 
 export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, compact = false }) => {
-  const { user, isAuthenticated, isLoading, isSyncing, lastSyncedAt, loginWithOsu, logout } = useAuth();
+  const { user, isAuthenticated, isLoading, isSyncing, lastSyncedAt, loginWithOsu, logout, pendingSyncCount } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -97,7 +97,11 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
           {/* Active Cloud Sync Status Dot */}
           <div
             className={`absolute bottom-0 right-0 w-2 h-2 rounded-full border border-slate-950 ${
-              isSyncing ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'
+              isSyncing
+                ? 'bg-amber-400 animate-ping'
+                : pendingSyncCount > 0
+                ? 'bg-orange-400'
+                : 'bg-emerald-400'
             }`}
           />
         </div>
@@ -116,8 +120,10 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
               )}
             </div>
             <div className="flex items-center space-x-1 text-[10px] font-mono text-slate-400">
-              <Cloud className={`w-2.5 h-2.5 ${isSyncing ? 'text-amber-400 animate-spin' : 'text-emerald-400'}`} />
-              <span>{isSyncing ? 'Syncing...' : 'Cloud D1'}</span>
+              <Cloud className={`w-2.5 h-2.5 ${isSyncing ? 'text-amber-400 animate-spin' : pendingSyncCount > 0 ? 'text-orange-400' : 'text-emerald-400'}`} />
+              <span>
+                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} pending` : 'Cloud D1'}
+              </span>
             </div>
           </div>
         )}
@@ -155,16 +161,31 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
           </div>
 
           {/* Cloud Sync Status */}
-          <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5 text-xs font-mono">
+          <div className={`p-2.5 rounded-xl border space-y-1.5 text-xs font-mono ${
+            pendingSyncCount > 0
+              ? 'bg-orange-950/40 border-orange-800/60'
+              : 'bg-slate-950/70 border-slate-800/80'
+          }`}>
             <div className="flex items-center justify-between text-slate-400 text-[11px]">
               <span className="flex items-center space-x-1">
-                <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                <ShieldCheck className={`w-3 h-3 ${pendingSyncCount > 0 ? 'text-orange-400' : 'text-emerald-400'}`} />
                 <span>Cloud Sync (D1)</span>
               </span>
-              <span className={isSyncing ? 'text-amber-400 animate-pulse' : 'text-emerald-400 font-bold'}>
-                {isSyncing ? 'Syncing...' : 'Connected'}
+              <span className={
+                isSyncing ? 'text-amber-400 animate-pulse' :
+                pendingSyncCount > 0 ? 'text-orange-400 font-bold' :
+                'text-emerald-400 font-bold'
+              }>
+                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} queued` : 'Connected'}
               </span>
             </div>
+
+            {pendingSyncCount > 0 && (
+              <p className="text-[10px] text-orange-300/80 leading-relaxed">
+                ⚠ {pendingSyncCount} local batch{pendingSyncCount !== 1 ? 'es' : ''} stored offline.
+                Will auto-sync when D1 is reachable.
+              </p>
+            )}
 
             {lastSyncedAt && (
               <p className="text-[10px] text-slate-500">

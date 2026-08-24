@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { OsuAuthUser, CloudSyncCollectionItem, CloudSyncHistoryItem, CloudSyncResponse } from '../types/auth';
 import { WORKER_API_URL } from '../config/api';
+import {
+  enqueuePendingSync,
+  getPendingSyncQueue,
+  deletePendingSyncEntry,
+  getPendingSyncCount,
+} from '../storage/db';
 
 const TOKEN_STORAGE_KEY = 'osu_gacha_session_token';
 
@@ -12,6 +18,8 @@ interface AuthContextType {
   isSyncing: boolean;
   lastSyncedAt: Date | null;
   authError: string | null;
+  /** How many local mutations are still waiting to be pushed to D1 */
+  pendingSyncCount: number;
   loginWithOsu: () => void;
   logout: () => Promise<void>;
   syncWithCloud: (localCollection?: {
@@ -39,6 +47,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [lastSyncedAt, setLastSyncedAt] = useState<Date | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [pendingSyncCount, setPendingSyncCount] = useState<number>(0);
+
+  // Refresh the pending count from IDB
+  const refreshPendingCount = useCallback(async () => {
+    const count = await getPendingSyncCount();
+    setPendingSyncCount(count);
+  }, []);
 
   /**
    * Fetch current user profile using the active session token
@@ -190,6 +205,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const syncData: CloudSyncResponse = await syncRes.json();
         if (syncData.success) {
           setLastSyncedAt(new Date());
+
+          // ✅ Drain the pending queue now that D1 is reachable
+          try {
+            const queue = await getPendingSyncQueue();
+            for (const entry of queue) {
+              const drainRes = await fetch(`${WORKER_API_URL}/api/sync`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  collection: entry.collection,
+                  history: entry.history,
+                  totalPulls: entry.totalPulls,
+                  pityCount: entry.pityCount,
+                }),
+              });
+              if (drainRes.ok) {
+                await deletePendingSyncEntry(entry.id);
+              }
+            }
+          } catch (drainErr) {
+            console.warn('Pending sync queue drain error:', drainErr);
+          }
+          await refreshPendingCount();
+
           return {
             mergedCollection: syncData.collection,
             mergedHistory: syncData.history,
@@ -199,14 +241,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         return null;
       } catch (err) {
-        console.error('Cloud synchronization error:', err);
+        console.warn('Cloud synchronization error — queuing locally:', err);
+
+        // ❌ D1 unreachable: queue the failed payload locally for later retry
+        if (localData) {
+          await enqueuePendingSync({
+            totalPulls: localData.totalPulls,
+            pityCount: localData.pityCount,
+            collection: localData.collection,
+            history: localData.history,
+          }).catch(() => {});
+        }
+        await refreshPendingCount();
         return null;
       } finally {
         setIsSyncing(false);
       }
     },
-    [token, user]
+    [token, user, refreshPendingCount]
   );
+
+  // Load pending count on mount
+  useEffect(() => {
+    refreshPendingCount();
+  }, [refreshPendingCount]);
 
   const clearAuthError = useCallback(() => setAuthError(null), []);
 
@@ -220,6 +278,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isSyncing,
         lastSyncedAt,
         authError,
+        pendingSyncCount,
         loginWithOsu,
         logout,
         syncWithCloud,

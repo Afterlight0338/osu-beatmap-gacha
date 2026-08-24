@@ -3,7 +3,7 @@ import { CollectionRecord, UserSettings, CollectionExportData, PullEnergyState }
 import { PullResult } from '../types/gacha';
 
 const DB_NAME = 'osu_beatmap_gacha_db';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // bumped to add pendingSync store
 
 interface OsuGachaDB extends DBSchema {
   collection: {
@@ -31,6 +31,33 @@ interface OsuGachaDB extends DBSchema {
     key: string;
     value: any;
   };
+  /**
+   * Pending cloud sync queue.
+   * Each entry represents a batch of mutations that failed to reach D1.
+   * The queue is drained automatically on the next successful sync.
+   */
+  pendingSync: {
+    key: string; // UUID
+    value: {
+      id: string;
+      queuedAt: number;
+      totalPulls: number;
+      pityCount: number;
+      collection: {
+        beatmapId: number;
+        copies: number;
+        firstPulledAt: number;
+        lastPulledAt: number;
+        isFavorite: boolean;
+      }[];
+      history: {
+        id: string;
+        beatmapId: number;
+        rarity: string;
+        pulledAt: number;
+      }[];
+    };
+  };
 }
 
 let dbPromise: Promise<IDBPDatabase<OsuGachaDB>> | null = null;
@@ -38,7 +65,7 @@ let dbPromise: Promise<IDBPDatabase<OsuGachaDB>> | null = null;
 export function getDB(): Promise<IDBPDatabase<OsuGachaDB>> {
   if (!dbPromise) {
     dbPromise = openDB<OsuGachaDB>(DB_NAME, DB_VERSION, {
-      upgrade(db) {
+      upgrade(db, oldVersion) {
         // Collection Store
         if (!db.objectStoreNames.contains('collection')) {
           const colStore = db.createObjectStore('collection', { keyPath: 'beatmapId' });
@@ -56,11 +83,17 @@ export function getDB(): Promise<IDBPDatabase<OsuGachaDB>> {
         if (!db.objectStoreNames.contains('meta')) {
           db.createObjectStore('meta');
         }
+
+        // v2: Pending cloud sync queue (added for offline resilience)
+        if (oldVersion < 2 && !db.objectStoreNames.contains('pendingSync')) {
+          db.createObjectStore('pendingSync', { keyPath: 'id' });
+        }
       },
     });
   }
   return dbPromise;
 }
+
 
 export const DEFAULT_SETTINGS: UserSettings = {
   soundEnabled: true,
@@ -392,3 +425,74 @@ export async function mergeCloudCollectionIntoDB(cloudData: {
   await tx.done;
   return { addedCount, updatedCount };
 }
+
+// ─── Pending Cloud Sync Queue ─────────────────────────────────────────────────
+// When D1 is unreachable, failed sync payloads are written here.
+// The queue is automatically drained the next time a sync succeeds.
+
+type PendingSyncEntry = {
+  id: string;
+  queuedAt: number;
+  totalPulls: number;
+  pityCount: number;
+  collection: {
+    beatmapId: number;
+    copies: number;
+    firstPulledAt: number;
+    lastPulledAt: number;
+    isFavorite: boolean;
+  }[];
+  history: {
+    id: string;
+    beatmapId: number;
+    rarity: string;
+    pulledAt: number;
+  }[];
+};
+
+/**
+ * Enqueue a failed sync payload into the local pending-sync queue.
+ */
+export async function enqueuePendingSync(payload: Omit<PendingSyncEntry, 'id' | 'queuedAt'>): Promise<void> {
+  const db = await getDB();
+  const entry: PendingSyncEntry = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    queuedAt: Date.now(),
+    ...payload,
+  };
+  await db.put('pendingSync', entry);
+}
+
+/**
+ * Retrieve all pending sync entries, ordered by queue time (oldest first).
+ */
+export async function getPendingSyncQueue(): Promise<PendingSyncEntry[]> {
+  const db = await getDB();
+  const all = await db.getAll('pendingSync');
+  return all.sort((a, b) => a.queuedAt - b.queuedAt);
+}
+
+/**
+ * Remove a successfully synced entry from the queue.
+ */
+export async function deletePendingSyncEntry(id: string): Promise<void> {
+  const db = await getDB();
+  await db.delete('pendingSync', id);
+}
+
+/**
+ * Drain the entire pending queue (call after all entries have been flushed).
+ */
+export async function clearPendingSyncQueue(): Promise<void> {
+  const db = await getDB();
+  await db.clear('pendingSync');
+}
+
+/**
+ * Count how many pending (unsynced) entries are waiting.
+ */
+export async function getPendingSyncCount(): Promise<number> {
+  const db = await getDB();
+  return db.count('pendingSync');
+}
+
