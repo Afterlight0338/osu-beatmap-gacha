@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AuthProvider } from './context/AuthContext';
 import { GachaProvider, useGacha } from './context/GachaContext';
 import { Navbar } from './components/Navbar';
 import { ParticleCanvas } from './components/ParticleCanvas';
@@ -104,9 +105,11 @@ const MainApp: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <GachaProvider>
-      <MainApp />
-    </GachaProvider>
+    <AuthProvider>
+      <GachaProvider>
+        <MainApp />
+      </GachaProvider>
+    </AuthProvider>
   );
 };
 

@@ -313,3 +313,82 @@ export async function clearAllData(): Promise<void> {
   await tx.objectStore('meta').put(0, 'pityCount');
   await tx.done;
 }
+
+/**
+ * Merges authoritative collection records and history from Cloudflare D1 into local IndexedDB.
+ */
+export async function mergeCloudCollectionIntoDB(cloudData: {
+  collection?: {
+    beatmapId: number;
+    copies: number;
+    firstPulledAt: number;
+    lastPulledAt: number;
+    isFavorite: boolean;
+  }[];
+  history?: {
+    id: string;
+    beatmapId: number;
+    rarity: string;
+    pulledAt: number;
+  }[];
+  totalPulls?: number;
+  pityCount?: number;
+}): Promise<{ addedCount: number; updatedCount: number }> {
+  const db = await getDB();
+  const tx = db.transaction(['collection', 'history', 'meta'], 'readwrite');
+  let addedCount = 0;
+  let updatedCount = 0;
+
+  if (cloudData.collection && Array.isArray(cloudData.collection)) {
+    for (const item of cloudData.collection) {
+      const existing = await tx.objectStore('collection').get(item.beatmapId);
+      if (!existing) {
+        await tx.objectStore('collection').put({
+          beatmapId: item.beatmapId,
+          copies: item.copies || 1,
+          firstPulledAt: item.firstPulledAt || Date.now(),
+          lastPulledAt: item.lastPulledAt || Date.now(),
+          isFavorite: Boolean(item.isFavorite),
+        });
+        addedCount++;
+      } else {
+        const merged: CollectionRecord = {
+          beatmapId: item.beatmapId,
+          copies: Math.max(existing.copies, item.copies),
+          firstPulledAt: Math.min(existing.firstPulledAt, item.firstPulledAt),
+          lastPulledAt: Math.max(existing.lastPulledAt, item.lastPulledAt),
+          isFavorite: existing.isFavorite || Boolean(item.isFavorite),
+        };
+        await tx.objectStore('collection').put(merged);
+        updatedCount++;
+      }
+    }
+  }
+
+  if (cloudData.history && Array.isArray(cloudData.history)) {
+    for (const h of cloudData.history) {
+      const existingHist = await tx.objectStore('history').get(h.id);
+      if (!existingHist) {
+        await tx.objectStore('history').put({
+          id: h.id,
+          beatmapId: h.beatmapId,
+          rarity: h.rarity,
+          isNew: false,
+          pulledAt: h.pulledAt,
+        });
+      }
+    }
+  }
+
+  if (typeof cloudData.totalPulls === 'number') {
+    const currentTotal = (await tx.objectStore('meta').get('totalPulls')) || 0;
+    await tx.objectStore('meta').put(Math.max(currentTotal, cloudData.totalPulls), 'totalPulls');
+  }
+
+  if (typeof cloudData.pityCount === 'number') {
+    await tx.objectStore('meta').put(cloudData.pityCount, 'pityCount');
+  }
+
+  await tx.done;
+  return { addedCount, updatedCount };
+}

@@ -84,14 +84,78 @@ Play now directly in your browser: **[https://afterlight0338.github.io/osu-beatm
 
 ---
 
+## ☁️ Cloud Sync & osu! OAuth2 Authentication (Cloudflare Workers + D1)
+
+The application supports **1-Click Official osu! OAuth2 Login** with cloud persistence powered by **Cloudflare Workers + Cloudflare D1 (Serverless SQLite)**:
+
+* **Zero User Configuration**: Users click **"Login with osu!"** and are automatically authenticated via official osu! OAuth2. No URLs or API keys to configure.
+* **Multi-Device Synchronization**: Your beatmap collection, favorites, total pulls, and pity count are synchronized to Cloudflare D1. Logging into the same osu! account on another PC or mobile phone automatically restores your progress.
+* **Offline-First Hybrid Architecture**: Local **IndexedDB** handles instant zero-latency UI updates while Cloudflare D1 serves as the authoritative cloud source of truth.
+* **Security**: Client secrets are kept exclusively within Cloudflare Worker Secrets and never exposed to frontend code.
+
+---
+
+### 🚀 Setting Up the Cloudflare Worker & D1 Backend
+
+To deploy your own Cloudflare Worker backend for osu! OAuth2 and D1 sync:
+
+#### 1. Register an osu! OAuth Application
+1. Go to your osu! account settings: **[osu.ppy.sh/home/account/edit#oauth](https://osu.ppy.sh/home/account/edit#oauth)**.
+2. Scroll to **OAuth Application** and click **New Application**.
+3. Set the **Application Name** (e.g. `osu! Beatmap Gacha`).
+4. Set the **Redirect URI** to your Cloudflare Worker callback:
+   ```
+   https://<your-worker-name>.<your-subdomain>.workers.dev/auth/callback
+   ```
+5. Click **Register Application** and copy your **Client ID** and **Client Secret**.
+
+#### 2. Create the Cloudflare D1 Database
+In the project root, navigate to the `worker/` directory and run:
+```bash
+cd worker
+npx wrangler d1 create osu-gacha-db
+```
+Copy the generated `database_id` UUID and paste it into `worker/wrangler.toml`:
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "osu-gacha-db"
+database_id = "<PASTE_YOUR_DATABASE_ID_HERE>"
+```
+
+#### 3. Execute the Database Schema Migration
+Run the SQL schema script to initialize the D1 tables:
+```bash
+npx wrangler d1 execute osu-gacha-db --file=./schema.sql
+```
+
+#### 4. Configure Worker Secrets
+Securely store your osu! OAuth credentials in Cloudflare Worker Secrets:
+```bash
+npx wrangler secret put OSU_CLIENT_ID
+# Enter your osu! OAuth Client ID when prompted
+
+npx wrangler secret put OSU_CLIENT_SECRET
+# Enter your osu! OAuth Client Secret when prompted
+```
+
+#### 5. Deploy the Worker
+Deploy the worker live to Cloudflare:
+```bash
+npx wrangler deploy
+```
+
+---
+
 ## 🛠️ Technology Stack
 
 * **Frontend Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
 * **Build Tool**: [Vite 6](https://vitejs.dev/)
 * **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Backend Serverless**: [Cloudflare Workers](https://workers.cloudflare.com/) (Edge Runtime)
+* **Cloud Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/) (Serverless SQL)
 * **Local Database**: [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) via [`idb`](https://github.com/jakearchibald/idb)
-* **Icons & SFX**: [Lucide React](https://lucide.dev/) + Web Audio API Synthesis
-* **Visual Effects**: [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)
+* **Authentication**: Official [osu! OAuth2 API v2](https://osu.ppy.sh/docs/index.html#authentication)
 * **Hosting**: [GitHub Pages](https://pages.github.com/)
 
 ---
@@ -119,7 +183,7 @@ npm run build
 
 ## 📜 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the [MIT License](./LICENSE).
 
 ---
 

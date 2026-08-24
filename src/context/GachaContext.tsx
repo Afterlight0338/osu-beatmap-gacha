@@ -5,6 +5,7 @@ import { CollectionRecord, CollectionStats, UserSettings, PullEnergyState } from
 import { loadBeatmapDataset, getBeatmapById } from '../data/loader';
 import { BANNERS } from '../gacha/banners';
 import { executeMultiPull } from '../gacha/rng';
+import { useAuth } from './AuthContext';
 import {
   getCollectionRecords,
   savePullResults,
@@ -18,6 +19,7 @@ import {
   savePullEnergyState,
   clearAllData,
   toggleFavorite as dbToggleFavorite,
+  mergeCloudCollectionIntoDB,
   DEFAULT_SETTINGS,
   DEFAULT_ENERGY_STATE,
 } from '../storage/db';
@@ -53,11 +55,13 @@ interface GachaContextType {
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
   resetCollection: () => Promise<void>;
   refreshCollection: () => Promise<void>;
+  forceCloudSync: () => Promise<void>;
 }
 
 const GachaContext = createContext<GachaContextType | null>(null);
 
 export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated, user, syncWithCloud } = useAuth();
   const [pool, setPool] = useState<Beatmap[]>([]);
   const [datasetInfo, setDatasetInfo] = useState<DatasetInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -241,6 +245,53 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setHistory(hydratedHistory);
   }, []);
 
+  // Force Cloud Sync function
+  const forceCloudSync = useCallback(async () => {
+    if (!isAuthenticated || !syncWithCloud) return;
+    try {
+      const records = await getCollectionRecords();
+      const hist = await getPullHistory(50);
+      const pulls = await getTotalPulls();
+      const pity = await getPityCount();
+
+      const syncResult = await syncWithCloud({
+        collection: records.map((r) => ({
+          beatmapId: r.beatmapId,
+          copies: r.copies,
+          firstPulledAt: r.firstPulledAt,
+          lastPulledAt: r.lastPulledAt,
+          isFavorite: Boolean(r.isFavorite),
+        })),
+        history: hist.map((h) => ({
+          id: h.id,
+          beatmapId: h.beatmapId,
+          rarity: h.rarity,
+          pulledAt: h.pulledAt,
+        })),
+        totalPulls: pulls,
+        pityCount: pity,
+      });
+
+      if (syncResult && syncResult.mergedCollection) {
+        await mergeCloudCollectionIntoDB({
+          collection: syncResult.mergedCollection,
+          history: syncResult.mergedHistory,
+          totalPulls: syncResult.cloudTotalPulls,
+          pityCount: syncResult.cloudPityCount,
+        });
+        await refreshCollection();
+      }
+    } catch (err) {
+      console.warn('Force cloud sync failed:', err);
+    }
+  }, [isAuthenticated, syncWithCloud, refreshCollection]);
+
+  // Initial cloud sync whenever user logs in or page loads with session
+  useEffect(() => {
+    if (!isAuthenticated || !user) return;
+    forceCloudSync();
+  }, [isAuthenticated, user]);
+
   const pull = useCallback(
     async (count: number): Promise<PullResult[]> => {
       if (pool.length === 0) {
@@ -286,7 +337,8 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       setCollectionMap(updatedMap);
       setCollectionRecords(Array.from(updatedMap.values()));
-      setTotalPulls((p) => p + results.length);
+      const nextTotalPulls = totalPulls + results.length;
+      setTotalPulls(nextTotalPulls);
       setRecentPulls(results);
 
       // Prepend to history
@@ -300,26 +352,72 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }));
       setHistory((prev) => [...newHistoryItems.reverse(), ...prev].slice(0, 100));
 
+      // Background sync to Cloudflare D1 if authenticated
+      if (isAuthenticated && syncWithCloud) {
+        syncWithCloud({
+          collection: results.map((r) => ({
+            beatmapId: r.beatmap.id,
+            copies: r.currentCopies,
+            firstPulledAt: r.isNew ? r.pulledAt : Date.now(),
+            lastPulledAt: r.pulledAt,
+            isFavorite: false,
+          })),
+          history: results.map((r, idx) => ({
+            id: `${r.pulledAt}-${r.beatmap.id}-${idx}`,
+            beatmapId: r.beatmap.id,
+            rarity: r.beatmap.rarity,
+            pulledAt: r.pulledAt,
+          })),
+          totalPulls: nextTotalPulls,
+          pityCount: finalPity,
+        }).catch((err) => console.warn('Background D1 pull sync error:', err));
+      }
+
       return results;
     },
-    [pool, collectionMap, activeBanner.id, energy, pityCount]
+    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, isAuthenticated, syncWithCloud]
   );
 
-  const toggleFavorite = useCallback(async (beatmapId: number): Promise<boolean> => {
-    const isFav = await dbToggleFavorite(beatmapId);
-    setCollectionMap((prev) => {
-      const copy = new Map(prev);
-      const item = copy.get(beatmapId);
-      if (item) {
-        copy.set(beatmapId, { ...item, isFavorite: isFav });
+  const toggleFavorite = useCallback(
+    async (beatmapId: number): Promise<boolean> => {
+      const isFav = await dbToggleFavorite(beatmapId);
+      let updatedRecord: CollectionRecord | undefined;
+
+      setCollectionMap((prev) => {
+        const copy = new Map(prev);
+        const item = copy.get(beatmapId);
+        if (item) {
+          updatedRecord = { ...item, isFavorite: isFav };
+          copy.set(beatmapId, updatedRecord);
+        }
+        return copy;
+      });
+      setCollectionRecords((prev) =>
+        prev.map((r) => (r.beatmapId === beatmapId ? { ...r, isFavorite: isFav } : r))
+      );
+
+      // Sync favorite toggle to Cloudflare D1
+      if (isAuthenticated && syncWithCloud && updatedRecord) {
+        syncWithCloud({
+          collection: [
+            {
+              beatmapId: updatedRecord.beatmapId,
+              copies: updatedRecord.copies,
+              firstPulledAt: updatedRecord.firstPulledAt,
+              lastPulledAt: updatedRecord.lastPulledAt,
+              isFavorite: isFav,
+            },
+          ],
+          history: [],
+          totalPulls,
+          pityCount,
+        }).catch((err) => console.warn('Background D1 favorite sync error:', err));
       }
-      return copy;
-    });
-    setCollectionRecords((prev) =>
-      prev.map((r) => (r.beatmapId === beatmapId ? { ...r, isFavorite: isFav } : r))
-    );
-    return isFav;
-  }, []);
+
+      return isFav;
+    },
+    [isAuthenticated, syncWithCloud, totalPulls, pityCount]
+  );
 
   const updateSettings = useCallback(
     async (newSettings: Partial<UserSettings>) => {
@@ -425,6 +523,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         updateSettings,
         resetCollection,
         refreshCollection,
+        forceCloudSync,
       }}
     >
       {children}

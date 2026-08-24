@@ -1,0 +1,18 @@
+name = "osu-beatmap-gacha-worker"
+main = "src/index.ts"
+compatibility_date = "2024-04-01"
+
+# Environment Variables (Non-sensitive)
+[vars]
+FRONTEND_URL = "https://afterlight0338.github.io/osu-beatmap-gacha"
+
+# D1 Database Binding
+# Replace `database_id` with your Cloudflare D1 Database UUID after running `wrangler d1 create osu-gacha-db`
+[[d1_databases]]
+binding = "DB"
+database_name = "osu-gacha-db"
+database_id = "YOUR_D1_DATABASE_ID_HERE"
+
+# Sensitive Secrets (Configure via `npx wrangler secret put <NAME>`):
+# - OSU_CLIENT_ID (e.g. 12345)
+# - OSU_CLIENT_SECRET (e.g. your_secret_from_osu_oauth)

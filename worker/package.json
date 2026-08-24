@@ -1,0 +1,17 @@
+{
+  "name": "osu-beatmap-gacha-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker OAuth2 Backend & D1 Database Sync for osu! Beatmap Gacha",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "d1:init": "wrangler d1 execute osu-gacha-db --file=./schema.sql",
+    "d1:init:local": "wrangler d1 execute osu-gacha-db --local --file=./schema.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240405.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.50.0"
+  }
+}

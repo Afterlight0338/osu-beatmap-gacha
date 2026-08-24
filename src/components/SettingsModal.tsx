@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useGacha } from '../context/GachaContext';
+import { useAuth } from '../context/AuthContext';
 import { downloadCollectionBackup, handleFileImport } from '../storage/exportImport';
 import { SecretPhDModal } from './SecretPhDModal';
 import { sfx } from '../audio/sfx';
@@ -16,6 +17,11 @@ import {
   Database,
   Sliders,
   Atom,
+  RefreshCw,
+  LogOut,
+  LogIn,
+  ShieldCheck,
+  Disc,
 } from 'lucide-react';
 
 interface SettingsModalProps {
@@ -32,7 +38,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
     datasetInfo,
     pool,
     isFallbackDataset,
+    forceCloudSync,
   } = useGacha();
+
+  const { user, isAuthenticated, loginWithOsu, logout, isSyncing, lastSyncedAt } = useAuth();
 
   const [importStatus, setImportStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -185,6 +194,84 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
               </label>
             </div>
+          </div>
+
+          {/* osu! Cloud Account & D1 Sync */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider flex items-center justify-between">
+              <span>osu! Cloud Account (D1 Database)</span>
+              {isAuthenticated && (
+                <span className="text-[10px] text-emerald-400 font-bold flex items-center space-x-1">
+                  <ShieldCheck className="w-3 h-3" />
+                  <span>Cloud Active</span>
+                </span>
+              )}
+            </h3>
+
+            {isAuthenticated && user ? (
+              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 font-sans">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-950 border border-pink-500/50 flex-shrink-0">
+                    {user.avatarUrl ? (
+                      <img src={user.avatarUrl} alt={user.username} className="w-full h-full object-cover" />
+                    ) : (
+                      <Disc className="w-6 h-6 text-pink-400 m-auto" />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-bold text-white truncate">{user.username}</span>
+                      {user.countryCode && (
+                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">
+                          {user.countryCode}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs font-mono text-slate-400">
+                      {user.globalRank ? `#${user.globalRank.toLocaleString()} Global Rank` : `osu! ID: ${user.osuId}`}
+                    </p>
+                    {lastSyncedAt && (
+                      <p className="text-[10px] font-mono text-slate-500">
+                        Last cloud sync: {lastSyncedAt.toLocaleTimeString()}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex space-x-2 pt-1">
+                  <button
+                    onClick={() => forceCloudSync()}
+                    disabled={isSyncing}
+                    className="flex-1 flex items-center justify-center space-x-1.5 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-pink-300 text-xs font-semibold border border-slate-700 transition-colors"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-amber-400' : 'text-cyan-400'}`} />
+                    <span>{isSyncing ? 'Syncing...' : 'Sync Cloud D1'}</span>
+                  </button>
+
+                  <button
+                    onClick={() => logout()}
+                    className="flex items-center space-x-1.5 py-2 px-3 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 hover:text-rose-100 text-xs font-semibold border border-rose-800/60 transition-colors"
+                  >
+                    <LogOut className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5">
+                <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                  Sign in with your official <strong className="text-pink-400">osu! account</strong> to automatically back up and synchronize your pulled beatmaps across your PC and mobile devices via Cloudflare D1.
+                </p>
+                <button
+                  onClick={() => loginWithOsu()}
+                  className="w-full flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-pink-600 via-pink-500 to-purple-600 text-white font-bold text-xs shadow-md shadow-pink-600/30 hover:shadow-pink-500/50 hover:scale-[1.01] transition-all select-none border border-pink-400/40"
+                >
+                  <Disc className="w-4 h-4 text-white" />
+                  <span className="font-display">Login with osu!</span>
+                  <LogIn className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Local Storage & Backup */}

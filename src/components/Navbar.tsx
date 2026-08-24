@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGacha } from '../context/GachaContext';
 import { sfx } from '../audio/sfx';
+import { UserAuthButton } from './UserAuthButton';
 import {
   Sparkles,
   Layers,
@@ -26,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSettings,
   onOpenHistory,
 }) => {
-  const { stats, settings, updateSettings, pool, energy } = useGacha();
+  const { stats, settings, updateSettings, pool, energy, forceCloudSync } = useGacha();
 
   const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog') => {
     sfx.playClick();
@@ -168,6 +169,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Sliders className="w-4 h-4" />
           </button>
+
+          {/* osu! OAuth2 Login & Profile Button */}
+          <UserAuthButton onForceSync={forceCloudSync} />
         </div>
       </div>
     </header>
