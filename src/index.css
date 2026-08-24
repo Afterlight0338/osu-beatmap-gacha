@@ -56,10 +56,116 @@
   }
 }
 
+@keyframes vortexSpin {
+  0% {
+    transform: rotate(0deg) scale(0.9);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(0.9);
+  }
+}
+
+@keyframes reverseSpin {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-3px, 2px) rotate(-1deg); }
+  20% { transform: translate(4px, -2px) rotate(1deg); }
+  30% { transform: translate(-4px, -1px) rotate(-0.5deg); }
+  40% { transform: translate(3px, 3px) rotate(1deg); }
+  50% { transform: translate(-2px, -3px) rotate(-1deg); }
+  60% { transform: translate(4px, 1px) rotate(0.5deg); }
+  70% { transform: translate(-3px, 3px) rotate(-0.5deg); }
+  80% { transform: translate(2px, -2px) rotate(1deg); }
+  90% { transform: translate(-1px, 2px) rotate(0deg); }
+}
+
+@keyframes screenShakeHeavy {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  10% { transform: translate(-8px, 6px) scale(1.02); }
+  20% { transform: translate(9px, -7px) scale(0.99); }
+  30% { transform: translate(-10px, -4px) scale(1.03); }
+  40% { transform: translate(8px, 8px) scale(1.01); }
+  50% { transform: translate(-7px, -9px) scale(1.02); }
+  60% { transform: translate(9px, 5px) scale(0.98); }
+  70% { transform: translate(-8px, 7px) scale(1.02); }
+  80% { transform: translate(6px, -6px) scale(1.01); }
+  90% { transform: translate(-3px, 4px) scale(1); }
+}
+
+@keyframes flashBang {
+  0% { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(3); }
+}
+
+@keyframes cosmicRing {
+  0% { transform: rotate(0deg) scale(0.8); opacity: 0.3; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 0.8; }
+  100% { transform: rotate(360deg) scale(0.8); opacity: 0.3; }
+}
+
+@keyframes godRays {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .animate-float {
   animation: float 3.5s ease-in-out infinite;
 }
 
 .animate-divine-rainbow {
   animation: rainbowGlow 5s linear infinite;
+}
+
+.animate-vortex-slow {
+  animation: vortexSpin 8s linear infinite;
+}
+
+.animate-vortex-fast {
+  animation: vortexSpin 2.5s linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: reverseSpin 6s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.animate-shake-light {
+  animation: screenShake 0.4s ease-in-out;
+}
+
+.animate-shake-heavy {
+  animation: screenShakeHeavy 0.7s ease-in-out;
+}
+
+.animate-flash-bang {
+  animation: flashBang 0.6s ease-out forwards;
+}
+
+.animate-god-rays {
+  animation: godRays 12s linear infinite;
 }

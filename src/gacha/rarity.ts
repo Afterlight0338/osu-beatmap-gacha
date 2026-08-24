@@ -38,7 +38,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-slate-500/50',
     bgGradient: 'from-slate-700/40 via-slate-800/60 to-slate-950/80',
     percentileThreshold: 0.70,
-    pullProbability: 0.30,     // 30.0%
+    pullProbability: 0.3084,    // 30.84%
     soundPitch: 1.0,
   },
   Uncommon: {
@@ -51,7 +51,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-emerald-500/60',
     bgGradient: 'from-emerald-900/40 via-emerald-950/60 to-slate-950/80',
     percentileThreshold: 0.42,
-    pullProbability: 0.277,    // 27.7%
+    pullProbability: 0.290,     // 29.0%
     soundPitch: 1.1,
   },
   'Uncommon+': {
@@ -64,7 +64,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-sky-500/60',
     bgGradient: 'from-sky-900/40 via-sky-950/60 to-slate-950/80',
     percentileThreshold: 0.17,
-    pullProbability: 0.25,     // 25.0%
+    pullProbability: 0.260,     // 26.0%
     soundPitch: 1.22,
   },
   Rare: {
@@ -77,7 +77,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-purple-500/60',
     bgGradient: 'from-purple-900/40 via-purple-950/60 to-slate-950/80',
     percentileThreshold: 0.05,
-    pullProbability: 0.12,     // 12.0%
+    pullProbability: 0.100,     // 10.0%
     soundPitch: 1.35,
   },
   Epic: {
@@ -90,7 +90,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-orange-500/70',
     bgGradient: 'from-orange-900/50 via-orange-950/60 to-slate-950/85',
     percentileThreshold: 0.013,
-    pullProbability: 0.04,     // 4.0%
+    pullProbability: 0.030,     // 3.0%
     soundPitch: 1.5,
   },
   Legendary: {
@@ -103,7 +103,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-red-500/80',
     bgGradient: 'from-red-900/50 via-red-950/70 to-slate-950/90',
     percentileThreshold: 0.005,
-    pullProbability: 0.0075,   // 0.75%
+    pullProbability: 0.0075,    // 0.75%
     soundPitch: 1.7,
   },
   Mythic: {
@@ -116,7 +116,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-rose-500/90',
     bgGradient: 'from-rose-900/50 via-pink-950/70 to-slate-950/95',
     percentileThreshold: 0.002,
-    pullProbability: 0.0030,   // 0.30%
+    pullProbability: 0.0025,    // 0.25%
     soundPitch: 1.9,
   },
   Celestial: {
@@ -129,7 +129,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-cyan-400',
     bgGradient: 'from-cyan-900/60 via-indigo-950/80 to-slate-950/95',
     percentileThreshold: 0.0008,
-    pullProbability: 0.0015,   // 0.15%
+    pullProbability: 0.0010,    // 0.10%
     soundPitch: 2.15,
   },
   Divine: {
@@ -142,7 +142,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-pink-400',
     bgGradient: 'from-pink-900/60 via-purple-950/80 to-slate-950/95',
     percentileThreshold: 0.0002,
-    pullProbability: 0.0009,   // 0.09%
+    pullProbability: 0.0005,    // 0.05%
     soundPitch: 2.45,
   },
   GOAT: {
@@ -155,7 +155,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-yellow-400',
     bgGradient: 'from-amber-600/60 via-yellow-950/80 to-slate-950/95',
     percentileThreshold: 0.0,
-    pullProbability: 0.0001,   // 0.01%
+    pullProbability: 0.0001,    // 0.01%
     soundPitch: 2.8,
   },
 };
