@@ -88,6 +88,11 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
   const isOwned = copies > 0;
   const isFavorite = record?.isFavorite || false;
 
+  const handleClose = () => {
+    previewPlayer.pause();
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in overflow-y-auto">
       <div className="relative w-full max-w-2xl rounded-2xl bg-[#141420] border border-slate-700 shadow-2xl overflow-hidden my-8">
@@ -102,7 +107,7 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
 
           {/* Close Button */}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-4 right-4 p-2 rounded-full bg-black/60 hover:bg-rose-600 text-white backdrop-blur-md border border-white/20 transition-colors z-20"
           >
             <X className="w-5 h-5" />

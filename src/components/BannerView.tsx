@@ -87,8 +87,8 @@ export const BannerView: React.FC<BannerViewProps> = ({ onSelectBanner }) => {
                   {activeBanner.badge}
                 </span>
 
-                <span className="text-xs font-mono text-slate-300 backdrop-blur-md bg-black/50 px-2.5 py-1 rounded-full border border-white/10">
-                  10-Pull: Guaranteed Rare+
+                <span className="text-xs font-mono text-amber-300 backdrop-blur-md bg-black/50 px-2.5 py-1 rounded-full border border-amber-500/30">
+                  100-Pull: Guaranteed 5★+
                 </span>
               </div>
 

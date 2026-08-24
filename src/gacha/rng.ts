@@ -1,9 +1,21 @@
 import { Beatmap, RarityTier } from '../types/beatmap';
 import { PullResult, RarityRates } from '../types/gacha';
 import { CollectionRecord } from '../types/collection';
-import { DEFAULT_RARITY_RATES, GUARANTEED_RARE_RATES, getCumulativeRates } from './probabilities';
+import { DEFAULT_RARITY_RATES, getPityRates, getCumulativeRates } from './probabilities';
 import { filterMapsForBanner } from './banners';
-import { compareRarities } from './rarity';
+
+/**
+ * Checks if a rarity tier qualifies as Legendary or higher (5★ equivalent for Pity reset).
+ */
+export function isLegendaryOrHigher(rarity: RarityTier): boolean {
+  return (
+    rarity === 'Legendary' ||
+    rarity === 'Mythic' ||
+    rarity === 'Celestial' ||
+    rarity === 'Divine' ||
+    rarity === 'GOAT'
+  );
+}
 
 /**
  * Rolls a random rarity tier using weighted probability.
@@ -48,21 +60,27 @@ export function selectMapFromTier(mapsInTier: Beatmap[]): Beatmap {
   return mapsInTier[Math.floor(Math.random() * mapsInTier.length)];
 }
 
+export interface SinglePullResult {
+  pull: PullResult;
+  nextPityCount: number;
+}
+
 /**
- * Performs a single gacha pull from the available map pool.
+ * Performs a single gacha pull from the available map pool with pity scaling.
  */
 export function executeSinglePull(
   pool: Beatmap[],
   existingRecords: Map<number, CollectionRecord>,
   bannerId: string = 'standard',
   rates: RarityRates = DEFAULT_RARITY_RATES,
-  isGuaranteedRare: boolean = false
-): PullResult {
+  currentPity: number = 0
+): SinglePullResult {
   if (!pool || pool.length === 0) {
     throw new Error('Beatmap pool is empty');
   }
 
-  const effectiveRates = isGuaranteedRare ? GUARANTEED_RARE_RATES : rates;
+  // Compute effective rates accounting for soft pity (80-99) and hard pity (100)
+  const effectiveRates = getPityRates(currentPity, rates);
   let targetTier = rollRarityTier(effectiveRates);
 
   const bannerMaps = filterMapsForBanner(pool, bannerId);
@@ -93,41 +111,45 @@ export function executeSinglePull(
   const currentCopies = previousCopies + 1;
   const isNew = previousCopies === 0;
 
+  // If Legendary or higher is pulled, reset pity count to 0; otherwise increment by 1
+  const nextPityCount = isLegendaryOrHigher(selectedMap.rarity) ? 0 : currentPity + 1;
+
   return {
-    beatmap: selectedMap,
-    isNew,
-    previousCopies,
-    currentCopies,
-    pulledAt: Date.now(),
+    pull: {
+      beatmap: selectedMap,
+      isNew,
+      previousCopies,
+      currentCopies,
+      pulledAt: Date.now(),
+    },
+    nextPityCount,
   };
 }
 
+export interface MultiPullResult {
+  results: PullResult[];
+  finalPity: number;
+}
+
 /**
- * Performs a multi-pull (e.g. 10x pull).
- * Guaranteed at least 1 Rare or higher on 10-pull.
+ * Performs a multi-pull (e.g. 1x, 5x, 10x pulls) with progressive pity tracking.
  */
 export function executeMultiPull(
   count: number,
   pool: Beatmap[],
   existingRecords: Map<number, CollectionRecord>,
   bannerId: string = 'standard',
+  initialPity: number = 0,
   rates: RarityRates = DEFAULT_RARITY_RATES
-): PullResult[] {
+): MultiPullResult {
   const results: PullResult[] = [];
   // Clone record map for sequential tracking inside the multi-pull
   const tempRecords = new Map<number, CollectionRecord>(existingRecords);
-
-  let hasRareOrHigher = false;
+  let currentPity = initialPity;
 
   for (let i = 0; i < count; i++) {
-    const isLastOfTen = (i + 1) % 10 === 0;
-    const forceGuarantee = isLastOfTen && !hasRareOrHigher;
-
-    const pull = executeSinglePull(pool, tempRecords, bannerId, rates, forceGuarantee);
-
-    if (compareRarities(pull.beatmap.rarity, 'Rare') >= 0) {
-      hasRareOrHigher = true;
-    }
+    const { pull, nextPityCount } = executeSinglePull(pool, tempRecords, bannerId, rates, currentPity);
+    currentPity = nextPityCount;
 
     // Update local temp tracking for duplicates inside same multi-pull
     tempRecords.set(pull.beatmap.id, {
@@ -140,5 +162,8 @@ export function executeMultiPull(
     results.push(pull);
   }
 
-  return results;
+  return {
+    results,
+    finalPity: currentPity,
+  };
 }

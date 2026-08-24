@@ -190,6 +190,23 @@ export async function savePullEnergyState(state: PullEnergyState): Promise<void>
 }
 
 /**
+ * Get pity pull count (pulls since last Legendary+).
+ */
+export async function getPityCount(): Promise<number> {
+  const db = await getDB();
+  const val = await db.get('meta', 'pityCount');
+  return typeof val === 'number' ? val : 0;
+}
+
+/**
+ * Save pity pull count.
+ */
+export async function savePityCount(count: number): Promise<void> {
+  const db = await getDB();
+  await db.put('meta', count, 'pityCount');
+}
+
+/**
  * Save user settings.
  */
 export async function saveUserSettings(settings: Partial<UserSettings>): Promise<void> {
@@ -293,5 +310,6 @@ export async function clearAllData(): Promise<void> {
   await tx.objectStore('collection').clear();
   await tx.objectStore('history').clear();
   await tx.objectStore('meta').put(0, 'totalPulls');
+  await tx.objectStore('meta').put(0, 'pityCount');
   await tx.done;
 }

@@ -5,6 +5,7 @@ import { BeatmapCard } from './BeatmapCard';
 import { RarityBadge } from './RarityBadge';
 import { RARITY_CONFIGS, compareRarities } from '../gacha/rarity';
 import { sfx } from '../audio/sfx';
+import { previewPlayer } from '../audio/previewPlayer';
 import confetti from 'canvas-confetti';
 import { FastForward, RotateCcw, X, Sparkles, Layers, ChevronRight } from 'lucide-react';
 
@@ -119,6 +120,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   // Next card in multi-pull
   const handleNext = () => {
+    previewPlayer.pause();
     sfx.playClick();
     if (currentIndex + 1 < results.length) {
       const nextIdx = currentIndex + 1;
@@ -131,9 +133,20 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   // Skip directly to summary
   const handleSkip = () => {
+    previewPlayer.pause();
     sfx.playClick();
     setPhase('summary');
     triggerCelebration(highestRarity);
+  };
+
+  const handleClose = () => {
+    previewPlayer.pause();
+    onClose();
+  };
+
+  const handlePullAgain = (count: number) => {
+    previewPlayer.pause();
+    onPullAgain(count);
   };
 
   if (!isOpen || results.length === 0) return null;
@@ -154,7 +167,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           </button>
         )}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="p-2 rounded-full bg-white/10 hover:bg-rose-600 text-slate-200 hover:text-white border border-white/20 backdrop-blur-md transition-all duration-200"
         >
           <X className="w-4 h-4" />
@@ -300,7 +313,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           {/* Actions: Pull Again 1x, 5x, 10x, Close */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 border-t border-slate-800 w-full">
             <button
-              onClick={() => onPullAgain(1)}
+              onClick={() => handlePullAgain(1)}
               className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs flex items-center space-x-1.5 transition-all hover:scale-105"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -308,7 +321,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
             </button>
 
             <button
-              onClick={() => onPullAgain(5)}
+              onClick={() => handlePullAgain(5)}
               className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs border border-purple-500/60 flex items-center space-x-1.5 transition-all hover:scale-105 shadow-md shadow-purple-900/30"
             >
               <Sparkles className="w-3.5 h-3.5 text-purple-300" />
@@ -316,7 +329,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
             </button>
 
             <button
-              onClick={() => onPullAgain(10)}
+              onClick={() => handlePullAgain(10)}
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-pink-600/30 flex items-center space-x-1.5 transition-all hover:scale-105"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
@@ -324,7 +337,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
             </button>
 
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-xs transition-all"
             >
               Done / Return

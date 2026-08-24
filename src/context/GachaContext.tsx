@@ -10,6 +10,8 @@ import {
   savePullResults,
   getPullHistory,
   getTotalPulls,
+  getPityCount,
+  savePityCount,
   getUserSettings,
   saveUserSettings,
   getPullEnergyState,
@@ -35,6 +37,7 @@ interface GachaContextType {
   collectionRecords: CollectionRecord[];
   collectionMap: Map<number, CollectionRecord>;
   totalPulls: number;
+  pityCount: number;
   history: PullHistoryItem[];
   recentPulls: PullResult[];
   settings: UserSettings;
@@ -64,6 +67,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [collectionRecords, setCollectionRecords] = useState<CollectionRecord[]>([]);
   const [collectionMap, setCollectionMap] = useState<Map<number, CollectionRecord>>(new Map());
   const [totalPulls, setTotalPulls] = useState<number>(0);
+  const [pityCount, setPityCount] = useState<number>(0);
   const [history, setHistory] = useState<PullHistoryItem[]>([]);
   const [recentPulls, setRecentPulls] = useState<PullResult[]>([]);
   const [settings, setSettings] = useState<UserSettings>(DEFAULT_SETTINGS);
@@ -77,11 +81,12 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const initData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [loaderRes, savedRecords, savedHistory, savedPulls, userConfig, savedEnergy] = await Promise.all([
+      const [loaderRes, savedRecords, savedHistory, savedPulls, savedPity, userConfig, savedEnergy] = await Promise.all([
         loadBeatmapDataset(),
         getCollectionRecords(),
         getPullHistory(50),
         getTotalPulls(),
+        getPityCount(),
         getUserSettings(),
         getPullEnergyState(),
       ]);
@@ -97,6 +102,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setCollectionMap(colMap);
 
       setTotalPulls(savedPulls);
+      setPityCount(savedPity);
 
       // Hydrate history items with map data
       const hydratedHistory: PullHistoryItem[] = savedHistory
@@ -201,10 +207,11 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   const refreshCollection = useCallback(async () => {
-    const [savedRecords, savedHistory, savedPulls, savedEnergy] = await Promise.all([
+    const [savedRecords, savedHistory, savedPulls, savedPity, savedEnergy] = await Promise.all([
       getCollectionRecords(),
       getPullHistory(50),
       getTotalPulls(),
+      getPityCount(),
       getPullEnergyState(),
     ]);
 
@@ -214,6 +221,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCollectionMap(colMap);
 
     setTotalPulls(savedPulls);
+    setPityCount(savedPity);
     setEnergy(savedEnergy);
 
     const hydratedHistory: PullHistoryItem[] = savedHistory
@@ -243,7 +251,12 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         throw new Error(`Not enough pull stamina! Need ${count} energy (have ${energy.current}).`);
       }
 
-      const results = executeMultiPull(count, pool, collectionMap, activeBanner.id);
+      // Immediately pause any ongoing song preview playback on summon
+      previewPlayer.pause();
+
+      const { results, finalPity } = executeMultiPull(count, pool, collectionMap, activeBanner.id, pityCount);
+      setPityCount(finalPity);
+      await savePityCount(finalPity);
 
       // Deduct energy
       const now = Date.now();
@@ -289,7 +302,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       return results;
     },
-    [pool, collectionMap, activeBanner.id, energy]
+    [pool, collectionMap, activeBanner.id, energy, pityCount]
   );
 
   const toggleFavorite = useCallback(async (beatmapId: number): Promise<boolean> => {
@@ -325,6 +338,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCollectionRecords([]);
     setCollectionMap(new Map());
     setTotalPulls(0);
+    setPityCount(0);
     setHistory([]);
     setRecentPulls([]);
   }, []);
@@ -395,6 +409,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         collectionRecords,
         collectionMap,
         totalPulls,
+        pityCount,
         history,
         recentPulls,
         settings,

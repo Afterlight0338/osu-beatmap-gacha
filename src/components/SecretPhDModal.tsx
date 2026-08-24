@@ -464,15 +464,20 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [solvedProblemIds, setSolvedProblemIds] = useState<number[]>([]);
 
-  // Load solved problems from localStorage
+  // Load solved problems from localStorage whenever modal opens
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(SOLVED_STORAGE_KEY);
-      if (saved) {
-        setSolvedProblemIds(JSON.parse(saved));
-      }
-    } catch {}
-  }, []);
+    if (isOpen) {
+      try {
+        const saved = localStorage.getItem(SOLVED_STORAGE_KEY);
+        if (saved) {
+          setSolvedProblemIds(JSON.parse(saved));
+        }
+      } catch {}
+      setStatus('idle');
+      setErrorMessage('');
+      setAnswerInput('');
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -481,23 +486,40 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Guard against duplicate claims
+    const currentSaved = (() => {
+      try {
+        const s = localStorage.getItem(SOLVED_STORAGE_KEY);
+        return s ? (JSON.parse(s) as number[]) : solvedProblemIds;
+      } catch {
+        return solvedProblemIds;
+      }
+    })();
+
+    if (currentSaved.includes(currentProblem.id) || isCurrentSolved) {
+      setStatus('error');
+      setErrorMessage(
+        `Problem ${currentProblem.romanNumeral} has already been solved and its +${currentProblem.rewardPulls} pull reward was already claimed.`
+      );
+      return;
+    }
+
     const clean = answerInput.trim();
 
     if (clean === currentProblem.expectedAnswer) {
       sfx.playRarityReveal('Divine');
       setStatus('success');
 
-      // Add energy reward
-      await refillEnergy(currentProblem.rewardPulls);
+      // Save solved state first to prevent race condition
+      const updated = Array.from(new Set([...currentSaved, currentProblem.id]));
+      setSolvedProblemIds(updated);
+      try {
+        localStorage.setItem(SOLVED_STORAGE_KEY, JSON.stringify(updated));
+      } catch {}
 
-      // Save solved state
-      if (!solvedProblemIds.includes(currentProblem.id)) {
-        const updated = [...solvedProblemIds, currentProblem.id];
-        setSolvedProblemIds(updated);
-        try {
-          localStorage.setItem(SOLVED_STORAGE_KEY, JSON.stringify(updated));
-        } catch {}
-      }
+      // Add energy reward once
+      await refillEnergy(currentProblem.rewardPulls);
 
       confetti({
         particleCount: 220,
@@ -626,42 +648,73 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
                 </div>
               )}
 
-              {/* Submission Form */}
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono uppercase text-slate-400 font-bold flex items-center justify-between">
-                    <span>Exact Integer Invariant Solution:</span>
-                    <span className="text-[10px] text-cyan-400 font-mono">Reward: +{currentProblem.rewardPulls} Summon Tokens</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={answerInput}
-                    onChange={(e) => {
-                      setAnswerInput(e.target.value);
-                      if (status === 'error') setStatus('idle');
-                    }}
-                    placeholder={`Enter exact integer evaluation for Problem ${currentProblem.romanNumeral}...`}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-cyan-500/40 text-cyan-200 font-mono text-center text-lg tracking-widest focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
-                    autoFocus
-                  />
+              {/* Submission Form or Solved Banner */}
+              {isCurrentSolved ? (
+                <div className="p-5 rounded-2xl bg-emerald-950/50 border border-emerald-500/40 text-center space-y-3 shadow-lg">
+                  <div className="inline-flex items-center justify-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-400 text-emerald-300 font-mono font-bold text-xs">
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span>THEOREM {currentProblem.romanNumeral} PROVEN & REWARD CLAIMED</span>
+                  </div>
+                  <p className="text-xs text-slate-300 font-mono">
+                    Evaluation confirmed: <code className="text-cyan-300 bg-slate-900 px-2 py-0.5 rounded font-bold">{currentProblem.expectedAnswer}</code>. The +{currentProblem.rewardPulls} pull reward has been added to your balance.
+                  </p>
+                  <div className="pt-2 flex justify-center space-x-3">
+                    {selectedProblemIndex + 1 < MATH_PROBLEMS.length && (
+                      <button
+                        type="button"
+                        onClick={() => handleSelectProblem(selectedProblemIndex + 1)}
+                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center space-x-1.5"
+                      >
+                        <span>Next Problem ({MATH_PROBLEMS[selectedProblemIndex + 1].romanNumeral})</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-mono text-xs transition-colors"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono uppercase text-slate-400 font-bold flex items-center justify-between">
+                      <span>Exact Integer Invariant Solution:</span>
+                      <span className="text-[10px] text-cyan-400 font-mono">Reward: +{currentProblem.rewardPulls} Summon Tokens</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={answerInput}
+                      onChange={(e) => {
+                        setAnswerInput(e.target.value);
+                        if (status === 'error') setStatus('idle');
+                      }}
+                      placeholder={`Enter exact integer evaluation for Problem ${currentProblem.romanNumeral}...`}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-cyan-500/40 text-cyan-200 font-mono text-center text-lg tracking-widest focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                      autoFocus
+                    />
+                  </div>
 
-                <div className="flex space-x-3">
-                  <button
-                    type="submit"
-                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.01]"
-                  >
-                    Submit Proof Invariant
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white font-mono text-xs transition-colors"
-                  >
-                    Close
-                  </button>
-                </div>
-              </form>
+                  <div className="flex space-x-3">
+                    <button
+                      type="submit"
+                      className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.01]"
+                    >
+                      Submit Proof Invariant
+                    </button>
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white font-mono text-xs transition-colors"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
+              )}
             </>
           ) : (
             /* Success State */
