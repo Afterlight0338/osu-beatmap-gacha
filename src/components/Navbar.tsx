@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 interface NavbarProps {
-  activeTab: 'gacha' | 'collection' | 'stats';
-  setActiveTab: (tab: 'gacha' | 'collection' | 'stats') => void;
+  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog';
+  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog') => void;
   onOpenSettings: () => void;
   onOpenHistory: () => void;
 }
@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { stats, settings, updateSettings, pool, energy } = useGacha();
 
-  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats') => {
+  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog') => {
     sfx.playClick();
     setActiveTab(tab);
   };
@@ -64,10 +64,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Center Tabs */}
-        <nav className="flex items-center space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex-shrink-0">
+        <nav className="flex items-center space-x-1 sm:space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex-shrink-0">
           <button
             onClick={() => handleTabClick('gacha')}
-            className={`flex items-center space-x-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
               activeTab === 'gacha'
                 ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-600/30'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
@@ -79,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => handleTabClick('collection')}
-            className={`flex items-center space-x-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none relative ${
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none relative ${
               activeTab === 'collection'
                 ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-600/30'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => handleTabClick('stats')}
-            className={`flex items-center space-x-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
               activeTab === 'stats'
                 ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-600/30'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
@@ -104,6 +104,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400" />
             <span>Stats</span>
+          </button>
+
+          <button
+            onClick={() => handleTabClick('changelog')}
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
+              activeTab === 'changelog'
+                ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+            }`}
+          >
+            <History className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+            <span>Changelog</span>
           </button>
         </nav>
 
