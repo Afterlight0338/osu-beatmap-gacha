@@ -160,26 +160,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
   },
 };
 
-export function calculatePopularityScore(
-  playcount: number,
-  favouriteCount: number,
-  minPlayLog: number = 0,
-  maxPlayLog: number = 7.5,
-  minFavLog: number = 0,
-  maxFavLog: number = 5.5
-): number {
-  const playScore = Math.log10(Math.max(0, playcount) + 1);
-  const favScore = Math.log10(Math.max(0, favouriteCount) + 1);
-
-  const normPlay = maxPlayLog > minPlayLog ? (playScore - minPlayLog) / (maxPlayLog - minPlayLog) : 0;
-  const normFav = maxFavLog > minFavLog ? (favScore - minFavLog) / (maxFavLog - minFavLog) : 0;
-
-  const boundedPlay = Math.max(0, Math.min(1, normPlay));
-  const boundedFav = Math.max(0, Math.min(1, normFav));
-
-  const rawScore = 0.70 * boundedPlay + 0.30 * boundedFav;
-  return Math.round(rawScore * 10000) / 100;
-}
+export { computeMultiFactorPopularity, DEFAULT_POPULARITY_CONFIG, type PopularityModelConfig } from './popularityModel';
 
 export function getRarityRank(rarity: RarityTier): number {
   return RARITY_ORDER.indexOf(rarity);
