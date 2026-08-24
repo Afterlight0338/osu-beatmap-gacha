@@ -1,18 +1,18 @@
 {
-  "version": "4.1.0",
-  "lastUpdated": "2026-08-23T18:36:51.815Z",
-  "totalMaps": 50000,
-  "rarityCounts": {
-    "Common": 15335,
-    "Uncommon": 14000,
-    "Uncommon+": 12000,
-    "Rare": 6000,
-    "Epic": 2000,
-    "Legendary": 400,
+  "totalBeatmaps": 37102,
+  "uniqueBeatmapsets": 37102,
+  "lastUpdated": "2026-08-24T11:41:14.634Z",
+  "rarityDistribution": {
+    "GOAT": 10,
+    "Divine": 30,
+    "Celestial": 75,
     "Mythic": 150,
-    "Celestial": 69,
-    "Divine": 36,
-    "GOAT": 10
+    "Legendary": 400,
+    "Epic": 2000,
+    "Rare": 6000,
+    "Uncommon+": 10000,
+    "Uncommon": 11000,
+    "Common": 7437
   },
-  "source": "osu! API v2 Live 50,000 Pool - Diverse Flagship 10-Tier Hierarchy"
+  "description": "37,000+ 100% unique beatmap songs (Top Difficulty only) across 10 rarity tiers"
 }
