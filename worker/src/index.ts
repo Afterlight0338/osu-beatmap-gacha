@@ -359,6 +359,27 @@ export default {
           .bind(auth.osuId)
           .all<{ id: string; beatmapId: number; rarity: string; pulledAt: number }>();
 
+        // Check for pending energy override (set by admin) and consume it
+        const energyOverride = await env.osu_gacha_db
+          .prepare(`SELECT energy_amount FROM user_energy_overrides WHERE osu_id = ?`)
+          .bind(auth.osuId)
+          .first<{ energy_amount: number }>();
+        if (energyOverride) {
+          await env.osu_gacha_db
+            .prepare(`DELETE FROM user_energy_overrides WHERE osu_id = ?`)
+            .bind(auth.osuId)
+            .run();
+        }
+
+        // Fetch global config (rates, stamina max)
+        const configRows = await env.osu_gacha_db
+          .prepare(`SELECT key, value FROM admin_config`)
+          .all<{ key: string; value: string }>();
+        const config: Record<string, unknown> = {};
+        for (const row of configRows.results) {
+          try { config[row.key] = JSON.parse(row.value); } catch { config[row.key] = row.value; }
+        }
+
         return jsonResponse(
           {
             success: true,
@@ -372,6 +393,9 @@ export default {
               isFavorite: Boolean(c.isFavorite),
             })),
             history: historyRows.results,
+            // Admin override signals (null if no pending override)
+            energyOverride: energyOverride ? energyOverride.energy_amount : null,
+            config,
           },
           200,
           request,
@@ -602,6 +626,167 @@ export default {
           request,
           env
         );
+      }
+
+      // ---------------------------------------------------------
+      // Admin helper: authenticate and verify RyoYamada
+      // ---------------------------------------------------------
+      const requireAdmin = async () => {
+        const auth = await authenticateUser(request, env);
+        if (!auth) return { auth: null, forbidden: errorResponse('Unauthorized', 401, request, env) };
+        if (auth.user.username !== 'RyoYamada') return { auth: null, forbidden: errorResponse('Forbidden: Admin access only.', 403, request, env) };
+        return { auth, forbidden: null };
+      };
+
+      // ---------------------------------------------------------
+      // 10. POST /admin/user/:id/set-pulls  —  Adjust total pulls
+      // ---------------------------------------------------------
+      const setPullsMatch = path.match(/^\/admin\/user\/(\d+)\/set-pulls$/);
+      if (setPullsMatch && request.method === 'POST') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(setPullsMatch[1], 10);
+        const body = await request.json() as { pulls?: number; delta?: number };
+        let newPulls: number;
+        if (typeof body.pulls === 'number') {
+          newPulls = Math.max(0, body.pulls);
+          await env.osu_gacha_db.prepare(`UPDATE users SET total_pulls = ? WHERE osu_id = ?`).bind(newPulls, targetOsuId).run();
+        } else if (typeof body.delta === 'number') {
+          const current = await env.osu_gacha_db.prepare(`SELECT total_pulls FROM users WHERE osu_id = ?`).bind(targetOsuId).first<{ total_pulls: number }>();
+          newPulls = Math.max(0, (current?.total_pulls ?? 0) + body.delta);
+          await env.osu_gacha_db.prepare(`UPDATE users SET total_pulls = ? WHERE osu_id = ?`).bind(newPulls, targetOsuId).run();
+        } else {
+          return errorResponse('Provide `pulls` (absolute) or `delta` (relative)', 400, request, env);
+        }
+        return jsonResponse({ success: true, osuId: targetOsuId, totalPulls: newPulls }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 11. GET /admin/user/:id/collection  —  View user cards
+      // ---------------------------------------------------------
+      const viewCollMatch = path.match(/^\/admin\/user\/(\d+)\/collection$/);
+      if (viewCollMatch && request.method === 'GET') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(viewCollMatch[1], 10);
+        const rows = await env.osu_gacha_db.prepare(
+          `SELECT beatmap_id as beatmapId, copies, first_pulled_at as firstPulledAt, last_pulled_at as lastPulledAt, is_favorite as isFavorite
+           FROM user_collection WHERE osu_id = ? ORDER BY last_pulled_at DESC`
+        ).bind(targetOsuId).all<{ beatmapId: number; copies: number; firstPulledAt: number; lastPulledAt: number; isFavorite: number }>();
+        const userInfo = await env.osu_gacha_db.prepare(`SELECT username FROM users WHERE osu_id = ?`).bind(targetOsuId).first<{ username: string }>();
+        return jsonResponse({
+          success: true, username: userInfo?.username,
+          collection: rows.results.map(c => ({ ...c, isFavorite: Boolean(c.isFavorite) }))
+        }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 12. POST /admin/user/:id/collection/add  —  Add card to user
+      // ---------------------------------------------------------
+      const addCardMatch = path.match(/^\/admin\/user\/(\d+)\/collection\/add$/);
+      if (addCardMatch && request.method === 'POST') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(addCardMatch[1], 10);
+        const body = await request.json() as { beatmapId: number; copies?: number; rarity?: string };
+        if (!body.beatmapId) return errorResponse('beatmapId required', 400, request, env);
+        const now = Date.now();
+        const copies = Math.max(1, body.copies ?? 1);
+        await env.osu_gacha_db.prepare(
+          `INSERT INTO user_collection (osu_id, beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite)
+           VALUES (?, ?, ?, ?, ?, 0)
+           ON CONFLICT(osu_id, beatmap_id) DO UPDATE SET copies = copies + excluded.copies, last_pulled_at = excluded.last_pulled_at`
+        ).bind(targetOsuId, body.beatmapId, copies, now, now).run();
+        // Also log to pull history
+        if (body.rarity) {
+          await env.osu_gacha_db.prepare(
+            `INSERT OR IGNORE INTO user_history (id, osu_id, beatmap_id, rarity, pulled_at) VALUES (?, ?, ?, ?, ?)`
+          ).bind(`admin-${Date.now()}-${body.beatmapId}`, targetOsuId, body.beatmapId, body.rarity, now).run();
+        }
+        return jsonResponse({ success: true, message: `Added beatmap ${body.beatmapId} (×${copies}) to user ${targetOsuId}` }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 13. PUT /admin/user/:id/collection/:mid  —  Edit a card
+      // ---------------------------------------------------------
+      const editCardMatch = path.match(/^\/admin\/user\/(\d+)\/collection\/(\d+)$/);
+      if (editCardMatch && request.method === 'PUT') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(editCardMatch[1], 10);
+        const beatmapId = parseInt(editCardMatch[2], 10);
+        const body = await request.json() as { copies?: number; isFavorite?: boolean };
+        const setClauses: string[] = [];
+        const binds: (number | string)[] = [];
+        if (typeof body.copies === 'number') { setClauses.push('copies = ?'); binds.push(Math.max(0, body.copies)); }
+        if (typeof body.isFavorite === 'boolean') { setClauses.push('is_favorite = ?'); binds.push(body.isFavorite ? 1 : 0); }
+        if (setClauses.length === 0) return errorResponse('Nothing to update', 400, request, env);
+        binds.push(targetOsuId, beatmapId);
+        await env.osu_gacha_db.prepare(`UPDATE user_collection SET ${setClauses.join(', ')} WHERE osu_id = ? AND beatmap_id = ?`).bind(...binds).run();
+        return jsonResponse({ success: true, message: `Updated beatmap ${beatmapId} for user ${targetOsuId}` }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 14. DELETE /admin/user/:id/collection/:mid  —  Remove card
+      // ---------------------------------------------------------
+      if (editCardMatch && request.method === 'DELETE') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(editCardMatch[1], 10);
+        const beatmapId = parseInt(editCardMatch[2], 10);
+        await env.osu_gacha_db.prepare(`DELETE FROM user_collection WHERE osu_id = ? AND beatmap_id = ?`).bind(targetOsuId, beatmapId).run();
+        return jsonResponse({ success: true, message: `Removed beatmap ${beatmapId} from user ${targetOsuId}` }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 15. POST /admin/user/:id/energy-override  —  Force stamina refill
+      // ---------------------------------------------------------
+      const energyMatch = path.match(/^\/admin\/user\/(\d+)\/energy-override$/);
+      if (energyMatch && request.method === 'POST') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const targetOsuId = parseInt(energyMatch[1], 10);
+        const body = await request.json() as { amount?: number };
+        const amount = Math.max(1, Math.min(9999, body.amount ?? 50));
+        await env.osu_gacha_db.prepare(
+          `INSERT INTO user_energy_overrides (osu_id, energy_amount, set_at)
+           VALUES (?, ?, datetime('now'))
+           ON CONFLICT(osu_id) DO UPDATE SET energy_amount = excluded.energy_amount, set_at = excluded.set_at`
+        ).bind(targetOsuId, amount).run();
+        return jsonResponse({ success: true, message: `Energy override of ${amount} queued for user ${targetOsuId}. They'll receive it on next sync.` }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 16. GET /admin/config  —  Get global rates & stamina config
+      // ---------------------------------------------------------
+      if (path === '/admin/config' && request.method === 'GET') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const rows = await env.osu_gacha_db.prepare(`SELECT key, value FROM admin_config`).all<{ key: string; value: string }>();
+        const config: Record<string, unknown> = {};
+        for (const row of rows.results) {
+          try { config[row.key] = JSON.parse(row.value); } catch { config[row.key] = row.value; }
+        }
+        return jsonResponse({ success: true, config }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 17. PUT /admin/config/:key  —  Set a config value
+      // ---------------------------------------------------------
+      const configMatch = path.match(/^\/admin\/config\/([a-z_]+)$/);
+      if (configMatch && request.method === 'PUT') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const key = configMatch[1];
+        const allowed = ['rates', 'stamina'];
+        if (!allowed.includes(key)) return errorResponse(`Unknown config key "${key}". Allowed: ${allowed.join(', ')}`, 400, request, env);
+        const body = await request.json();
+        const value = JSON.stringify(body);
+        await env.osu_gacha_db.prepare(
+          `INSERT INTO admin_config (key, value, updated_at) VALUES (?, ?, datetime('now'))
+           ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`
+        ).bind(key, value).run();
+        return jsonResponse({ success: true, key, message: `Config "${key}" updated.` }, 200, request, env);
       }
 
       // 404 Not Found

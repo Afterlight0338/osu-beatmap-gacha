@@ -34,6 +34,10 @@ export interface CloudSyncResponse {
   collection?: CloudSyncCollectionItem[];
   history?: CloudSyncHistoryItem[];
   error?: string;
+  /** If admin has queued an energy override for this user, the amount to set */
+  energyOverride?: number | null;
+  /** Global admin config: rates, stamina max, etc. */
+  config?: Record<string, unknown>;
 }
 
 export interface CloudPushResponse {

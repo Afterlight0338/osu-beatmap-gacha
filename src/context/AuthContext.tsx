@@ -32,6 +32,8 @@ interface AuthContextType {
     mergedHistory?: CloudSyncHistoryItem[];
     cloudTotalPulls?: number;
     cloudPityCount?: number;
+    energyOverride?: number | null;
+    config?: Record<string, unknown>;
   } | null>;
   clearAuthError: () => void;
 }
@@ -237,6 +239,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             mergedHistory: syncData.history,
             cloudTotalPulls: syncData.totalPulls,
             cloudPityCount: syncData.pityCount,
+            energyOverride: syncData.energyOverride ?? null,
+            config: syncData.config,
           };
         }
         return null;

@@ -51,3 +51,18 @@ CREATE INDEX IF NOT EXISTS idx_sessions_token ON user_sessions(token);
 CREATE INDEX IF NOT EXISTS idx_sessions_expiry ON user_sessions(expires_at);
 CREATE INDEX IF NOT EXISTS idx_collection_user ON user_collection(osu_id);
 CREATE INDEX IF NOT EXISTS idx_history_user ON user_history(osu_id, pulled_at DESC);
+
+-- 5. Admin Config Table (global rate/stamina overrides)
+CREATE TABLE IF NOT EXISTS admin_config (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. Per-user energy override signals (set by admin, consumed on next sync)
+CREATE TABLE IF NOT EXISTS user_energy_overrides (
+  osu_id INTEGER PRIMARY KEY,
+  energy_amount INTEGER NOT NULL DEFAULT 50,
+  set_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (osu_id) REFERENCES users(osu_id) ON DELETE CASCADE
+);

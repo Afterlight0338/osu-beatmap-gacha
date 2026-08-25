@@ -51,6 +51,8 @@ interface GachaContextType {
   setActiveBanner: (banner: Banner) => void;
   pull: (count: number) => Promise<PullResult[]>;
   refillEnergy: (amount: number) => Promise<void>;
+  /** Admin: set energy to exact amount immediately (local only) */
+  adminRefillEnergy: (amount: number) => Promise<void>;
   toggleFavorite: (beatmapId: number) => Promise<boolean>;
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
   resetCollection: () => Promise<void>;
@@ -210,6 +212,17 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   }, []);
 
+  /** Admin-only: set energy to an exact absolute amount (bypasses max cap for big values) */
+  const adminRefillEnergy = useCallback(async (amount: number) => {
+    const nextState: PullEnergyState = {
+      current: amount,
+      max: Math.max(MAX_PULL_ENERGY, amount),
+      lastRefillTime: Date.now(),
+    };
+    setEnergy(nextState);
+    await savePullEnergyState(nextState);
+  }, []);
+
   const refreshCollection = useCallback(async () => {
     const [savedRecords, savedHistory, savedPulls, savedPity, savedEnergy] = await Promise.all([
       getCollectionRecords(),
@@ -280,6 +293,10 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           pityCount: syncResult.cloudPityCount,
         });
         await refreshCollection();
+      }
+      // Apply admin energy override if present
+      if (syncResult && typeof syncResult.energyOverride === 'number') {
+        await adminRefillEnergy(syncResult.energyOverride);
       }
     } catch (err) {
       console.warn('Force cloud sync failed:', err);
@@ -519,6 +536,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setActiveBanner,
         pull,
         refillEnergy,
+        adminRefillEnergy,
         toggleFavorite,
         updateSettings,
         resetCollection,
