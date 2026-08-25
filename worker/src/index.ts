@@ -40,7 +40,7 @@ interface UserRow {
   pity_count: number;
 }
 
-const DEFAULT_FRONTEND_URL = 'https://vivlos.dev';
+const DEFAULT_FRONTEND_URL = 'https://gacha.vivlos.dev';
 
 /**
  * Standard CORS Response Headers
