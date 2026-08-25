@@ -1,5 +1,11 @@
 # zeek suruh buat
 
+# ai disclaimer
+uhh so this project is just something i did for fun, just trying out gemini 3.7
+if you do not like ai simply just not use it
+source code is public so just do whatever you want with it
+you can un-ai it, hate on it, or whatever idk idc
+
 # 🌸 osu! Beatmap Gacha
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-ff66aa?style=for-the-badge&logo=github)](https://afterlight0338.github.io/osu-beatmap-gacha/)
