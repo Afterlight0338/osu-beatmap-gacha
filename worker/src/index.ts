@@ -487,6 +487,123 @@ export default {
         );
       }
 
+      // ---------------------------------------------------------
+      // 8. GET /admin/stats  —  Admin: global platform statistics
+      //    Restricted: only the user with username 'RyoYamada' may call this.
+      // ---------------------------------------------------------
+      if (path === '/admin/stats' && request.method === 'GET') {
+        const auth = await authenticateUser(request, env);
+        if (!auth) {
+          return errorResponse('Unauthorized', 401, request, env);
+        }
+        if (auth.user.username !== 'RyoYamada') {
+          return errorResponse('Forbidden: Admin access only.', 403, request, env);
+        }
+
+        const totalUsers = await env.osu_gacha_db
+          .prepare(`SELECT COUNT(*) as n FROM users`)
+          .first<{ n: number }>();
+
+        const totalSessions = await env.osu_gacha_db
+          .prepare(`SELECT COUNT(*) as n FROM user_sessions WHERE datetime(expires_at) > datetime('now')`)
+          .first<{ n: number }>();
+
+        const totalCollection = await env.osu_gacha_db
+          .prepare(`SELECT COUNT(*) as n FROM user_collection`)
+          .first<{ n: number }>();
+
+        const totalHistory = await env.osu_gacha_db
+          .prepare(`SELECT COUNT(*) as n FROM user_history`)
+          .first<{ n: number }>();
+
+        const topUsers = await env.osu_gacha_db
+          .prepare(
+            `SELECT u.osu_id as osuId, u.username, u.avatar_url as avatarUrl, u.global_rank as globalRank,
+                    u.total_pulls as totalPulls, u.last_login as lastLogin,
+                    COUNT(c.beatmap_id) as uniqueCards
+             FROM users u
+             LEFT JOIN user_collection c ON c.osu_id = u.osu_id
+             GROUP BY u.osu_id
+             ORDER BY u.total_pulls DESC
+             LIMIT 20`
+          )
+          .all<{
+            osuId: number;
+            username: string;
+            avatarUrl: string | null;
+            globalRank: number | null;
+            totalPulls: number;
+            lastLogin: string;
+            uniqueCards: number;
+          }>();
+
+        const recentLogins = await env.osu_gacha_db
+          .prepare(
+            `SELECT osu_id as osuId, username, avatar_url as avatarUrl, last_login as lastLogin, total_pulls as totalPulls
+             FROM users
+             ORDER BY datetime(last_login) DESC
+             LIMIT 15`
+          )
+          .all<{
+            osuId: number;
+            username: string;
+            avatarUrl: string | null;
+            lastLogin: string;
+            totalPulls: number;
+          }>();
+
+        return jsonResponse(
+          {
+            success: true,
+            stats: {
+              totalUsers: totalUsers?.n ?? 0,
+              totalSessions: totalSessions?.n ?? 0,
+              totalCollectionRecords: totalCollection?.n ?? 0,
+              totalHistoryRecords: totalHistory?.n ?? 0,
+              topUsers: topUsers.results,
+              recentLogins: recentLogins.results,
+            },
+          },
+          200,
+          request,
+          env
+        );
+      }
+
+      // ---------------------------------------------------------
+      // 9. POST /admin/user/:id/revoke-sessions  —  Admin: force-logout a user
+      //    Restricted: only the user with username 'RyoYamada' may call this.
+      // ---------------------------------------------------------
+      const revokeMatch = path.match(/^\/admin\/user\/(\d+)\/revoke-sessions$/);
+      if (revokeMatch && request.method === 'POST') {
+        const auth = await authenticateUser(request, env);
+        if (!auth) {
+          return errorResponse('Unauthorized', 401, request, env);
+        }
+        if (auth.user.username !== 'RyoYamada') {
+          return errorResponse('Forbidden: Admin access only.', 403, request, env);
+        }
+
+        const targetOsuId = parseInt(revokeMatch[1], 10);
+
+        // Prevent self-revoke
+        if (targetOsuId === auth.osuId) {
+          return errorResponse('Cannot revoke your own sessions.', 400, request, env);
+        }
+
+        await env.osu_gacha_db
+          .prepare(`DELETE FROM user_sessions WHERE osu_id = ?`)
+          .bind(targetOsuId)
+          .run();
+
+        return jsonResponse(
+          { success: true, message: `All sessions for user ${targetOsuId} have been revoked.` },
+          200,
+          request,
+          env
+        );
+      }
+
       // 404 Not Found
       return errorResponse('Endpoint not found', 404, request, env);
     } catch (err: unknown) {

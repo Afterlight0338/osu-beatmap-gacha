@@ -7,6 +7,7 @@ import { GachaPage } from './pages/GachaPage';
 import { CollectionPage } from './pages/CollectionPage';
 import { StatsPage } from './pages/StatsPage';
 import { ChangelogPage } from './pages/ChangelogPage';
+import AdminPage from './pages/AdminPage';
 import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
@@ -15,7 +16,7 @@ import { Disc, AlertCircle } from 'lucide-react';
 
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
-  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog'>('gacha');
+  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
@@ -67,6 +68,7 @@ const MainApp: React.FC = () => {
         {activeTab === 'changelog' && (
           <ChangelogPage onSelectBeatmap={(map) => setSelectedMapForDetail(map)} />
         )}
+        {activeTab === 'admin' && <AdminPage />}
       </main>
 
       {/* Footer */}

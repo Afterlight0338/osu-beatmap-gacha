@@ -75,3 +75,7 @@ dist-ssr/
 *.njsproj
 *.sln
 *.sw?
+
+# Cloudflare Wrangler
+.wrangler/
+worker/.wrangler/

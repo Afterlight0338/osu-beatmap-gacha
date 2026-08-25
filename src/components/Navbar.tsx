@@ -1,5 +1,7 @@
 import React from 'react';
 import { useGacha } from '../context/GachaContext';
+import { useAuth } from '../context/AuthContext';
+import { isAdmin } from '../config/admin';
 import { sfx } from '../audio/sfx';
 import { UserAuthButton } from './UserAuthButton';
 import {
@@ -12,11 +14,12 @@ import {
   VolumeX,
   Disc,
   Zap,
+  ShieldAlert,
 } from 'lucide-react';
 
 interface NavbarProps {
-  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog';
-  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog') => void;
+  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin';
+  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin') => void;
   onOpenSettings: () => void;
   onOpenHistory: () => void;
 }
@@ -28,8 +31,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenHistory,
 }) => {
   const { stats, settings, updateSettings, pool, energy, forceCloudSync } = useGacha();
+  const { user } = useAuth();
+  const showAdmin = isAdmin(user?.username);
 
-  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog') => {
+  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin') => {
     sfx.playClick();
     setActiveTab(tab);
   };
@@ -118,6 +123,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <History className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
             <span>Changelog</span>
           </button>
+
+          {/* Admin tab — only visible to RyoYamada */}
+          {showAdmin && (
+            <button
+              onClick={() => handleTabClick('admin')}
+              className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${
+                activeTab === 'admin'
+                  ? 'bg-gradient-to-r from-red-700 to-red-600 text-white shadow-md shadow-red-600/30'
+                  : 'text-red-400/80 hover:text-red-300 hover:bg-red-950/40'
+              }`}
+            >
+              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-400" />
+              <span>Admin</span>
+            </button>
+          )}
         </nav>
 
         {/* Right Tools & Buttons */}
