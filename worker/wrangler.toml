@@ -4,7 +4,7 @@ compatibility_date = "2024-04-01"
 
 # Environment Variables (Non-sensitive)
 [vars]
-FRONTEND_URL = "https://afterlight0338.github.io/osu-beatmap-gacha"
+FRONTEND_URL = "https://vivlos.dev"
 
 # D1 Database Binding
 # Replace `database_id` with your Cloudflare D1 Database UUID after running `wrangler d1 create osu-gacha-db`

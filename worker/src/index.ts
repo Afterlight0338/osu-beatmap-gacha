@@ -40,7 +40,7 @@ interface UserRow {
   pity_count: number;
 }
 
-const DEFAULT_FRONTEND_URL = 'https://afterlight0338.github.io/osu-beatmap-gacha';
+const DEFAULT_FRONTEND_URL = 'https://vivlos.dev';
 
 /**
  * Standard CORS Response Headers
