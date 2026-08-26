@@ -511,89 +511,8 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [rawPool]);
 
   const forceCloudSync = useCallback(async () => {
-    if (!isAuthenticated || !user) return;
+    if (!isAuthenticated || !user || !user.osuId) return;
     try {
-      // 1. Direct fetch from Supabase to guarantee cross-device parity
-      if (user.osuId) {
-        const [colRes, userRes, histRes] = await Promise.all([
-          supabase
-            .from('user_collection')
-            .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
-            .eq('osu_id', user.osuId),
-          supabase
-            .from('users')
-            .select('total_pulls, pity_count')
-            .eq('osu_id', user.osuId)
-            .maybeSingle(),
-          supabase
-            .from('user_history')
-            .select('id, beatmap_id, rarity, pulled_at')
-            .eq('osu_id', user.osuId)
-            .order('pulled_at', { ascending: false })
-            .limit(50),
-        ]);
-
-        const cloudCards = (colRes.data || []).map((c: any) => ({
-          beatmapId: c.beatmap_id,
-          copies: c.copies,
-          firstPulledAt: c.first_pulled_at,
-          lastPulledAt: c.last_pulled_at,
-          isFavorite: c.is_favorite,
-        }));
-
-        const cloudTotalPulls = userRes.data?.total_pulls;
-        const cloudPityCount = userRes.data?.pity_count;
-        const cloudHistory = (histRes.data || []).map((h: any) => ({
-          id: h.id,
-          beatmapId: h.beatmap_id,
-          rarity: h.rarity,
-          pulledAt: h.pulled_at,
-        }));
-
-        if (cloudCards.length > 0 || typeof cloudTotalPulls === 'number') {
-          const mergedRecords = await bulkMergeCollectionFromCloud(
-            cloudCards,
-            cloudTotalPulls,
-            cloudPityCount,
-            cloudHistory
-          );
-
-          setCollectionRecords(mergedRecords);
-          const newMap = new Map<number, CollectionRecord>();
-          for (const rec of mergedRecords) {
-            newMap.set(rec.beatmapId, rec);
-          }
-          setCollectionMap(newMap);
-
-          if (typeof cloudTotalPulls === 'number') {
-            setTotalPulls((prev) => Math.max(prev, cloudTotalPulls));
-          }
-          if (typeof cloudPityCount === 'number') {
-            setPityCount(cloudPityCount);
-          }
-
-          // Hydrate history
-          const mapLookup = new Map<number, Beatmap>(rawPool.map((m: Beatmap) => [m.id, m]));
-          const localHist = await getPullHistory(50);
-          const hydratedHist = localHist
-            .map((h) => {
-              const map = mapLookup.get(h.beatmapId);
-              if (!map) return null;
-              return {
-                id: h.id,
-                beatmapId: h.beatmapId,
-                beatmap: map,
-                rarity: h.rarity,
-                isNew: h.isNew,
-                pulledAt: h.pulledAt,
-              };
-            })
-            .filter(Boolean) as PullHistoryItem[];
-          setHistory(hydratedHist);
-        }
-      }
-
-      // 2. Worker D1 Sync
       const syncResult = await syncWithCloud({
         collection: collectionRecords.map((c) => ({
           beatmapId: c.beatmapId,
@@ -608,31 +527,53 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       });
 
       if (syncResult && syncResult.mergedCollection) {
-        const records: CollectionRecord[] = syncResult.mergedCollection.map((c) => ({
-          beatmapId: c.beatmapId,
-          copies: c.copies,
-          firstPulledAt: c.firstPulledAt,
-          lastPulledAt: c.lastPulledAt,
-          isFavorite: c.isFavorite,
-        }));
-        setCollectionRecords(records);
+        const mergedRecords = await bulkMergeCollectionFromCloud(
+          syncResult.mergedCollection,
+          syncResult.cloudTotalPulls,
+          syncResult.cloudPityCount,
+          syncResult.mergedHistory
+        );
+
+        setCollectionRecords(mergedRecords);
         const newMap = new Map<number, CollectionRecord>();
-        for (const rec of records) {
+        for (const rec of mergedRecords) {
           newMap.set(rec.beatmapId, rec);
         }
         setCollectionMap(newMap);
+
         if (typeof syncResult.cloudTotalPulls === 'number') {
-          setTotalPulls(syncResult.cloudTotalPulls);
+          const totalCopiesFromRecords = mergedRecords.reduce((acc, c) => acc + (c.copies || 1), 0);
+          setTotalPulls(Math.max(syncResult.cloudTotalPulls, totalCopiesFromRecords, mergedRecords.length));
         }
         if (typeof syncResult.cloudPityCount === 'number') {
           setPityCount(syncResult.cloudPityCount);
         }
+
+        // Hydrate history
+        const mapLookup = new Map<number, Beatmap>(rawPool.map((m: Beatmap) => [m.id, m]));
+        const localHist = await getPullHistory(50);
+        const hydratedHist = localHist
+          .map((h) => {
+            const map = mapLookup.get(h.beatmapId);
+            if (!map) return null;
+            return {
+              id: h.id,
+              beatmapId: h.beatmapId,
+              beatmap: map,
+              rarity: h.rarity,
+              isNew: h.isNew,
+              pulledAt: h.pulledAt,
+            };
+          })
+          .filter(Boolean) as PullHistoryItem[];
+        setHistory(hydratedHist);
       }
+
       if (syncResult && typeof syncResult.energyOverride === 'number') {
         await adminRefillEnergy(syncResult.energyOverride);
       }
     } catch (err) {
-      console.warn('Manual cloud sync failed:', err);
+      console.warn('Direct Supabase cloud sync notice:', err);
     }
   }, [isAuthenticated, user, rawPool, syncWithCloud, collectionRecords, history, totalPulls, pityCount, adminRefillEnergy]);
 
