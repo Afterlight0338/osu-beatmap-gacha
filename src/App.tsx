@@ -18,6 +18,7 @@ import { BeatmapDetailModal } from './components/BeatmapDetailModal';
 import { MiniBroadcastToast } from './components/MiniBroadcastToast';
 import { EventAura } from './components/EventAura';
 import { LegalModal, LegalTabType } from './components/LegalModal';
+import { StartScreenModal } from './components/StartScreenModal';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
@@ -179,6 +180,9 @@ const MainApp: React.FC = () => {
         initialTab={legalModalTab}
         onClose={() => setLegalModalTab(null)}
       />
+
+      {/* First-Time User Onboarding & Start Screen */}
+      <StartScreenModal />
 
       {/* Floating Mini Side Broadcast Notification */}
       <MiniBroadcastToast />

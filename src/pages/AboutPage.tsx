@@ -19,6 +19,7 @@ import {
   Disc,
 } from 'lucide-react';
 import { formatUserDateTime } from '../utils/timeFormat';
+import { DonationSection } from '../components/DonationSection';
 
 interface AboutContent {
   disclaimerTitle: string;
@@ -190,7 +191,12 @@ export const AboutPage: React.FC = () => {
       )}
 
       {/* ========================================================= */}
-      {/* 1. DISCLAIMERS SECTION (AT TOP)                           */}
+      {/* 0. SUPPORT & DONATIONS (Ko-fi & SociaBuzz)                */}
+      {/* ========================================================= */}
+      <DonationSection />
+
+      {/* ========================================================= */}
+      {/* 1. DISCLAIMERS SECTION                                    */}
       {/* ========================================================= */}
       <section className="space-y-4">
         <div className="flex items-center space-x-2 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">
