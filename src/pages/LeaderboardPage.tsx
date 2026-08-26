@@ -5,6 +5,7 @@ import { LeaderboardUser, UserProfileModal } from '../components/UserProfileModa
 import { RarityBadge } from '../components/RarityBadge';
 import { compareRarities } from '../gacha/rarity';
 import { Beatmap } from '../types/beatmap';
+import { fetchGlobalBountyClears } from '../services/bountyService';
 import { sfx } from '../audio/sfx';
 import {
   Trophy,
@@ -13,6 +14,8 @@ import {
   Search,
   RefreshCw,
   Disc,
+  Target,
+  Clock,
 } from 'lucide-react';
 
 const RARITY_WEIGHTS: Record<string, number> = {
@@ -30,21 +33,43 @@ const RARITY_WEIGHTS: Record<string, number> = {
   Common: 2,
 };
 
+const LEADERBOARD_CACHE_KEY = 'osu_gacha_leaderboard_cache_v2';
+const LEADERBOARD_TIME_KEY = 'osu_gacha_leaderboard_time_v2';
+const ONE_HOUR_MS = 60 * 60 * 1000;
+
 export const LeaderboardPage: React.FC = () => {
   const { pool } = useGacha();
   const poolMap = useMemo(() => new Map<number, Beatmap>(pool.map((m) => [m.id, m])), [pool]);
 
-  const [rankingType, setRankingType] = useState<'pulls' | 'rare'>('pulls');
+  const [rankingType, setRankingType] = useState<'pulls' | 'rare' | 'bounties'>('pulls');
   const [users, setUsers] = useState<LeaderboardUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedUser, setSelectedUser] = useState<LeaderboardUser | null>(null);
+  const [lastRefreshedAt, setLastRefreshedAt] = useState<number>(0);
 
-  // Fetch users & collection statistics from Supabase
-  const loadLeaderboardData = async () => {
+  // Fetch users & collection statistics from Supabase (with 1-Hour Caching)
+  const loadLeaderboardData = async (forceRefresh: boolean = false) => {
+    // 1. Check cache if not forcing refresh
+    if (!forceRefresh) {
+      try {
+        const cachedTime = Number(sessionStorage.getItem(LEADERBOARD_TIME_KEY) || 0);
+        const cachedData = sessionStorage.getItem(LEADERBOARD_CACHE_KEY);
+        if (cachedData && cachedTime && Date.now() - cachedTime < ONE_HOUR_MS) {
+          const parsed = JSON.parse(cachedData);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setUsers(parsed);
+            setLastRefreshedAt(cachedTime);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch {}
+    }
+
     setIsLoading(true);
     try {
-      // 1. Get exact total collection rows count to fetch all pages dynamically
+      // 2. Get exact total collection rows count to fetch all pages dynamically
       const countRes = await supabase
         .from('user_collection')
         .select('*', { count: 'exact', head: true });
@@ -63,12 +88,13 @@ export const LeaderboardPage: React.FC = () => {
         );
       }
 
-      const [usersRes, ...chunkResponses] = await Promise.all([
+      const [usersRes, bountyClears, ...chunkResponses] = await Promise.all([
         supabase
           .from('users')
           .select('osu_id, username, avatar_url, country_code, global_rank, total_pulls, last_login')
           .eq('is_banned', false)
           .order('total_pulls', { ascending: false }),
+        fetchGlobalBountyClears(),
         ...chunkPromises,
       ]);
 
@@ -119,10 +145,17 @@ export const LeaderboardPage: React.FC = () => {
             uniqueOwned: userCards.length,
             rareScore,
             rarestBeatmap: rarest,
+            bountiesCleared: bountyClears[u.osu_id] || 0,
           };
         });
 
         setUsers(calculatedUsers);
+        const now = Date.now();
+        setLastRefreshedAt(now);
+        try {
+          sessionStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(calculatedUsers));
+          sessionStorage.setItem(LEADERBOARD_TIME_KEY, String(now));
+        } catch {}
       }
     } catch (err) {
       console.warn('Error loading leaderboard:', err);
@@ -131,17 +164,24 @@ export const LeaderboardPage: React.FC = () => {
     }
   };
 
+  // Only load on mount or when poolMap changes first time
   useEffect(() => {
-    loadLeaderboardData();
-  }, [poolMap]);
+    loadLeaderboardData(false);
+  }, []);
 
   // Sorted and filtered users
   const rankedUsers = useMemo(() => {
     const sorted = [...users].sort((a, b) => {
-      if (rankingType === 'pulls') {
-        return b.total_pulls - a.total_pulls || (b.rareScore || 0) - (a.rareScore || 0);
-      } else {
+      if (rankingType === 'bounties') {
+        return (
+          (b.bountiesCleared || 0) - (a.bountiesCleared || 0) ||
+          b.total_pulls - a.total_pulls ||
+          (b.rareScore || 0) - (a.rareScore || 0)
+        );
+      } else if (rankingType === 'rare') {
         return (b.rareScore || 0) - (a.rareScore || 0) || b.total_pulls - a.total_pulls;
+      } else {
+        return b.total_pulls - a.total_pulls || (b.rareScore || 0) - (a.rareScore || 0);
       }
     });
 
@@ -157,6 +197,8 @@ export const LeaderboardPage: React.FC = () => {
     setSelectedUser(u);
   };
 
+  const minutesAgo = lastRefreshedAt ? Math.floor((Date.now() - lastRefreshedAt) / 60000) : 0;
+
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8 pb-16">
       {/* Header & Controls */}
@@ -169,21 +211,26 @@ export const LeaderboardPage: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide font-display">
               Global Player Leaderboard
             </h1>
-            <p className="text-xs text-slate-400 font-mono">
-              Live standings powered by Supabase PostgreSQL • Click any player to inspect cards
+            <p className="text-xs text-slate-400 font-mono flex items-center space-x-1.5 pt-0.5">
+              <Clock className="w-3.5 h-3.5 text-slate-500" />
+              <span>
+                {lastRefreshedAt
+                  ? `Updated ${minutesAgo === 0 ? 'just now' : `${minutesAgo}m ago`} (Cached 1h)`
+                  : 'Live standings'}
+              </span>
             </p>
           </div>
         </div>
 
         {/* Ranking Mode Toggle & Refresh */}
         <div className="flex items-center space-x-2 w-full sm:w-auto">
-          <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 flex-1 sm:flex-none">
+          <div className="flex flex-wrap bg-slate-950 p-1 rounded-xl border border-slate-800 flex-1 sm:flex-none gap-1">
             <button
               onClick={() => {
                 sfx.playClick();
                 setRankingType('pulls');
               }}
-              className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 rankingType === 'pulls'
                   ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -198,25 +245,40 @@ export const LeaderboardPage: React.FC = () => {
                 sfx.playClick();
                 setRankingType('rare');
               }}
-              className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 rankingType === 'rare'
                   ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               <Crown className="w-3.5 h-3.5" />
-              <span>Rare Cards Score</span>
+              <span>Rare Cards</span>
+            </button>
+
+            <button
+              onClick={() => {
+                sfx.playClick();
+                setRankingType('bounties');
+              }}
+              className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                rankingType === 'bounties'
+                  ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Target className="w-3.5 h-3.5" />
+              <span>Bounties</span>
             </button>
           </div>
 
           <button
             onClick={() => {
               sfx.playClick();
-              loadLeaderboardData();
+              loadLeaderboardData(true);
             }}
             disabled={isLoading}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-pink-400 transition-colors"
-            title="Refresh Leaderboard"
+            className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-pink-400 transition-colors flex items-center space-x-1"
+            title="Force Refresh Leaderboard from Database"
           >
             <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin text-amber-400' : ''}`} />
           </button>
@@ -237,7 +299,11 @@ export const LeaderboardPage: React.FC = () => {
                   🥈 #2 Rank
                 </span>
                 <span className="text-[10px] font-mono text-slate-400">
-                  {rankingType === 'pulls' ? `${top3[1].total_pulls.toLocaleString()} Pulls` : `${(top3[1].rareScore || 0).toLocaleString()} Pts`}
+                  {rankingType === 'bounties'
+                    ? `${top3[1].bountiesCleared || 0} Bounties 🎯`
+                    : rankingType === 'pulls'
+                    ? `${top3[1].total_pulls.toLocaleString()} Pulls`
+                    : `${(top3[1].rareScore || 0).toLocaleString()} Pts`}
                 </span>
               </div>
 
@@ -254,7 +320,9 @@ export const LeaderboardPage: React.FC = () => {
                     {top3[1].username}
                   </p>
                   <p className="text-[11px] font-mono text-slate-400">
-                    {top3[1].uniqueOwned || 0} unique cards
+                    {rankingType === 'bounties'
+                      ? `${top3[1].bountiesCleared || 0} bounties completed`
+                      : `${top3[1].uniqueOwned || 0} unique cards`}
                   </p>
                 </div>
               </div>
@@ -280,7 +348,11 @@ export const LeaderboardPage: React.FC = () => {
                   <span>👑 CHAMPION #1</span>
                 </span>
                 <span className="text-xs font-mono font-bold text-amber-400">
-                  {rankingType === 'pulls' ? `${top3[0].total_pulls.toLocaleString()} Pulls` : `${(top3[0].rareScore || 0).toLocaleString()} Pts`}
+                  {rankingType === 'bounties'
+                    ? `${top3[0].bountiesCleared || 0} Bounties 🎯`
+                    : rankingType === 'pulls'
+                    ? `${top3[0].total_pulls.toLocaleString()} Pulls`
+                    : `${(top3[0].rareScore || 0).toLocaleString()} Pts`}
                 </span>
               </div>
 
@@ -297,7 +369,9 @@ export const LeaderboardPage: React.FC = () => {
                     {top3[0].username}
                   </p>
                   <p className="text-xs font-mono text-amber-200/80">
-                    {top3[0].uniqueOwned || 0} unique cards owned
+                    {rankingType === 'bounties'
+                      ? `${top3[0].bountiesCleared || 0} bounties completed`
+                      : `${top3[0].uniqueOwned || 0} unique cards owned`}
                   </p>
                 </div>
               </div>
@@ -315,14 +389,18 @@ export const LeaderboardPage: React.FC = () => {
           {top3[2] && (
             <div
               onClick={() => handleUserClick(top3[2])}
-              className="order-3 p-5 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border border-amber-700/60 hover:border-amber-500 shadow-xl space-y-3 cursor-pointer transition-all hover:scale-[1.02] relative group"
+              className="order-3 p-5 rounded-2xl bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950 border border-amber-700/60 hover:border-amber-500 shadow-xl space-y-3 cursor-pointer transition-all hover:scale-[1.02] relative group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-black px-2.5 py-1 rounded-full bg-amber-900/60 text-amber-300 border border-amber-700">
                   🥉 #3 Rank
                 </span>
                 <span className="text-[10px] font-mono text-slate-400">
-                  {rankingType === 'pulls' ? `${top3[2].total_pulls.toLocaleString()} Pulls` : `${(top3[2].rareScore || 0).toLocaleString()} Pts`}
+                  {rankingType === 'bounties'
+                    ? `${top3[2].bountiesCleared || 0} Bounties 🎯`
+                    : rankingType === 'pulls'
+                    ? `${top3[2].total_pulls.toLocaleString()} Pulls`
+                    : `${(top3[2].rareScore || 0).toLocaleString()} Pts`}
                 </span>
               </div>
 
@@ -339,7 +417,9 @@ export const LeaderboardPage: React.FC = () => {
                     {top3[2].username}
                   </p>
                   <p className="text-[11px] font-mono text-slate-400">
-                    {top3[2].uniqueOwned || 0} unique cards
+                    {rankingType === 'bounties'
+                      ? `${top3[2].bountiesCleared || 0} bounties completed`
+                      : `${top3[2].uniqueOwned || 0} unique cards`}
                   </p>
                 </div>
               </div>
@@ -382,9 +462,16 @@ export const LeaderboardPage: React.FC = () => {
                   <th className="py-3.5 px-4 text-center w-16">Rank</th>
                   <th className="py-3.5 px-4">Player</th>
                   <th className="py-3.5 px-4 text-center">osu! Rank</th>
-                  <th className="py-3.5 px-4 text-right">Lifetime Pulls</th>
+                  <th className={`py-3.5 px-4 text-center ${rankingType === 'bounties' ? 'text-cyan-400 font-bold' : ''}`}>
+                    Bounties 🎯
+                  </th>
+                  <th className={`py-3.5 px-4 text-right ${rankingType === 'pulls' ? 'text-pink-400 font-bold' : ''}`}>
+                    Lifetime Pulls
+                  </th>
                   <th className="py-3.5 px-4 text-right">Unique Cards</th>
-                  <th className="py-3.5 px-4 text-right">Collector Score</th>
+                  <th className={`py-3.5 px-4 text-right ${rankingType === 'rare' ? 'text-amber-400 font-bold' : ''}`}>
+                    Collector Score
+                  </th>
                   <th className="py-3.5 px-4 text-center hidden md:table-cell">Rarest Card</th>
                 </tr>
               </thead>
@@ -444,6 +531,19 @@ export const LeaderboardPage: React.FC = () => {
                       {/* osu! Rank */}
                       <td className="py-3.5 px-4 text-center font-mono text-slate-400">
                         {u.global_rank ? `#${u.global_rank.toLocaleString()}` : '-'}
+                      </td>
+
+                      {/* Bounties Cleared */}
+                      <td className="py-3.5 px-4 text-center font-mono font-bold">
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs ${
+                            (u.bountiesCleared || 0) > 0
+                              ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/40'
+                              : 'text-slate-600'
+                          }`}
+                        >
+                          {u.bountiesCleared || 0}
+                        </span>
                       </td>
 
                       {/* Total Lifetime Pulls */}

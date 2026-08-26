@@ -239,7 +239,8 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
         colors: ['#00ffff', '#ec4899', '#eab308', '#22c55e'],
       });
 
-      await addBonusEnergy(50);
+      const rewardAmount = activeBounty.bounty.rewardStamina || 50;
+      await addBonusEnergy(rewardAmount);
 
       // 4. Save to Completed Bounties
       const completed: CompletedBounty = {
@@ -256,15 +257,18 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
         scoreMods: score.mods,
         scorePp: score.pp,
         completedAt: Date.now(),
-        rewardStamina: 50,
+        rewardStamina: rewardAmount,
       };
 
-      saveCompletedBounty(completed);
+      await saveCompletedBounty(
+        completed,
+        user ? { osuId: user.osuId, username: user.username, avatarUrl: user.avatarUrl } : undefined
+      );
       setCompletedBounties((prev) => [completed, ...prev]);
 
       setVerifySuccess({
         score,
-        reward: 50,
+        reward: rewardAmount,
       });
 
       // Clear active bounty & replace from pool

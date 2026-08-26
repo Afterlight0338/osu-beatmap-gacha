@@ -1,5 +1,6 @@
 import { Beatmap } from '../types/beatmap';
 import { Bounty, BountyDifficulty, BountyRankRequirement, ActiveBounty, CompletedBounty } from '../types/bounty';
+import { supabase } from '../lib/supabase';
 
 const STORAGE_AVAILABLE_BOUNTIES = 'osu_gacha_available_bounties_v1';
 const STORAGE_ACTIVE_BOUNTY = 'osu_gacha_active_bounty_v1';
@@ -45,6 +46,14 @@ const BOUNTY_TITLES: Record<BountyDifficulty, string[]> = {
     'Transcendent Master',
     'Mythic S-Ranker',
   ],
+};
+
+export const BOUNTY_STAMINA_REWARDS: Record<BountyDifficulty, number> = {
+  Beginner: 25,
+  Intermediate: 50,
+  Advanced: 80,
+  Expert: 120,
+  Master: 200,
 };
 
 function pickRandom<T>(arr: T[]): T {
@@ -102,6 +111,8 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
       if (minAccuracy) desc += ` & ≥${minAccuracy}% Acc`;
       if (requiredMods && requiredMods.length > 0) desc += ` (+${requiredMods.join(', ')})`;
 
+      const rewardStamina = BOUNTY_STAMINA_REWARDS[group.tier] || 50;
+
       bounties.push({
         id: `bounty-${map.id}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
         beatmap: map,
@@ -113,7 +124,7 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
           minAccuracy,
           requiredMods,
         },
-        rewardStamina: 50,
+        rewardStamina,
         createdAt: Date.now(),
       });
     }
@@ -191,7 +202,10 @@ export function loadCompletedBounties(): CompletedBounty[] {
   }
 }
 
-export function saveCompletedBounty(completed: CompletedBounty): void {
+export async function saveCompletedBounty(
+  completed: CompletedBounty,
+  user?: { osuId: number; username: string; avatarUrl?: string | null }
+): Promise<void> {
   try {
     const prev = loadCompletedBounties();
     const updated = [completed, ...prev].slice(0, 50); // Keep last 50
@@ -201,6 +215,45 @@ export function saveCompletedBounty(completed: CompletedBounty): void {
     const claimed = loadClaimedScoreIds();
     claimed.add(String(completed.scoreId));
     localStorage.setItem(STORAGE_CLAIMED_SCORE_IDS, JSON.stringify(Array.from(claimed)));
+
+    // Sync to Supabase admin_config bounties_cleared_by_user
+    if (user?.osuId) {
+      try {
+        const { data } = await supabase
+          .from('admin_config')
+          .select('value')
+          .eq('key', 'bounties_cleared_by_user')
+          .maybeSingle();
+
+        const currentMap =
+          data?.value && typeof data.value === 'object' && !Array.isArray(data.value)
+            ? (data.value as Record<string, { count: number; username: string; avatarUrl?: string; lastClearedAt: number }>)
+            : {};
+
+        const userKey = String(user.osuId);
+        const existing = currentMap[userKey] || {
+          count: 0,
+          username: user.username,
+          avatarUrl: user.avatarUrl || undefined,
+          lastClearedAt: Date.now(),
+        };
+
+        currentMap[userKey] = {
+          count: (existing.count || 0) + 1,
+          username: user.username,
+          avatarUrl: user.avatarUrl || undefined,
+          lastClearedAt: Date.now(),
+        };
+
+        await supabase.from('admin_config').upsert({
+          key: 'bounties_cleared_by_user',
+          value: currentMap,
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.warn('Failed to sync bounty clear count to Supabase:', err);
+      }
+    }
   } catch (e) {
     console.warn('Failed to save completed bounty:', e);
   }
@@ -214,5 +267,27 @@ export function loadClaimedScoreIds(): Set<string> {
     return new Set(Array.isArray(parsed) ? parsed.map(String) : []);
   } catch {
     return new Set();
+  }
+}
+
+export async function fetchGlobalBountyClears(): Promise<Record<number, number>> {
+  try {
+    const { data } = await supabase
+      .from('admin_config')
+      .select('value')
+      .eq('key', 'bounties_cleared_by_user')
+      .maybeSingle();
+
+    if (!data?.value || typeof data.value !== 'object') return {};
+    const result: Record<number, number> = {};
+    for (const [osuIdStr, val] of Object.entries(data.value as Record<string, any>)) {
+      const osuId = Number(osuIdStr);
+      if (osuId && val?.count) {
+        result[osuId] = Number(val.count);
+      }
+    }
+    return result;
+  } catch {
+    return {};
   }
 }

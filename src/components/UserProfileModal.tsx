@@ -41,6 +41,7 @@ export interface LeaderboardUser {
   totalCopies?: number;
   rareScore?: number;
   rarestBeatmap?: Beatmap | null;
+  bountiesCleared?: number;
 }
 
 interface UserProfileModalProps {
@@ -318,25 +319,32 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
 
             {/* Quick Metrics */}
-            <div className="grid grid-cols-3 gap-2 w-full sm:w-auto">
-              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[80px]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full sm:w-auto">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[70px]">
                 <span className="text-[10px] font-mono text-slate-400 uppercase">Pulls</span>
                 <p className="text-sm sm:text-base font-black text-pink-400 font-mono">
                   {user.total_pulls.toLocaleString()}
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[80px]">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[70px]">
                 <span className="text-[10px] font-mono text-slate-400 uppercase">Unique</span>
                 <p className="text-sm sm:text-base font-black text-purple-300 font-mono">
                   {collectionRecords.length.toLocaleString()}
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[80px]">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[70px]">
                 <span className="text-[10px] font-mono text-slate-400 uppercase">Score</span>
                 <p className="text-sm sm:text-base font-black text-amber-400 font-mono">
                   {(user.rareScore || 0).toLocaleString()}
+                </p>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-center min-w-[70px]">
+                <span className="text-[10px] font-mono text-cyan-300 uppercase">Bounties</span>
+                <p className="text-sm sm:text-base font-black text-cyan-400 font-mono">
+                  {(user.bountiesCleared || 0).toLocaleString()} 🎯
                 </p>
               </div>
             </div>
