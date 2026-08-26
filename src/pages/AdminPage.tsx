@@ -16,6 +16,7 @@ import { supabase } from '../lib/supabase';
 import { injectionService, PullInjection } from '../services/injectionService';
 import { giftingService, PlayerTransaction } from '../services/giftingService';
 import { tradingService, PlayerTrade } from '../services/tradingService';
+import { fetchBeatmapMetadata } from '../services/beatmapFetchService';
 
 const RARITY_ORDER: RarityTier[] = ['EX','GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -95,6 +96,8 @@ const AdminPage: React.FC = () => {
   const [assignExReason, setAssignExReason] = useState('');
 
   // Register / Inject Custom Beatmap state
+  const [autofillUrlInput, setAutofillUrlInput] = useState('');
+  const [isAutofilling, setIsAutofilling] = useState(false);
   const [manualMapId, setManualMapId] = useState('');
   const [manualSetId, setManualSetId] = useState('');
   const [manualTitle, setManualTitle] = useState('');
@@ -563,21 +566,45 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const handleAutoFillBeatmap = () => {
-    const bId = Number(manualMapId);
-    const sId = Number(manualSetId);
-    if (!bId && !sId) {
-      showMsg('Please enter a Beatmap ID or Set ID first', false);
+  const handleAutoFillBeatmap = async (queryOverride?: string) => {
+    const query = (queryOverride || autofillUrlInput || manualMapId || manualSetId || '').trim();
+    if (!query) {
+      showMsg('Please enter a Beatmap ID, Set ID, or paste a link from hinamizawa.ai / osu.ppy.sh', false);
       return;
     }
-    const effectiveSetId = sId || bId;
-    if (!manualCoverUrl) {
-      setManualCoverUrl(`https://assets.ppy.sh/beatmaps/${effectiveSetId}/covers/cover.jpg`);
+    setIsAutofilling(true);
+    try {
+      const data = await fetchBeatmapMetadata(query);
+      if (!data) {
+        showMsg('Could not parse or fetch beatmap info from that input.', false);
+        return;
+      }
+      if (data.id) setManualMapId(String(data.id));
+      if (data.beatmapsetId) setManualSetId(String(data.beatmapsetId));
+      if (data.title) setManualTitle(data.title);
+      if (data.artist) setManualArtist(data.artist);
+      if (data.creator) setManualCreator(data.creator);
+      if (data.version) setManualVersion(data.version);
+      if (data.stars) setManualStars(String(data.stars));
+      if (data.bpm) setManualBpm(String(data.bpm));
+      if (data.length) setManualLength(String(data.length));
+      if (data.status) {
+        if (data.status === 'ranked' || data.status === 'approved') setManualStatus('ranked');
+        else if (data.status === 'loved') setManualStatus('loved');
+        else setManualStatus('graveyard');
+      }
+      if (data.coverUrl) setManualCoverUrl(data.coverUrl);
+      if (data.previewUrl) setManualPreviewUrl(data.previewUrl);
+      if (data.suggestedRarity) {
+        setManualRarity(data.suggestedRarity);
+      }
+      showMsg(`✓ Auto-filled "${data.title || data.id}" by ${data.artist || 'Unknown'} (★${data.stars} · ${data.version})!`);
+      setAutofillUrlInput('');
+    } catch (e: any) {
+      showMsg('Autofill error: ' + e.message, false);
+    } finally {
+      setIsAutofilling(false);
     }
-    if (!manualPreviewUrl) {
-      setManualPreviewUrl(`https://b.ppy.sh/preview/${effectiveSetId}.mp3`);
-    }
-    showMsg(`✓ Auto-filled preview artwork and audio URLs for Beatmapset #${effectiveSetId}`);
   };
 
   const handleSaveCustomBeatmap = async () => {
@@ -2122,14 +2149,47 @@ const AdminPage: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Universal Quick Importer Box */}
+                <div className="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40 shadow-inner space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-mono font-bold text-emerald-400 flex items-center space-x-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Universal Auto-Fill (Hinamizawa / osu! / ID)</span>
+                    </label>
+                    <span className="text-[10px] font-mono text-slate-400">hinamizawa.ai & osu.ppy.sh</span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <input
+                      type="text"
+                      value={autofillUrlInput}
+                      onChange={(e) => setAutofillUrlInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Enter') handleAutoFillBeatmap(autofillUrlInput); }}
+                      placeholder="Paste e.g. https://hinamizawa.ai/osu/beatmaps/2414163 or map ID"
+                      className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleAutoFillBeatmap(autofillUrlInput)}
+                      disabled={isAutofilling}
+                      className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-mono text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 flex-shrink-0"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${isAutofilling ? 'animate-spin' : ''}`} />
+                      <span>{isAutofilling ? 'Fetching…' : '⚡ Auto-Fill'}</span>
+                    </button>
+                  </div>
+                  <p className="text-[10px] font-mono text-slate-400">
+                    Instantly extracts Title, Artist, Mapper, Stars, BPM, Length, Artwork & Audio Preview URL!
+                  </p>
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="text-xs font-mono text-slate-300">Beatmap ID (Top Diff)</label>
                     <input
-                      type="number"
+                      type="text"
                       value={manualMapId}
                       onChange={(e) => setManualMapId(e.target.value)}
-                      placeholder="e.g. 129891"
+                      placeholder="e.g. 129891 or paste link"
                       className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
                     />
                   </div>
@@ -2138,7 +2198,7 @@ const AdminPage: React.FC = () => {
                     <label className="text-xs font-mono text-slate-300">Beatmapset ID</label>
                     <div className="flex space-x-1.5">
                       <input
-                        type="number"
+                        type="text"
                         value={manualSetId}
                         onChange={(e) => setManualSetId(e.target.value)}
                         placeholder="e.g. 39804"
@@ -2146,9 +2206,10 @@ const AdminPage: React.FC = () => {
                       />
                       <button
                         type="button"
-                        onClick={handleAutoFillBeatmap}
+                        onClick={() => handleAutoFillBeatmap(manualMapId || manualSetId)}
+                        disabled={isAutofilling}
                         className="px-2.5 py-1 rounded-xl bg-emerald-950 border border-emerald-700 hover:bg-emerald-900 text-emerald-300 text-xs font-mono font-bold"
-                        title="Auto-fills artwork & preview links"
+                        title="Auto-fills metadata from ID or link"
                       >
                         Auto-Fill
                       </button>
