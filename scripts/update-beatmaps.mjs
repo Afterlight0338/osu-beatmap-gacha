@@ -21,10 +21,15 @@ const INFO_FILE = path.resolve(__dirname, '../public/data/dataset-info.json');
 const SEED_FILE = path.resolve(__dirname, '../src/data/seedData.ts');
 const TEMP_FILE = path.resolve(__dirname, '../public/data/maps.tmp.json');
 
-const CLIENT_ID = process.env.OSU_CLIENT_ID || '64407';
-const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET || 'iB3705wFfBMOmDMySfVftLC9pULUYtd9aOYcWIDI';
+const CLIENT_ID = process.env.OSU_CLIENT_ID;
+const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET;
 const TARGET_POOL_SIZE = parseInt(process.env.TARGET_POOL_SIZE || '10000', 10);
 const RATE_LIMIT_DELAY_MS = 250;
+
+if (!CLIENT_ID || !CLIENT_SECRET) {
+  console.error('Error: Please set OSU_CLIENT_ID and OSU_CLIENT_SECRET environment variables.');
+  process.exit(1);
+}
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
