@@ -1,8 +1,17 @@
 {
-  "version": "5.1.0",
-  "lastUpdated": "2026-08-24T12:32:45.484Z",
-  "totalMaps": 37102,
-  "rarityCounts": {
+  "version": "7.0.0",
+  "totalSets": 38696,
+  "totalMaps": 38696,
+  "timestamp": "2026-08-26T11:50:19.109Z",
+  "lastUpdated": "2026-08-26T11:50:19.109Z",
+  "source": "osu! official API v2 (1-Song-1-Card Multi-Factor Engine)",
+  "poolComposition": {
+    "uniqueSongs": 38696,
+    "rankedSongs": 36757,
+    "lovedSongs": 1278,
+    "graveyardLandmarks": 659
+  },
+  "rarityDistribution": {
     "GOAT": 25,
     "Divine": 75,
     "Celestial": 150,
@@ -12,7 +21,6 @@
     "Rare": 6000,
     "Uncommon+": 8000,
     "Uncommon": 9000,
-    "Common": 10102
-  },
-  "source": "osu! API v2"
+    "Common": 11696
+  }
 }
