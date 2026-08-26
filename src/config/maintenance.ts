@@ -4,7 +4,7 @@
  * When enabled, all non-admin visitors will see the Maintenance Page.
  * Admin ('RyoYamada') can bypass maintenance mode and use the app normally.
  */
-export const MAINTENANCE_MODE = true;
+export const MAINTENANCE_MODE = false;
 
 export const MAINTENANCE_CONFIG = {
   title: 'Emergency Maintenance',

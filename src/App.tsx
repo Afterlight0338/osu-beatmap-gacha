@@ -40,7 +40,7 @@ const MainApp: React.FC = () => {
     headline?: string;
     message?: string;
     estimatedTime?: string;
-  }>({ enabled: MAINTENANCE_MODE });
+  }>({ enabled: false });
 
   const userIsAdmin = isAdmin(user?.username);
 
@@ -118,7 +118,7 @@ const MainApp: React.FC = () => {
   }, []);
 
   // If maintenance mode is active and the visitor is not the admin (or is previewing), show Maintenance Page
-  const isCurrentlyInMaintenance = cloudMaintenance.enabled || MAINTENANCE_MODE;
+  const isCurrentlyInMaintenance = typeof cloudMaintenance.enabled === 'boolean' ? cloudMaintenance.enabled : MAINTENANCE_MODE;
   if (isCurrentlyInMaintenance && (!userIsAdmin || previewMaintenance)) {
     return <MaintenancePage config={cloudMaintenance} onBypass={() => setPreviewMaintenance(false)} />;
   }
