@@ -11,16 +11,17 @@ interface GachaControlsProps {
 }
 
 export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling }) => {
-  const { settings, updateSettings, energy, countdownSeconds, timeToFullFormatted, pityCount } = useGacha();
+  const { settings, updateSettings, energy, totalEnergy, countdownSeconds, timeToFullFormatted, pityCount } = useGacha();
   const [showRates, setShowRates] = useState<boolean>(false);
 
   const handlePullClick = (count: number) => {
-    if (isPulling || energy.current < count) return;
+    if (isPulling || totalEnergy < count) return;
     sfx.playClick();
     onPull(count);
   };
 
   const energyPercent = Math.min(100, Math.max(0, (energy.current / energy.max) * 100));
+  const reservePercent = Math.min(100, Math.max(0, ((energy.reserve || 0) / (energy.reserveMax || 100)) * 100));
   const pityPercent = Math.min(100, Math.max(0, (pityCount / 100) * 100));
   const isSoftPity = pityCount >= 80 && pityCount < 100;
   const isHardPity = pityCount >= 100;
@@ -29,31 +30,51 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
     <div className="w-full flex flex-col items-center space-y-4">
       {/* Top Status Bars: Stamina & 100-Pull Pity System */}
       <div className="w-full max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Pull Energy / Stamina Time-Gate Bar */}
+        {/* Pull Energy / Stamina Time-Gate Bar (3-Tier) */}
         <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
-            <div className="flex items-center space-x-1.5">
-              <Zap className={`w-4 h-4 ${energy.current > 0 ? 'text-amber-400 animate-pulse' : 'text-slate-600'}`} />
-              <span className="font-bold text-slate-200">
+            <div className="flex items-center space-x-1.5 min-w-0">
+              <Zap className={`w-4 h-4 flex-shrink-0 ${totalEnergy > 0 ? 'text-amber-400 animate-pulse' : 'text-slate-600'}`} />
+              <span className="font-bold text-slate-200 truncate">
                 Stamina: <span className="text-amber-300 font-extrabold">{energy.current}</span>/{energy.max}
+                {(energy.reserve || 0) > 0 && (
+                  <span className="text-cyan-400 font-bold ml-1">+{energy.reserve}R</span>
+                )}
+                {(energy.bonus || 0) > 0 && (
+                  <span className="text-pink-400 font-bold ml-1">+{energy.bonus}B</span>
+                )}
               </span>
             </div>
 
-            <div className="text-slate-400 text-[10px]">
+            <div className="text-slate-400 text-[10px] flex-shrink-0">
               {energy.current >= energy.max ? (
-                <span className="text-emerald-400 font-bold">MAX</span>
+                (energy.reserve || 0) >= (energy.reserveMax || 100) ? (
+                  <span className="text-emerald-400 font-bold">FULL</span>
+                ) : (
+                  <span className="text-cyan-400 font-bold">+{countdownSeconds}s RSV</span>
+                )
               ) : (
                 <span>+{countdownSeconds}s • {timeToFullFormatted}</span>
               )}
             </div>
           </div>
 
-          {/* Stamina Progress Bar */}
-          <div className="w-full h-2 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 transition-all duration-500 rounded-full"
-              style={{ width: `${energyPercent}%` }}
-            />
+          {/* Stamina Progress Bars (Main + Reserve) */}
+          <div className="space-y-1">
+            <div className="w-full h-2 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 transition-all duration-500 rounded-full"
+                style={{ width: `${energyPercent}%` }}
+              />
+            </div>
+            {(energy.reserve || 0) > 0 && (
+              <div className="w-full h-1 rounded-full bg-slate-950 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500 rounded-full"
+                  style={{ width: `${reservePercent}%` }}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -104,10 +125,10 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
       <div className="grid grid-cols-3 gap-2 sm:gap-3.5 w-full max-w-xl">
         {/* Single Pull (1x) */}
         <button
-          disabled={isPulling || energy.current < 1}
+          disabled={isPulling || totalEnergy < 1}
           onClick={() => handlePullClick(1)}
           className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
-            isPulling || energy.current < 1
+            isPulling || totalEnergy < 1
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
               : 'bg-slate-900/90 hover:bg-slate-800 active:scale-95 text-slate-100 border-slate-700 hover:border-pink-500 shadow-slate-950/50 hover:scale-105'
           }`}
@@ -121,10 +142,10 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
 
         {/* Medium Pull (5x) */}
         <button
-          disabled={isPulling || energy.current < 5}
+          disabled={isPulling || totalEnergy < 5}
           onClick={() => handlePullClick(5)}
           className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
-            isPulling || energy.current < 5
+            isPulling || totalEnergy < 5
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
               : 'bg-gradient-to-r from-purple-900/80 to-indigo-900/80 hover:from-purple-800 hover:to-indigo-800 active:scale-95 text-white border-purple-500/60 shadow-purple-950/50 hover:scale-105'
           }`}
@@ -138,10 +159,10 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
 
         {/* Multi Pull (10x) */}
         <button
-          disabled={isPulling || energy.current < 10}
+          disabled={isPulling || totalEnergy < 10}
           onClick={() => handlePullClick(10)}
           className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-xl relative overflow-hidden group ${
-            isPulling || energy.current < 10
+            isPulling || totalEnergy < 10
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
               : 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 active:scale-95 text-white border-pink-400/50 shadow-pink-600/30 hover:scale-105'
           }`}

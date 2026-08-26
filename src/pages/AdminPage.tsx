@@ -10,9 +10,10 @@ import {
   ShieldAlert, Users, Database, RefreshCw, Trash2, Activity, TrendingUp,
   Star, Clock, AlertTriangle, ChevronDown, ChevronUp, Search, Crown,
   Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X, Wrench, Gift, Table,
-  CheckCircle2,
+  CheckCircle2, Bell, Sparkles, Send,
 } from 'lucide-react';
 import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
+import { supabase } from '../lib/supabase';
 
 const RARITY_ORDER: RarityTier[] = ['GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -52,7 +53,7 @@ interface UserCollCard {
   isFavorite: boolean;
 }
 
-type AdminTab = 'overview' | 'users' | 'rewards' | 'inspector' | 'config';
+type AdminTab = 'overview' | 'events' | 'announcements' | 'users' | 'rewards' | 'inspector' | 'config';
 
 const AdminPage: React.FC = () => {
   const { user, token } = useAuth();
@@ -94,6 +95,23 @@ const AdminPage: React.FC = () => {
   const [tableData, setTableData] = useState<{ rows: Record<string, unknown>[]; total: number; limit: number; offset: number } | null>(null);
   const [tableLoading, setTableLoading] = useState(false);
   const [tableOffset, setTableOffset] = useState(0);
+
+  // Event Presets state
+  const [eventName, setEventName] = useState('Weekend Fever: 2x Boost & Fast Stamina');
+  const [eventDesc, setEventDesc] = useState('Special weekend celebration! Enjoy 5s turbo stamina recharge and 2x higher Legendary/Mythic/Divine rates!');
+  const [fastRecharge, setFastRecharge] = useState(true);
+  const [rateMultiplier, setRateMultiplier] = useState(2);
+  const [bonusDropRate, setBonusDropRate] = useState(true);
+  const [eventDurationHours, setEventDurationHours] = useState(24);
+  const [activeEventData, setActiveEventData] = useState<any>(null);
+
+  // Announcements state
+  const [annTitle, setAnnTitle] = useState('Welcome to osu! Beatmap Gacha');
+  const [annMessage, setAnnMessage] = useState('Welcome summoners! Collect over 50,000+ ranked beatmaps from 2007 to present. Sign in to sync your collection across all devices.');
+  const [annType, setAnnType] = useState<'info' | 'event' | 'update' | 'giveaway'>('event');
+  const [annBonusStamina, setAnnBonusStamina] = useState(50);
+  const [annDurationHours, setAnnDurationHours] = useState(48);
+  const [activeAnnData, setActiveAnnData] = useState<any>(null);
 
   // Config state
   const [configRates, setConfigRates] = useState<RarityRates>({...DEFAULT_RARITY_RATES});
@@ -372,11 +390,160 @@ const AdminPage: React.FC = () => {
 
   const filteredTopUsers = stats?.topUsers.filter(u => u.username.toLowerCase().includes(searchQuery.toLowerCase())) ?? [];
 
+  // Load event and announcement from Supabase
+  const loadEventAndAnnouncement = useCallback(async () => {
+    try {
+      const [evRes, annRes] = await Promise.all([
+        supabase.from('admin_config').select('value').eq('key', 'active_event_preset').maybeSingle(),
+        supabase.from('admin_config').select('value').eq('key', 'active_announcement').maybeSingle(),
+      ]);
+      if (evRes.data && evRes.data.value && evRes.data.value.active) {
+        setActiveEventData(evRes.data.value);
+      }
+      if (annRes.data && annRes.data.value && annRes.data.value.active) {
+        setActiveAnnData(annRes.data.value);
+      }
+    } catch (e) {
+      console.warn('Error loading admin events/announcements:', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadEventAndAnnouncement();
+  }, [loadEventAndAnnouncement]);
+
+  const handleLaunchEvent = async () => {
+    if (!eventName.trim()) {
+      showMsg('Please enter an event name', false);
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const now = new Date();
+      const expiresAt = new Date(now.getTime() + eventDurationHours * 3600 * 1000).toISOString();
+      const eventPayload = {
+        id: `ev-${Date.now()}`,
+        name: eventName.trim(),
+        description: eventDesc.trim(),
+        fastRecharge,
+        rateMultiplier,
+        bonusDropRate,
+        active: true,
+        startsAt: now.toISOString(),
+        expiresAt,
+      };
+
+      // Auto-generate announcement for the event
+      const annPayload = {
+        id: `ann-${Date.now()}`,
+        title: `🎉 EVENT: ${eventName.trim()}`,
+        message: `${eventDesc.trim()}\n\n⚡ Fast Stamina: ${fastRecharge ? 'Active (5s/stamina)' : 'Standard'}\n🌟 Rarity Multiplier: ${rateMultiplier}x\n⏳ Event Duration: ${eventDurationHours} hours (Ends: ${new Date(expiresAt).toLocaleTimeString()})`,
+        type: 'event',
+        bonusStamina: 50,
+        active: true,
+        publishedAt: now.toISOString(),
+        expiresAt,
+      };
+
+      await Promise.all([
+        supabase.from('admin_config').upsert({
+          key: 'active_event_preset',
+          value: eventPayload,
+          updated_at: now.toISOString(),
+        }),
+        supabase.from('admin_config').upsert({
+          key: 'active_announcement',
+          value: annPayload,
+          updated_at: now.toISOString(),
+        }),
+      ]);
+
+      setActiveEventData(eventPayload);
+      setActiveAnnData(annPayload);
+      showMsg('🚀 Event launched & Global Announcement broadcasted successfully!');
+    } catch (e: any) {
+      showMsg('Failed to launch event: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleEndEvent = async () => {
+    if (!confirm('End the currently active event?')) return;
+    setActionLoading(true);
+    try {
+      await supabase.from('admin_config').upsert({
+        key: 'active_event_preset',
+        value: { active: false, endedAt: new Date().toISOString() },
+        updated_at: new Date().toISOString(),
+      });
+      setActiveEventData(null);
+      showMsg('🛑 Active event has been ended.');
+    } catch (e: any) {
+      showMsg('Failed to end event: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handlePublishAnnouncement = async () => {
+    if (!annTitle.trim() || !annMessage.trim()) {
+      showMsg('Please fill in announcement title and message', false);
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const now = new Date();
+      const expiresAt = annDurationHours > 0 ? new Date(now.getTime() + annDurationHours * 3600 * 1000).toISOString() : undefined;
+      const annPayload = {
+        id: `ann-${Date.now()}`,
+        title: annTitle.trim(),
+        message: annMessage.trim(),
+        type: annType,
+        bonusStamina: annBonusStamina > 0 ? annBonusStamina : undefined,
+        active: true,
+        publishedAt: now.toISOString(),
+        expiresAt,
+      };
+
+      await supabase.from('admin_config').upsert({
+        key: 'active_announcement',
+        value: annPayload,
+        updated_at: now.toISOString(),
+      });
+
+      setActiveAnnData(annPayload);
+      showMsg('📢 Announcement published & broadcast to all players!');
+    } catch (e: any) {
+      showMsg('Failed to publish announcement: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeactivateAnnouncement = async () => {
+    if (!confirm('Deactivate the active announcement popup?')) return;
+    setActionLoading(true);
+    try {
+      await supabase.from('admin_config').upsert({
+        key: 'active_announcement',
+        value: { active: false, deactivatedAt: new Date().toISOString() },
+        updated_at: new Date().toISOString(),
+      });
+      setActiveAnnData(null);
+      showMsg('✓ Active announcement deactivated.');
+    } catch (e: any) {
+      showMsg('Failed: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   // ─── Render ──────────────────────────────────────────────────
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20">
+    <div className="space-y-6 pb-20 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-gradient-to-r from-red-950/80 via-slate-900 to-slate-900 border border-red-900/60 shadow-xl">
         <div className="flex items-center space-x-3">
           <div className="p-2.5 rounded-xl bg-red-950/60 border border-red-800/60 shadow-lg shadow-red-950/40">
             <Crown className="w-6 h-6 text-red-400" />
@@ -411,6 +578,8 @@ const AdminPage: React.FC = () => {
       <div className="flex items-center space-x-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 overflow-x-auto scrollbar-none w-full sm:w-fit">
         {([
           ['overview','Overview',<BarChart3 className="w-4 h-4"/>],
+          ['events','Event Presets',<Sparkles className="w-4 h-4 text-amber-400"/>],
+          ['announcements','Announcements',<Bell className="w-4 h-4 text-cyan-400"/>],
           ['users','Users',<Users className="w-4 h-4"/>],
           ['rewards','Mass Rewards',<Gift className="w-4 h-4"/>],
           ['inspector','DB Inspector',<Table className="w-4 h-4"/>],
@@ -601,7 +770,348 @@ const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* ── 2. USERS TAB ──────────────────────────── */}
+      {/* ── 2. EVENT PRESETS TAB ─────────────────────── */}
+      {activeTab === 'events' && (
+        <div className="space-y-6">
+          {/* Active Event Status Card */}
+          {activeEventData && activeEventData.active ? (
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-amber-950/60 via-slate-900 to-purple-950/60 border border-amber-500/50 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                    <Sparkles className="w-6 h-6 animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-500 text-emerald-300">
+                        ● LIVE EVENT ACTIVE
+                      </span>
+                      {activeEventData.expiresAt && (
+                        <span className="text-[10px] font-mono text-slate-400">
+                          Ends: {formatUserDateTime(activeEventData.expiresAt, true)}
+                        </span>
+                      )}
+                    </div>
+                    <h2 className="text-xl font-black text-white font-display mt-0.5">
+                      {activeEventData.name}
+                    </h2>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleEndEvent}
+                  disabled={actionLoading}
+                  className="px-4 py-2 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800 text-red-300 font-bold text-xs transition-colors self-start sm:self-auto"
+                >
+                  🛑 Stop / End Event
+                </button>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                {activeEventData.description}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center space-x-3">
+                  <Zap className="w-5 h-5 text-amber-400" />
+                  <div>
+                    <p className="text-[10px] font-mono text-slate-400">Stamina Recharge</p>
+                    <p className="text-xs font-bold text-amber-300 font-mono">
+                      {activeEventData.fastRecharge ? '⚡ 5s Turbo (3x Speed)' : '15s Standard'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center space-x-3">
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                  <div>
+                    <p className="text-[10px] font-mono text-slate-400">High Rarity Rates</p>
+                    <p className="text-xs font-bold text-purple-300 font-mono">
+                      {activeEventData.rateMultiplier}x Drop Multiplier
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center space-x-3">
+                  <Gift className="w-5 h-5 text-pink-400" />
+                  <div>
+                    <p className="text-[10px] font-mono text-slate-400">Pull Bonus Drops</p>
+                    <p className="text-xs font-bold text-pink-300 font-mono">
+                      {activeEventData.bonusDropRate ? 'Active on 10x Pulls' : 'Disabled'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <Sparkles className="w-6 h-6 text-slate-600" />
+                <div>
+                  <h3 className="text-sm font-bold text-slate-300">No Event Currently Active</h3>
+                  <p className="text-xs text-slate-500 font-mono">Launch an event preset below to boost player rates and recharge speed!</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Event Preset Creator Form */}
+          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+            <h2 className="font-bold text-white text-lg flex items-center space-x-2">
+              <Sparkles className="w-5 h-5 text-amber-400" />
+              <span>Launch Event Preset</span>
+            </h2>
+
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-xs font-mono text-slate-300">Event Title</label>
+                <input
+                  type="text"
+                  value={eventName}
+                  onChange={(e) => setEventName(e.target.value)}
+                  placeholder="e.g. Weekend Fever: 2x Boost & Fast Stamina"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-amber-500"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-mono text-slate-300">Event Description & Perks</label>
+                <textarea
+                  rows={3}
+                  value={eventDesc}
+                  onChange={(e) => setEventDesc(e.target.value)}
+                  placeholder="Describe the event perks and what players receive..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-amber-500 resize-none"
+                />
+              </div>
+
+              {/* Event Modifiers / Checkboxes */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <label className="flex items-start space-x-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={fastRecharge}
+                    onChange={(e) => setFastRecharge(e.target.checked)}
+                    className="mt-1 accent-amber-500 w-4 h-4 rounded"
+                  />
+                  <div className="space-y-0.5">
+                    <p className="text-xs font-bold text-white flex items-center space-x-1">
+                      <Zap className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Turbo Recovery</span>
+                    </p>
+                    <p className="text-[11px] text-slate-400 font-mono">5s per stamina (3x speed)</p>
+                  </div>
+                </label>
+
+                <label className="flex items-start space-x-3 p-4 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={bonusDropRate}
+                    onChange={(e) => setBonusDropRate(e.target.checked)}
+                    className="mt-1 accent-pink-500 w-4 h-4 rounded"
+                  />
+                  <div className="space-y-0.5">
+                    <p className="text-xs font-bold text-white flex items-center space-x-1">
+                      <Gift className="w-3.5 h-3.5 text-pink-400" />
+                      <span>Bonus Pull Drops</span>
+                    </p>
+                    <p className="text-[11px] text-slate-400 font-mono">Bonus stamina on 10x</p>
+                  </div>
+                </label>
+
+                <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+                  <div className="flex items-center space-x-1 text-xs font-bold text-white">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Rate Multiplier</span>
+                  </div>
+                  <select
+                    value={rateMultiplier}
+                    onChange={(e) => setRateMultiplier(Number(e.target.value))}
+                    className="w-full px-2 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-white focus:outline-none"
+                  >
+                    <option value={1}>1.0x (Standard)</option>
+                    <option value={1.5}>1.5x Boosted Odds</option>
+                    <option value={2}>2.0x Double Rates</option>
+                    <option value={3}>3.0x Triple Rates</option>
+                  </select>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+                  <div className="flex items-center space-x-1 text-xs font-bold text-white">
+                    <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Event Duration</span>
+                  </div>
+                  <select
+                    value={eventDurationHours}
+                    onChange={(e) => setEventDurationHours(Number(e.target.value))}
+                    className="w-full px-2 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-white focus:outline-none"
+                  >
+                    <option value={1}>1 Hour Flash Event</option>
+                    <option value={6}>6 Hours</option>
+                    <option value={12}>12 Hours</option>
+                    <option value={24}>24 Hours (1 Day)</option>
+                    <option value={72}>3 Days (Weekend)</option>
+                    <option value={168}>7 Days (1 Week)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={handleLaunchEvent}
+                disabled={actionLoading}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 via-orange-600 to-pink-600 hover:from-amber-500 hover:to-pink-500 text-white font-black text-sm shadow-xl shadow-amber-600/30 transition-all flex items-center justify-center space-x-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>🚀 Launch Event & Auto-Broadcast Announcement</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── 3. ANNOUNCEMENTS TAB ─────────────────────── */}
+      {activeTab === 'announcements' && (
+        <div className="space-y-6">
+          {/* Active Announcement Preview */}
+          {activeAnnData && activeAnnData.active ? (
+            <div className="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/50 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40">
+                    <Bell className="w-5 h-5 animate-bounce" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-500 text-cyan-300">
+                      ● LIVE POPUP ACTIVE
+                    </span>
+                    <h3 className="text-lg font-black text-white font-display mt-0.5">
+                      {activeAnnData.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleDeactivateAnnouncement}
+                  disabled={actionLoading}
+                  className="px-3.5 py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800 text-red-300 font-bold text-xs transition-colors self-start sm:self-auto"
+                >
+                  Deactivate Popup
+                </button>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-300 whitespace-pre-line font-sans">
+                {activeAnnData.message}
+              </p>
+
+              {activeAnnData.bonusStamina && (
+                <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-amber-950/60 border border-amber-500/40 text-amber-300 text-xs font-mono">
+                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Includes +{activeAnnData.bonusStamina} Free Bonus Stamina Gift</span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <Bell className="w-6 h-6 text-slate-600" />
+                <div>
+                  <h3 className="text-sm font-bold text-slate-300">No Announcement Currently Active</h3>
+                  <p className="text-xs text-slate-500 font-mono">Compose an announcement below to show an instant popup notification to all visitors!</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Announcement Composer */}
+          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+            <h2 className="font-bold text-white text-lg flex items-center space-x-2">
+              <Bell className="w-5 h-5 text-cyan-400" />
+              <span>Compose Global Announcement</span>
+            </h2>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-2 space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Announcement Title</label>
+                  <input
+                    type="text"
+                    value={annTitle}
+                    onChange={(e) => setAnnTitle(e.target.value)}
+                    placeholder="e.g. New Beatmaps Added & Maintenance Notice"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Category</label>
+                  <select
+                    value={annType}
+                    onChange={(e) => setAnnType(e.target.value as any)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="event">🎉 Special Event</option>
+                    <option value="giveaway">🎁 Giveaway / Free Gift</option>
+                    <option value="update">⚡ Update Note</option>
+                    <option value="info">📢 General Notice</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-mono text-slate-300">Notification Message</label>
+                <textarea
+                  rows={4}
+                  value={annMessage}
+                  onChange={(e) => setAnnMessage(e.target.value)}
+                  placeholder="Write message details..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500 resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Attached Bonus Stamina Gift</label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="number"
+                      min="0"
+                      value={annBonusStamina}
+                      onChange={(e) => setAnnBonusStamina(Number(e.target.value))}
+                      className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none"
+                    />
+                    <span className="text-xs text-slate-400 font-mono">⚡ bonus</span>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Expiration Duration</label>
+                  <select
+                    value={annDurationHours}
+                    onChange={(e) => setAnnDurationHours(Number(e.target.value))}
+                    className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none"
+                  >
+                    <option value={24}>24 Hours</option>
+                    <option value={48}>48 Hours (2 Days)</option>
+                    <option value={168}>7 Days (1 Week)</option>
+                    <option value={0}>No Expiration</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={handlePublishAnnouncement}
+                disabled={actionLoading}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-black text-sm shadow-xl shadow-cyan-600/30 transition-all flex items-center justify-center space-x-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>📢 Broadcast Global Announcement to All Players</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── 4. USERS TAB ──────────────────────────── */}
       {activeTab === 'users' && (
         <div className="space-y-6">
           {!selectedUserId ? (

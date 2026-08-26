@@ -199,6 +199,9 @@ export async function getUserSettings(): Promise<UserSettings> {
 export const DEFAULT_ENERGY_STATE: PullEnergyState = {
   current: 50,
   max: 50,
+  reserve: 0,
+  reserveMax: 100,
+  bonus: 0,
   lastRefillTime: Date.now(),
 };
 
@@ -211,7 +214,14 @@ export async function getPullEnergyState(): Promise<PullEnergyState> {
   if (!val) {
     return { ...DEFAULT_ENERGY_STATE, lastRefillTime: Date.now() };
   }
-  return val;
+  return {
+    current: typeof val.current === 'number' ? val.current : 50,
+    max: typeof val.max === 'number' ? val.max : 50,
+    reserve: typeof val.reserve === 'number' ? val.reserve : 0,
+    reserveMax: typeof val.reserveMax === 'number' ? val.reserveMax : 100,
+    bonus: typeof val.bonus === 'number' ? val.bonus : 0,
+    lastRefillTime: typeof val.lastRefillTime === 'number' ? val.lastRefillTime : Date.now(),
+  };
 }
 
 /**

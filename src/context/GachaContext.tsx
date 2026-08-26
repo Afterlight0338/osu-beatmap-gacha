@@ -1,11 +1,14 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
-import { Beatmap, DatasetInfo, RarityTier } from '../types/beatmap';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { Beatmap, RarityTier, DatasetInfo } from '../types/beatmap';
 import { Banner, PullResult, PullHistoryItem } from '../types/gacha';
 import { CollectionRecord, CollectionStats, UserSettings, PullEnergyState } from '../types/collection';
-import { loadBeatmapDataset, getBeatmapById } from '../data/loader';
 import { BANNERS } from '../gacha/banners';
 import { executeMultiPull } from '../gacha/rng';
+import { loadBeatmapDataset } from '../data/loader';
+import { previewPlayer } from '../audio/previewPlayer';
+import { sfx } from '../audio/sfx';
 import { useAuth } from './AuthContext';
+import { supabase } from '../lib/supabase';
 import {
   getCollectionRecords,
   savePullResults,
@@ -15,23 +18,33 @@ import {
   savePityCount,
   getUserSettings,
   saveUserSettings,
+  DEFAULT_SETTINGS,
+  DEFAULT_ENERGY_STATE,
   getPullEnergyState,
   savePullEnergyState,
   clearAllData,
   toggleFavorite as dbToggleFavorite,
-  mergeCloudCollectionIntoDB,
-  DEFAULT_SETTINGS,
-  DEFAULT_ENERGY_STATE,
 } from '../storage/db';
-import { sfx } from '../audio/sfx';
-import { previewPlayer } from '../audio/previewPlayer';
-import { compareRarities } from '../gacha/rarity';
 
-const REGEN_INTERVAL_MS = 15000; // 1 pull token every 15 seconds
-const MAX_PULL_ENERGY = 50;
+const BASE_REGEN_INTERVAL_MS = 15000; // Standard: 1 stamina every 15 seconds
+const MAX_MAIN_ENERGY = 50;
+const MAX_RESERVE_ENERGY = 100;
+
+export interface ActiveEventState {
+  id: string;
+  name: string;
+  description: string;
+  fastRecharge: boolean;
+  rateMultiplier: number;
+  bonusDropRate: boolean;
+  active: boolean;
+  startsAt: string;
+  expiresAt: string;
+}
 
 interface GachaContextType {
   pool: Beatmap[];
+  poolMap: Map<number, Beatmap>;
   datasetInfo: DatasetInfo | null;
   isLoading: boolean;
   poolError: string | null;
@@ -46,12 +59,14 @@ interface GachaContextType {
   activeBanner: Banner;
   stats: CollectionStats;
   energy: PullEnergyState;
+  totalEnergy: number;
+  activeEvent: ActiveEventState | null;
   countdownSeconds: number;
   timeToFullFormatted: string;
   setActiveBanner: (banner: Banner) => void;
   pull: (count: number) => Promise<PullResult[]>;
   refillEnergy: (amount: number) => Promise<void>;
-  /** Admin: set energy to exact amount immediately (local only) */
+  addBonusEnergy: (amount: number) => Promise<void>;
   adminRefillEnergy: (amount: number) => Promise<void>;
   toggleFavorite: (beatmapId: number) => Promise<boolean>;
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
@@ -78,10 +93,46 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [recentPulls, setRecentPulls] = useState<PullResult[]>([]);
   const [settings, setSettings] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [activeBanner, setActiveBanner] = useState<Banner>(BANNERS[0]);
+  const [activeEvent, setActiveEvent] = useState<ActiveEventState | null>(null);
 
-  // Pull Energy / Stamina Time Gate State
+  // 3-Tier Pull Energy: Main (50), Reserve (100), Bonus (uncapped)
   const [energy, setEnergy] = useState<PullEnergyState>(DEFAULT_ENERGY_STATE);
   const [countdownSeconds, setCountdownSeconds] = useState<number>(15);
+
+  const poolMap = useMemo(() => {
+    return new Map<number, Beatmap>(pool.map((m: Beatmap) => [m.id, m]));
+  }, [pool]);
+
+  const totalEnergy = useMemo(() => {
+    return (energy.current || 0) + (energy.reserve || 0) + (energy.bonus || 0);
+  }, [energy]);
+
+  const regenIntervalMs = useMemo(() => {
+    return activeEvent && activeEvent.fastRecharge ? 5000 : BASE_REGEN_INTERVAL_MS;
+  }, [activeEvent]);
+
+  // Fetch active event from Supabase
+  useEffect(() => {
+    async function loadEvent() {
+      try {
+        const { data, error } = await supabase
+          .from('admin_config')
+          .select('value')
+          .eq('key', 'active_event_preset')
+          .maybeSingle();
+
+        if (data && data.value && data.value.active && !error) {
+          const ev: ActiveEventState = data.value;
+          if (!ev.expiresAt || new Date(ev.expiresAt).getTime() > Date.now()) {
+            setActiveEvent(ev);
+          }
+        }
+      } catch (err) {
+        console.warn('Error loading active event preset:', err);
+      }
+    }
+    loadEvent();
+  }, []);
 
   // Load beatmap pool and user data on start
   const initData = useCallback(async () => {
@@ -100,20 +151,20 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setPool(loaderRes.maps);
       setDatasetInfo(loaderRes.info);
       setIsFallbackDataset(loaderRes.isFallback);
-      if (loaderRes.error) setPoolError(loaderRes.error);
 
       setCollectionRecords(savedRecords);
       const colMap = new Map<number, CollectionRecord>();
-      savedRecords.forEach((r) => colMap.set(r.beatmapId, r));
+      for (const rec of savedRecords) {
+        colMap.set(rec.beatmapId, rec);
+      }
       setCollectionMap(colMap);
-
       setTotalPulls(savedPulls);
       setPityCount(savedPity);
 
-      // Hydrate history items with map data
-      const hydratedHistory: PullHistoryItem[] = savedHistory
-        .map((h) => {
-          const map = getBeatmapById(h.beatmapId);
+      const mapLookup = new Map<number, Beatmap>(loaderRes.maps.map((m: Beatmap) => [m.id, m]));
+      const hydratedHistory = savedHistory
+        .map((h: any) => {
+          const map = mapLookup.get(h.beatmapId);
           if (!map) return null;
           return {
             id: h.id,
@@ -127,17 +178,39 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         .filter(Boolean) as PullHistoryItem[];
       setHistory(hydratedHistory);
 
-      // Calculate offline energy recovery
+      // Offline Multi-Tier Energy Recovery
       const now = Date.now();
+      const currentInterval = 15000;
       const elapsed = Math.max(0, now - savedEnergy.lastRefillTime);
-      const pullsToAdd = Math.floor(elapsed / REGEN_INTERVAL_MS);
-      const newCurrent = Math.min(MAX_PULL_ENERGY, savedEnergy.current + pullsToAdd);
+      const pullsToAdd = Math.floor(elapsed / currentInterval);
+
+      let cur = savedEnergy.current;
+      let res = savedEnergy.reserve || 0;
+      const bon = savedEnergy.bonus || 0;
+
+      if (pullsToAdd > 0) {
+        if (cur < MAX_MAIN_ENERGY) {
+          const needed = MAX_MAIN_ENERGY - cur;
+          const toMain = Math.min(needed, pullsToAdd);
+          cur += toMain;
+          const remaining = pullsToAdd - toMain;
+          if (remaining > 0) {
+            res = Math.min(MAX_RESERVE_ENERGY, res + remaining);
+          }
+        } else {
+          res = Math.min(MAX_RESERVE_ENERGY, res + pullsToAdd);
+        }
+      }
+
       const newLastRefill =
-        newCurrent >= MAX_PULL_ENERGY ? now : savedEnergy.lastRefillTime + pullsToAdd * REGEN_INTERVAL_MS;
+        cur >= MAX_MAIN_ENERGY && res >= MAX_RESERVE_ENERGY ? now : savedEnergy.lastRefillTime + pullsToAdd * currentInterval;
 
       const updatedEnergy: PullEnergyState = {
-        current: newCurrent,
-        max: MAX_PULL_ENERGY,
+        current: cur,
+        max: MAX_MAIN_ENERGY,
+        reserve: res,
+        reserveMax: MAX_RESERVE_ENERGY,
+        bonus: bon,
         lastRefillTime: newLastRefill,
       };
       await savePullEnergyState(updatedEnergy);
@@ -159,45 +232,71 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     initData();
   }, [initData]);
 
-  // Real-time Energy Regeneration Timer
+  // Real-time Energy Regeneration Timer (Supports Main -> Reserve overflow)
   useEffect(() => {
     const timer = setInterval(() => {
       setEnergy((prev) => {
-        if (prev.current >= prev.max) {
-          setCountdownSeconds(15);
+        const cur = prev.current;
+        const res = prev.reserve || 0;
+
+        if (cur >= prev.max && res >= (prev.reserveMax || 100)) {
+          setCountdownSeconds(Math.round(regenIntervalMs / 1000));
           return prev;
         }
 
         const now = Date.now();
         const elapsed = Math.max(0, now - prev.lastRefillTime);
-        const pullsToAdd = Math.floor(elapsed / REGEN_INTERVAL_MS);
+        const pullsToAdd = Math.floor(elapsed / regenIntervalMs);
 
         if (pullsToAdd > 0) {
-          const nextCurrent = Math.min(prev.max, prev.current + pullsToAdd);
-          const nextRefill =
-            nextCurrent >= prev.max ? now : prev.lastRefillTime + pullsToAdd * REGEN_INTERVAL_MS;
-          const nextState = { ...prev, current: nextCurrent, lastRefillTime: nextRefill };
+          let nextCur = cur;
+          let nextRes = res;
+
+          if (nextCur < prev.max) {
+            const needed = prev.max - nextCur;
+            const toMain = Math.min(needed, pullsToAdd);
+            nextCur += toMain;
+            const remaining = pullsToAdd - toMain;
+            if (remaining > 0) {
+              nextRes = Math.min(prev.reserveMax || 100, nextRes + remaining);
+            }
+          } else {
+            nextRes = Math.min(prev.reserveMax || 100, nextRes + pullsToAdd);
+          }
+
+          const isFull = nextCur >= prev.max && nextRes >= (prev.reserveMax || 100);
+          const nextRefill = isFull ? now : prev.lastRefillTime + pullsToAdd * regenIntervalMs;
+
+          const nextState: PullEnergyState = {
+            ...prev,
+            current: nextCur,
+            reserve: nextRes,
+            lastRefillTime: nextRefill,
+          };
           savePullEnergyState(nextState).catch(() => {});
           return nextState;
         }
 
-        const remainingMs = REGEN_INTERVAL_MS - (elapsed % REGEN_INTERVAL_MS);
+        const remainingMs = regenIntervalMs - (elapsed % regenIntervalMs);
         setCountdownSeconds(Math.max(1, Math.ceil(remainingMs / 1000)));
         return prev;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [regenIntervalMs]);
 
   const timeToFullFormatted = useMemo(() => {
-    if (energy.current >= energy.max) return 'MAX';
+    if (energy.current >= energy.max) {
+      if ((energy.reserve || 0) >= (energy.reserveMax || 100)) return 'MAX';
+      return `+${energy.reserve || 0} RSV`;
+    }
     const missingPulls = energy.max - energy.current;
-    const totalSeconds = (missingPulls - 1) * 15 + countdownSeconds;
+    const totalSeconds = (missingPulls - 1) * Math.round(regenIntervalMs / 1000) + countdownSeconds;
     const m = Math.floor(totalSeconds / 60);
     const s = totalSeconds % 60;
     return `${m}:${s < 10 ? '0' : ''}${s}`;
-  }, [energy, countdownSeconds]);
+  }, [energy, countdownSeconds, regenIntervalMs]);
 
   const refillEnergy = useCallback(async (amount: number) => {
     setEnergy((prev) => {
@@ -212,15 +311,30 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   }, []);
 
-  /** Admin-only: set energy to an exact absolute amount (bypasses max cap for big values) */
+  /** Add directly to uncapped bonus stamina (from giveaways, quiz, admin) */
+  const addBonusEnergy = useCallback(async (amount: number) => {
+    setEnergy((prev) => {
+      const nextState: PullEnergyState = {
+        ...prev,
+        bonus: (prev.bonus || 0) + amount,
+      };
+      savePullEnergyState(nextState).catch(() => {});
+      return nextState;
+    });
+  }, []);
+
+  /** Admin-only: set energy (large values overflow directly to bonus stamina) */
   const adminRefillEnergy = useCallback(async (amount: number) => {
-    const nextState: PullEnergyState = {
-      current: amount,
-      max: Math.max(MAX_PULL_ENERGY, amount),
-      lastRefillTime: Date.now(),
-    };
-    setEnergy(nextState);
-    await savePullEnergyState(nextState);
+    setEnergy((prev) => {
+      const nextState: PullEnergyState = {
+        ...prev,
+        current: Math.min(prev.max, amount),
+        bonus: (prev.bonus || 0) + Math.max(0, amount - prev.max),
+        lastRefillTime: Date.now(),
+      };
+      savePullEnergyState(nextState).catch(() => {});
+      return nextState;
+    });
   }, []);
 
   const refreshCollection = useCallback(async () => {
@@ -234,16 +348,18 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     setCollectionRecords(savedRecords);
     const colMap = new Map<number, CollectionRecord>();
-    savedRecords.forEach((r) => colMap.set(r.beatmapId, r));
+    for (const rec of savedRecords) {
+      colMap.set(rec.beatmapId, rec);
+    }
     setCollectionMap(colMap);
-
     setTotalPulls(savedPulls);
     setPityCount(savedPity);
     setEnergy(savedEnergy);
 
-    const hydratedHistory: PullHistoryItem[] = savedHistory
-      .map((h) => {
-        const map = getBeatmapById(h.beatmapId);
+    const mapLookup = new Map<number, Beatmap>(pool.map((m: Beatmap) => [m.id, m]));
+    const hydratedHistory = savedHistory
+      .map((h: any) => {
+        const map = mapLookup.get(h.beatmapId);
         if (!map) return null;
         return {
           id: h.id,
@@ -256,58 +372,51 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       })
       .filter(Boolean) as PullHistoryItem[];
     setHistory(hydratedHistory);
-  }, []);
+  }, [pool]);
 
-  // Force Cloud Sync function
   const forceCloudSync = useCallback(async () => {
-    if (!isAuthenticated || !syncWithCloud) return;
+    if (!isAuthenticated || !user) return;
     try {
-      const records = await getCollectionRecords();
-      const hist = await getPullHistory(50);
-      const pulls = await getTotalPulls();
-      const pity = await getPityCount();
-
       const syncResult = await syncWithCloud({
-        collection: records.map((r) => ({
-          beatmapId: r.beatmapId,
-          copies: r.copies,
-          firstPulledAt: r.firstPulledAt,
-          lastPulledAt: r.lastPulledAt,
-          isFavorite: Boolean(r.isFavorite),
+        collection: collectionRecords.map((c) => ({
+          beatmapId: c.beatmapId,
+          copies: c.copies,
+          firstPulledAt: c.firstPulledAt,
+          lastPulledAt: c.lastPulledAt,
+          isFavorite: !!c.isFavorite,
         })),
-        history: hist.map((h) => ({
-          id: h.id,
-          beatmapId: h.beatmapId,
-          rarity: h.rarity,
-          pulledAt: h.pulledAt,
-        })),
-        totalPulls: pulls,
-        pityCount: pity,
+        history,
+        totalPulls,
+        pityCount,
       });
-
       if (syncResult && syncResult.mergedCollection) {
-        await mergeCloudCollectionIntoDB({
-          collection: syncResult.mergedCollection,
-          history: syncResult.mergedHistory,
-          totalPulls: syncResult.cloudTotalPulls,
-          pityCount: syncResult.cloudPityCount,
-        });
-        await refreshCollection();
+        const records: CollectionRecord[] = syncResult.mergedCollection.map((c) => ({
+          beatmapId: c.beatmapId,
+          copies: c.copies,
+          firstPulledAt: c.firstPulledAt,
+          lastPulledAt: c.lastPulledAt,
+          isFavorite: c.isFavorite,
+        }));
+        setCollectionRecords(records);
+        const newMap = new Map<number, CollectionRecord>();
+        for (const rec of records) {
+          newMap.set(rec.beatmapId, rec);
+        }
+        setCollectionMap(newMap);
+        if (typeof syncResult.cloudTotalPulls === 'number') {
+          setTotalPulls(syncResult.cloudTotalPulls);
+        }
+        if (typeof syncResult.cloudPityCount === 'number') {
+          setPityCount(syncResult.cloudPityCount);
+        }
       }
-      // Apply admin energy override if present
       if (syncResult && typeof syncResult.energyOverride === 'number') {
         await adminRefillEnergy(syncResult.energyOverride);
       }
     } catch (err) {
-      console.warn('Force cloud sync failed:', err);
+      console.warn('Manual cloud sync failed:', err);
     }
-  }, [isAuthenticated, syncWithCloud, refreshCollection]);
-
-  // Initial cloud sync whenever user logs in or page loads with session
-  useEffect(() => {
-    if (!isAuthenticated || !user) return;
-    forceCloudSync();
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, syncWithCloud, collectionRecords, history, totalPulls, pityCount, adminRefillEnergy]);
 
   const pull = useCallback(
     async (count: number): Promise<PullResult[]> => {
@@ -315,31 +424,52 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         throw new Error('Beatmap pool is not loaded yet');
       }
 
-      if (energy.current < count) {
-        throw new Error(`Not enough pull stamina! Need ${count} energy (have ${energy.current}).`);
+      const availableEnergy = (energy.current || 0) + (energy.reserve || 0) + (energy.bonus || 0);
+      if (availableEnergy < count) {
+        throw new Error(`Not enough pull stamina! Need ${count} energy (have ${availableEnergy}).`);
       }
 
-      // Immediately pause any ongoing song preview playback on summon
       previewPlayer.pause();
 
       const { results, finalPity } = executeMultiPull(count, pool, collectionMap, activeBanner.id, pityCount);
       setPityCount(finalPity);
       await savePityCount(finalPity);
 
-      // Deduct energy
+      // Deduct energy in priority: Main -> Reserve -> Bonus
+      let needed = count;
+      let newCur = energy.current;
+      let newRes = energy.reserve || 0;
+      let newBon = energy.bonus || 0;
+
+      if (newCur > 0) {
+        const take = Math.min(newCur, needed);
+        newCur -= take;
+        needed -= take;
+      }
+      if (needed > 0 && newRes > 0) {
+        const take = Math.min(newRes, needed);
+        newRes -= take;
+        needed -= take;
+      }
+      if (needed > 0 && newBon > 0) {
+        const take = Math.min(newBon, needed);
+        newBon -= take;
+        needed -= take;
+      }
+
       const now = Date.now();
       const newEnergyState: PullEnergyState = {
         ...energy,
-        current: energy.current - count,
+        current: newCur,
+        reserve: newRes,
+        bonus: newBon,
         lastRefillTime: energy.current >= energy.max ? now : energy.lastRefillTime,
       };
       setEnergy(newEnergyState);
       await savePullEnergyState(newEnergyState);
 
-      // Save to IndexedDB
       await savePullResults(results);
 
-      // Update in-memory state
       const updatedMap = new Map(collectionMap);
       for (const res of results) {
         const prev = updatedMap.get(res.beatmap.id);
@@ -348,105 +478,95 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           copies: res.currentCopies,
           firstPulledAt: prev ? prev.firstPulledAt : res.pulledAt,
           lastPulledAt: res.pulledAt,
-          isFavorite: prev?.isFavorite || false,
+          isFavorite: prev ? prev.isFavorite : false,
         });
       }
-
       setCollectionMap(updatedMap);
       setCollectionRecords(Array.from(updatedMap.values()));
-      const nextTotalPulls = totalPulls + results.length;
-      setTotalPulls(nextTotalPulls);
-      setRecentPulls(results);
 
-      // Prepend to history
-      const newHistoryItems: PullHistoryItem[] = results.map((r, idx) => ({
-        id: `${r.pulledAt}-${r.beatmap.id}-${idx}`,
+      const newTotalPulls = totalPulls + count;
+      setTotalPulls(newTotalPulls);
+
+      const newHistoryItems: PullHistoryItem[] = results.map((r: PullResult, i: number) => ({
+        id: `${r.pulledAt}-${i}`,
         beatmapId: r.beatmap.id,
         beatmap: r.beatmap,
         rarity: r.beatmap.rarity,
         isNew: r.isNew,
         pulledAt: r.pulledAt,
       }));
-      setHistory((prev) => [...newHistoryItems.reverse(), ...prev].slice(0, 100));
+      const updatedHistory = [...newHistoryItems, ...history].slice(0, 50);
+      setHistory(updatedHistory);
+      setRecentPulls(results);
 
-      // Background sync to Cloudflare D1 if authenticated
-      if (isAuthenticated && syncWithCloud) {
+      if (isAuthenticated) {
         syncWithCloud({
-          collection: results.map((r) => ({
-            beatmapId: r.beatmap.id,
-            copies: r.currentCopies,
-            firstPulledAt: r.isNew ? r.pulledAt : Date.now(),
-            lastPulledAt: r.pulledAt,
-            isFavorite: false,
+          collection: Array.from(updatedMap.values()).map((c) => ({
+            beatmapId: c.beatmapId,
+            copies: c.copies,
+            firstPulledAt: c.firstPulledAt,
+            lastPulledAt: c.lastPulledAt,
+            isFavorite: !!c.isFavorite,
           })),
-          history: results.map((r, idx) => ({
-            id: `${r.pulledAt}-${r.beatmap.id}-${idx}`,
-            beatmapId: r.beatmap.id,
-            rarity: r.beatmap.rarity,
-            pulledAt: r.pulledAt,
-          })),
-          totalPulls: nextTotalPulls,
+          history: updatedHistory,
+          totalPulls: newTotalPulls,
           pityCount: finalPity,
-        }).catch((err) => console.warn('Background D1 pull sync error:', err));
+        }).catch((err) => console.warn('Background pull sync error:', err));
       }
 
       return results;
     },
-    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, isAuthenticated, syncWithCloud]
+    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, history, isAuthenticated, syncWithCloud]
   );
 
   const toggleFavorite = useCallback(
     async (beatmapId: number): Promise<boolean> => {
-      const isFav = await dbToggleFavorite(beatmapId);
-      let updatedRecord: CollectionRecord | undefined;
+      const rec = collectionMap.get(beatmapId);
+      if (!rec) return false;
 
-      setCollectionMap((prev) => {
-        const copy = new Map(prev);
-        const item = copy.get(beatmapId);
-        if (item) {
-          updatedRecord = { ...item, isFavorite: isFav };
-          copy.set(beatmapId, updatedRecord);
-        }
-        return copy;
-      });
-      setCollectionRecords((prev) =>
-        prev.map((r) => (r.beatmapId === beatmapId ? { ...r, isFavorite: isFav } : r))
-      );
+      const newStatus = await dbToggleFavorite(beatmapId);
 
-      // Sync favorite toggle to Cloudflare D1
-      if (isAuthenticated && syncWithCloud && updatedRecord) {
+      const updatedMap = new Map(collectionMap);
+      const updatedRec = { ...rec, isFavorite: newStatus };
+      updatedMap.set(beatmapId, updatedRec);
+      setCollectionMap(updatedMap);
+      const newRecords = Array.from(updatedMap.values());
+      setCollectionRecords(newRecords);
+
+      if (isAuthenticated) {
         syncWithCloud({
-          collection: [
-            {
-              beatmapId: updatedRecord.beatmapId,
-              copies: updatedRecord.copies,
-              firstPulledAt: updatedRecord.firstPulledAt,
-              lastPulledAt: updatedRecord.lastPulledAt,
-              isFavorite: isFav,
-            },
-          ],
-          history: [],
+          collection: newRecords.map((c) => ({
+            beatmapId: c.beatmapId,
+            copies: c.copies,
+            firstPulledAt: c.firstPulledAt,
+            lastPulledAt: c.lastPulledAt,
+            isFavorite: !!c.isFavorite,
+          })),
+          history,
           totalPulls,
           pityCount,
-        }).catch((err) => console.warn('Background D1 favorite sync error:', err));
+        }).catch((err) => console.warn('Background favorite sync error:', err));
       }
 
-      return isFav;
+      return newStatus;
     },
-    [isAuthenticated, syncWithCloud, totalPulls, pityCount]
+    [collectionMap, totalPulls, pityCount, history, isAuthenticated, syncWithCloud]
   );
 
-  const updateSettings = useCallback(
-    async (newSettings: Partial<UserSettings>) => {
-      const merged = { ...settings, ...newSettings };
-      setSettings(merged);
-      sfx.setEnabled(merged.soundEnabled);
-      sfx.setVolume(merged.sfxVolume);
-      previewPlayer.setVolume(merged.bgmVolume);
-      await saveUserSettings(merged);
-    },
-    [settings]
-  );
+  const updateSettings = useCallback(async (newSettings: Partial<UserSettings>) => {
+    const updated = { ...settings, ...newSettings };
+    setSettings(updated);
+    await saveUserSettings(updated);
+    if (newSettings.soundEnabled !== undefined) {
+      sfx.setEnabled(newSettings.soundEnabled);
+    }
+    if (newSettings.sfxVolume !== undefined) {
+      sfx.setVolume(newSettings.sfxVolume);
+    }
+    if (newSettings.bgmVolume !== undefined) {
+      previewPlayer.setVolume(newSettings.bgmVolume);
+    }
+  }, [settings]);
 
   const resetCollection = useCallback(async () => {
     await clearAllData();
@@ -456,15 +576,16 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setPityCount(0);
     setHistory([]);
     setRecentPulls([]);
+    const resetEnergy: PullEnergyState = {
+      ...DEFAULT_ENERGY_STATE,
+      lastRefillTime: Date.now(),
+    };
+    await savePullEnergyState(resetEnergy);
+    setEnergy(resetEnergy);
   }, []);
 
-  // Compute stats memoized
-  const stats = useMemo<CollectionStats>(() => {
-    const uniqueOwned = collectionRecords.length;
-    const totalCopies = collectionRecords.reduce((acc, r) => acc + r.copies, 0);
-    const totalInPool = pool.length;
-    const completionPercentage = totalInPool > 0 ? Math.round((uniqueOwned / totalInPool) * 1000) / 10 : 0;
-
+  const stats: CollectionStats = useMemo(() => {
+    let totalCopies = 0;
     const rarityCounts: Record<RarityTier, number> = {
       Common: 0,
       Uncommon: 0,
@@ -477,82 +598,100 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       Divine: 0,
       GOAT: 0,
     };
-
-    let highestRarity: RarityTier | null = null;
-    let starSum = 0;
+    let totalStars = 0;
     let mostCopiesMap: { beatmap: Beatmap; copies: number } | null = null;
+    let highestRarityObtained: RarityTier | null = null;
+    const RARITY_WEIGHT: Record<RarityTier, number> = {
+      GOAT: 10,
+      Divine: 9,
+      Celestial: 8,
+      Mythic: 7,
+      Legendary: 6,
+      Epic: 5,
+      Rare: 4,
+      'Uncommon+': 3,
+      Uncommon: 2,
+      Common: 1,
+    };
 
-    collectionRecords.forEach((record) => {
-      const map = collectionMap.has(record.beatmapId) ? getBeatmapById(record.beatmapId) : undefined;
-      if (map) {
-        rarityCounts[map.rarity] = (rarityCounts[map.rarity] || 0) + 1;
-        starSum += map.stars;
+    for (const rec of collectionRecords) {
+      const map = poolMap.get(rec.beatmapId);
+      if (!map) continue;
 
-        if (!highestRarity || compareRarities(map.rarity, highestRarity) > 0) {
-          highestRarity = map.rarity;
-        }
+      totalCopies += rec.copies;
+      rarityCounts[map.rarity] = (rarityCounts[map.rarity] || 0) + 1;
+      totalStars += map.stars;
 
-        if (!mostCopiesMap || record.copies > mostCopiesMap.copies) {
-          mostCopiesMap = { beatmap: map, copies: record.copies };
-        }
+      if (!mostCopiesMap || rec.copies > mostCopiesMap.copies) {
+        mostCopiesMap = { beatmap: map, copies: rec.copies };
       }
-    });
 
-    const averageStarRating = uniqueOwned > 0 ? Math.round((starSum / uniqueOwned) * 100) / 100 : 0;
+      if (
+        !highestRarityObtained ||
+        (RARITY_WEIGHT[map.rarity] || 0) > (RARITY_WEIGHT[highestRarityObtained] || 0)
+      ) {
+        highestRarityObtained = map.rarity;
+      }
+    }
+
+    const uniqueOwned = collectionRecords.length;
+    const totalInPool = pool.length;
+    const completionPercentage = totalInPool > 0 ? parseFloat(((uniqueOwned / totalInPool) * 100).toFixed(2)) : 0;
+    const averageStarRating = uniqueOwned > 0 ? parseFloat((totalStars / uniqueOwned).toFixed(2)) : 0;
 
     return {
       totalPulls,
       uniqueOwned,
       totalCopies,
-      completionPercentage,
-      rarityCounts,
       totalInPool,
-      highestRarityObtained: highestRarity,
+      completionPercentage,
       averageStarRating,
+      rarityCounts,
       mostCopiesMap,
+      highestRarityObtained,
     };
-  }, [collectionRecords, collectionMap, pool, totalPulls]);
+  }, [collectionRecords, totalPulls, pool.length, poolMap]);
 
-  return (
-    <GachaContext.Provider
-      value={{
-        pool,
-        datasetInfo,
-        isLoading,
-        poolError,
-        isFallbackDataset,
-        collectionRecords,
-        collectionMap,
-        totalPulls,
-        pityCount,
-        history,
-        recentPulls,
-        settings,
-        activeBanner,
-        stats,
-        energy,
-        countdownSeconds,
-        timeToFullFormatted,
-        setActiveBanner,
-        pull,
-        refillEnergy,
-        adminRefillEnergy,
-        toggleFavorite,
-        updateSettings,
-        resetCollection,
-        refreshCollection,
-        forceCloudSync,
-      }}
-    >
-      {children}
-    </GachaContext.Provider>
-  );
+  const value: GachaContextType = {
+    pool,
+    poolMap,
+    datasetInfo,
+    isLoading,
+    poolError,
+    isFallbackDataset,
+    collectionRecords,
+    collectionMap,
+    totalPulls,
+    pityCount,
+    history,
+    recentPulls,
+    settings,
+    activeBanner,
+    stats,
+    energy,
+    totalEnergy,
+    activeEvent,
+    countdownSeconds,
+    timeToFullFormatted,
+    setActiveBanner,
+    pull,
+    refillEnergy,
+    addBonusEnergy,
+    adminRefillEnergy,
+    toggleFavorite,
+    updateSettings,
+    resetCollection,
+    refreshCollection,
+    forceCloudSync,
+  };
+
+  return <GachaContext.Provider value={value}>{children}</GachaContext.Provider>;
 };
 
-export function useGacha(): GachaContextType {
+export const useGacha = (): GachaContextType => {
   const context = useContext(GachaContext);
   if (!context) {
     throw new Error('useGacha must be used within a GachaProvider');
   }
   return context;
-}
+};

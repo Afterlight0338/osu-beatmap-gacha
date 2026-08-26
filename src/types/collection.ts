@@ -54,8 +54,17 @@ export interface CollectionStats {
 }
 
 export interface PullEnergyState {
+  /** Main stamina (0-50), regenerates +1 every 15s */
   current: number;
+  /** Max main stamina cap (default 50) */
   max: number;
+  /** Reserve / Leftover stamina (0-100), accumulates when main stamina is full */
+  reserve: number;
+  /** Max reserve cap (default 100) */
+  reserveMax: number;
+  /** Bonus stamina (uncapped), from giveaways, admin gifts, math questions */
+  bonus: number;
+  /** Last passive recovery tick timestamp */
   lastRefillTime: number;
 }
 
