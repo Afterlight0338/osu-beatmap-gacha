@@ -66,6 +66,19 @@ function errorResponse(message: string, status = 400, request: Request, env: Env
 }
 
 /**
+ * Executes a REST query against Supabase PostgREST
+ */
+async function supabaseFetch(env: Env, endpoint: string, options: RequestInit = {}): Promise<Response> {
+  const baseUrl = env.SUPABASE_URL || 'https://hkrdlnwhnwapvxztsuls.supabase.co';
+  const apiKey = env.SUPABASE_ANON_KEY || 'sb_publishable_gOpmxgqn5sxV98-LiN1kZQ_tOCZAysI';
+  const headers = new Headers(options.headers || {});
+  headers.set('apikey', apiKey);
+  headers.set('Authorization', `Bearer ${apiKey}`);
+  if (!headers.has('Content-Type')) headers.set('Content-Type', 'application/json');
+  return fetch(`${baseUrl}/rest/v1/${endpoint}`, { ...options, headers });
+}
+
+/**
  * Authenticates the request using the Bearer token in the Authorization header.
  */
 async function authenticateUser(request: Request, env: Env): Promise<{ osuId: number; user: UserRow } | null> {
@@ -258,8 +271,23 @@ export default {
           )
           .run();
 
+        // Upsert user in Supabase
+        supabaseFetch(env, 'users', {
+          method: 'POST',
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
+          body: JSON.stringify([{
+            osu_id: osuUser.id,
+            username: osuUser.username,
+            avatar_url: osuUser.avatar_url || null,
+            country_code: osuUser.country_code || null,
+            global_rank: osuUser.statistics?.global_rank || null,
+            last_login: new Date().toISOString(),
+          }]),
+        }).catch(err => console.warn('Supabase user upsert error:', err));
+
         // Generate high-entropy 64-character session token
         const sessionToken = `${crypto.randomUUID().replace(/-/g, '')}${crypto.randomUUID().replace(/-/g, '')}`;
+        const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
         // Store session in D1 (30 days validity)
         await env.osu_gacha_db.prepare(
@@ -268,6 +296,17 @@ export default {
         )
           .bind(sessionToken, osuUser.id)
           .run();
+
+        // Store session in Supabase
+        supabaseFetch(env, 'user_sessions', {
+          method: 'POST',
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
+          body: JSON.stringify([{
+            token: sessionToken,
+            osu_id: osuUser.id,
+            expires_at: expiresAt,
+          }]),
+        }).catch(err => console.warn('Supabase session insert error:', err));
 
         // Redirect back to frontend with session token
         const finalRedirect = new URL(targetRedirect);
@@ -488,6 +527,48 @@ export default {
             const chunk = statements.slice(i, i + CHUNK_SIZE);
             await env.osu_gacha_db.batch(chunk);
           }
+        }
+
+        // Concurrently sync to Supabase
+        if (payload.collection && payload.collection.length > 0) {
+          const supabaseCollection = payload.collection.map(c => ({
+            osu_id: auth.osuId,
+            beatmap_id: c.beatmapId,
+            copies: c.copies || 1,
+            first_pulled_at: c.firstPulledAt || Date.now(),
+            last_pulled_at: c.lastPulledAt || Date.now(),
+            is_favorite: Boolean(c.isFavorite),
+          }));
+          supabaseFetch(env, 'user_collection', {
+            method: 'POST',
+            headers: { 'Prefer': 'resolution=merge-duplicates' },
+            body: JSON.stringify(supabaseCollection),
+          }).catch(err => console.warn('Supabase collection sync error:', err));
+        }
+
+        if (payload.history && payload.history.length > 0) {
+          const supabaseHistory = payload.history.map(h => ({
+            id: h.id || `${Date.now()}-${h.beatmapId}`,
+            osu_id: auth.osuId,
+            beatmap_id: h.beatmapId,
+            rarity: h.rarity || 'Common',
+            pulled_at: h.pulledAt || Date.now(),
+          }));
+          supabaseFetch(env, 'user_history', {
+            method: 'POST',
+            headers: { 'Prefer': 'resolution=merge-duplicates' },
+            body: JSON.stringify(supabaseHistory),
+          }).catch(err => console.warn('Supabase history sync error:', err));
+        }
+
+        if (typeof payload.totalPulls === 'number' || typeof payload.pityCount === 'number') {
+          const updateData: Record<string, unknown> = {};
+          if (typeof payload.totalPulls === 'number') updateData.total_pulls = payload.totalPulls;
+          if (typeof payload.pityCount === 'number') updateData.pity_count = payload.pityCount;
+          supabaseFetch(env, `users?osu_id=eq.${auth.osuId}`, {
+            method: 'PATCH',
+            body: JSON.stringify(updateData),
+          }).catch(err => console.warn('Supabase user stats update error:', err));
         }
 
         // Return updated stats
