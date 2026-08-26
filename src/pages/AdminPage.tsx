@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useGacha } from '../context/GachaContext';
 import { isAdmin } from '../config/admin';
-import { WORKER_API_URL } from '../config/api';
 import { DEFAULT_RARITY_RATES } from '../gacha/probabilities';
-import { RarityTier } from '../types/beatmap';
+import { Beatmap, RarityTier } from '../types/beatmap';
 import { RarityRates } from '../types/gacha';
 import {
   ShieldAlert, Users, Database, RefreshCw, Trash2, Activity, TrendingUp,
@@ -61,7 +60,7 @@ interface UserCollCard {
 type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'rewards' | 'inspector' | 'config';
 
 const AdminPage: React.FC = () => {
-  const { user, token } = useAuth();
+  const { user } = useAuth();
   const { pool, energy, adminRefillEnergy, cardOverrides, setCardTierOverride, removeCardTierOverride } = useGacha();
 
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
@@ -157,36 +156,101 @@ const AdminPage: React.FC = () => {
     );
   }
 
-  // ─── API Helper ──────────────────────────────────────────────
-  const api = useCallback(async (method:string, path:string, body?:unknown) => {
-    const res = await fetch(`${WORKER_API_URL}${path}`, {
-      method,
-      headers: { 'Content-Type':'application/json', Authorization: `Bearer ${token}` },
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
-    const data = await res.json() as { success:boolean; error?:string; [k:string]:unknown };
-    if (!data.success) throw new Error(data.error || `HTTP ${res.status}`);
-    return data;
-  }, [token]);
+  const poolMap = useMemo(() => new Map<number, Beatmap>(pool.map((m) => [m.id, m])), [pool]);
 
-  const showMsg = (text:string, ok=true) => {
-    setActionMsg({text,ok});
-    setTimeout(()=>setActionMsg(null), 5000);
+  const showMsg = (text: string, ok = true) => {
+    setActionMsg({ text, ok });
+    setTimeout(() => setActionMsg(null), 5000);
   };
 
-  // ─── Overview Stats ─────────────────────────────────────────
+  // ─── Direct Supabase Overview Stats ─────────────────────────
   const fetchStats = useCallback(async () => {
     setStatsLoading(true);
     setStatsError(null);
     try {
-      const d = await api('GET','/admin/stats');
-      setStats(d.stats as AdminStats);
-    } catch(e) {
+      const [
+        { count: totalUsers },
+        { count: totalSessions },
+        { count: totalCollectionRecords },
+        { count: totalHistoryRecords },
+        { data: users, error: uErr },
+      ] = await Promise.all([
+        supabase.from('users').select('*', { count: 'exact', head: true }),
+        supabase.from('user_sessions').select('*', { count: 'exact', head: true }),
+        supabase.from('user_collection').select('*', { count: 'exact', head: true }),
+        supabase.from('user_history').select('*', { count: 'exact', head: true }),
+        supabase.from('users').select('*'),
+      ]);
+
+      if (uErr) throw new Error(uErr.message);
+
+      // Fetch user collection copies to compute exact unique cards & total pulls
+      const pageSize = 1000;
+      const totalPages = Math.max(1, Math.ceil((totalCollectionRecords || 0) / pageSize));
+      const chunkPromises = [];
+      for (let i = 0; i < totalPages; i++) {
+        chunkPromises.push(
+          supabase.from('user_collection').select('osu_id, copies').range(i * pageSize, (i + 1) * pageSize - 1)
+        );
+      }
+
+      const chunkResults = await Promise.all(chunkPromises);
+      const userCollCounts = new Map<number, { unique: number; copies: number }>();
+      for (const cRes of chunkResults) {
+        if (cRes.data) {
+          for (const item of cRes.data) {
+            const prev = userCollCounts.get(item.osu_id) || { unique: 0, copies: 0 };
+            prev.unique += 1;
+            prev.copies += item.copies || 1;
+            userCollCounts.set(item.osu_id, prev);
+          }
+        }
+      }
+
+      const topUsers = (users || [])
+        .map((u) => {
+          const cStats = userCollCounts.get(u.osu_id) || { unique: 0, copies: 0 };
+          const safePulls = Math.max(u.total_pulls || 0, cStats.copies, cStats.unique);
+          return {
+            osuId: u.osu_id,
+            username: u.username,
+            avatarUrl: u.avatar_url,
+            globalRank: u.global_rank,
+            totalPulls: safePulls,
+            uniqueCards: cStats.unique,
+            lastLogin: u.last_login,
+          };
+        })
+        .sort((a, b) => b.totalPulls - a.totalPulls);
+
+      const recentLogins = [...(users || [])]
+        .sort((a, b) => new Date(b.last_login || 0).getTime() - new Date(a.last_login || 0).getTime())
+        .slice(0, 10)
+        .map((u) => {
+          const cStats = userCollCounts.get(u.osu_id) || { unique: 0, copies: 0 };
+          return {
+            osuId: u.osu_id,
+            username: u.username,
+            avatarUrl: u.avatar_url,
+            lastLogin: u.last_login,
+            totalPulls: Math.max(u.total_pulls || 0, cStats.copies, cStats.unique),
+          };
+        });
+
+      setStats({
+        totalUsers: totalUsers || 0,
+        totalSessions: totalSessions || 0,
+        totalCollectionRecords: totalCollectionRecords || 0,
+        totalHistoryRecords: totalHistoryRecords || 0,
+        topUsers,
+        recentLogins,
+      });
+    } catch (e: any) {
       setStatsError(e instanceof Error ? e.message : 'Failed to load stats');
     } finally {
       setStatsLoading(false);
     }
-  }, [api]);
+  }, []);
 
   // ─── Maintenance & Server Handlers ───────────────────────────
   const loadMaintenanceConfig = useCallback(async () => {
@@ -359,109 +423,181 @@ const AdminPage: React.FC = () => {
     }
   }, [activeTab, fetchStats, loadMaintenanceConfig]);
 
-  // ─── User Management ─────────────────────────────────────────
-  const fetchUserColl = useCallback(async (osuId:number) => {
-    setUserCollLoading(true);
-    try {
-      const d = await api('GET',`/admin/user/${osuId}/collection`);
-      setUserColl(d.collection as UserCollCard[]);
-      setSelectedUsername(d.username as string || String(osuId));
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed to load collection', false);
-    } finally {
-      setUserCollLoading(false);
-    }
-  }, [api]);
+  // ─── Direct Supabase User Management ────────────────────────
+  const fetchUserColl = useCallback(
+    async (osuId: number) => {
+      setUserCollLoading(true);
+      try {
+        const { data: uData } = await supabase.from('users').select('username').eq('osu_id', osuId).maybeSingle();
+        setSelectedUsername(uData?.username || String(osuId));
 
-  const handleSetPulls = async (osuId:number) => {
+        const { count } = await supabase
+          .from('user_collection')
+          .select('*', { count: 'exact', head: true })
+          .eq('osu_id', osuId);
+
+        const totalPages = Math.max(1, Math.ceil((count || 0) / 1000));
+        const pagePromises = [];
+        for (let p = 0; p < totalPages; p++) {
+          pagePromises.push(
+            supabase
+              .from('user_collection')
+              .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
+              .eq('osu_id', osuId)
+              .range(p * 1000, (p + 1) * 1000 - 1)
+          );
+        }
+
+        const results = await Promise.all(pagePromises);
+        const cards: UserCollCard[] = [];
+        for (const res of results) {
+          if (res.data) {
+            for (const c of res.data) {
+              const map = poolMap.get(c.beatmap_id);
+              cards.push({
+                beatmapId: c.beatmap_id,
+                title: map?.title || `Beatmap #${c.beatmap_id}`,
+                artist: map?.artist || 'Unknown Artist',
+                version: map?.version || 'Normal',
+                stars: map?.stars || 0,
+                rarity: map?.rarity || 'Common',
+                copies: c.copies,
+                firstPulledAt: c.first_pulled_at,
+                lastPulledAt: c.last_pulled_at,
+                isFavorite: c.is_favorite,
+              });
+            }
+          }
+        }
+
+        setUserColl(cards);
+      } catch (e: any) {
+        showMsg(e.message || 'Failed to load collection', false);
+      } finally {
+        setUserCollLoading(false);
+      }
+    },
+    [poolMap]
+  );
+
+  const handleSetPulls = async (osuId: number) => {
     if (!pullsInput) return;
     setActionLoading(true);
     try {
-      const body = pullsMode === 'set' ? {pulls: Number(pullsInput)} : {delta: Number(pullsInput)};
-      const d = await api('POST',`/admin/user/${osuId}/set-pulls`, body);
-      showMsg(`✓ ${selectedUsername}'s total pulls updated to ${(d as any).totalPulls}`);
+      let newPulls = Number(pullsInput);
+      if (pullsMode === 'add') {
+        const { data: curr } = await supabase.from('users').select('total_pulls').eq('osu_id', osuId).maybeSingle();
+        newPulls = (curr?.total_pulls || 0) + Number(pullsInput);
+      }
+      await supabase.from('users').update({ total_pulls: newPulls }).eq('osu_id', osuId);
+      showMsg(`✓ ${selectedUsername}'s total pulls updated to ${newPulls}`);
       fetchStats();
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to update pulls', false);
     } finally {
       setActionLoading(false);
       setPullsInput('');
     }
   };
 
-  const handleEnergyOverride = async (osuId:number) => {
+  const handleEnergyOverride = async (osuId: number) => {
     const amount = Number(energyInput);
     if (!amount || amount < 1) return;
     setActionLoading(true);
     try {
       if (osuId === user?.osuId) await adminRefillEnergy(amount);
-      await api('POST',`/admin/user/${osuId}/energy-override`, {amount});
+      await supabase.from('user_energy_overrides').upsert({
+        osu_id: osuId,
+        energy_amount: amount,
+      });
       showMsg(`⚡ Energy override of ${amount} queued for ${selectedUsername}`);
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to set energy override', false);
     } finally {
       setActionLoading(false);
     }
   };
 
-  const handleAddCard = async (osuId:number) => {
+  const handleAddCard = async (osuId: number) => {
     const bid = Number(addCardId || addCardSearch);
     if (!bid) return;
     setActionLoading(true);
     try {
-      await api('POST',`/admin/user/${osuId}/collection/add`, {
-        beatmapId: bid,
-        copies: Number(addCardCopies) || 1,
-        rarity: addCardRarity,
+      const now = Date.now();
+      const copiesToAdd = Number(addCardCopies) || 1;
+      const { data: existing } = await supabase
+        .from('user_collection')
+        .select('copies, first_pulled_at')
+        .eq('osu_id', osuId)
+        .eq('beatmap_id', bid)
+        .maybeSingle();
+
+      const newCopies = (existing?.copies || 0) + copiesToAdd;
+      await supabase.from('user_collection').upsert({
+        osu_id: osuId,
+        beatmap_id: bid,
+        copies: newCopies,
+        first_pulled_at: existing?.first_pulled_at || now,
+        last_pulled_at: now,
+        is_favorite: false,
       });
-      showMsg(`✓ Added beatmap #${bid} (×${addCardCopies}) to ${selectedUsername}`);
+
+      showMsg(`✓ Added beatmap #${bid} (×${copiesToAdd}) to ${selectedUsername}`);
       fetchUserColl(osuId);
       setAddCardId('');
       setAddCardSearch('');
       setAddCardCopies('1');
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to add card', false);
     } finally {
       setActionLoading(false);
     }
   };
 
-  const handleEditCard = async (osuId:number, beatmapId:number, copies:number) => {
+  const handleEditCard = async (osuId: number, beatmapId: number, copies: number) => {
     setActionLoading(true);
     try {
-      await api('PUT',`/admin/user/${osuId}/collection/${beatmapId}`, {copies});
+      await supabase
+        .from('user_collection')
+        .update({ copies })
+        .eq('osu_id', osuId)
+        .eq('beatmap_id', beatmapId);
       showMsg(`✓ Updated copies for beatmap #${beatmapId}`);
       fetchUserColl(osuId);
       setEditingCard(null);
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to edit card copies', false);
     } finally {
       setActionLoading(false);
     }
   };
 
-  const handleDeleteCard = async (osuId:number, beatmapId:number) => {
+  const handleDeleteCard = async (osuId: number, beatmapId: number) => {
     if (!confirm(`Remove beatmap #${beatmapId} from ${selectedUsername}?`)) return;
     setActionLoading(true);
     try {
-      await api('DELETE',`/admin/user/${osuId}/collection/${beatmapId}`, {});
+      await supabase
+        .from('user_collection')
+        .delete()
+        .eq('osu_id', osuId)
+        .eq('beatmap_id', beatmapId);
       showMsg(`✓ Removed beatmap #${beatmapId}`);
       fetchUserColl(osuId);
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to delete card', false);
     } finally {
       setActionLoading(false);
     }
   };
 
-  const handleRevokeSession = async (osuId:number) => {
+  const handleRevokeSession = async (osuId: number) => {
     setActionLoading(true);
     try {
-      await api('POST',`/admin/user/${osuId}/revoke-sessions`, {});
+      await supabase.from('user_sessions').delete().eq('osu_id', osuId);
       showMsg(`✓ All active sessions revoked for user ${osuId}`);
       fetchStats();
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to revoke sessions', false);
     } finally {
       setActionLoading(false);
     }
@@ -540,19 +676,29 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  // ─── Database Inspector ─────────────────────────────────────
+  // ─── Direct Supabase Database Inspector ───────────────────
   const fetchTableData = useCallback(async (table: string, offset = 0) => {
     setTableLoading(true);
     try {
-      const res = await api('GET', `/admin/table?name=${table}&limit=50&offset=${offset}`);
-      setTableData(res as any);
+      const { data, count, error } = await supabase
+        .from(table)
+        .select('*', { count: 'exact' })
+        .range(offset, offset + 49);
+
+      if (error) throw error;
+      setTableData({
+        rows: (data as Record<string, unknown>[]) || [],
+        total: count || 0,
+        limit: 50,
+        offset,
+      });
       setTableOffset(offset);
-    } catch (e) {
-      showMsg(e instanceof Error ? e.message : 'Failed to load table data', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to load table data', false);
     } finally {
       setTableLoading(false);
     }
-  }, [api]);
+  }, []);
 
   useEffect(() => {
     if (activeTab === 'inspector') {
@@ -560,26 +706,31 @@ const AdminPage: React.FC = () => {
     }
   }, [activeTab, selectedTable, fetchTableData]);
 
-  // ─── Config & Rates ─────────────────────────────────────────
+  // ─── Direct Supabase Config & Rates ─────────────────────────
   const fetchConfig = useCallback(async () => {
     setActionLoading(true);
     try {
-      const d = await api('GET','/admin/config');
-      const cfg = d.config as Record<string,unknown>;
-      if (cfg.rates) setConfigRates(cfg.rates as RarityRates);
-      if (cfg.stamina) setConfigStamina(cfg.stamina as {max:number;regenSeconds:number});
-    } catch {} finally {
+      const { data } = await supabase.from('admin_config').select('key, value');
+      if (data) {
+        for (const item of data) {
+          if (item.key === 'rates' && item.value) setConfigRates(item.value as RarityRates);
+          if (item.key === 'stamina' && item.value) setConfigStamina(item.value as { max: number; regenSeconds: number });
+        }
+      }
+    } catch {
+      // ignore
+    } finally {
       setActionLoading(false);
     }
-  }, [api]);
+  }, []);
 
   useEffect(() => {
     if (activeTab === 'config') fetchConfig();
   }, [activeTab, fetchConfig]);
 
   useEffect(() => {
-    const sum = RARITY_ORDER.reduce((a,t) => a + (configRates[t]||0), 0);
-    setRatesTotal(Math.round(sum*10000)/10000);
+    const sum = RARITY_ORDER.reduce((a, t) => a + (configRates[t] || 0), 0);
+    setRatesTotal(Math.round(sum * 10000) / 10000);
   }, [configRates]);
 
   const handleSaveRates = async () => {
@@ -589,10 +740,14 @@ const AdminPage: React.FC = () => {
     }
     setActionLoading(true);
     try {
-      await api('PUT','/admin/config/rates', configRates);
-      showMsg('✓ Rates saved — will apply across the app');
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+      await supabase.from('admin_config').upsert({
+        key: 'rates',
+        value: configRates,
+        updated_at: new Date().toISOString(),
+      });
+      showMsg('✓ Rates saved to Supabase — active across the entire app');
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to save rates', false);
     } finally {
       setActionLoading(false);
     }
@@ -601,10 +756,14 @@ const AdminPage: React.FC = () => {
   const handleSaveStamina = async () => {
     setActionLoading(true);
     try {
-      await api('PUT','/admin/config/stamina', configStamina);
-      showMsg('✓ Stamina config saved to cloud');
-    } catch(e) {
-      showMsg(e instanceof Error ? e.message : 'Failed', false);
+      await supabase.from('admin_config').upsert({
+        key: 'stamina',
+        value: configStamina,
+        updated_at: new Date().toISOString(),
+      });
+      showMsg('✓ Stamina config saved to Supabase');
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to save stamina', false);
     } finally {
       setActionLoading(false);
     }
