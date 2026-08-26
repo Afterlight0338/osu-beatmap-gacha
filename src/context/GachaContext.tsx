@@ -248,7 +248,9 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         colMap.set(rec.beatmapId, rec);
       }
       setCollectionMap(colMap);
-      setTotalPulls(savedPulls);
+      const localTotalCopies = savedRecords.reduce((acc, c) => acc + (c.copies || 1), 0);
+      const effectiveTotalPulls = Math.max(savedPulls || 0, localTotalCopies, savedRecords.length);
+      setTotalPulls(effectiveTotalPulls);
       setPityCount(savedPity);
 
       const mapLookup = new Map<number, Beatmap>(loaderRes.maps.map((m: Beatmap) => [m.id, m]));
@@ -875,14 +877,16 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     const uniqueOwned = collectionRecords.length;
+    const calculatedTotalCopies = collectionRecords.reduce((acc, c) => acc + (c.copies || 1), 0);
+    const effectiveTotalPulls = Math.max(totalPulls || 0, calculatedTotalCopies, uniqueOwned);
     const totalInPool = pool.length;
     const completionPercentage = totalInPool > 0 ? parseFloat(((uniqueOwned / totalInPool) * 100).toFixed(2)) : 0;
     const averageStarRating = uniqueOwned > 0 ? parseFloat((totalStars / uniqueOwned).toFixed(2)) : 0;
 
     return {
-      totalPulls,
+      totalPulls: effectiveTotalPulls,
       uniqueOwned,
-      totalCopies,
+      totalCopies: calculatedTotalCopies,
       totalInPool,
       completionPercentage,
       averageStarRating,
