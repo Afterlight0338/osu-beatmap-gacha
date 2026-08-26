@@ -506,3 +506,84 @@ export async function getPendingSyncCount(): Promise<number> {
   return db.count('pendingSync');
 }
 
+/**
+ * Atomically merges authoritative cloud data into local IndexedDB.
+ * Uses maximum copies, earliest firstPulledAt, latest lastPulledAt, and preserves favorite markers.
+ */
+export async function bulkMergeCollectionFromCloud(
+  cloudCollection: {
+    beatmapId: number;
+    copies: number;
+    firstPulledAt: number;
+    lastPulledAt: number;
+    isFavorite: boolean;
+  }[],
+  cloudTotalPulls?: number,
+  cloudPityCount?: number,
+  cloudHistory?: {
+    id: string;
+    beatmapId: number;
+    rarity: string;
+    pulledAt: number;
+  }[]
+): Promise<CollectionRecord[]> {
+  const db = await getDB();
+  const tx = db.transaction(['collection', 'history', 'meta'], 'readwrite');
+  const colStore = tx.objectStore('collection');
+  const histStore = tx.objectStore('history');
+  const metaStore = tx.objectStore('meta');
+
+  // Update total pulls
+  if (typeof cloudTotalPulls === 'number') {
+    const localTotal = (await metaStore.get('totalPulls')) || 0;
+    await metaStore.put(Math.max(localTotal, cloudTotalPulls), 'totalPulls');
+  }
+
+  // Update pity count
+  if (typeof cloudPityCount === 'number') {
+    await metaStore.put(cloudPityCount, 'pityCount');
+  }
+
+  // Union-merge collection records
+  for (const cloudItem of cloudCollection) {
+    const existing = await colStore.get(cloudItem.beatmapId);
+    if (existing) {
+      await colStore.put({
+        beatmapId: cloudItem.beatmapId,
+        copies: Math.max(existing.copies, cloudItem.copies),
+        firstPulledAt: Math.min(existing.firstPulledAt, cloudItem.firstPulledAt || existing.firstPulledAt),
+        lastPulledAt: Math.max(existing.lastPulledAt, cloudItem.lastPulledAt || existing.lastPulledAt),
+        isFavorite: Boolean(existing.isFavorite || cloudItem.isFavorite),
+      });
+    } else {
+      await colStore.put({
+        beatmapId: cloudItem.beatmapId,
+        copies: cloudItem.copies,
+        firstPulledAt: cloudItem.firstPulledAt || Date.now(),
+        lastPulledAt: cloudItem.lastPulledAt || Date.now(),
+        isFavorite: Boolean(cloudItem.isFavorite),
+      });
+    }
+  }
+
+  // Merge history
+  if (cloudHistory && Array.isArray(cloudHistory)) {
+    for (const h of cloudHistory) {
+      const histExists = await histStore.get(h.id);
+      if (!histExists) {
+        await histStore.put({
+          id: h.id,
+          beatmapId: h.beatmapId,
+          rarity: h.rarity,
+          isNew: false,
+          pulledAt: h.pulledAt,
+        });
+      }
+    }
+  }
+
+  await tx.done;
+
+  return db.getAll('collection');
+}
+
