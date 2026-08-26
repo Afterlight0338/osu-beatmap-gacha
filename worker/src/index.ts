@@ -563,12 +563,14 @@ export default {
 
         if (typeof payload.totalPulls === 'number' || typeof payload.pityCount === 'number') {
           const updateData: Record<string, unknown> = {};
-          if (typeof payload.totalPulls === 'number') updateData.total_pulls = payload.totalPulls;
+          if (typeof payload.totalPulls === 'number' && payload.totalPulls > 0) updateData.total_pulls = payload.totalPulls;
           if (typeof payload.pityCount === 'number') updateData.pity_count = payload.pityCount;
-          supabaseFetch(env, `users?osu_id=eq.${auth.osuId}`, {
-            method: 'PATCH',
-            body: JSON.stringify(updateData),
-          }).catch(err => console.warn('Supabase user stats update error:', err));
+          if (Object.keys(updateData).length > 0) {
+            supabaseFetch(env, `users?osu_id=eq.${auth.osuId}`, {
+              method: 'PATCH',
+              body: JSON.stringify(updateData),
+            }).catch(err => console.warn('Supabase user stats update error:', err));
+          }
         }
 
         // Return updated stats

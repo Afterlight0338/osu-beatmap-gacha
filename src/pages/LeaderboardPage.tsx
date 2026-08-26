@@ -44,14 +44,24 @@ export const LeaderboardPage: React.FC = () => {
   const loadLeaderboardData = async () => {
     setIsLoading(true);
     try {
-      // PostgREST limits single requests to 1000 rows. Fetch collection in parallel chunks.
-      const rangeChunks = [
-        [0, 999], [1000, 1999], [2000, 2999], [3000, 3999],
-        [4000, 4999], [5000, 5999], [6000, 6999], [7000, 7999],
-        [8000, 8999], [9000, 9999], [10000, 10999], [11000, 11999],
-        [12000, 12999], [13000, 13999], [14000, 14999], [15000, 15999],
-        [16000, 16999], [17000, 17999], [18000, 19999]
-      ];
+      // 1. Get exact total collection rows count to fetch all pages dynamically
+      const countRes = await supabase
+        .from('user_collection')
+        .select('*', { count: 'exact', head: true });
+
+      const totalCollectionRows = countRes.count || 0;
+      const pageSize = 1000;
+      const totalPages = Math.max(1, Math.ceil(totalCollectionRows / pageSize));
+
+      const chunkPromises = [];
+      for (let i = 0; i < totalPages; i++) {
+        chunkPromises.push(
+          supabase
+            .from('user_collection')
+            .select('osu_id, beatmap_id, copies, is_favorite')
+            .range(i * pageSize, (i + 1) * pageSize - 1)
+        );
+      }
 
       const [usersRes, ...chunkResponses] = await Promise.all([
         supabase
@@ -59,12 +69,7 @@ export const LeaderboardPage: React.FC = () => {
           .select('osu_id, username, avatar_url, country_code, global_rank, total_pulls, last_login')
           .eq('is_banned', false)
           .order('total_pulls', { ascending: false }),
-        ...rangeChunks.map(([from, to]) =>
-          supabase
-            .from('user_collection')
-            .select('osu_id, beatmap_id, copies, is_favorite')
-            .range(from, to)
-        ),
+        ...chunkPromises,
       ]);
 
       if (usersRes.data) {
@@ -92,16 +97,25 @@ export const LeaderboardPage: React.FC = () => {
             const weight = RARITY_WEIGHTS[map.rarity] || 2;
             rareScore += weight * Math.min(item.copies, 5);
 
-            if (!rarest || compareRarities(map.rarity, rarest.rarity) > 0 || (compareRarities(map.rarity, rarest.rarity) === 0 && map.stars > rarest.stars)) {
+            if (
+              !rarest ||
+              compareRarities(map.rarity, rarest.rarity) > 0 ||
+              (compareRarities(map.rarity, rarest.rarity) === 0 && map.stars > rarest.stars)
+            ) {
               rarest = map;
             }
           }
+
+          // Self-heal pull count: pull count cannot be less than total collection copies
+          const totalCopiesFromCards = userCards.reduce((acc, c) => acc + (c.copies || 1), 0);
+          const safeTotalPulls = Math.max(u.total_pulls || 0, totalCopiesFromCards, userCards.length);
 
           // Add unique count bonus
           rareScore += userCards.length * 10;
 
           return {
             ...u,
+            total_pulls: safeTotalPulls,
             uniqueOwned: userCards.length,
             rareScore,
             rarestBeatmap: rarest,
