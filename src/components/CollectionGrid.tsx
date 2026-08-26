@@ -63,8 +63,8 @@ export const CollectionGrid: React.FC<CollectionGridProps> = ({
 
   return (
     <div className="w-full space-y-6">
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* Cards Grid (2-columns on mobile, responsive) */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {paginatedItems.map(({ beatmap, record, isOwned }) => (
           <BeatmapCard
             key={beatmap.id}

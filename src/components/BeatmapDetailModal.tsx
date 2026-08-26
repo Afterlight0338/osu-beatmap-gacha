@@ -94,10 +94,15 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-2xl rounded-2xl bg-[#141420] border border-slate-700 shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="relative w-full max-w-2xl rounded-t-3xl sm:rounded-2xl bg-[#141420] border-t sm:border border-slate-700 shadow-2xl overflow-hidden max-h-[92vh] overflow-y-auto my-0 sm:my-8 animate-slide-up sm:animate-scale-up">
+        {/* Mobile Drag Indicator */}
+        <div className="sm:hidden flex justify-center pt-2 pb-1 bg-[#141420]">
+          <div className="w-10 h-1 rounded-full bg-slate-600/80" />
+        </div>
+
         {/* Cover Header Banner */}
-        <div className="relative w-full h-48 md:h-60 bg-slate-950 overflow-hidden">
+        <div className="relative w-full h-44 sm:h-48 md:h-60 bg-slate-950 overflow-hidden">
           <BeatmapCoverImage
             beatmap={beatmap}
             alt={beatmap.title}
