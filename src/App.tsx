@@ -20,6 +20,7 @@ import { EventAura } from './components/EventAura';
 import { LegalModal, LegalTabType } from './components/LegalModal';
 import { StartScreenModal } from './components/StartScreenModal';
 import { UltraRareMarquee } from './components/UltraRareMarquee';
+import { BountiesModal } from './components/BountiesModal';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
@@ -37,6 +38,7 @@ const MainApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
+  const [isBountiesOpen, setIsBountiesOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
   const [adminBypassed, setAdminBypassed] = useState<boolean>(() => {
@@ -242,6 +244,7 @@ const MainApp: React.FC = () => {
         setActiveTab={setActiveTab}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenHistory={() => setIsHistoryOpen(true)}
+        onOpenBounties={() => setIsBountiesOpen(true)}
       />
 
       {/* Global Ultra-Rare Lucky Drops Marquee (EX Special / GOAT / Divine) */}
@@ -380,6 +383,12 @@ const MainApp: React.FC = () => {
         isOpen={legalModalTab !== null}
         initialTab={legalModalTab}
         onClose={() => setLegalModalTab(null)}
+      />
+
+      {/* osu! Beatmap Bounties & Score Verification Modal */}
+      <BountiesModal
+        isOpen={isBountiesOpen}
+        onClose={() => setIsBountiesOpen(false)}
       />
 
       {/* First-Time User Onboarding & Start Screen */}

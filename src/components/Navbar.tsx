@@ -21,6 +21,7 @@ import {
   Trophy,
   Calculator,
   Bell,
+  Target,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -28,6 +29,7 @@ interface NavbarProps {
   setActiveTab: (tab: 'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin') => void;
   onOpenSettings: () => void;
   onOpenHistory: () => void;
+  onOpenBounties?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -35,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   onOpenSettings,
   onOpenHistory,
+  onOpenBounties,
 }) => {
   const { stats, settings, updateSettings, pool, energy, totalEnergy, addBonusEnergy, activeEvent, forceCloudSync } = useGacha();
   const { user } = useAuth();
@@ -197,6 +200,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-pink-400 text-[10px] font-bold">+{energy.bonus}B</span>
             )}
           </div>
+
+          {/* Bounties System Button */}
+          <button
+            onClick={() => {
+              sfx.playClick();
+              if (onOpenBounties) onOpenBounties();
+            }}
+            title="osu! Beatmap Bounties — Verify scores for +50 Stamina!"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-300 hover:text-cyan-100 border border-cyan-500/40 shadow-sm shadow-cyan-950/40 font-mono text-xs font-bold transition-all flex-shrink-0"
+          >
+            <Target className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <span className="hidden sm:inline">Bounties</span>
+            <span className="text-[10px] text-cyan-400 font-extrabold">+50⚡</span>
+          </button>
 
           {/* Math Quiz Bonus Stamina Button (hidden on mobile, accessible via stamina pill) */}
           <button

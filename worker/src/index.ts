@@ -317,6 +317,61 @@ export default {
       }
 
       // ---------------------------------------------------------
+      // 3.5 GET /api/score -> Fetch and Parse osu! Score Details
+      // ---------------------------------------------------------
+      if (path.startsWith('/api/score')) {
+        const scoreId = url.searchParams.get('id') || path.replace('/api/score/', '').replace('/api/score', '').trim();
+        if (!scoreId) {
+          return errorResponse('Score ID or score URL is required.', 400, request, env);
+        }
+
+        try {
+          const osuRes = await fetch(`https://osu.ppy.sh/scores/${scoreId}`, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            },
+          });
+
+          if (!osuRes.ok) {
+            return errorResponse(`Could not find score #${scoreId} on osu! (HTTP ${osuRes.status})`, osuRes.status === 404 ? 404 : 502, request, env);
+          }
+
+          const html = await osuRes.text();
+          const match = html.match(/<script id="json-show" type="application\/json">\s*(\{[\s\S]*?\})\s*<\/script>/);
+          if (!match || !match[1]) {
+            return errorResponse('Failed to extract score JSON payload from osu! website.', 502, request, env);
+          }
+
+          const data = JSON.parse(match[1]);
+          const score = {
+            id: data.id,
+            userId: data.user_id,
+            username: data.user?.username || '',
+            avatarUrl: data.user?.avatar_url || '',
+            beatmapId: data.beatmap_id,
+            beatmapTitle: data.beatmapset?.title || '',
+            beatmapArtist: data.beatmapset?.artist || '',
+            beatmapVersion: data.beatmap?.version || '',
+            stars: data.beatmap?.difficulty_rating || 0,
+            rank: data.rank,
+            passed: !!data.passed,
+            accuracy: Math.round((data.accuracy || 0) * 10000) / 100,
+            maxCombo: data.max_combo || 0,
+            totalScore: data.total_score || 0,
+            pp: data.pp || 0,
+            mods: (data.mods || []).map((m: any) => (typeof m === 'string' ? m : m.acronym || '')).filter(Boolean),
+            statistics: data.statistics || {},
+            endedAt: data.ended_at ? new Date(data.ended_at).getTime() : Date.now(),
+            startedAt: data.started_at ? new Date(data.started_at).getTime() : null,
+          };
+
+          return jsonResponse({ success: true, score }, 200, request, env);
+        } catch (e: any) {
+          return errorResponse(`Failed to process score: ${e.message}`, 500, request, env);
+        }
+      }
+
+      // ---------------------------------------------------------
       // 4. GET /api/me -> Fetch Current Authenticated User Profile
       // ---------------------------------------------------------
       if (path === '/api/me' && request.method === 'GET') {
