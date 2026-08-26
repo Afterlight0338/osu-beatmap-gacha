@@ -8,7 +8,8 @@ export type RarityTier =
   | 'Mythic'
   | 'Celestial'
   | 'Divine'
-  | 'GOAT';
+  | 'GOAT'
+  | 'EX';
 
 export type BeatmapStatus = 'ranked' | 'approved' | 'qualified' | 'loved' | 'unranked';
 
@@ -41,6 +42,7 @@ export interface Beatmap {
   rarity: RarityTier;
   popularityScore: number;
   mode?: number; // 0 = osu!standard
+  exReason?: string; // Reason / story why this card is in the EX tier
 }
 
 export interface DatasetInfo {

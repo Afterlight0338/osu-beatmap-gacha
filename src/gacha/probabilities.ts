@@ -17,7 +17,7 @@ import { RARITY_ORDER } from './rarity';
  * Sum: Exactly 100.0%
  */
 export const DEFAULT_RARITY_RATES: RarityRates = {
-  Common: 0.3084,    // 30.84%
+  Common: 0.3080,    // 30.80%
   Uncommon: 0.2900,  // 29.00%
   'Uncommon+': 0.2600, // 26.00%
   Rare: 0.1000,      // 10.00%
@@ -27,13 +27,14 @@ export const DEFAULT_RARITY_RATES: RarityRates = {
   Celestial: 0.0010, // 0.10%
   Divine: 0.0005,    // 0.05%
   GOAT: 0.0001,      // 0.01%
+  EX: 0.0004,        // 0.04%
 };
 
 /**
  * 100-Pull Pity System:
  * - Pulls 0-79: Standard Base Rates
  * - Pulls 80-99 (Soft Pity): Ramping up Legendary or higher probability on each pull
- * - Pull 100 (Hard Pity): 100% Guaranteed Legendary or higher (Legendary, Mythic, Celestial, Divine, GOAT)
+ * - Pull 100 (Hard Pity): 100% Guaranteed Legendary or higher (Legendary, Mythic, Celestial, Divine, GOAT, EX)
  */
 export function getPityRates(pityCount: number, baseRates: RarityRates = DEFAULT_RARITY_RATES): RarityRates {
   // Hard pity at 100 pulls (pityCount >= 99 when 0-indexed)
@@ -44,11 +45,12 @@ export function getPityRates(pityCount: number, baseRates: RarityRates = DEFAULT
       'Uncommon+': 0,
       Rare: 0,
       Epic: 0,
-      Legendary: 0.6465,
-      Mythic: 0.2155,
-      Celestial: 0.0862,
-      Divine: 0.0431,
-      GOAT: 0.0087,
+      Legendary: 0.6300,
+      Mythic: 0.2100,
+      Celestial: 0.0850,
+      Divine: 0.0450,
+      GOAT: 0.0100,
+      EX: 0.0200,
     };
   }
 
@@ -62,23 +64,29 @@ export function getPityRates(pityCount: number, baseRates: RarityRates = DEFAULT
   const extraLegendaryPlus = Math.min(0.95, steps * 0.0475);
 
   const baseLegendaryPlus =
-    baseRates.Legendary + baseRates.Mythic + baseRates.Celestial + baseRates.Divine + baseRates.GOAT;
+    (baseRates.Legendary || 0) +
+    (baseRates.Mythic || 0) +
+    (baseRates.Celestial || 0) +
+    (baseRates.Divine || 0) +
+    (baseRates.GOAT || 0) +
+    (baseRates.EX || 0);
   const newLegendaryPlus = Math.min(0.999, baseLegendaryPlus + extraLegendaryPlus);
 
   const scaleFactor = Math.max(0, (1 - newLegendaryPlus) / (1 - baseLegendaryPlus));
   const boostFactor = newLegendaryPlus / baseLegendaryPlus;
 
   return {
-    Common: baseRates.Common * scaleFactor,
-    Uncommon: baseRates.Uncommon * scaleFactor,
-    'Uncommon+': baseRates['Uncommon+'] * scaleFactor,
-    Rare: baseRates.Rare * scaleFactor,
-    Epic: baseRates.Epic * scaleFactor,
-    Legendary: baseRates.Legendary * boostFactor,
-    Mythic: baseRates.Mythic * boostFactor,
-    Celestial: baseRates.Celestial * boostFactor,
-    Divine: baseRates.Divine * boostFactor,
-    GOAT: baseRates.GOAT * boostFactor,
+    Common: (baseRates.Common || 0) * scaleFactor,
+    Uncommon: (baseRates.Uncommon || 0) * scaleFactor,
+    'Uncommon+': (baseRates['Uncommon+'] || 0) * scaleFactor,
+    Rare: (baseRates.Rare || 0) * scaleFactor,
+    Epic: (baseRates.Epic || 0) * scaleFactor,
+    Legendary: (baseRates.Legendary || 0) * boostFactor,
+    Mythic: (baseRates.Mythic || 0) * boostFactor,
+    Celestial: (baseRates.Celestial || 0) * boostFactor,
+    Divine: (baseRates.Divine || 0) * boostFactor,
+    GOAT: (baseRates.GOAT || 0) * boostFactor,
+    EX: (baseRates.EX || 0) * boostFactor,
   };
 }
 

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 const RARITY_WEIGHTS: Record<string, number> = {
+  EX: 150000,
   GOAT: 100000,
   Divine: 40000,
   Celestial: 15000,

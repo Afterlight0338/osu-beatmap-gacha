@@ -49,7 +49,14 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   // Trigger confetti for high rarities
   const triggerCelebration = useCallback((rarity: RarityTier) => {
-    if (rarity === 'GOAT') {
+    if (rarity === 'EX') {
+      confetti({
+        particleCount: 300,
+        spread: 180,
+        origin: { y: 0.55 },
+        colors: ['#c084fc', '#f43f5e', '#ffd700', '#38bdf8', '#ffffff', '#a855f7'],
+      });
+    } else if (rarity === 'GOAT') {
       confetti({
         particleCount: 260,
         spread: 160,
@@ -369,6 +376,17 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           {/* High Rarity Anticipation Charged Orb (shown before card turns for Legendary+) */}
           {isAnticipating ? (
             <div className="relative flex flex-col items-center justify-center py-10 space-y-6 animate-scale-up w-full">
+              {/* EX: Cosmic Purple God Aura & Singularity */}
+              {currentRarity === 'EX' && (
+                <div className="relative flex items-center justify-center">
+                  <div className="w-64 h-64 rounded-full border-4 border-dashed border-purple-400 animate-vortex-fast opacity-90" />
+                  <div className="absolute w-48 h-48 rounded-full blur-2xl bg-gradient-to-r from-purple-600 via-pink-500 to-amber-300 animate-pulse-glow" />
+                  <div className="absolute w-28 h-28 rounded-full bg-gradient-to-tr from-purple-950 via-slate-900 to-black border-2 border-purple-300 shadow-[0_0_50px_#a855f7] flex items-center justify-center animate-bounce">
+                    <Crown className="w-14 h-14 text-purple-300 animate-pulse" />
+                  </div>
+                </div>
+              )}
+
               {/* GOAT: Rainbow Supernova Singularity */}
               {currentRarity === 'GOAT' && (
                 <div className="relative flex items-center justify-center">
@@ -484,6 +502,19 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
                   />
                 </div>
               </div>
+
+              {/* EX Handpicked Lore Note */}
+              {(currentPull.beatmap.rarity === 'EX' || currentPull.beatmap.exReason) && (
+                <div className="w-full max-w-xs p-3 rounded-xl bg-purple-950/80 border border-purple-400/60 text-center space-y-1 animate-fade-in shadow-lg">
+                  <div className="flex items-center justify-center space-x-1 text-purple-300 text-xs font-bold font-mono">
+                    <Crown className="w-3.5 h-3.5 animate-pulse text-amber-400" />
+                    <span>Admin Handpicked EX Tier</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 font-sans italic">
+                    "{currentPull.beatmap.exReason || 'Special historic masterpiece handpicked for the EX tier.'}"
+                  </p>
+                </div>
+              )}
 
               {/* Next / Continue Action */}
               <button

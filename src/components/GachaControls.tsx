@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useGacha } from '../context/GachaContext';
 import { sfx } from '../audio/sfx';
-import { DEFAULT_RARITY_RATES } from '../gacha/probabilities';
 import { RARITY_ORDER, RARITY_CONFIGS } from '../gacha/rarity';
 import { Sparkles, Zap, Info, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -11,7 +10,7 @@ interface GachaControlsProps {
 }
 
 export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling }) => {
-  const { settings, updateSettings, energy, totalEnergy, countdownSeconds, timeToFullFormatted, pityCount } = useGacha();
+  const { settings, updateSettings, energy, totalEnergy, countdownSeconds, timeToFullFormatted, pityCount, currentRates, activeEvent } = useGacha();
   const [showRates, setShowRates] = useState<boolean>(false);
 
   const handlePullClick = (count: number) => {
@@ -211,21 +210,29 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
       {showRates && (
         <div className="w-full max-w-xl p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3 animate-fade-in text-xs">
           <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <span className="font-bold text-slate-200">10-Tier Base Probabilities</span>
-            <span className="font-mono text-cyan-400">100-Pull Legendary+ Pity</span>
+            <div className="flex items-center space-x-2">
+              <span className="font-bold text-slate-200">11-Tier Active Drop Rates</span>
+              {activeEvent && activeEvent.active && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-500/40 animate-pulse font-bold">
+                  {activeEvent.rateMultiplier}x BOOST EVENT
+                </span>
+              )}
+            </div>
+            <span className="font-mono text-cyan-400">100-Pull Pity System</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2">
             {RARITY_ORDER.slice().reverse().map((tier) => {
               const config = RARITY_CONFIGS[tier];
-              const pct = DEFAULT_RARITY_RATES[tier] * 100;
-              const rateStr = pct < 0.1 ? pct.toFixed(2) : pct < 1 ? pct.toFixed(2) : pct.toFixed(1);
+              const pct = (currentRates[tier] || 0) * 100;
+              const rateStr = pct < 0.01 ? pct.toFixed(3) : pct < 0.1 ? pct.toFixed(2) : pct < 1 ? pct.toFixed(2) : pct.toFixed(1);
               return (
                 <div
                   key={tier}
                   className="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80 flex flex-col justify-between"
                 >
                   <span className="font-bold truncate flex items-center space-x-1 text-[11px]" style={{ color: config.color }}>
+                    {tier === 'EX' && <span>💎</span>}
                     {tier === 'GOAT' && <span>🐐</span>}
                     <span>{tier}</span>
                   </span>

@@ -110,6 +110,7 @@ function generateInfoFromMaps(maps: Beatmap[]): DatasetInfo {
     Celestial: 0,
     Divine: 0,
     GOAT: 0,
+    EX: 0,
   };
 
   maps.forEach((m) => {

@@ -25,6 +25,7 @@ export const RARITY_ORDER: RarityTier[] = [
   'Celestial',
   'Divine',
   'GOAT',
+  'EX',
 ];
 
 export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
@@ -157,6 +158,19 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     percentileThreshold: 0.0,
     pullProbability: 0.0001,    // 0.01%
     soundPitch: 2.8,
+  },
+  EX: {
+    tier: 'EX',
+    stars: 10,
+    label: 'EX SPECIAL',
+    color: '#c084fc',
+    glowColor: 'rgba(192, 132, 252, 1)',
+    textColor: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-amber-300 font-black animate-pulse',
+    borderColor: 'border-purple-400',
+    bgGradient: 'from-purple-900/80 via-pink-950/80 to-slate-950/95',
+    percentileThreshold: 0.0,
+    pullProbability: 0.0004,    // 0.04%
+    soundPitch: 3.0,
   },
 };
 

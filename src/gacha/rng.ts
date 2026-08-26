@@ -13,7 +13,8 @@ export function isLegendaryOrHigher(rarity: RarityTier): boolean {
     rarity === 'Mythic' ||
     rarity === 'Celestial' ||
     rarity === 'Divine' ||
-    rarity === 'GOAT'
+    rarity === 'GOAT' ||
+    rarity === 'EX'
   );
 }
 

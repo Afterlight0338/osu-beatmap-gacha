@@ -17,6 +17,7 @@ import {
   Activity,
   Flame,
   Calendar,
+  Crown,
 } from 'lucide-react';
 import { getMapsetStarRange } from '../data/loader';
 import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
@@ -159,6 +160,25 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
 
         {/* Modal Body */}
         <div className="p-5 md:p-6 space-y-6">
+          {/* EX Handpicked Tier Lore & Reason Banner */}
+          {(beatmap.rarity === 'EX' || beatmap.exReason) && (
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-pink-950/80 border-2 border-purple-400/80 shadow-[0_0_25px_rgba(168,85,247,0.35)] space-y-2 animate-fade-in">
+              <div className="flex items-center space-x-2">
+                <div className="p-1.5 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-400/40">
+                  <Crown className="w-4 h-4 text-purple-300 animate-pulse" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono font-black uppercase tracking-wider text-purple-300">
+                    💎 Admin Handpicked EX Special Tier
+                  </span>
+                </div>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-100 font-sans leading-relaxed pl-1 italic">
+                "{beatmap.exReason || 'This beatmap was personally handpicked by the administrator for its monumental status in osu! rhythm game history.'}"
+              </p>
+            </div>
+          )}
+
           {/* Difficulty and Mapper */}
           <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-900/80 border border-slate-800">
             <div>

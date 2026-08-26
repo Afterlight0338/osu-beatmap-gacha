@@ -66,6 +66,7 @@ export const DEFAULT_POPULARITY_CONFIG: PopularityModelConfig = {
     unranked: 0.92,
   },
   tierCounts: {
+    EX: 0,
     GOAT: 25,
     Divine: 75,
     Celestial: 150,

@@ -4058,6 +4058,7 @@ export const SEED_DATASET_INFO: DatasetInfo = {
   "lastUpdated": "2026-08-24T12:32:45.484Z",
   "totalMaps": 37102,
   "rarityCounts": {
+    "EX": 0,
     "GOAT": 25,
     "Divine": 75,
     "Celestial": 150,

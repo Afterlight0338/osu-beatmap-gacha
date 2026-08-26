@@ -15,9 +15,9 @@ import {
 import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 import { supabase } from '../lib/supabase';
 
-const RARITY_ORDER: RarityTier[] = ['GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
+const RARITY_ORDER: RarityTier[] = ['EX','GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
-  GOAT:'text-yellow-300', Divine:'text-purple-300', Celestial:'text-cyan-300',
+  EX:'text-purple-300', GOAT:'text-yellow-300', Divine:'text-purple-300', Celestial:'text-cyan-300',
   Mythic:'text-pink-300', Legendary:'text-orange-300', Epic:'text-violet-300',
   Rare:'text-blue-300', 'Uncommon+':'text-teal-300', Uncommon:'text-green-300', Common:'text-slate-400',
 };
@@ -47,17 +47,22 @@ interface AdminStats {
 
 interface UserCollCard {
   beatmapId: number;
+  title: string;
+  artist: string;
+  version: string;
+  stars: number;
+  rarity: RarityTier;
   copies: number;
   firstPulledAt: number;
   lastPulledAt: number;
   isFavorite: boolean;
 }
 
-type AdminTab = 'overview' | 'events' | 'announcements' | 'users' | 'rewards' | 'inspector' | 'config';
+type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'rewards' | 'inspector' | 'config';
 
 const AdminPage: React.FC = () => {
   const { user, token } = useAuth();
-  const { pool, energy, adminRefillEnergy } = useGacha();
+  const { pool, energy, adminRefillEnergy, cardOverrides, setCardTierOverride, removeCardTierOverride } = useGacha();
 
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -67,6 +72,12 @@ const AdminPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionMsg, setActionMsg] = useState<{text:string;ok:boolean}|null>(null);
   const [actionLoading, setActionLoading] = useState(false);
+
+  // Manual Card Tier & EX Assignment state
+  const [cardAssignSearch, setCardAssignSearch] = useState('');
+  const [selectedAssignCardId, setSelectedAssignCardId] = useState<number | null>(null);
+  const [assignTier, setAssignTier] = useState<RarityTier>('EX');
+  const [assignExReason, setAssignExReason] = useState('');
 
   // User management state
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
@@ -579,6 +590,7 @@ const AdminPage: React.FC = () => {
         {([
           ['overview','Overview',<BarChart3 className="w-4 h-4"/>],
           ['events','Event Presets',<Sparkles className="w-4 h-4 text-amber-400"/>],
+          ['cards','Card Tiers & EX',<Crown className="w-4 h-4 text-purple-400"/>],
           ['announcements','Announcements',<Bell className="w-4 h-4 text-cyan-400"/>],
           ['users','Users',<Users className="w-4 h-4"/>],
           ['rewards','Mass Rewards',<Gift className="w-4 h-4"/>],
@@ -964,6 +976,274 @@ const AdminPage: React.FC = () => {
                 <Sparkles className="w-4 h-4" />
                 <span>🚀 Launch Event & Auto-Broadcast Announcement</span>
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── CARD TIERS & EX ASSIGNMENT TAB ───────────────────────── */}
+      {activeTab === 'cards' && (
+        <div className="space-y-6 animate-fade-in">
+          {/* Header Description */}
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-slate-900 border border-purple-800/60 shadow-xl space-y-2">
+            <div className="flex items-center space-x-3">
+              <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                <Crown className="w-6 h-6 animate-pulse text-purple-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-white font-display flex items-center space-x-2">
+                  <span>Manual Card Tier & EX Assignment</span>
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-purple-900/80 text-purple-200 border border-purple-500/60">
+                    Admin Exclusive
+                  </span>
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300">
+                  Manually assign any beatmap to any rarity tier. Handpicked <strong className="text-purple-300">EX Tier</strong> cards require a lore explanation that will be displayed whenever pulled by players.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left: Card Search & Tier Assignment Form */}
+            <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+              <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                <Search className="w-4 h-4 text-purple-400" />
+                <span>Search & Select Beatmap</span>
+              </h3>
+
+              {/* Search Input */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-mono text-slate-300">Search by Title, Artist, or Beatmap ID</label>
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
+                  <input
+                    type="text"
+                    value={cardAssignSearch}
+                    onChange={(e) => setCardAssignSearch(e.target.value)}
+                    placeholder="e.g. Freedom Dive, Big Black, 129891..."
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500"
+                  />
+                  {cardAssignSearch && (
+                    <button
+                      onClick={() => setCardAssignSearch('')}
+                      className="absolute right-3 top-2.5 text-slate-400 hover:text-white"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Search Suggestions */}
+              {cardAssignSearch.trim() && (
+                <div className="space-y-1 max-h-56 overflow-y-auto rounded-xl bg-slate-950 p-2 border border-slate-800">
+                  {pool
+                    .filter((m) => {
+                      const q = cardAssignSearch.toLowerCase();
+                      return (
+                        String(m.id).includes(q) ||
+                        m.title.toLowerCase().includes(q) ||
+                        m.artist.toLowerCase().includes(q) ||
+                        m.creator.toLowerCase().includes(q)
+                      );
+                    })
+                    .slice(0, 8)
+                    .map((m) => (
+                      <button
+                        key={m.id}
+                        onClick={() => {
+                          setSelectedAssignCardId(m.id);
+                          setAssignTier(m.rarity || 'EX');
+                          setAssignExReason(m.exReason || '');
+                          setCardAssignSearch('');
+                        }}
+                        className="w-full text-left p-2 rounded-lg hover:bg-purple-950/40 border border-transparent hover:border-purple-800/60 flex items-center justify-between transition-colors"
+                      >
+                        <div className="min-w-0 pr-2">
+                          <p className="text-xs font-bold text-white truncate">{m.title}</p>
+                          <p className="text-[11px] text-slate-400 truncate">
+                            {m.artist} [{m.version}] • {m.stars}★ • #{m.id}
+                          </p>
+                        </div>
+                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${RARITY_COLORS[m.rarity]}`}>
+                          {m.rarity}
+                        </span>
+                      </button>
+                    ))}
+                </div>
+              )}
+
+              {/* Selected Card Form */}
+              {selectedAssignCardId && (
+                <div className="mt-4 p-4 rounded-xl bg-purple-950/30 border border-purple-800/60 space-y-4 animate-fade-in">
+                  {(() => {
+                    const card = pool.find((m) => m.id === selectedAssignCardId);
+                    if (!card) return <p className="text-xs text-slate-400">Card #{selectedAssignCardId} not found.</p>;
+
+                    return (
+                      <>
+                        <div className="flex items-start justify-between gap-3 border-b border-purple-900/60 pb-3">
+                          <div>
+                            <span className="text-[10px] font-mono text-purple-300 uppercase">Selected Card #{card.id}</span>
+                            <h4 className="text-base font-bold text-white">{card.title}</h4>
+                            <p className="text-xs text-slate-300 font-mono">
+                              {card.artist} • Mapped by {card.creator} • {card.stars}★
+                            </p>
+                          </div>
+                          <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 ${RARITY_COLORS[card.rarity]}`}>
+                            Current: {card.rarity}
+                          </span>
+                        </div>
+
+                        {/* Target Tier Selection */}
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-mono text-slate-300">Assign Target Rarity Tier</label>
+                          <select
+                            value={assignTier}
+                            onChange={(e) => setAssignTier(e.target.value as RarityTier)}
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-purple-500"
+                          >
+                            {RARITY_ORDER.map((tier) => (
+                              <option key={tier} value={tier}>
+                                {tier === 'EX' ? '💎 EX Tier (Special Handpick)' : tier === 'GOAT' ? '🐐 GOAT Tier' : tier}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* EX Lore / Reason Field */}
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <label className="text-xs font-mono text-slate-300 flex items-center space-x-1">
+                              <span>Lore / Assignment Reason</span>
+                              {assignTier === 'EX' && <span className="text-rose-400 font-bold">* (Required for EX)</span>}
+                            </label>
+                          </div>
+                          <textarea
+                            rows={3}
+                            value={assignExReason}
+                            onChange={(e) => setAssignExReason(e.target.value)}
+                            placeholder={
+                              assignTier === 'EX'
+                                ? "Explain why this beatmap is an EX tier handpick (e.g. Historic landmark map, first 8* FC in osu! history by Cookiezi)..."
+                                : "Optional note or reason for this manual tier assignment..."
+                            }
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500 resize-none"
+                          />
+                        </div>
+
+                        {/* Save Action */}
+                        <button
+                          onClick={async () => {
+                            if (assignTier === 'EX' && !assignExReason.trim()) {
+                              showMsg('Please provide a reason explaining why this card is an EX tier handpick.', false);
+                              return;
+                            }
+                            setActionLoading(true);
+                            try {
+                              await setCardTierOverride(card.id, assignTier, assignExReason);
+                              showMsg(`✓ Assigned #${card.id} [${card.title}] to ${assignTier} tier!`);
+                            } catch (e: any) {
+                              showMsg('Failed to save tier: ' + e.message, false);
+                            } finally {
+                              setActionLoading(false);
+                            }
+                          }}
+                          disabled={actionLoading}
+                          className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-black text-sm shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center space-x-2"
+                        >
+                          <Crown className="w-4 h-4" />
+                          <span>Save Card Tier Assignment</span>
+                        </button>
+                      </>
+                    );
+                  })()}
+                </div>
+              )}
+            </div>
+
+            {/* Right: Active Manual Overrides & EX Handpicked List */}
+            <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                  <Crown className="w-4 h-4 text-amber-400" />
+                  <span>Active Handpicked & Overridden Cards</span>
+                </h3>
+                <span className="text-xs font-mono text-purple-300 font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/40">
+                  {Object.keys(cardOverrides).length} Assigned
+                </span>
+              </div>
+
+              {Object.keys(cardOverrides).length === 0 ? (
+                <div className="p-8 rounded-xl bg-slate-950/60 border border-slate-800 text-center space-y-2">
+                  <Crown className="w-8 h-8 text-slate-600 mx-auto" />
+                  <p className="text-sm font-bold text-slate-300">No Manual Card Overrides Yet</p>
+                  <p className="text-xs text-slate-500 font-mono">
+                    Search for a beatmap on the left to assign it to EX tier or customize its rarity tier!
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+                  {Object.entries(cardOverrides).map(([bidStr, override]) => {
+                    const bid = Number(bidStr);
+                    const card = pool.find((m) => m.id === bid);
+
+                    return (
+                      <div
+                        key={bidStr}
+                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-800/80 transition-all space-y-2"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <span className="text-[10px] font-mono text-slate-400">Beatmap #{bid}</span>
+                            <h4 className="text-sm font-bold text-white truncate">
+                              {card?.title || `Beatmap #${bid}`}
+                            </h4>
+                            <p className="text-xs text-slate-400 truncate">
+                              {card ? `${card.artist} [${card.version}] • ${card.stars}★` : 'Custom Assignment'}
+                            </p>
+                          </div>
+
+                          <div className="flex flex-col items-end space-y-1">
+                            <span className={`text-xs font-mono font-black px-2 py-0.5 rounded border border-purple-500/60 ${RARITY_COLORS[override.tier]} bg-purple-950/80`}>
+                              💎 {override.tier}
+                            </span>
+                            <button
+                              onClick={async () => {
+                                if (!confirm(`Restore natural rarity tier for beatmap #${bid}?`)) return;
+                                setActionLoading(true);
+                                try {
+                                  await removeCardTierOverride(bid);
+                                  showMsg(`✓ Restored natural tier for beatmap #${bid}`);
+                                } catch (e: any) {
+                                  showMsg('Failed to restore: ' + e.message, false);
+                                } finally {
+                                  setActionLoading(false);
+                                }
+                              }}
+                              className="text-[11px] font-mono text-red-400 hover:text-red-300 underline"
+                            >
+                              Reset
+                            </button>
+                          </div>
+                        </div>
+
+                        {override.exReason && (
+                          <div className="p-2.5 rounded-lg bg-purple-950/40 border border-purple-900/60 text-xs text-slate-200 font-sans italic">
+                            "{override.exReason}"
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-900">
+                          <span>Assigned by: {override.assignedBy || 'Admin'}</span>
+                          <span>{override.assignedAt ? formatUserDate(new Date(override.assignedAt).getTime()) : ''}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
