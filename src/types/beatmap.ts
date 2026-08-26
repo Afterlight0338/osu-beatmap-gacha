@@ -56,12 +56,19 @@ export interface Beatmap {
 export interface DatasetInfo {
   version: string;
   lastUpdated: string;
+  timestamp?: string;
   totalMaps: number;
+  totalSets?: number;
   poolComposition?: {
-    globalTopMaps: number;
-    eraPoolMaps: number;
-    eraStartYear: number;
+    globalTopMaps?: number;
+    eraPoolMaps?: number;
+    eraStartYear?: number;
+    uniqueSongs?: number;
+    rankedSongs?: number;
+    lovedSongs?: number;
+    graveyardLandmarks?: number;
   };
-  rarityCounts: Record<RarityTier, number>;
+  rarityCounts?: Record<RarityTier, number>;
+  rarityDistribution?: Record<string, number>;
   source: string;
 }

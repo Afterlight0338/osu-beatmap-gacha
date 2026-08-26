@@ -15,8 +15,31 @@ export interface ChangelogVersion {
 
 export const CHANGELOG_VERSIONS: ChangelogVersion[] = [
   {
-    version: "v6.0",
+    version: "v7.0",
     date: "Current Release (August 2026)",
+    title: "🎵 38,696 1-Song-1-Card Catalog Expansion, Graveyard Landmark Ingestion & Multi-Factor Pyramid Recalculation",
+    highlight: "Complete expansion to 38,696 unique song sets across osu! history (2007–2026), 1-Song-1-Card consolidation, inclusion of celebrated Graveyarded landmark beatmaps with ≥250k plays, and full recalculation under our Multi-Factor MCDA Minkowski Popularity Engine into a true natural pyramid distribution.",
+    details: [
+      "🎵 38,696 Unique Song Catalog: 100% of all unique ranked & loved song sets from 2007 to present, strictly consolidated to 1 card per song (anchored to top difficulty).",
+      "🪦 Graveyarded & Unranked Landmark Maps: Expanded database to accept legendary unranked beatmaps with ≥250,000 playcount (e.g. Mikojel's Jump Training #1, Galaxy Collapse, Tengaku, Blue Zenith cuts).",
+      "⚖️ Multi-Factor MCDA Minkowski Popularity Engine (p=3.0): Recalculated every single card's popularity score across 4 empirical CDF dimensions: Log10 Playcount Reach, Log10 Community Favourites Affection, Passion Conversion Ratio, and Historical Era Normalization.",
+      "📊 True Natural 10-Tier Pyramid: Fixed lower pyramid distribution so Common represents the largest foundational pool: 25 GOAT (0.06%), 75 Divine (0.19%), 150 Celestial (0.39%), 350 Mythic (0.90%), 800 Legendary (2.07%), 2,600 Epic (6.72%), 6,000 Rare (15.51%), 8,000 Uncommon+ (20.67%), 9,000 Uncommon (23.26%), and 11,696 Common (30.23%).",
+      "⚡ Upgraded 3-Tier Stamina & Bonus Pull Stacking: Bonus stamina grants and admin rewards now directly stack uncapped into Bonus Stamina, allowing unlimited pull accumulation without overwriting Main (50) or Reserve (100) stamina.",
+      "👑 Admin Custom Beatmap Injector: Admin command center can now inject custom beatmaps directly into the live global gacha pool with real-time sync across all players."
+    ],
+    keyPromotions: [
+      { artist: "UNDEAD CORPORATION", title: "Everything will freeze", fromTier: "Divine", toTier: "GOAT", reason: "#1 All-Time MCDA Peak: 63.8M plays, 39.1k favourites, and monumental 8.31★ Time Freeze icon." },
+      { artist: "toby fox", title: "MEGALOVANIA", fromTier: "Divine", toTier: "GOAT", reason: "Viral phenomenon: 51.2M plays and osu!'s highest community favourite count (42.0k favs)." },
+      { artist: "Panda Eyes & Teminite", title: "Highscore", fromTier: "Divine", toTier: "GOAT", reason: "Historic 66.5M plays & 34.8k favourites Game Over speed/aim milestone." },
+      { artist: "Mrs. GREEN APPLE", title: "Inferno (TV Size)", fromTier: "Celestial", toTier: "GOAT", reason: "Modern anime anthem with 57.0M plays and 37.3k community favourites." },
+      { artist: "Linked Horizon", title: "Shinzou o Sasageyo! [TV Size]", fromTier: "Celestial", toTier: "GOAT", reason: "Attack on Titan anthem with 63.9M plays and 37.9k favourites." },
+      { artist: "Kuba Oms", title: "My Love", fromTier: "Divine", toTier: "GOAT", reason: "76.2M plays: The undisputed starter song of all osu! players worldwide." },
+      { artist: "Mikojel", title: "Jump Training #1", fromTier: "New", toTier: "GOAT", reason: "Graveyard Landmark addition: 35.4M plays, 6.7k favourites unranked training staple." }
+    ]
+  },
+  {
+    version: "v6.0",
+    date: "August 2026",
     title: "💎 EX Handpicked Tier, 3-Tier Stamina Architecture & Dynamic Rates Engine",
     highlight: "Major platform overhaul introducing the handpicked EX Special Tier with custom lore, an uncapped 3-tier stamina system (Main, Reserve 100, Bonus uncapped), global announcement popups, rhythm math quiz minigame, admin live event presets, and dynamic drop rate engine.",
     details: [

@@ -38,7 +38,7 @@ interface TierShiftItem {
 
 export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap }) => {
   const { pool } = useGacha();
-  const [selectedVersion, setSelectedVersion] = useState<string>("v6.0");
+  const [selectedVersion, setSelectedVersion] = useState<string>("v7.0");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeFilter, setActiveFilter] = useState<
     "all" | "to_ex" | "to_goat" | "to_divine" | "to_celestial" | "to_mythic" | "major_buffs" | "all_buffs" | "all_nerfs"

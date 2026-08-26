@@ -144,7 +144,7 @@ export const StatsPage: React.FC = () => {
             {RARITY_ORDER.slice().reverse().map((tier) => {
               const config = RARITY_CONFIGS[tier];
               const ownedCount = stats.rarityCounts[tier] || 0;
-              const poolTotal = pool.filter((m) => m.rarity === tier).length || datasetInfo?.rarityCounts[tier] || 1;
+              const poolTotal = pool.filter((m) => m.rarity === tier).length || datasetInfo?.rarityCounts?.[tier] || (datasetInfo?.rarityDistribution as any)?.[tier] || 1;
               const percent = poolTotal > 0 ? ((ownedCount / poolTotal) * 100).toFixed(1) : '0.0';
 
               return (
