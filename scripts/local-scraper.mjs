@@ -293,20 +293,43 @@ async function main() {
   // Map collection keyed by beatmapset ID (STRICTLY 1 card per song set)
   const mapPool = new Map();
 
-  // Check for existing checkpoint
-  if (fs.existsSync(CHECKPOINT_FILE)) {
+  // 1. Pre-seed with existing maps.json if present (37k+ base)
+  if (fs.existsSync(MAPS_FILE)) {
     try {
-      const existing = JSON.parse(fs.readFileSync(CHECKPOINT_FILE, 'utf8'));
-      if (Array.isArray(existing)) {
-        for (const m of existing) {
-          mapPool.set(m.setId, m);
+      const existingMaps = JSON.parse(fs.readFileSync(MAPS_FILE, 'utf8'));
+      if (Array.isArray(existingMaps)) {
+        for (const m of existingMaps) {
+          if (m && m.setId) mapPool.set(m.setId, m);
         }
-        console.log(`📂 Resumed from checkpoint: ${mapPool.size.toLocaleString()} unique songs already loaded!\n`);
+        console.log(`📦 Loaded ${mapPool.size.toLocaleString()} existing unique songs from public/data/maps.json!`);
       }
-    } catch {
-      console.warn('⚠️ Checkpoint file corrupted, starting fresh.');
+    } catch (e) {
+      console.warn('⚠️ Could not load maps.json, starting fresh.');
     }
   }
+
+  // 2. Also layer any additional checkpoint progress
+  if (fs.existsSync(CHECKPOINT_FILE)) {
+    try {
+      const checkpointMaps = JSON.parse(fs.readFileSync(CHECKPOINT_FILE, 'utf8'));
+      if (Array.isArray(checkpointMaps)) {
+        let addedFromCheckpoint = 0;
+        for (const m of checkpointMaps) {
+          if (m && m.setId && !mapPool.has(m.setId)) {
+            mapPool.set(m.setId, m);
+            addedFromCheckpoint++;
+          }
+        }
+        if (addedFromCheckpoint > 0) {
+          console.log(`📂 Added ${addedFromCheckpoint.toLocaleString()} extra songs from checkpoint!`);
+        }
+      }
+    } catch {
+      console.warn('⚠️ Checkpoint file corrupted.');
+    }
+  }
+
+  console.log(`🚀 Base pool ready: ${mapPool.size.toLocaleString()} unique songs in memory!\n`);
 
   // Multi-dimensional search plan to crawl 100% of all ranked & loved sets
   const searchQueries = [];
