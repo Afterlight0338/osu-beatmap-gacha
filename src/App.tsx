@@ -25,7 +25,9 @@ import { MAINTENANCE_MODE } from './config/maintenance';
 import { supabase } from './lib/supabase';
 import { GlobalChatDrawer } from './components/GlobalChatDrawer';
 import { ClaimGiftModal } from './components/ClaimGiftModal';
+import { IncomingTradeModal } from './components/IncomingTradeModal';
 import { giftingService, PlayerTransaction } from './services/giftingService';
+import { tradingService, PlayerTrade } from './services/tradingService';
 import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 
 const MainApp: React.FC = () => {
@@ -38,6 +40,7 @@ const MainApp: React.FC = () => {
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
   const [incomingGift, setIncomingGift] = useState<PlayerTransaction | null>(null);
+  const [incomingTrade, setIncomingTrade] = useState<PlayerTrade | null>(null);
   const [allUsers, setAllUsers] = useState<{ osu_id: number; username: string; avatar_url?: string; country_code?: string }[]>([]);
   const [cloudMaintenance, setCloudMaintenance] = useState<{
     enabled: boolean;
@@ -128,7 +131,7 @@ const MainApp: React.FC = () => {
     return <MaintenancePage config={cloudMaintenance} onBypass={() => setPreviewMaintenance(false)} />;
   }
 
-  // Load users & listen for incoming gifts for the authenticated player
+  // Load users & listen for incoming gifts and trades for the authenticated player
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -139,23 +142,33 @@ const MainApp: React.FC = () => {
     fetchUsers();
 
     if (!user?.osuId) return;
+    const currentOsuId = user.osuId;
 
-    const checkGifts = async () => {
+    const checkInteractions = async () => {
       try {
-        const txs = await giftingService.fetchTransactions();
-        const pending = txs.find((t) => t.recipientId === user.osuId && t.status === 'pending');
-        if (pending) {
-          setIncomingGift(pending);
-        }
+        const [txs, trades] = await Promise.all([
+          giftingService.fetchTransactions(),
+          tradingService.fetchTrades(),
+        ]);
+        const pendingGift = txs.find((t) => t.recipientId === currentOsuId && t.status === 'pending');
+        if (pendingGift) setIncomingGift(pendingGift);
+
+        const pendingTrade = trades.find((t) => t.recipientId === currentOsuId && t.status === 'pending');
+        if (pendingTrade) setIncomingTrade(pendingTrade);
       } catch {}
     };
-    checkGifts();
-    const interval = setInterval(checkGifts, 10000);
+    checkInteractions();
+    const interval = setInterval(checkInteractions, 10000);
 
-    const channel = supabase.channel('gift_listener_' + user.osuId);
+    const channel = supabase.channel('interaction_listener_' + currentOsuId);
     channel.on('broadcast', { event: 'gift_received' }, (payload: { payload: PlayerTransaction }) => {
-      if (payload?.payload && payload.payload.recipientId === user.osuId && payload.payload.status === 'pending') {
+      if (payload?.payload && payload.payload.recipientId === currentOsuId && payload.payload.status === 'pending') {
         setIncomingGift(payload.payload);
+      }
+    });
+    channel.on('broadcast', { event: 'trade_received' }, (payload: { payload: PlayerTrade }) => {
+      if (payload?.payload && payload.payload.recipientId === currentOsuId && payload.payload.status === 'pending') {
+        setIncomingTrade(payload.payload);
       }
     });
     channel.subscribe();
@@ -316,6 +329,12 @@ const MainApp: React.FC = () => {
       <ClaimGiftModal
         gift={incomingGift}
         onClose={() => setIncomingGift(null)}
+      />
+
+      {/* Incoming Trade Proposal Notification & Review Modal */}
+      <IncomingTradeModal
+        trade={incomingTrade}
+        onClose={() => setIncomingTrade(null)}
       />
 
       {/* Floating Mini Side Broadcast Notification */}

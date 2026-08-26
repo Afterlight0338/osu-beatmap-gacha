@@ -31,18 +31,62 @@ export interface OnlinePlayer {
 // 12-Hour Storage Limit in Milliseconds
 export const CHAT_RETENTION_MS = 12 * 60 * 60 * 1000;
 
-// Bad Words / Profanity Filter Dictionary
-const PROFANITY_PATTERNS: RegExp[] = [
-  /\b(nigg[ae]r?|fag(got)?|kike|chink|spic|retard|cunt)\b/gi,
-  /\b(fuck(ing|er|ed)?|shit(ty|head)?|bitch|asshole|whore|slut)\b/gi,
-  /\b(kys|kill\s*your\s*self)\b/gi,
+// Bad Words & Slurs List for Smart Multi-Layer Filter
+const BANNED_WORDS = [
+  // Slurs & Hate Speech
+  'nigger', 'nigga', 'niga', 'nigg', 'kike', 'chink', 'faggot', 'fag', 'spic', 'retard', 'tranny', 'dyke', 'gook',
+  // Strong Profanity & Harassment
+  'fuck', 'fucker', 'fucking', 'fucked', 'motherfucker', 'cunt', 'bitch', 'bitches', 'whore', 'slut', 'asshole', 'dickhead',
+  // Violence & Self-harm
+  'kys', 'kill yourself', 'hang yourself', 'commit suicide',
+  // Scam & Malicious
+  'free osu supporter hack', 'free pp generator', 'gacha cheat engine',
 ];
 
+/**
+ * Normalizes text to defeat leetspeak & spacing/punctuation obfuscation
+ */
+function normalizeForFilter(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[@4]/g, 'a')
+    .replace(/[3]/g, 'e')
+    .replace(/[1!|]/g, 'i')
+    .replace(/[0]/g, 'o')
+    .replace(/[$5]/g, 's')
+    .replace(/[+]/g, 't')
+    .replace(/[v]/g, 'u')
+    .replace(/ph/g, 'f');
+}
+
 export function filterProfanity(text: string): string {
+  if (!text) return '';
   let filtered = text;
-  for (const pattern of PROFANITY_PATTERNS) {
-    filtered = filtered.replace(pattern, (match) => '*'.repeat(match.length));
+
+  // 1. Direct Regex checks on whole words & variants with standard boundaries
+  for (const word of BANNED_WORDS) {
+    // Generate flexible regex allowing optional separators between characters (e.g., f.u.c.k, f-u-c-k, f u c k)
+    const escapedChars = word.split('').map((c) => (c === ' ' ? '\\s+' : `${c}+`));
+    const flexiblePattern = escapedChars.join('[\\s._\\-*~`^]*');
+    const regex = new RegExp(`\\b${flexiblePattern}\\b|(?<=[^a-z0-9]|^)${flexiblePattern}(?=[^a-z0-9]|$)`, 'gi');
+
+    filtered = filtered.replace(regex, (match) => '*'.repeat(Math.max(3, match.length)));
   }
+
+  // 2. Normalized leetspeak pass
+  const normalized = normalizeForFilter(filtered);
+  for (const word of BANNED_WORDS) {
+    let searchIdx = normalized.indexOf(word);
+    while (searchIdx !== -1) {
+      const matchLen = word.length;
+      filtered =
+        filtered.substring(0, searchIdx) +
+        '*'.repeat(matchLen) +
+        filtered.substring(searchIdx + matchLen);
+      searchIdx = normalized.indexOf(word, searchIdx + matchLen);
+    }
+  }
+
   return filtered;
 }
 
@@ -70,6 +114,17 @@ class ChatService {
         if (payload?.payload) {
           this.handleIncomingMessage(payload.payload);
         }
+      });
+
+      this.channel.on('broadcast', { event: 'message_deleted' }, (payload: { payload: { id: string } }) => {
+        if (payload?.payload?.id) {
+          this.handleMessageDeleted(payload.payload.id);
+        }
+      });
+
+      this.channel.on('broadcast', { event: 'chat_cleared' }, () => {
+        this.cachedMessages = [];
+        this.notifyMessageListeners();
       });
 
       this.channel.subscribe();
@@ -255,6 +310,42 @@ class ChatService {
     return { success: true };
   }
 
+  public async deleteMessage(messageId: string): Promise<boolean> {
+    this.handleMessageDeleted(messageId);
+
+    // Broadcast deletion to all clients
+    if (this.channel) {
+      this.channel.send({
+        type: 'broadcast',
+        event: 'message_deleted',
+        payload: { id: messageId },
+      }).catch(() => {});
+    }
+
+    await this.persistMessagesToCloud();
+    return true;
+  }
+
+  public async clearAllChat(): Promise<boolean> {
+    this.cachedMessages = [];
+    this.notifyMessageListeners();
+
+    if (this.channel) {
+      this.channel.send({
+        type: 'broadcast',
+        event: 'chat_cleared',
+        payload: {},
+      }).catch(() => {});
+    }
+
+    await supabase.from('admin_config').upsert({
+      key: 'global_chat_messages',
+      value: [],
+      updated_at: new Date().toISOString(),
+    });
+    return true;
+  }
+
   private handleIncomingMessage(msg: ChatMessage) {
     const cutoff = Date.now() - CHAT_RETENTION_MS;
     if (msg.createdAt < cutoff) return;
@@ -265,10 +356,14 @@ class ChatService {
     }
   }
 
+  private handleMessageDeleted(id: string) {
+    this.cachedMessages = this.cachedMessages.filter((m) => m.id !== id);
+    this.notifyMessageListeners();
+  }
+
   private async persistMessagesToCloud() {
     const cutoff = Date.now() - CHAT_RETENTION_MS;
     const cleanList = this.cachedMessages.filter((m) => m.createdAt >= cutoff);
-    // Keep max 200 messages in cloud buffer
     const capped = cleanList.slice(-200);
 
     await supabase.from('admin_config').upsert({

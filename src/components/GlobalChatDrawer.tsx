@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useGacha } from '../context/GachaContext';
 import { chatService, ChatMessage, OnlinePlayer } from '../services/chatService';
 import { GiftModal } from './GiftModal';
+import { TradeModal } from './TradeModal';
 import {
   MessageSquare,
   Users,
@@ -12,6 +13,8 @@ import {
   Shield,
   Clock,
   AlertCircle,
+  Trash2,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { sfx } from '../audio/sfx';
 
@@ -32,7 +35,11 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [selectedGiftTarget, setSelectedGiftTarget] = useState<OnlinePlayer | null>(null);
   const [isGiftModalOpen, setIsGiftModalOpen] = useState<boolean>(false);
+  const [selectedTradeTarget, setSelectedTradeTarget] = useState<OnlinePlayer | null>(null);
+  const [isTradeModalOpen, setIsTradeModalOpen] = useState<boolean>(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
+
+  const userIsAdmin = user?.username === 'RyoYamada' || user?.osuId === 14671577;
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -120,9 +127,26 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
     }
   };
 
+  const handleDeleteMessage = async (msgId: string) => {
+    if (!confirm('Admin: Delete this message for all players?')) return;
+    await chatService.deleteMessage(msgId);
+    sfx.playClick();
+  };
+
+  const handleClearAllChat = async () => {
+    if (!confirm('Admin: Clear all global chat messages?')) return;
+    await chatService.clearAllChat();
+    sfx.playClick();
+  };
+
   const handleOpenGiftModal = (player: OnlinePlayer) => {
     setSelectedGiftTarget(player);
     setIsGiftModalOpen(true);
+  };
+
+  const handleOpenTradeModal = (player: OnlinePlayer) => {
+    setSelectedTradeTarget(player);
+    setIsTradeModalOpen(true);
   };
 
   return (
@@ -198,10 +222,22 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
             {/* Content Area */}
             {activeTab === 'chat' ? (
               <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                {/* 12h Purge Notice */}
-                <div className="p-2 bg-slate-950/90 border-b border-slate-800/80 text-[10px] font-mono text-slate-400 text-center flex items-center justify-center space-x-1.5 flex-shrink-0">
-                  <Clock className="w-3 h-3 text-cyan-400" />
-                  <span>Realtime Chat (Messages auto-cleared after 12 hours)</span>
+                {/* 12h Purge Notice & Admin Clear */}
+                <div className="p-2 bg-slate-950/90 border-b border-slate-800/80 text-[10px] font-mono text-slate-400 flex items-center justify-between px-4 flex-shrink-0">
+                  <div className="flex items-center space-x-1.5">
+                    <Clock className="w-3 h-3 text-cyan-400" />
+                    <span>Realtime Chat (Auto-cleared after 12h)</span>
+                  </div>
+                  {userIsAdmin && (
+                    <button
+                      onClick={handleClearAllChat}
+                      className="px-2 py-0.5 rounded bg-red-950 hover:bg-red-900 border border-red-800/60 text-red-300 text-[9px] font-bold flex items-center space-x-1 transition-colors"
+                      title="Admin: Delete all chat messages"
+                    >
+                      <Trash2 className="w-2.5 h-2.5" />
+                      <span>Clear All</span>
+                    </button>
+                  )}
                 </div>
 
                 {/* Messages Feed */}
@@ -223,7 +259,7 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
                       return (
                         <div
                           key={m.id}
-                          className={`flex items-start space-x-2.5 ${isSelf ? 'flex-row-reverse space-x-reverse' : ''}`}
+                          className={`group flex items-start space-x-2.5 ${isSelf ? 'flex-row-reverse space-x-reverse' : ''}`}
                         >
                           {/* Avatar */}
                           {m.avatarUrl ? (
@@ -239,7 +275,7 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
                           )}
 
                           <div className={`max-w-[78%] space-y-0.5 ${isSelf ? 'items-end text-right' : ''}`}>
-                            <div className="flex items-center space-x-1.5 text-[10px] font-mono">
+                            <div className={`flex items-center space-x-1.5 text-[10px] font-mono ${isSelf ? 'justify-end' : ''}`}>
                               <span className="font-bold text-slate-300 truncate max-w-[120px]">
                                 {m.username}
                               </span>
@@ -250,6 +286,18 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
                                 </span>
                               )}
                               <span className="text-slate-500">{timeStr}</span>
+
+                              {/* Admin Delete Message Button */}
+                              {userIsAdmin && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteMessage(m.id)}
+                                  title="Admin: Delete message"
+                                  className="p-1 rounded opacity-60 hover:opacity-100 hover:bg-red-950 text-red-400 transition-all"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              )}
                             </div>
 
                             {/* Message Bubble */}
@@ -362,14 +410,27 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
                         </div>
 
                         {!isMe && isAuthenticated && (
-                          <button
-                            type="button"
-                            onClick={() => handleOpenGiftModal(p)}
-                            className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono text-xs font-bold transition-all shadow-md flex items-center space-x-1 flex-shrink-0"
-                          >
-                            <Gift className="w-3.5 h-3.5" />
-                            <span>Gift</span>
-                          </button>
+                          <div className="flex items-center space-x-1.5 flex-shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenTradeModal(p)}
+                              className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-mono text-xs font-bold transition-all shadow-md flex items-center space-x-1"
+                              title="Propose card trade"
+                            >
+                              <ArrowLeftRight className="w-3.5 h-3.5" />
+                              <span>Trade</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleOpenGiftModal(p)}
+                              className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-mono text-xs font-bold transition-all shadow-md flex items-center space-x-1"
+                              title="Send gift"
+                            >
+                              <Gift className="w-3.5 h-3.5" />
+                              <span>Gift</span>
+                            </button>
+                          </div>
                         )}
                       </div>
                     );
@@ -387,6 +448,16 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
           isOpen={isGiftModalOpen}
           onClose={() => setIsGiftModalOpen(false)}
           targetPlayer={selectedGiftTarget}
+          allUsers={allUsers}
+        />
+      )}
+
+      {/* Propose Trade Modal */}
+      {isTradeModalOpen && (
+        <TradeModal
+          isOpen={isTradeModalOpen}
+          onClose={() => setIsTradeModalOpen(false)}
+          targetPlayer={selectedTradeTarget}
           allUsers={allUsers}
         />
       )}

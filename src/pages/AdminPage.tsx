@@ -15,6 +15,7 @@ import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 import { supabase } from '../lib/supabase';
 import { injectionService, PullInjection } from '../services/injectionService';
 import { giftingService, PlayerTransaction } from '../services/giftingService';
+import { tradingService, PlayerTrade } from '../services/tradingService';
 
 const RARITY_ORDER: RarityTier[] = ['EX','GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -179,8 +180,10 @@ const AdminPage: React.FC = () => {
 
   // Player Transactions & Gifts state
   const [transactions, setTransactions] = useState<PlayerTransaction[]>([]);
+  const [trades, setTrades] = useState<PlayerTrade[]>([]);
+  const [txTypeFilter, setTxTypeFilter] = useState<'all' | 'gifts' | 'trades'>('all');
   const [txSearch, setTxSearch] = useState<string>('');
-  const [txFilter, setTxFilter] = useState<'all' | 'pending' | 'claimed' | 'revoked'>('all');
+  const [txFilter, setTxFilter] = useState<'all' | 'pending' | 'claimed' | 'accepted' | 'revoked'>('all');
   const [txLoading, setTxLoading] = useState<boolean>(false);
 
   // Secret Pull Injections (Destiny Drop) state
@@ -1119,8 +1122,12 @@ const AdminPage: React.FC = () => {
   const fetchTransactionsData = useCallback(async () => {
     setTxLoading(true);
     try {
-      const txs = await giftingService.fetchTransactions();
+      const [txs, trs] = await Promise.all([
+        giftingService.fetchTransactions(),
+        tradingService.fetchTrades(),
+      ]);
       setTransactions(txs);
+      setTrades(trs);
     } catch (e: any) {
       showMsg('Failed to load transactions: ' + e.message, false);
     } finally {
@@ -1141,6 +1148,24 @@ const AdminPage: React.FC = () => {
       }
     } catch (e: any) {
       showMsg('Failed to revoke: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRevokeTrade = async (trade: PlayerTrade) => {
+    if (!confirm(`Revoke trade ${trade.id} between ${trade.senderUsername} and ${trade.recipientUsername}? This will reverse the swapped cards.`)) return;
+    setActionLoading(true);
+    try {
+      const res = await tradingService.revokeTrade(trade.id);
+      if (!res.success) {
+        showMsg(res.error || 'Failed to revoke trade', false);
+      } else {
+        showMsg(`✓ Trade ${trade.id} revoked & cards reversed successfully!`);
+        await fetchTransactionsData();
+      }
+    } catch (e: any) {
+      showMsg('Failed to revoke trade: ' + e.message, false);
     } finally {
       setActionLoading(false);
     }
@@ -3058,28 +3083,50 @@ const AdminPage: React.FC = () => {
 
             {/* Filters & Search */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800 w-full sm:w-fit">
-                {[
-                  { id: 'all', label: 'All Transactions' },
-                  { id: 'pending', label: 'Pending Claim' },
-                  { id: 'claimed', label: 'Claimed' },
-                  { id: 'revoked', label: 'Revoked' },
-                ].map((f) => (
-                  <button
-                    key={f.id}
-                    onClick={() => setTxFilter(f.id as any)}
-                    className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
-                      txFilter === f.id
-                        ? 'bg-emerald-700 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                  {[
+                    { id: 'all', label: `All (${transactions.length + trades.length})` },
+                    { id: 'gifts', label: `🎁 Gifts (${transactions.length})` },
+                    { id: 'trades', label: `🤝 Trades (${trades.length})` },
+                  ].map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => setTxTypeFilter(t.id as any)}
+                      className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                        txTypeFilter === t.id
+                          ? 'bg-purple-700 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                  {[
+                    { id: 'all', label: 'All Status' },
+                    { id: 'pending', label: 'Pending' },
+                    { id: 'claimed', label: 'Claimed / Accepted' },
+                    { id: 'revoked', label: 'Revoked' },
+                  ].map((f) => (
+                    <button
+                      key={f.id}
+                      onClick={() => setTxFilter(f.id as any)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                        txFilter === f.id
+                          ? 'bg-emerald-700 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div className="relative w-full sm:w-72">
+              <div className="relative w-full sm:w-64">
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -3091,101 +3138,198 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Transactions List */}
-            {transactions.length === 0 ? (
+            {/* Combined Ledger List */}
+            {transactions.length === 0 && trades.length === 0 ? (
               <div className="p-8 text-center bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
                 <ArrowLeftRight className="w-8 h-8 text-slate-600 mx-auto" />
-                <p className="text-sm font-bold text-slate-300">No Player Transactions Recorded</p>
-                <p className="text-xs text-slate-500 font-mono">Gifts and player interactions will be logged here in real time.</p>
+                <p className="text-sm font-bold text-slate-300">No Player Transactions or Trades Recorded</p>
+                <p className="text-xs text-slate-500 font-mono">Gifts and player trades will be logged here in real time.</p>
               </div>
             ) : (
               <div className="space-y-3">
-                {transactions
-                  .filter((t) => {
-                    if (txFilter !== 'all' && t.status !== txFilter) return false;
-                    if (!txSearch.trim()) return true;
-                    const q = txSearch.toLowerCase();
-                    return (
-                      t.senderUsername.toLowerCase().includes(q) ||
-                      t.recipientUsername.toLowerCase().includes(q) ||
-                      (t.cardData && t.cardData.title.toLowerCase().includes(q)) ||
-                      String(t.senderId).includes(q) ||
-                      String(t.recipientId).includes(q)
-                    );
-                  })
-                  .map((t) => {
-                    const timeStr = formatUserDateTime(t.createdAt);
-                    const isCard = t.type === 'card' && t.cardData;
+                {/* 1. Gifts */}
+                {(txTypeFilter === 'all' || txTypeFilter === 'gifts') &&
+                  transactions
+                    .filter((t) => {
+                      if (txFilter !== 'all') {
+                        if (txFilter === 'claimed' && t.status !== 'claimed') return false;
+                        if (txFilter === 'pending' && t.status !== 'pending') return false;
+                        if (txFilter === 'revoked' && t.status !== 'revoked') return false;
+                      }
+                      if (!txSearch.trim()) return true;
+                      const q = txSearch.toLowerCase();
+                      return (
+                        t.senderUsername.toLowerCase().includes(q) ||
+                        t.recipientUsername.toLowerCase().includes(q) ||
+                        (t.cardData && t.cardData.title.toLowerCase().includes(q)) ||
+                        String(t.senderId).includes(q) ||
+                        String(t.recipientId).includes(q)
+                      );
+                    })
+                    .map((t) => {
+                      const timeStr = formatUserDateTime(t.createdAt);
+                      const isCard = t.type === 'card' && t.cardData;
 
-                    return (
-                      <div
-                        key={t.id}
-                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                      >
-                        <div className="flex items-start space-x-3 min-w-0">
-                          {isCard && t.cardData?.coverUrl ? (
-                            <img
-                              src={t.cardData.coverUrl}
-                              alt=""
-                              className="w-12 h-12 rounded-lg object-cover border border-slate-800 flex-shrink-0"
-                            />
-                          ) : (
-                            <div className="w-12 h-12 rounded-lg bg-amber-950/60 border border-amber-800/60 flex items-center justify-center flex-shrink-0">
-                              <Zap className="w-5 h-5 text-amber-400" />
-                            </div>
-                          )}
-
-                          <div className="min-w-0 space-y-0.5">
-                            <div className="flex items-center space-x-2 text-xs font-mono">
-                              <strong className="text-pink-300">{t.senderUsername}</strong>
-                              <span className="text-slate-500">➔</span>
-                              <strong className="text-cyan-300">{t.recipientUsername}</strong>
-                              <span className="text-[10px] text-slate-500">• {timeStr}</span>
-                            </div>
-
-                            <p className="text-sm font-bold text-white truncate">
-                              {isCard
-                                ? `${t.cardData?.title} [${t.cardData?.version}] (${t.cardData?.rarity})`
-                                : `+${t.staminaAmount || 25} Bonus Stamina / Pulls`}
-                            </p>
-
-                            {t.message && (
-                              <p className="text-xs text-slate-400 font-sans italic">
-                                "{t.message}"
-                              </p>
+                      return (
+                        <div
+                          key={t.id}
+                          className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="flex items-start space-x-3 min-w-0">
+                            {isCard && t.cardData?.coverUrl ? (
+                              <img
+                                src={t.cardData.coverUrl}
+                                alt=""
+                                className="w-12 h-12 rounded-lg object-cover border border-slate-800 flex-shrink-0"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-lg bg-amber-950/60 border border-amber-800/60 flex items-center justify-center flex-shrink-0">
+                                <Zap className="w-5 h-5 text-amber-400" />
+                              </div>
                             )}
 
-                            <div className="flex items-center space-x-2 text-[10px] font-mono">
-                              <span className="text-slate-500">ID: {t.id}</span>
-                              <span>•</span>
-                              <span
-                                className={`px-1.5 py-0.2 rounded font-bold uppercase ${
-                                  t.status === 'claimed'
-                                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/50'
-                                    : t.status === 'revoked'
-                                    ? 'bg-red-950 text-red-300 border border-red-500/50'
-                                    : 'bg-amber-950 text-amber-300 border border-amber-500/50'
-                                }`}
-                              >
-                                {t.status}
-                              </span>
+                            <div className="min-w-0 space-y-0.5">
+                              <div className="flex items-center space-x-2 text-xs font-mono">
+                                <span className="px-1 py-0.2 rounded bg-pink-950 text-pink-300 font-bold text-[9px]">GIFT</span>
+                                <strong className="text-pink-300">{t.senderUsername}</strong>
+                                <span className="text-slate-500">➔</span>
+                                <strong className="text-cyan-300">{t.recipientUsername}</strong>
+                                <span className="text-[10px] text-slate-500">• {timeStr}</span>
+                              </div>
+
+                              <p className="text-sm font-bold text-white truncate">
+                                {isCard
+                                  ? `${t.cardData?.title} [${t.cardData?.version}] (${t.cardData?.rarity})`
+                                  : `+${t.staminaAmount || 25} Bonus Stamina / Pulls`}
+                              </p>
+
+                              {t.message && (
+                                <p className="text-xs text-slate-400 font-sans italic">
+                                  "{t.message}"
+                                </p>
+                              )}
+
+                              <div className="flex items-center space-x-2 text-[10px] font-mono">
+                                <span className="text-slate-500">ID: {t.id}</span>
+                                <span>•</span>
+                                <span
+                                  className={`px-1.5 py-0.2 rounded font-bold uppercase ${
+                                    t.status === 'claimed'
+                                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/50'
+                                      : t.status === 'revoked'
+                                      ? 'bg-red-950 text-red-300 border border-red-500/50'
+                                      : 'bg-amber-950 text-amber-300 border border-amber-500/50'
+                                  }`}
+                                >
+                                  {t.status}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        {t.status !== 'revoked' && (
-                          <button
-                            onClick={() => handleRevokeTransaction(t)}
-                            disabled={actionLoading}
-                            className="px-3 py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800/80 text-red-300 text-xs font-mono font-bold transition-all flex items-center justify-center space-x-1.5 flex-shrink-0 self-end sm:self-center shadow-md"
-                          >
-                            <Undo2 className="w-3.5 h-3.5" />
-                            <span>Revoke Transfer</span>
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
+                          {t.status !== 'revoked' && (
+                            <button
+                              onClick={() => handleRevokeTransaction(t)}
+                              disabled={actionLoading}
+                              className="px-3 py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800/80 text-red-300 text-xs font-mono font-bold transition-all flex items-center justify-center space-x-1.5 flex-shrink-0 self-end sm:self-center shadow-md"
+                            >
+                              <Undo2 className="w-3.5 h-3.5" />
+                              <span>Revoke Gift</span>
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+
+                {/* 2. Trades */}
+                {(txTypeFilter === 'all' || txTypeFilter === 'trades') &&
+                  trades
+                    .filter((tr) => {
+                      if (txFilter !== 'all') {
+                        if (txFilter === 'claimed' && tr.status !== 'accepted') return false;
+                        if (txFilter === 'pending' && tr.status !== 'pending') return false;
+                        if (txFilter === 'revoked' && tr.status !== 'revoked') return false;
+                      }
+                      if (!txSearch.trim()) return true;
+                      const q = txSearch.toLowerCase();
+                      return (
+                        tr.senderUsername.toLowerCase().includes(q) ||
+                        tr.recipientUsername.toLowerCase().includes(q) ||
+                        tr.offeredCards.some((c) => c.title.toLowerCase().includes(q)) ||
+                        tr.requestedCards.some((c) => c.title.toLowerCase().includes(q)) ||
+                        String(tr.senderId).includes(q) ||
+                        String(tr.recipientId).includes(q)
+                      );
+                    })
+                    .map((tr) => {
+                      const timeStr = formatUserDateTime(tr.createdAt);
+
+                      return (
+                        <div
+                          key={tr.id}
+                          className="p-4 rounded-xl bg-slate-950 border border-indigo-900/60 hover:border-indigo-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="flex items-start space-x-3 min-w-0">
+                            <div className="w-12 h-12 rounded-lg bg-indigo-950 border border-indigo-700 flex items-center justify-center flex-shrink-0 text-indigo-400 font-bold">
+                              <ArrowLeftRight className="w-6 h-6" />
+                            </div>
+
+                            <div className="min-w-0 space-y-1">
+                              <div className="flex items-center space-x-2 text-xs font-mono">
+                                <span className="px-1 py-0.2 rounded bg-indigo-950 text-indigo-300 font-bold text-[9px]">TRADE</span>
+                                <strong className="text-indigo-300">{tr.senderUsername}</strong>
+                                <span className="text-slate-500">⇄</span>
+                                <strong className="text-cyan-300">{tr.recipientUsername}</strong>
+                                <span className="text-[10px] text-slate-500">• {timeStr}</span>
+                              </div>
+
+                              <div className="text-xs font-mono space-y-0.5">
+                                <p className="text-slate-300">
+                                  <strong className="text-emerald-400">Offered:</strong> {tr.offeredCards.map((c) => c.title).join(', ')}
+                                  {tr.offeredStamina ? ` (+${tr.offeredStamina}⚡)` : ''}
+                                </p>
+                                <p className="text-slate-300">
+                                  <strong className="text-pink-400">Requested:</strong> {tr.requestedCards.map((c) => c.title).join(', ')}
+                                </p>
+                              </div>
+
+                              {tr.message && (
+                                <p className="text-xs text-slate-400 font-sans italic">
+                                  "{tr.message}"
+                                </p>
+                              )}
+
+                              <div className="flex items-center space-x-2 text-[10px] font-mono">
+                                <span className="text-slate-500">ID: {tr.id}</span>
+                                <span>•</span>
+                                <span
+                                  className={`px-1.5 py-0.2 rounded font-bold uppercase ${
+                                    tr.status === 'accepted'
+                                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/50'
+                                      : tr.status === 'revoked'
+                                      ? 'bg-red-950 text-red-300 border border-red-500/50'
+                                      : 'bg-amber-950 text-amber-300 border border-amber-500/50'
+                                  }`}
+                                >
+                                  {tr.status}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {tr.status === 'accepted' && (
+                            <button
+                              onClick={() => handleRevokeTrade(tr)}
+                              disabled={actionLoading}
+                              className="px-3 py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800/80 text-red-300 text-xs font-mono font-bold transition-all flex items-center justify-center space-x-1.5 flex-shrink-0 self-end sm:self-center shadow-md"
+                            >
+                              <Undo2 className="w-3.5 h-3.5" />
+                              <span>Revoke Trade</span>
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
               </div>
             )}
           </div>
