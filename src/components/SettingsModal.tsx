@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useGacha } from '../context/GachaContext';
 import { useAuth } from '../context/AuthContext';
 import { downloadCollectionBackup, handleFileImport } from '../storage/exportImport';
@@ -52,6 +53,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
   const [isSecretOpen, setIsSecretOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Lock body scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleExport = async () => {
@@ -83,8 +95,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
     onClose();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md animate-fade-in overflow-y-auto">
+  return createPortal(
+    <div className="fixed inset-0 z-[9998] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md animate-fade-in overflow-y-auto">
       <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-[#141420] border-t sm:border border-slate-700 shadow-2xl overflow-hidden max-h-[88vh] flex flex-col my-0 sm:my-8 animate-slide-up sm:animate-scale-up">
         {/* Mobile Drag Pill */}
         <div className="sm:hidden flex justify-center pt-2 pb-1 bg-slate-900/60">
@@ -411,6 +423,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
         isOpen={isSecretOpen}
         onClose={() => setIsSecretOpen(false)}
       />
-    </div>
+    </div>,
+    document.body
   );
 };

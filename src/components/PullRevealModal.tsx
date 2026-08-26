@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { PullResult } from '../types/gacha';
 import { RarityTier } from '../types/beatmap';
 import { BeatmapCard } from './BeatmapCard';
@@ -237,22 +238,33 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
     onPullAgain(count);
   };
 
+  // Lock background body scroll when reveal modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen || results.length === 0) return null;
 
   const currentPull = results[currentIndex];
   const currentRarity = currentPull?.beatmap.rarity || 'Common';
 
-  return (
+  return createPortal(
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
     >
       {/* Blinding Flashbang Effect on high-rarity drop */}
       {showFlashBang && (
-        <div className="fixed inset-0 z-[120] bg-white pointer-events-none animate-flash-bang" />
+        <div className="fixed inset-0 z-[10001] bg-white pointer-events-none animate-flash-bang" />
       )}
 
       {/* Top Controls: Fixed Skip & Close Header (Never hidden behind any bar) */}
-      <div className="fixed top-0 left-0 right-0 z-[110] px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-end space-x-2.5 bg-gradient-to-b from-black/90 via-black/60 to-transparent pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 z-[10000] px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-end space-x-2.5 bg-gradient-to-b from-black/95 via-black/70 to-transparent pointer-events-none">
         {phase === 'revealing' && (
           <button
             onClick={handleSkip}
@@ -560,6 +572,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   );
 };
