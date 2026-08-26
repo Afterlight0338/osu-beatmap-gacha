@@ -686,18 +686,28 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setRecentPulls(results);
 
       if (isAuthenticated) {
+        const pulledDiff = results.map((r) => {
+          const entry = updatedMap.get(r.beatmap.id);
+          return {
+            beatmapId: r.beatmap.id,
+            copies: entry ? entry.copies : r.currentCopies,
+            firstPulledAt: entry ? entry.firstPulledAt : r.pulledAt,
+            lastPulledAt: r.pulledAt,
+            isFavorite: entry ? Boolean(entry.isFavorite) : false,
+          };
+        });
+
         syncWithCloud({
-          collection: Array.from(updatedMap.values()).map((c) => ({
-            beatmapId: c.beatmapId,
-            copies: c.copies,
-            firstPulledAt: c.firstPulledAt,
-            lastPulledAt: c.lastPulledAt,
-            isFavorite: !!c.isFavorite,
+          collection: pulledDiff,
+          history: newHistoryItems.map((h) => ({
+            id: h.id,
+            beatmapId: h.beatmapId,
+            rarity: h.rarity,
+            pulledAt: h.pulledAt,
           })),
-          history: updatedHistory,
           totalPulls: newTotalPulls,
           pityCount: finalPity,
-        }).catch((err) => console.warn('Background pull sync error:', err));
+        }).catch((err) => console.warn('Background pull sync notice:', err));
       }
 
       return results;
@@ -721,22 +731,24 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       if (isAuthenticated) {
         syncWithCloud({
-          collection: newRecords.map((c) => ({
-            beatmapId: c.beatmapId,
-            copies: c.copies,
-            firstPulledAt: c.firstPulledAt,
-            lastPulledAt: c.lastPulledAt,
-            isFavorite: !!c.isFavorite,
-          })),
-          history,
+          collection: [
+            {
+              beatmapId: updatedRec.beatmapId,
+              copies: updatedRec.copies,
+              firstPulledAt: updatedRec.firstPulledAt,
+              lastPulledAt: updatedRec.lastPulledAt,
+              isFavorite: newStatus,
+            },
+          ],
+          history: [],
           totalPulls,
           pityCount,
-        }).catch((err) => console.warn('Background favorite sync error:', err));
+        }).catch((err) => console.warn('Background favorite sync notice:', err));
       }
 
       return newStatus;
     },
-    [collectionMap, totalPulls, pityCount, history, isAuthenticated, syncWithCloud]
+    [collectionMap, totalPulls, pityCount, isAuthenticated, syncWithCloud]
   );
 
   const updateSettings = useCallback(async (newSettings: Partial<UserSettings>) => {
