@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { OsuAuthUser, CloudSyncCollectionItem, CloudSyncHistoryItem } from '../types/auth';
+import { PullEnergyState } from '../types/collection';
 import { WORKER_API_URL } from '../config/api';
 import { supabase } from '../lib/supabase';
 import {
@@ -24,16 +25,18 @@ interface AuthContextType {
   loginWithOsu: () => void;
   logout: () => Promise<void>;
   syncWithCloud: (localCollection?: {
-    collection: CloudSyncCollectionItem[];
-    history: CloudSyncHistoryItem[];
-    totalPulls: number;
-    pityCount: number;
+    collection?: CloudSyncCollectionItem[];
+    history?: CloudSyncHistoryItem[];
+    totalPulls?: number;
+    pityCount?: number;
+    energy?: PullEnergyState;
   }) => Promise<{
     mergedCollection?: CloudSyncCollectionItem[];
     mergedHistory?: CloudSyncHistoryItem[];
     cloudTotalPulls?: number;
     cloudPityCount?: number;
     energyOverride?: number | null;
+    cloudEnergy?: PullEnergyState;
     config?: Record<string, unknown>;
   } | null>;
   clearAuthError: () => void;
@@ -226,10 +229,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
    */
   const syncWithCloud = useCallback(
     async (localData?: {
-      collection: CloudSyncCollectionItem[];
-      history: CloudSyncHistoryItem[];
-      totalPulls: number;
-      pityCount: number;
+      collection?: CloudSyncCollectionItem[];
+      history?: CloudSyncHistoryItem[];
+      totalPulls?: number;
+      pityCount?: number;
+      energy?: PullEnergyState;
     }) => {
       if (!token || !user || !user.osuId) return null;
 
@@ -274,6 +278,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             };
             if (typeof localData.pityCount === 'number') uPayload.pity_count = localData.pityCount;
             await supabase.from('users').update(uPayload).eq('osu_id', user.osuId);
+          }
+
+          // Save authoritative energy state to cloud
+          if (localData.energy) {
+            await supabase.from('admin_config').upsert({
+              key: `user_energy_${user.osuId}`,
+              value: {
+                ...localData.energy,
+                totalPulls: localData.totalPulls,
+                pityCount: localData.pityCount,
+                updatedAt: Date.now(),
+              },
+              updated_at: new Date().toISOString(),
+            });
           }
         }
 
@@ -355,6 +373,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
 
+        const energyKey = `user_energy_${user.osuId}`;
+        let cloudEnergy: PullEnergyState | undefined;
+        if (configMap[energyKey] && typeof (configMap[energyKey] as any)?.current === 'number') {
+          cloudEnergy = configMap[energyKey] as PullEnergyState;
+        }
+
         return {
           mergedCollection: allCards,
           mergedHistory: (histRes.data || []).map((h: any) => ({
@@ -366,16 +390,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           cloudTotalPulls: userRes.data?.total_pulls,
           cloudPityCount: userRes.data?.pity_count,
           energyOverride: energyOverrideVal,
+          cloudEnergy,
           config: configMap,
         };
       } catch (err) {
         console.warn('Supabase cloud synchronization notice — queuing locally:', err);
-        if (localData) {
+        if (localData && (localData.collection?.length || localData.history?.length || localData.totalPulls)) {
           await enqueuePendingSync({
-            totalPulls: localData.totalPulls,
-            pityCount: localData.pityCount,
-            collection: localData.collection,
-            history: localData.history,
+            totalPulls: localData.totalPulls || 0,
+            pityCount: localData.pityCount || 0,
+            collection: localData.collection || [],
+            history: localData.history || [],
           }).catch(() => {});
         }
         await refreshPendingCount();

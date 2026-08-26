@@ -643,6 +643,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               history,
               totalPulls,
               pityCount,
+              energy,
             }
           : undefined;
 
@@ -671,6 +672,19 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           setPityCount(syncResult.cloudPityCount);
         }
 
+        // Synchronize cloud energy state across devices
+        if (syncResult.cloudEnergy) {
+          const cEnergy = syncResult.cloudEnergy;
+          if (
+            (typeof syncResult.cloudTotalPulls === 'number' && syncResult.cloudTotalPulls > totalPulls) ||
+            (cEnergy.lastRefillTime && cEnergy.lastRefillTime > energy.lastRefillTime) ||
+            cEnergy.current < energy.current
+          ) {
+            setEnergy(cEnergy);
+            await savePullEnergyState(cEnergy);
+          }
+        }
+
         // Hydrate history
         const mapLookup = new Map<number, Beatmap>(rawPool.map((m: Beatmap) => [m.id, m]));
         const localHist = await getPullHistory(50);
@@ -697,7 +711,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch (err) {
       console.warn('Direct Supabase cloud sync notice:', err);
     }
-  }, [isAuthenticated, user, rawPool, syncWithCloud, collectionRecords, history, totalPulls, pityCount, adminRefillEnergy]);
+  }, [isAuthenticated, user, rawPool, syncWithCloud, collectionRecords, history, totalPulls, pityCount, energy, adminRefillEnergy]);
 
   // Reactive Cross-Device Auto-Sync (on login, tab focus & visibility change)
   useEffect(() => {
@@ -715,9 +729,28 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     window.addEventListener('focus', handleFocusSync);
     document.addEventListener('visibilitychange', handleFocusSync);
 
+    // Real-time multi-device stamina & pull listener
+    const syncChannel = supabase.channel(`player_energy_sync_${user.osuId}`);
+    syncChannel.on(
+      'broadcast',
+      { event: 'energy_consumed' },
+      (payload: { payload: { energy: PullEnergyState; totalPulls: number; pityCount: number } }) => {
+        if (payload?.payload) {
+          const { energy: remoteEnergy, totalPulls: remotePulls, pityCount: remotePity } = payload.payload;
+          setEnergy(remoteEnergy);
+          savePullEnergyState(remoteEnergy);
+          setTotalPulls((prev) => Math.max(prev, remotePulls));
+          setPityCount(remotePity);
+          savePityCount(remotePity);
+        }
+      }
+    );
+    syncChannel.subscribe();
+
     return () => {
       window.removeEventListener('focus', handleFocusSync);
       document.removeEventListener('visibilitychange', handleFocusSync);
+      supabase.removeChannel(syncChannel);
     };
   }, [isAuthenticated, user?.osuId]);
 
@@ -830,7 +863,21 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setHistory(updatedHistory);
       setRecentPulls(results);
 
-      if (isAuthenticated) {
+      if (isAuthenticated && user?.osuId) {
+        // Instant Real-time Broadcast to other open tabs/devices
+        try {
+          const syncChan = supabase.channel(`player_energy_sync_${user.osuId}`);
+          syncChan.send({
+            type: 'broadcast',
+            event: 'energy_consumed',
+            payload: {
+              energy: newEnergyState,
+              totalPulls: newTotalPulls,
+              pityCount: finalPity,
+            },
+          });
+        } catch {}
+
         const pulledDiff = results.map((r) => {
           const entry = updatedMap.get(r.beatmap.id);
           return {
@@ -852,12 +899,13 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           })),
           totalPulls: newTotalPulls,
           pityCount: finalPity,
+          energy: newEnergyState,
         }).catch((err) => console.warn('Background pull sync notice:', err));
       }
 
       return results;
     },
-    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, history, currentRates, isAuthenticated, syncWithCloud]
+    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, history, currentRates, isAuthenticated, user?.osuId, syncWithCloud]
   );
 
   const toggleFavorite = useCallback(
