@@ -3,12 +3,16 @@
  * For osu! Beatmap Gacha
  */
 
+import { serverChatFilter } from './chatFilter';
+
 export interface Env {
   osu_gacha_db: D1Database;
   OSU_CLIENT_ID: string;
   OSU_CLIENT_SECRET: string;
   FRONTEND_URL?: string;
   WORKER_URL?: string;
+  SUPABASE_URL?: string;
+  SUPABASE_ANON_KEY?: string;
 }
 
 interface OsuUserResponse {
@@ -1007,6 +1011,92 @@ export default {
           limit,
           offset,
           rows: rows.results,
+        }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 20. POST /api/chat/send  —  Server-Authoritative Chat Filter & Broadcast
+      // ---------------------------------------------------------
+      if (path === '/api/chat/send' && request.method === 'POST') {
+        const body = (await request.json().catch(() => ({}))) as {
+          osuId: number;
+          username: string;
+          avatarUrl?: string;
+          countryCode?: string;
+          text: string;
+          cardBadge?: any;
+          sessionToken?: string;
+        };
+
+        if (!body.osuId || !body.username || !body.text?.trim()) {
+          return errorResponse('osuId, username, and message text are required.', 400, request, env);
+        }
+
+        const rawText = body.text.trim();
+        if (rawText.length > 250) {
+          return errorResponse('Message cannot exceed 250 characters.', 400, request, env);
+        }
+
+        // Run server-authoritative sliding-window Trie filter
+        const filterRes = serverChatFilter.evaluateMessage({
+          osuId: body.osuId,
+          username: body.username,
+          text: rawText,
+        });
+
+        if (!filterRes.allowed) {
+          return jsonResponse({
+            success: false,
+            blocked: true,
+            error: filterRes.reason || 'Message blocked: contains prohibited slurs or hate speech.',
+            cooldownSeconds: filterRes.cooldownSeconds || 0,
+          }, 400, request, env);
+        }
+
+        const now = Date.now();
+        const newMsg = {
+          id: `${now}-${Math.random().toString(36).substring(2, 7)}`,
+          osuId: body.osuId,
+          username: body.username,
+          avatarUrl: body.avatarUrl,
+          countryCode: body.countryCode,
+          text: rawText,
+          createdAt: now,
+          isAdmin: body.username === 'RyoYamada' || body.osuId === 14671577,
+          cardBadge: body.cardBadge,
+        };
+
+        return jsonResponse({
+          success: true,
+          message: newMsg,
+        }, 200, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 21. POST /api/chat/validate  —  Server Pre-validation Check
+      // ---------------------------------------------------------
+      if (path === '/api/chat/validate' && request.method === 'POST') {
+        const body = (await request.json().catch(() => ({}))) as {
+          osuId: number;
+          username: string;
+          text: string;
+        };
+
+        if (!body.osuId || !body.text) {
+          return errorResponse('osuId and text required.', 400, request, env);
+        }
+
+        const filterRes = serverChatFilter.evaluateMessage({
+          osuId: body.osuId,
+          username: body.username || 'Summoner',
+          text: body.text,
+        });
+
+        return jsonResponse({
+          success: filterRes.allowed,
+          blocked: !filterRes.allowed,
+          reason: filterRes.reason,
+          cooldownSeconds: filterRes.cooldownSeconds || 0,
         }, 200, request, env);
       }
 

@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { RealtimeChannel } from '@supabase/supabase-js';
+import { globalChatFilter } from './filter/chatFilter';
 
 export interface ChatMessage {
   id: string;
@@ -30,65 +31,6 @@ export interface OnlinePlayer {
 
 // 12-Hour Storage Limit in Milliseconds
 export const CHAT_RETENTION_MS = 12 * 60 * 60 * 1000;
-
-// Bad Words & Slurs List for Smart Multi-Layer Filter
-const BANNED_WORDS = [
-  // Slurs & Hate Speech
-  'nigger', 'nigga', 'niga', 'nigg', 'kike', 'chink', 'faggot', 'fag', 'spic', 'retard', 'tranny', 'dyke', 'gook',
-  // Strong Profanity & Harassment
-  'fuck', 'fucker', 'fucking', 'fucked', 'motherfucker', 'cunt', 'bitch', 'bitches', 'whore', 'slut', 'asshole', 'dickhead',
-  // Violence & Self-harm
-  'kys', 'kill yourself', 'hang yourself', 'commit suicide',
-  // Scam & Malicious
-  'free osu supporter hack', 'free pp generator', 'gacha cheat engine',
-];
-
-/**
- * Normalizes text to defeat leetspeak & spacing/punctuation obfuscation
- */
-function normalizeForFilter(str: string): string {
-  return str
-    .toLowerCase()
-    .replace(/[@4]/g, 'a')
-    .replace(/[3]/g, 'e')
-    .replace(/[1!|]/g, 'i')
-    .replace(/[0]/g, 'o')
-    .replace(/[$5]/g, 's')
-    .replace(/[+]/g, 't')
-    .replace(/[v]/g, 'u')
-    .replace(/ph/g, 'f');
-}
-
-export function filterProfanity(text: string): string {
-  if (!text) return '';
-  let filtered = text;
-
-  // 1. Direct Regex checks on whole words & variants with standard boundaries
-  for (const word of BANNED_WORDS) {
-    // Generate flexible regex allowing optional separators between characters (e.g., f.u.c.k, f-u-c-k, f u c k)
-    const escapedChars = word.split('').map((c) => (c === ' ' ? '\\s+' : `${c}+`));
-    const flexiblePattern = escapedChars.join('[\\s._\\-*~`^]*');
-    const regex = new RegExp(`\\b${flexiblePattern}\\b|(?<=[^a-z0-9]|^)${flexiblePattern}(?=[^a-z0-9]|$)`, 'gi');
-
-    filtered = filtered.replace(regex, (match) => '*'.repeat(Math.max(3, match.length)));
-  }
-
-  // 2. Normalized leetspeak pass
-  const normalized = normalizeForFilter(filtered);
-  for (const word of BANNED_WORDS) {
-    let searchIdx = normalized.indexOf(word);
-    while (searchIdx !== -1) {
-      const matchLen = word.length;
-      filtered =
-        filtered.substring(0, searchIdx) +
-        '*'.repeat(matchLen) +
-        filtered.substring(searchIdx + matchLen);
-      searchIdx = normalized.indexOf(word, searchIdx + matchLen);
-    }
-  }
-
-  return filtered;
-}
 
 class ChatService {
   private channel: RealtimeChannel | null = null;
@@ -278,7 +220,20 @@ class ChatService {
     this.lastMessageTime = now;
     this.lastMessageText = rawText;
 
-    const filteredText = filterProfanity(rawText);
+    // 1. Evaluate message via Sliding-Window Anti-Evasion Trie Filter
+    const filterRes = globalChatFilter.evaluateMessage({
+      osuId: params.osuId,
+      username: params.username,
+      text: rawText,
+      timestamp: now,
+    });
+
+    if (!filterRes.allowed) {
+      return {
+        success: false,
+        error: filterRes.reason || 'Message blocked: contains prohibited slurs or hate speech.',
+      };
+    }
 
     const newMsg: ChatMessage = {
       id: `${now}-${Math.random().toString(36).substring(2, 7)}`,
@@ -286,13 +241,13 @@ class ChatService {
       username: params.username,
       avatarUrl: params.avatarUrl,
       countryCode: params.countryCode,
-      text: filteredText,
+      text: rawText,
       createdAt: now,
       isAdmin: params.isAdmin,
       cardBadge: params.cardBadge,
     };
 
-    // 1. Broadcast immediately to all active clients
+    // 2. Broadcast immediately to all active clients
     if (this.channel) {
       this.channel.send({
         type: 'broadcast',
@@ -301,10 +256,10 @@ class ChatService {
       }).catch((err) => console.warn('Broadcast send notice:', err));
     }
 
-    // 2. Update local state
+    // 3. Update local state
     this.handleIncomingMessage(newMsg);
 
-    // 3. Persist to Supabase with 12-hour pruning in background
+    // 4. Persist to Supabase with 12-hour pruning in background
     this.persistMessagesToCloud().catch((err) => console.warn('Persist chat error:', err));
 
     return { success: true };
