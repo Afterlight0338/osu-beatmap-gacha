@@ -144,23 +144,6 @@ const MainApp: React.FC = () => {
     };
   }, []);
 
-  // If maintenance mode is active and the visitor is not the admin (or is previewing/not bypassed), show Maintenance Page
-  const isCurrentlyInMaintenance = typeof cloudMaintenance.enabled === 'boolean' ? cloudMaintenance.enabled : MAINTENANCE_MODE;
-  if (isCurrentlyInMaintenance && (!userIsAdmin || !adminBypassed || previewMaintenance)) {
-    return (
-      <MaintenancePage
-        config={cloudMaintenance}
-        onBypass={() => {
-          setPreviewMaintenance(false);
-          setAdminBypassed(true);
-          sessionStorage.setItem('admin_maintenance_bypassed', 'true');
-          setActiveTab('admin');
-        }}
-        onDisableMaintenance={handleDisableMaintenance}
-      />
-    );
-  }
-
   // Load users & listen for incoming gifts and trades for the authenticated player
   useEffect(() => {
     const fetchUsers = async () => {
@@ -208,6 +191,23 @@ const MainApp: React.FC = () => {
       supabase.removeChannel(channel);
     };
   }, [user?.osuId]);
+
+  // If maintenance mode is active and the visitor is not the admin (or is previewing/not bypassed), show Maintenance Page
+  const isCurrentlyInMaintenance = typeof cloudMaintenance.enabled === 'boolean' ? cloudMaintenance.enabled : MAINTENANCE_MODE;
+  if (isCurrentlyInMaintenance && (!userIsAdmin || !adminBypassed || previewMaintenance)) {
+    return (
+      <MaintenancePage
+        config={cloudMaintenance}
+        onBypass={() => {
+          setPreviewMaintenance(false);
+          setAdminBypassed(true);
+          sessionStorage.setItem('admin_maintenance_bypassed', 'true');
+          setActiveTab('admin');
+        }}
+        onDisableMaintenance={handleDisableMaintenance}
+      />
+    );
+  }
 
   if (isLoading) {
     return (
@@ -389,13 +389,58 @@ const MainApp: React.FC = () => {
   );
 };
 
+class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: any }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('App Error Caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-[#0d0d15] text-slate-100 p-6 text-center space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-red-950/80 border border-red-500/60 flex items-center justify-center text-red-400 shadow-xl">
+            <AlertCircle className="w-8 h-8" />
+          </div>
+          <div className="space-y-1 max-w-md">
+            <h2 className="text-xl font-bold font-display text-white">Something went wrong</h2>
+            <p className="text-xs text-slate-400 font-mono">
+              {this.state.error?.message || 'An unexpected rendering error occurred.'}
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              sessionStorage.clear();
+              window.location.reload();
+            }}
+            className="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-mono text-xs font-bold transition-all shadow-md"
+          >
+            Reload Application
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <GachaProvider>
-        <MainApp />
-      </GachaProvider>
-    </AuthProvider>
+    <AppErrorBoundary>
+      <AuthProvider>
+        <GachaProvider>
+          <MainApp />
+        </GachaProvider>
+      </AuthProvider>
+    </AppErrorBoundary>
   );
 };
 
