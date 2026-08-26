@@ -29,11 +29,12 @@ interface TierShiftItem {
   currentRank: number;
   currentRarity: RarityTier;
   oldRank: number;
-  oldRarity: RarityTier;
+  oldRarity: string;
   tierDelta: number;
   rankDelta: number;
   favRate: string;
   year: number;
+  isNewGraveyard: boolean;
 }
 
 export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap }) => {
@@ -41,7 +42,7 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
   const [selectedVersion, setSelectedVersion] = useState<string>("v7.0");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeFilter, setActiveFilter] = useState<
-    "all" | "to_ex" | "to_goat" | "to_divine" | "to_celestial" | "to_mythic" | "major_buffs" | "all_buffs" | "all_nerfs"
+    "all" | "to_goat" | "to_divine" | "to_celestial" | "to_mythic" | "graveyard" | "major_buffs" | "all_buffs" | "all_nerfs"
   >("all");
   const [sortBy, setSortBy] = useState<"tierDelta" | "rank" | "plays" | "favs">("tierDelta");
   const [playingId, setPlayingId] = useState<number | null>(null);
@@ -68,42 +69,61 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
   const allShifts = useMemo<TierShiftItem[]>(() => {
     if (!pool || pool.length === 0) return [];
 
-    const linearScored = pool.map((m) => {
+    // Strictly sort pool by MCDA Popularity Score descending to ensure accurate 1..N ranks
+    const sortedPool = [...pool].sort((a, b) => (b.popularityScore || 0) - (a.popularityScore || 0));
+
+    // Baseline Legacy Linear scoring (pre-v7.0 formula)
+    const linearScored = sortedPool.map((m) => {
       const p = Math.log10(Math.max(1, m.playcount));
       const f = Math.log10(Math.max(1, m.favouriteCount));
       const pNorm = Math.min(1, Math.max(0, (p - 2.0) / (8.2 - 2.0)));
       const fNorm = Math.min(1, Math.max(0, (f - 0.3) / (4.7 - 0.3)));
-      const score = pNorm * 0.35 + fNorm * 0.65;
-      const statusMult = m.status === "ranked" || m.status === "approved" ? 1.0 : m.status === "loved" ? 0.98 : 0.92;
-      return { id: m.id, linearScore: score * statusMult };
+      const score = pNorm * 0.70 + fNorm * 0.30;
+      return { id: m.id, map: m, score };
     });
 
-    linearScored.sort((a, b) => b.linearScore - a.linearScore);
-    const oldRankMap = new Map<number, { oldRank: number; oldRarity: RarityTier }>();
+    linearScored.sort((a, b) => b.score - a.score);
+    const oldRankMap = new Map<number, { oldRank: number; oldRarity: string; isNewGraveyard: boolean }>();
 
-    function getLinearRarity(rank: number): RarityTier {
+    function getLegacyRarity(rank: number, status: string): string {
+      if (status === "graveyard" || status === "unranked") return "Unranked / New";
       if (rank <= 10) return "GOAT";
-      if (rank <= 50) return "Divine";
-      if (rank <= 150) return "Celestial";
-      if (rank <= 400) return "Mythic";
-      if (rank <= 1100) return "Legendary";
-      if (rank <= 3600) return "Epic";
-      if (rank <= 10100) return "Rare";
-      if (rank <= 18100) return "Uncommon+";
-      if (rank <= 27100) return "Uncommon";
+      if (rank <= 40) return "Divine";
+      if (rank <= 115) return "Celestial";
+      if (rank <= 265) return "Mythic";
+      if (rank <= 665) return "Legendary";
+      if (rank <= 2665) return "Epic";
+      if (rank <= 8665) return "Rare";
+      if (rank <= 18665) return "Uncommon+";
+      if (rank <= 29665) return "Uncommon";
       return "Common";
     }
 
     linearScored.forEach((item, idx) => {
-      oldRankMap.set(item.id, { oldRank: idx + 1, oldRarity: getLinearRarity(idx + 1) });
+      const isNewGraveyard = item.map.status === "graveyard" || item.map.status === "unranked";
+      oldRankMap.set(item.id, {
+        oldRank: idx + 1,
+        oldRarity: getLegacyRarity(idx + 1, item.map.status),
+        isNewGraveyard,
+      });
     });
 
-    return pool
+    return sortedPool
       .map((m, idx) => {
         const currentRank = idx + 1;
         const currentRarity = m.rarity;
-        const { oldRank, oldRarity } = oldRankMap.get(m.id) || { oldRank: currentRank, oldRarity: currentRarity };
-        const tierDelta = RARITY_ORDER.indexOf(currentRarity) - RARITY_ORDER.indexOf(oldRarity);
+        const { oldRank, oldRarity, isNewGraveyard } = oldRankMap.get(m.id) || {
+          oldRank: currentRank,
+          oldRarity: currentRarity,
+          isNewGraveyard: false,
+        };
+
+        const oldRarityIndex = RARITY_ORDER.indexOf(oldRarity as RarityTier);
+        const currentRarityIndex = RARITY_ORDER.indexOf(currentRarity);
+        const tierDelta = isNewGraveyard
+          ? currentRarityIndex + 1
+          : (oldRarityIndex !== -1 ? currentRarityIndex - oldRarityIndex : 0);
+
         const rankDelta = oldRank - currentRank;
         const p = Math.max(0, m.playcount);
         const f = Math.max(0, m.favouriteCount);
@@ -120,20 +140,22 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
           rankDelta,
           favRate,
           year,
+          isNewGraveyard,
         };
       })
-      .filter((s) => s.tierDelta !== 0 || Math.abs(s.rankDelta) >= 100);
+      .filter((s) => s.isNewGraveyard || s.tierDelta !== 0 || Math.abs(s.rankDelta) >= 50);
   }, [pool]);
 
   const stats = useMemo(() => {
-    const totalChanged = allShifts.filter((s) => s.tierDelta !== 0).length;
+    const totalChanged = allShifts.filter((s) => s.tierDelta !== 0 || s.isNewGraveyard).length;
     const promotedToGoat = allShifts.filter((s) => s.currentRarity === "GOAT" && s.tierDelta > 0).length;
     const promotedToDivine = allShifts.filter((s) => s.currentRarity === "Divine" && s.tierDelta > 0).length;
+    const graveyardCount = allShifts.filter((s) => s.isNewGraveyard).length;
     const majorBuffs = allShifts.filter((s) => s.tierDelta >= 2).length;
     const totalBuffs = allShifts.filter((s) => s.tierDelta > 0).length;
-    const totalNerfs = allShifts.filter((s) => s.tierDelta < 0).length;
+    const totalNerfs = allShifts.filter((s) => s.tierDelta < 0 && !s.isNewGraveyard).length;
 
-    return { totalChanged, promotedToGoat, promotedToDivine, majorBuffs, totalBuffs, totalNerfs };
+    return { totalChanged, promotedToGoat, promotedToDivine, graveyardCount, majorBuffs, totalBuffs, totalNerfs };
   }, [allShifts]);
 
   const filteredShifts = useMemo(() => {
@@ -147,6 +169,8 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
       list = list.filter((s) => s.currentRarity === "Celestial" && s.tierDelta > 0);
     } else if (activeFilter === "to_mythic") {
       list = list.filter((s) => s.currentRarity === "Mythic" && s.tierDelta > 0);
+    } else if (activeFilter === "graveyard") {
+      list = list.filter((s) => s.isNewGraveyard);
     } else if (activeFilter === "major_buffs") {
       list = list.filter((s) => s.tierDelta >= 2);
     } else if (activeFilter === "all_buffs") {
@@ -345,6 +369,7 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
             { id: "all", label: "All Shifts", count: allShifts.length },
             { id: "to_goat", label: "🌟 Promoted to GOAT", count: stats.promotedToGoat },
             { id: "to_divine", label: "👑 Promoted to Divine", count: stats.promotedToDivine },
+            { id: "graveyard", label: "🪦 Graveyard Landmarks", count: stats.graveyardCount },
             { id: "major_buffs", label: "🚀 Major Buffs (+2)", count: stats.majorBuffs },
             { id: "all_buffs", label: "⬆️ All Upgrades", count: stats.totalBuffs },
             { id: "all_nerfs", label: "⬇️ Adjustments", count: stats.totalNerfs },
@@ -383,7 +408,9 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
                   onClick={() => onSelectBeatmap && onSelectBeatmap(s.map)}
                   className={
                     "group relative rounded-2xl bg-slate-900/80 border p-3.5 transition-all duration-200 hover:scale-[1.01] hover:bg-slate-800/80 cursor-pointer shadow-lg space-y-3 " +
-                    (isMajorBuff
+                    (s.isNewGraveyard
+                      ? "border-purple-500/60 bg-purple-950/20"
+                      : isMajorBuff
                       ? "border-pink-500/50 shadow-pink-950/20"
                       : isBuff
                       ? "border-emerald-500/40"
@@ -409,9 +436,16 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
                     </div>
 
                     <div className="min-w-0 flex-1 space-y-0.5">
-                      <h4 className="text-xs font-bold text-white truncate group-hover:text-pink-400 transition-colors">
-                        {s.map.title}
-                      </h4>
+                      <div className="flex items-center space-x-1.5">
+                        <h4 className="text-xs font-bold text-white truncate group-hover:text-pink-400 transition-colors">
+                          {s.map.title}
+                        </h4>
+                        {s.isNewGraveyard && (
+                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-purple-950 border border-purple-500/40 text-purple-300 flex-shrink-0">
+                            🪦 Landmark
+                          </span>
+                        )}
+                      </div>
                       <p className="text-[11px] text-slate-400 truncate">{s.map.artist}</p>
                       <div className="flex items-center space-x-2 text-[10px] font-mono text-slate-500">
                         <span>★ {s.map.stars?.toFixed(2) || "4.00"}</span>
@@ -443,7 +477,12 @@ export const ChangelogPage: React.FC<ChangelogPageProps> = ({ onSelectBeatmap })
                     </div>
 
                     <div className="flex items-center space-x-1 text-[11px] font-mono font-bold">
-                      {s.tierDelta > 0 ? (
+                      {s.isNewGraveyard ? (
+                        <span className="text-purple-300 flex items-center space-x-0.5">
+                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                          <span>New Addition</span>
+                        </span>
+                      ) : s.tierDelta > 0 ? (
                         <span className="text-emerald-400 flex items-center space-x-0.5">
                           <TrendingUp className="w-3.5 h-3.5" />
                           <span>+{s.tierDelta} Tier{s.tierDelta > 1 ? "s" : ""}</span>
