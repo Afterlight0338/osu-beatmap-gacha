@@ -27,6 +27,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react';
+import { formatUserShortDateTime } from '../utils/timeFormat';
 
 export interface LeaderboardUser {
   osu_id: number;
@@ -648,7 +649,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                           <div className="flex items-center space-x-2 flex-shrink-0">
                             <RarityBadge rarity={map.rarity} size="sm" showStars={false} />
                             <span className="text-[10px] font-mono text-slate-500">
-                              {new Date(item.pulledAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                              {formatUserShortDateTime(item.pulledAt)}
                             </span>
                           </div>
                         </div>

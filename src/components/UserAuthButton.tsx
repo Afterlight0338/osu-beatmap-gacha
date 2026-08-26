@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Disc,
 } from 'lucide-react';
+import { formatUserTime } from '../utils/timeFormat';
 
 interface UserAuthButtonProps {
   onForceSync?: () => void;
@@ -189,7 +190,7 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
 
             {lastSyncedAt && (
               <p className="text-[10px] text-slate-500">
-                Last synced: {lastSyncedAt.toLocaleTimeString()}
+                Last synced: {formatUserTime(lastSyncedAt)}
               </p>
             )}
 

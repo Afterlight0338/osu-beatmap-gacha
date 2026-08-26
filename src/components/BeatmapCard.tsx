@@ -4,6 +4,7 @@ import { RarityBadge } from './RarityBadge';
 import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
+import { formatUserDate } from '../utils/timeFormat';
 import { Play, Square, Heart, Layers, ExternalLink } from 'lucide-react';
 import { getMapsetStarRange } from '../data/loader';
 
@@ -311,7 +312,7 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
               <div className="col-span-2 pt-1 mt-0.5 border-t border-slate-800/60 flex items-center justify-between text-[10px]">
                 <span className="text-slate-500">Ranked:</span>
                 <span className="text-slate-300 font-semibold font-mono">
-                  {new Date(beatmap.rankedDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                  {formatUserDate(beatmap.rankedDate)}
                 </span>
               </div>
             )}

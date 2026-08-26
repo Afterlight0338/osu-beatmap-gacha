@@ -6,6 +6,8 @@ import { BeatmapCoverImage } from './BeatmapCoverImage';
 import { Beatmap } from '../types/beatmap';
 import { X, History } from 'lucide-react';
 
+import { formatUserShortDateTime } from '../utils/timeFormat';
+
 interface PullHistoryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -33,12 +35,7 @@ export const PullHistoryModal: React.FC<PullHistoryModalProps> = ({
   if (!isOpen) return null;
 
   const formatDate = (timestamp: number): string => {
-    return new Date(timestamp).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    return formatUserShortDateTime(timestamp);
   };
 
   return createPortal(

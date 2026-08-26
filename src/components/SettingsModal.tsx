@@ -24,6 +24,7 @@ import {
   ShieldCheck,
   Disc,
 } from 'lucide-react';
+import { formatUserTime, formatUserDate, getUserUtcOffset } from '../utils/timeFormat';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -249,7 +250,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                     </p>
                     {lastSyncedAt && (
                       <p className="text-[10px] font-mono text-slate-500">
-                        Last cloud sync: {lastSyncedAt.toLocaleTimeString()}
+                        Last cloud sync: {formatUserTime(lastSyncedAt)} ({getUserUtcOffset()})
                       </p>
                     )}
                   </div>
@@ -398,10 +399,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
               <div className="flex justify-between">
                 <span>Updated:</span>
                 <span className="text-slate-200">
-                  {new Date(datasetInfo.lastUpdated).toLocaleDateString()}
+                  {formatUserDate(datasetInfo.lastUpdated)}
                 </span>
               </div>
             )}
+            <div className="flex justify-between">
+              <span>Your Timezone:</span>
+              <span className="text-pink-400 font-bold">
+                {getUserUtcOffset()} (Local)
+              </span>
+            </div>
 
             {/* Secret Easter Egg Button */}
             <div className="pt-2 border-t border-slate-800/80 flex justify-end">

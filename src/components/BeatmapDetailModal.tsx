@@ -19,6 +19,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import { getMapsetStarRange } from '../data/loader';
+import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 
 interface BeatmapDetailModalProps {
   beatmap: Beatmap | null;
@@ -81,13 +82,7 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
 
   const formatDate = (timestamp?: number): string => {
     if (!timestamp) return 'Never';
-    return new Date(timestamp).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    return formatUserDateTime(timestamp);
   };
 
   const osuWebUrl = `https://osu.ppy.sh/beatmapsets/${beatmap.beatmapsetId}#osu/${beatmap.id}`;
@@ -230,9 +225,7 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
                 <span>Ranked Date</span>
               </div>
               <p className="text-sm font-bold text-emerald-300 mt-1 font-mono">
-                {beatmap.rankedDate
-                  ? new Date(beatmap.rankedDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
-                  : 'N/A'}
+                {beatmap.rankedDate ? formatUserDate(beatmap.rankedDate) : 'N/A'}
               </p>
             </div>
 

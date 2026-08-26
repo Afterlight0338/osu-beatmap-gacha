@@ -18,6 +18,7 @@ import {
   Globe,
   Disc,
 } from 'lucide-react';
+import { formatUserDateTime } from '../utils/timeFormat';
 
 interface AboutContent {
   disclaimerTitle: string;
@@ -379,7 +380,7 @@ export const AboutPage: React.FC = () => {
         {content.lastUpdatedAt && (
           <p className="text-right text-[10px] font-mono text-slate-500">
             Page content last updated by <strong className="text-slate-400">{content.lastUpdatedBy || 'Admin'}</strong> on{' '}
-            {new Date(content.lastUpdatedAt).toLocaleString()}
+            {formatUserDateTime(content.lastUpdatedAt, true)}
           </p>
         )}
       </section>

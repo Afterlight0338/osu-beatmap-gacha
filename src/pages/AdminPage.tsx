@@ -12,6 +12,7 @@ import {
   Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X, Wrench, Gift, Table,
   CheckCircle2,
 } from 'lucide-react';
+import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 
 const RARITY_ORDER: RarityTier[] = ['GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -532,7 +533,7 @@ const AdminPage: React.FC = () => {
                       {expandedUser === u.osuId && (
                         <div className="px-4 pb-4 border-t border-slate-800/60 pt-3 flex flex-wrap gap-2 items-center">
                           <span className="text-xs font-mono text-slate-500 flex-1">
-                            Last login: {new Date(u.lastLogin).toLocaleString()}
+                            Last login: {formatUserDateTime(u.lastLogin)}
                           </span>
                           <button
                             onClick={() => selectUser(u.osuId, u.username)}
@@ -853,7 +854,7 @@ const AdminPage: React.FC = () => {
                             </span>
                           </div>
                           <div className="text-[10px] font-mono text-slate-500">
-                            ID {c.beatmapId} · {c.isFavorite ? '★ fav · ' : ''}{new Date(c.lastPulledAt).toLocaleDateString()}
+                            ID {c.beatmapId} · {c.isFavorite ? '★ fav · ' : ''}{formatUserDate(c.lastPulledAt)}
                           </div>
                         </div>
                         {isEditing ? (
