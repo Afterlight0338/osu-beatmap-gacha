@@ -27,7 +27,6 @@ import {
   toggleFavorite as dbToggleFavorite,
 } from '../storage/db';
 
-const BASE_REGEN_INTERVAL_MS = 15000; // Standard: 1 stamina every 15 seconds
 const MAX_MAIN_ENERGY = 50;
 const MAX_RESERVE_ENERGY = 100;
 
@@ -138,9 +137,15 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return (energy.current || 0) + (energy.reserve || 0) + (energy.bonus || 0);
   }, [energy]);
 
+  const [staminaConfig, setStaminaConfig] = useState<{ max: number; regenSeconds: number }>({ max: 50, regenSeconds: 15 });
+
   const regenIntervalMs = useMemo(() => {
-    return activeEvent && activeEvent.fastRecharge ? 5000 : BASE_REGEN_INTERVAL_MS;
-  }, [activeEvent]);
+    if (activeEvent && activeEvent.active && activeEvent.fastRecharge) {
+      return 5000; // Turbo Event: 5 seconds
+    }
+    const sec = staminaConfig.regenSeconds || 15;
+    return sec * 1000;
+  }, [activeEvent, staminaConfig]);
 
   // Dynamically computed rates factoring event multipliers and EX tier
   const currentRates: RarityRates = useMemo(() => {
@@ -181,30 +186,41 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   }, [activeEvent]);
 
-  // Fetch active event & card overrides from Supabase
+  // Fetch active event, card overrides & dynamic stamina from Supabase
   useEffect(() => {
     async function loadCloudConfigs() {
       try {
-        const [evRes, ovRes] = await Promise.all([
+        const [evRes, ovRes, stamRes] = await Promise.all([
           supabase.from('admin_config').select('value').eq('key', 'active_event_preset').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'card_tier_overrides').maybeSingle(),
+          supabase.from('admin_config').select('value').eq('key', 'stamina_config').maybeSingle(),
         ]);
 
-        if (evRes.data && evRes.data.value && evRes.data.value.active && !evRes.error) {
+        if (evRes.data && evRes.data.value && !evRes.error) {
           const ev: ActiveEventState = evRes.data.value;
-          if (!ev.expiresAt || new Date(ev.expiresAt).getTime() > Date.now()) {
+          if (ev.active && (!ev.expiresAt || new Date(ev.expiresAt).getTime() > Date.now())) {
             setActiveEvent(ev);
+          } else {
+            setActiveEvent(null);
           }
+        } else {
+          setActiveEvent(null);
         }
 
         if (ovRes.data && ovRes.data.value && !ovRes.error) {
           setCardOverrides(ovRes.data.value as CardTierOverridesMap);
+        }
+
+        if (stamRes.data && stamRes.data.value && !stamRes.error) {
+          setStaminaConfig(stamRes.data.value);
         }
       } catch (err) {
         console.warn('Error loading active cloud configs:', err);
       }
     }
     loadCloudConfigs();
+    const interval = setInterval(loadCloudConfigs, 6000);
+    return () => clearInterval(interval);
   }, []);
 
   // Load beatmap pool and user data on start

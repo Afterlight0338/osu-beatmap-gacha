@@ -16,13 +16,14 @@ import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
 import { MiniBroadcastToast } from './components/MiniBroadcastToast';
+import { EventAura } from './components/EventAura';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
 import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 
 const MainApp: React.FC = () => {
-  const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
+  const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite, activeEvent } = useGacha();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
@@ -67,6 +68,9 @@ const MainApp: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-6 z-10 pb-24 sm:pb-8">
+        {/* Live Event Atmospheric Aura & Ribbon */}
+        <EventAura event={activeEvent} />
+
         {/* Admin Maintenance Mode Notification */}
         {MAINTENANCE_MODE && userIsAdmin && (
           <div className="max-w-7xl mx-auto mb-6 p-3 sm:p-4 rounded-2xl bg-amber-950/70 border border-amber-500/60 text-amber-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-amber-950/40">
