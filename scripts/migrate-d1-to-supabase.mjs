@@ -16,7 +16,7 @@ console.log(`Target: ${SUPABASE_URL}`);
 function queryD1(sql) {
   try {
     const cmd = `cd worker && npx wrangler d1 execute osu-gacha-db --remote --json --command="${sql.replace(/"/g, '\\"')}"`;
-    const res = execSync(cmd, { encoding: 'utf-8' });
+    const res = execSync(cmd, { encoding: 'utf-8', maxBuffer: 50 * 1024 * 1024 });
     const parsed = JSON.parse(res);
     return parsed[0]?.results || [];
   } catch (err) {
