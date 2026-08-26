@@ -27,6 +27,8 @@ import {
   clearAllData,
   toggleFavorite as dbToggleFavorite,
   bulkMergeCollectionFromCloud,
+  removeCollectionRecord,
+  addCollectionRecord,
 } from '../storage/db';
 
 const MAX_MAIN_ENERGY = 50;
@@ -88,6 +90,8 @@ interface GachaContextType {
   removeCardTierOverride: (beatmapId: number) => Promise<void>;
   toggleFavorite: (beatmapId: number) => Promise<boolean>;
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
+  removeCardFromCollection: (beatmapId: number, count?: number) => Promise<void>;
+  addCardToCollection: (beatmap: Beatmap, count?: number) => Promise<void>;
   resetCollection: () => Promise<void>;
   refreshCollection: () => Promise<void>;
   forceCloudSync: () => Promise<void>;
@@ -553,6 +557,76 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setHistory(hydratedHistory);
   }, [rawPool]);
 
+  const removeCardFromCollection = useCallback(
+    async (beatmapId: number, count: number = 1) => {
+      await removeCollectionRecord(beatmapId, count);
+      await refreshCollection();
+
+      // If authenticated, also update Supabase user_collection
+      if (isAuthenticated && user?.osuId) {
+        try {
+          const { data: existing } = await supabase
+            .from('user_collection')
+            .select('copies')
+            .eq('osu_id', user.osuId)
+            .eq('beatmap_id', beatmapId)
+            .maybeSingle();
+
+          if (existing) {
+            const rem = existing.copies - count;
+            if (rem > 0) {
+              await supabase
+                .from('user_collection')
+                .update({ copies: rem })
+                .eq('osu_id', user.osuId)
+                .eq('beatmap_id', beatmapId);
+            } else {
+              await supabase
+                .from('user_collection')
+                .delete()
+                .eq('osu_id', user.osuId)
+                .eq('beatmap_id', beatmapId);
+            }
+          }
+        } catch (e) {
+          console.warn('Supabase card removal sync notice:', e);
+        }
+      }
+    },
+    [isAuthenticated, user?.osuId, refreshCollection]
+  );
+
+  const addCardToCollection = useCallback(
+    async (beatmap: Beatmap, count: number = 1) => {
+      await addCollectionRecord({ beatmapId: beatmap.id, copies: count });
+      await refreshCollection();
+
+      // If authenticated, also update Supabase user_collection
+      if (isAuthenticated && user?.osuId) {
+        try {
+          const { data: existing } = await supabase
+            .from('user_collection')
+            .select('copies')
+            .eq('osu_id', user.osuId)
+            .eq('beatmap_id', beatmap.id)
+            .maybeSingle();
+
+          await supabase.from('user_collection').upsert({
+            osu_id: user.osuId,
+            beatmap_id: beatmap.id,
+            copies: (existing?.copies || 0) + count,
+            first_pulled_at: Date.now(),
+            last_pulled_at: Date.now(),
+            is_favorite: false,
+          });
+        } catch (e) {
+          console.warn('Supabase card add sync notice:', e);
+        }
+      }
+    },
+    [isAuthenticated, user?.osuId, refreshCollection]
+  );
+
   const forceCloudSync = useCallback(async () => {
     if (!isAuthenticated || !user || !user.osuId) return;
     try {
@@ -960,6 +1034,8 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     removeCardTierOverride,
     toggleFavorite,
     updateSettings,
+    removeCardFromCollection,
+    addCardToCollection,
     resetCollection,
     refreshCollection,
     forceCloudSync,

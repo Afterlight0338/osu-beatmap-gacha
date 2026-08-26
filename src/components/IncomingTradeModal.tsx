@@ -13,7 +13,7 @@ interface IncomingTradeModalProps {
 
 export const IncomingTradeModal: React.FC<IncomingTradeModalProps> = ({ trade, onClose }) => {
   const { user } = useAuth();
-  const { refreshCollection, adminRefillEnergy } = useGacha();
+  const { adminRefillEnergy, removeCardFromCollection, addCardToCollection } = useGacha();
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -33,7 +33,21 @@ export const IncomingTradeModal: React.FC<IncomingTradeModalProps> = ({ trade, o
       } else {
         sfx.playClaim();
         setSuccessMsg('🎉 Trade Accepted! Your collection has been updated.');
-        await refreshCollection();
+
+        // 1. Remove given cards from recipient's local collection
+        if (trade.requestedCards && trade.requestedCards.length > 0) {
+          for (const card of trade.requestedCards) {
+            await removeCardFromCollection(card.beatmapId, 1);
+          }
+        }
+
+        // 2. Add received cards to recipient's local collection
+        if (trade.offeredCards && trade.offeredCards.length > 0) {
+          for (const card of trade.offeredCards) {
+            await addCardToCollection({ id: card.beatmapId, ...card } as any, 1);
+          }
+        }
+
         if (trade.offeredStamina && trade.offeredStamina > 0) {
           await adminRefillEnergy(trade.offeredStamina);
         }

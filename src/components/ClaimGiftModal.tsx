@@ -13,7 +13,7 @@ interface ClaimGiftModalProps {
 
 export const ClaimGiftModal: React.FC<ClaimGiftModalProps> = ({ gift, onClose }) => {
   const { user } = useAuth();
-  const { adminRefillEnergy, refreshCollection } = useGacha();
+  const { adminRefillEnergy, addCardToCollection } = useGacha();
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
   const [claimed, setClaimed] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -34,8 +34,8 @@ export const ClaimGiftModal: React.FC<ClaimGiftModalProps> = ({ gift, onClose })
         sfx.playClaim();
         setClaimed(true);
 
-        if (gift.type === 'card') {
-          await refreshCollection();
+        if (gift.type === 'card' && gift.cardData) {
+          await addCardToCollection(gift.cardData as any, 1);
         } else if (gift.type === 'stamina' && gift.staminaAmount) {
           await adminRefillEnergy(gift.staminaAmount);
         }

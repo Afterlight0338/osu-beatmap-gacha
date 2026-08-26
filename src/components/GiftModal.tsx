@@ -17,7 +17,7 @@ interface GiftModalProps {
 
 export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, targetPlayer, allUsers = [] }) => {
   const { user } = useAuth();
-  const { collectionRecords, poolMap, refreshCollection } = useGacha();
+  const { collectionRecords, poolMap, removeCardFromCollection } = useGacha();
 
   const [selectedRecipientId, setSelectedRecipientId] = useState<number>(0);
   const [giftType, setGiftType] = useState<'card' | 'stamina'>('card');
@@ -116,8 +116,8 @@ export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, targetPla
         sfx.playClaim();
         setSuccessMsg(`🎁 Gift successfully sent to ${selectedRecipient?.username || 'player'}!`);
         setCooldownRemaining(GIFT_COOLDOWN_MS);
-        if (giftType === 'card') {
-          await refreshCollection();
+        if (giftType === 'card' && selectedCardId) {
+          await removeCardFromCollection(selectedCardId, 1);
         }
         setTimeout(() => {
           onClose();

@@ -155,6 +155,61 @@ export async function savePullResults(results: PullResult[]): Promise<void> {
 }
 
 /**
+ * Remove or decrement a collection record in IndexedDB (used for gifting and trading).
+ */
+export async function removeCollectionRecord(beatmapId: number, count: number = 1): Promise<{ remainingCopies: number }> {
+  const db = await getDB();
+  const tx = db.transaction('collection', 'readwrite');
+  const store = tx.objectStore('collection');
+  const existing = await store.get(beatmapId);
+
+  if (!existing) {
+    await tx.done;
+    return { remainingCopies: 0 };
+  }
+
+  const remaining = existing.copies - count;
+  if (remaining > 0) {
+    await store.put({
+      ...existing,
+      copies: remaining,
+    });
+  } else {
+    await store.delete(beatmapId);
+  }
+
+  await tx.done;
+  return { remainingCopies: Math.max(0, remaining) };
+}
+
+/**
+ * Add or increment a collection record in IndexedDB (used for receiving gifts and trading).
+ */
+export async function addCollectionRecord(record: {
+  beatmapId: number;
+  copies?: number;
+  isFavorite?: boolean;
+}): Promise<CollectionRecord> {
+  const db = await getDB();
+  const tx = db.transaction('collection', 'readwrite');
+  const store = tx.objectStore('collection');
+  const existing = await store.get(record.beatmapId);
+
+  const copiesToAdd = record.copies || 1;
+  const newRecord: CollectionRecord = {
+    beatmapId: record.beatmapId,
+    copies: (existing?.copies || 0) + copiesToAdd,
+    firstPulledAt: existing?.firstPulledAt || Date.now(),
+    lastPulledAt: Date.now(),
+    isFavorite: existing?.isFavorite || Boolean(record.isFavorite),
+  };
+
+  await store.put(newRecord);
+  await tx.done;
+  return newRecord;
+}
+
+/**
  * Toggle favorite status of a beatmap in collection.
  */
 export async function toggleFavorite(beatmapId: number): Promise<boolean> {
