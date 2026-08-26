@@ -396,7 +396,7 @@ async function main() {
 
     process.stdout.write(`\r[Queue ${qIdx + 1}/${searchQueries.length}] Crawling ${plan.label}... `);
 
-    while (page < 50) {
+    while (page < 200) {
       const data = await fetchBeatmapsets(token, plan.sort, {
         status: plan.status,
         genre: plan.genre,
@@ -408,10 +408,11 @@ async function main() {
       if (!data || !data.beatmapsets || data.beatmapsets.length === 0) break;
 
       for (const set of data.beatmapsets) {
-        if (!mapPool.has(set.id)) {
+        const sId = set.id;
+        if (sId && !mapPool.has(sId)) {
           const map = processBeatmapset(set);
           if (map) {
-            mapPool.set(set.id, map);
+            mapPool.set(sId, map);
             newInQueue++;
           }
         }
@@ -423,11 +424,11 @@ async function main() {
       const elapsedSec = (Date.now() - startTime) / 1000;
       const rate = (mapPool.size / Math.max(1, elapsedSec)).toFixed(1);
       process.stdout.write(
-        `\r[Queue ${qIdx + 1}/${searchQueries.length}] ${plan.label} | Total Unique Songs: ${mapPool.size.toLocaleString()} [${rate} maps/s]`
+        `\r[Queue ${qIdx + 1}/${searchQueries.length}] ${plan.label} | Total Unique: ${mapPool.size.toLocaleString()} (+${newInQueue} in queue) [${rate} maps/s]`
       );
 
-      // Auto-save checkpoint every 500 new maps
-      if (mapPool.size - lastSaveCount >= 500) {
+      // Auto-save checkpoint every 250 new maps
+      if (mapPool.size - lastSaveCount >= 250) {
         fs.writeFileSync(CHECKPOINT_FILE, JSON.stringify(Array.from(mapPool.values())));
         lastSaveCount = mapPool.size;
       }
