@@ -137,6 +137,16 @@ const AdminPage: React.FC = () => {
   const [configStamina, setConfigStamina] = useState<{max:number;regenSeconds:number}>({max:50,regenSeconds:15});
   const [ratesTotal, setRatesTotal] = useState(1.0);
 
+  // Maintenance & Server Control state
+  const [maintenanceEnabled, setMaintenanceEnabled] = useState<boolean>(true);
+  const [maintenanceTitle, setMaintenanceTitle] = useState('Emergency Maintenance');
+  const [maintenanceHeadline, setMaintenanceHeadline] = useState('Database Engine Maintenance & Data Integrity Protection');
+  const [maintenanceMessage, setMaintenanceMessage] = useState('osu! Beatmap Gacha is currently in emergency maintenance mode while we conduct database recovery and engine optimization. Player collections and sync pipelines are temporarily paused to protect data integrity.');
+  const [maintenanceEstimatedTime, setMaintenanceEstimatedTime] = useState('Back online soon');
+  const [maintenanceSaving, setMaintenanceSaving] = useState(false);
+  const [dbRepairing, setDbRepairing] = useState(false);
+  const [dbRepairResults, setDbRepairResults] = useState<string | null>(null);
+
   if (!isAdmin(user?.username)) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4 text-center">
@@ -178,9 +188,176 @@ const AdminPage: React.FC = () => {
     }
   }, [api]);
 
+  // ─── Maintenance & Server Handlers ───────────────────────────
+  const loadMaintenanceConfig = useCallback(async () => {
+    try {
+      const { data } = await supabase
+        .from('admin_config')
+        .select('value')
+        .eq('key', 'maintenance_mode')
+        .maybeSingle();
+
+      if (data && data.value) {
+        setMaintenanceEnabled(!!data.value.enabled);
+        if (data.value.title) setMaintenanceTitle(data.value.title);
+        if (data.value.headline) setMaintenanceHeadline(data.value.headline);
+        if (data.value.message) setMaintenanceMessage(data.value.message);
+        if (data.value.estimatedTime) setMaintenanceEstimatedTime(data.value.estimatedTime);
+      }
+    } catch (e) {
+      console.warn('Failed to load maintenance config:', e);
+    }
+  }, []);
+
+  const handleToggleMaintenance = async (newEnabled: boolean) => {
+    setMaintenanceSaving(true);
+    try {
+      const payload = {
+        enabled: newEnabled,
+        title: maintenanceTitle,
+        headline: maintenanceHeadline,
+        message: maintenanceMessage,
+        estimatedTime: maintenanceEstimatedTime,
+        updated_at: new Date().toISOString(),
+        updated_by: user?.username || 'Admin',
+      };
+
+      const { error } = await supabase.from('admin_config').upsert({
+        key: 'maintenance_mode',
+        value: payload,
+        updated_at: new Date().toISOString(),
+      });
+
+      if (!error) {
+        setMaintenanceEnabled(newEnabled);
+        // Also trigger force refresh broadcast so all clients reload immediately
+        await supabase.from('admin_config').upsert({
+          key: 'force_client_refresh',
+          value: {
+            timestamp: Date.now(),
+            reason: newEnabled ? 'Maintenance Enabled' : 'Maintenance Disabled - Site Live',
+          },
+          updated_at: new Date().toISOString(),
+        });
+
+        showMsg(
+          newEnabled
+            ? '🚨 Emergency Maintenance is now ACTIVE for all non-admin users'
+            : '🟢 Maintenance turned OFF — Website is LIVE for all players!'
+        );
+      } else {
+        showMsg(`Error: ${error.message}`, false);
+      }
+    } catch (err: any) {
+      showMsg(`Failed: ${err.message}`, false);
+    } finally {
+      setMaintenanceSaving(false);
+    }
+  };
+
+  const handleSaveMaintenanceText = async () => {
+    setMaintenanceSaving(true);
+    try {
+      const payload = {
+        enabled: maintenanceEnabled,
+        title: maintenanceTitle,
+        headline: maintenanceHeadline,
+        message: maintenanceMessage,
+        estimatedTime: maintenanceEstimatedTime,
+        updated_at: new Date().toISOString(),
+        updated_by: user?.username || 'Admin',
+      };
+
+      const { error } = await supabase.from('admin_config').upsert({
+        key: 'maintenance_mode',
+        value: payload,
+        updated_at: new Date().toISOString(),
+      });
+
+      if (!error) {
+        showMsg('✓ Maintenance screen text configuration saved successfully!');
+      } else {
+        showMsg(`Error: ${error.message}`, false);
+      }
+    } catch (err: any) {
+      showMsg(`Failed: ${err.message}`, false);
+    } finally {
+      setMaintenanceSaving(false);
+    }
+  };
+
+  const handleBroadcastRefresh = async () => {
+    try {
+      const ts = Date.now();
+      await supabase.from('admin_config').upsert({
+        key: 'force_client_refresh',
+        value: {
+          timestamp: ts,
+          reason: 'Admin Manual Trigger',
+        },
+        updated_at: new Date().toISOString(),
+      });
+      showMsg('🔄 Global force-refresh signal sent to all connected users!');
+    } catch (e: any) {
+      showMsg(`Failed: ${e.message}`, false);
+    }
+  };
+
+  const handleRepairDatabaseStats = async () => {
+    setDbRepairing(true);
+    setDbRepairResults(null);
+    try {
+      const { data: users, error: uErr } = await supabase.from('users').select('*');
+      if (uErr || !users) throw new Error(uErr?.message || 'Could not fetch users');
+
+      let repairedCount = 0;
+      const logs: string[] = [];
+
+      for (const u of users) {
+        let allCards: { copies: number }[] = [];
+        let page = 0;
+        const pageSize = 1000;
+        while (true) {
+          const { data, error } = await supabase
+            .from('user_collection')
+            .select('copies')
+            .eq('osu_id', u.osu_id)
+            .range(page * pageSize, (page + 1) * pageSize - 1);
+          if (error || !data || data.length === 0) break;
+          allCards = allCards.concat(data);
+          if (data.length < pageSize) break;
+          page++;
+        }
+
+        const totalCopies = allCards.reduce((acc, c) => acc + (c.copies || 1), 0);
+        const correctedPulls = Math.max(u.total_pulls || 0, totalCopies, allCards.length);
+
+        if (correctedPulls > (u.total_pulls || 0)) {
+          await supabase.from('users').update({ total_pulls: correctedPulls }).eq('osu_id', u.osu_id);
+          repairedCount++;
+          logs.push(`${u.username}: ${u.total_pulls} ➔ ${correctedPulls} pulls (${allCards.length} unique cards)`);
+        }
+      }
+
+      setDbRepairResults(
+        `Audited ${users.length} accounts. Repaired ${repairedCount} accounts:\n` +
+          (logs.length > 0 ? logs.join('\n') : 'All accounts already 100% verified and synchronized!')
+      );
+      showMsg(`✓ Database audit complete! ${repairedCount} accounts repaired.`);
+      fetchStats();
+    } catch (e: any) {
+      showMsg(`Repair failed: ${e.message}`, false);
+    } finally {
+      setDbRepairing(false);
+    }
+  };
+
   useEffect(() => {
-    if (activeTab === 'overview') fetchStats();
-  }, [activeTab, fetchStats]);
+    if (activeTab === 'overview') {
+      fetchStats();
+      loadMaintenanceConfig();
+    }
+  }, [activeTab, fetchStats, loadMaintenanceConfig]);
 
   // ─── User Management ─────────────────────────────────────────
   const fetchUserColl = useCallback(async (osuId:number) => {
@@ -678,6 +855,140 @@ const AdminPage: React.FC = () => {
       {/* ── 1. OVERVIEW TAB ───────────────────────── */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
+          {/* ========================================================= */}
+          {/* MAINTENANCE & SERVER SWITCHBOARD                          */}
+          {/* ========================================================= */}
+          <div className={`p-5 sm:p-6 rounded-2xl border transition-all shadow-xl ${
+            maintenanceEnabled
+              ? 'bg-gradient-to-br from-red-950/80 via-slate-900 to-slate-900 border-red-500/50 shadow-red-950/40'
+              : 'bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-900 border-emerald-500/40 shadow-emerald-950/20'
+          }`}>
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex items-start sm:items-center space-x-3.5">
+                <div className={`p-3 rounded-2xl border ${
+                  maintenanceEnabled
+                    ? 'bg-red-950 border-red-700 text-red-400 animate-pulse'
+                    : 'bg-emerald-950 border-emerald-700 text-emerald-400'
+                }`}>
+                  <Wrench className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-base sm:text-lg font-bold text-white font-display">
+                      Server Maintenance Switchboard
+                    </span>
+                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      maintenanceEnabled
+                        ? 'bg-red-500 text-white shadow-md shadow-red-500/30'
+                        : 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
+                    }`}>
+                      {maintenanceEnabled ? 'Maintenance Active' : 'Site Live'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-300 font-sans mt-0.5">
+                    {maintenanceEnabled
+                      ? 'Non-admin visitors are currently redirected to the Emergency Maintenance screen.'
+                      : 'Website is public and open. All players can summon, sync, and view leaderboards.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Maintenance Toggle & Server Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => handleToggleMaintenance(!maintenanceEnabled)}
+                  disabled={maintenanceSaving}
+                  className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                    maintenanceEnabled
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-600/30'
+                      : 'bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-red-600/30'
+                  }`}
+                >
+                  <Wrench className="w-4 h-4" />
+                  <span>
+                    {maintenanceSaving
+                      ? 'Updating Cloud...'
+                      : maintenanceEnabled
+                      ? 'Turn Maintenance OFF (Go Live)'
+                      : 'Turn Maintenance ON (Emergency)'}
+                  </span>
+                </button>
+
+                <button
+                  onClick={handleBroadcastRefresh}
+                  className="flex items-center space-x-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold transition-colors"
+                  title="Forces all open browser tabs to reload immediately"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Force Refresh All</span>
+                </button>
+
+                <button
+                  onClick={handleRepairDatabaseStats}
+                  disabled={dbRepairing}
+                  className="flex items-center space-x-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 text-xs font-semibold transition-colors"
+                  title="Audit and repair user lifetime total_pulls from card collections"
+                >
+                  <Database className={`w-3.5 h-3.5 ${dbRepairing ? 'animate-spin text-pink-400' : 'text-amber-400'}`} />
+                  <span>{dbRepairing ? 'Repairing DB...' : 'Self-Heal DB Pulls'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* DB Repair Results Display */}
+            {dbRepairResults && (
+              <div className="mt-4 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-300 whitespace-pre-line animate-fade-in">
+                {dbRepairResults}
+              </div>
+            )}
+
+            {/* Maintenance Message Form (Collapsible/Editable) */}
+            <div className="mt-4 pt-4 border-t border-slate-800/80 space-y-3">
+              <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block">
+                Maintenance Display Customizer:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] font-mono text-slate-400 block mb-1">Headline Text</label>
+                  <input
+                    type="text"
+                    value={maintenanceHeadline}
+                    onChange={(e) => setMaintenanceHeadline(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-mono text-slate-400 block mb-1">Estimated Duration Text</label>
+                  <input
+                    type="text"
+                    value={maintenanceEstimatedTime}
+                    onChange={(e) => setMaintenanceEstimatedTime(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-[11px] font-mono text-slate-400 block mb-1">Detailed Message</label>
+                <textarea
+                  rows={2}
+                  value={maintenanceMessage}
+                  onChange={(e) => setMaintenanceMessage(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white font-mono"
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  onClick={handleSaveMaintenanceText}
+                  disabled={maintenanceSaving}
+                  className="flex items-center space-x-1.5 px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition-colors"
+                >
+                  <Save className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Save Screen Text</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end">
             <button
               onClick={fetchStats}

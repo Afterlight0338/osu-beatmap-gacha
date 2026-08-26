@@ -34,6 +34,13 @@ const MainApp: React.FC = () => {
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
+  const [cloudMaintenance, setCloudMaintenance] = useState<{
+    enabled: boolean;
+    title?: string;
+    headline?: string;
+    message?: string;
+    estimatedTime?: string;
+  }>({ enabled: MAINTENANCE_MODE });
 
   const userIsAdmin = isAdmin(user?.username);
 
@@ -51,6 +58,15 @@ const MainApp: React.FC = () => {
 
         if (data) {
           for (const item of data) {
+            if (item.key === 'maintenance_mode' && item.value) {
+              setCloudMaintenance({
+                enabled: typeof item.value.enabled === 'boolean' ? item.value.enabled : MAINTENANCE_MODE,
+                title: item.value.title,
+                headline: item.value.headline,
+                message: item.value.message,
+                estimatedTime: item.value.estimatedTime,
+              });
+            }
             if (item.key === 'force_client_refresh' && item.value?.timestamp) {
               const remoteTs = Number(item.value.timestamp);
               if (remoteTs > lastRefreshTimestamp) {
@@ -66,6 +82,7 @@ const MainApp: React.FC = () => {
       }
     };
 
+    checkRemoteCommands();
     const interval = setInterval(checkRemoteCommands, 3000);
 
     const channel = supabase
@@ -74,6 +91,15 @@ const MainApp: React.FC = () => {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'admin_config' },
         (payload: any) => {
+          if (payload.new?.key === 'maintenance_mode' && payload.new.value) {
+            setCloudMaintenance({
+              enabled: typeof payload.new.value.enabled === 'boolean' ? payload.new.value.enabled : MAINTENANCE_MODE,
+              title: payload.new.value.title,
+              headline: payload.new.value.headline,
+              message: payload.new.value.message,
+              estimatedTime: payload.new.value.estimatedTime,
+            });
+          }
           if (payload.new?.key === 'force_client_refresh') {
             const remoteTs = Number(payload.new.value?.timestamp || 0);
             if (remoteTs > lastRefreshTimestamp) {
@@ -92,8 +118,9 @@ const MainApp: React.FC = () => {
   }, []);
 
   // If maintenance mode is active and the visitor is not the admin (or is previewing), show Maintenance Page
-  if (MAINTENANCE_MODE && (!userIsAdmin || previewMaintenance)) {
-    return <MaintenancePage onBypass={() => setPreviewMaintenance(false)} />;
+  const isCurrentlyInMaintenance = cloudMaintenance.enabled || MAINTENANCE_MODE;
+  if (isCurrentlyInMaintenance && (!userIsAdmin || previewMaintenance)) {
+    return <MaintenancePage config={cloudMaintenance} onBypass={() => setPreviewMaintenance(false)} />;
   }
 
   if (isLoading) {

@@ -267,9 +267,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (histErr) console.warn('Supabase history upsert notice:', histErr);
           }
 
-          if (typeof localData.totalPulls === 'number' || typeof localData.pityCount === 'number') {
-            const uPayload: Record<string, unknown> = {};
-            if (typeof localData.totalPulls === 'number') uPayload.total_pulls = localData.totalPulls;
+          // Guard: Only update total_pulls if > 0 (prevents overwriting real pulls with 0 on fresh mount)
+          if (typeof localData.totalPulls === 'number' && localData.totalPulls > 0) {
+            const uPayload: Record<string, unknown> = {
+              total_pulls: localData.totalPulls,
+            };
             if (typeof localData.pityCount === 'number') uPayload.pity_count = localData.pityCount;
             await supabase.from('users').update(uPayload).eq('osu_id', user.osuId);
           }
@@ -280,12 +282,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         setLastSyncedAt(new Date());
 
-        // 3. Fetch latest authoritative state directly from Supabase
-        const [colRes, userRes, histRes, overrideRes, configRes] = await Promise.all([
-          supabase
-            .from('user_collection')
-            .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
-            .eq('osu_id', user.osuId),
+        // 3. Fetch full collection using parallel auto-pagination (bypasses PostgREST 1000 row limit)
+        const pageSize = 1000;
+        const countQuery = await supabase
+          .from('user_collection')
+          .select('*', { count: 'exact', head: true })
+          .eq('osu_id', user.osuId);
+
+        const totalCardsCount = countQuery.count || 0;
+        const totalPages = Math.max(1, Math.ceil(totalCardsCount / pageSize));
+        const pagePromises = [];
+
+        for (let page = 0; page < totalPages; page++) {
+          pagePromises.push(
+            supabase
+              .from('user_collection')
+              .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
+              .eq('osu_id', user.osuId)
+              .range(page * pageSize, (page + 1) * pageSize - 1)
+          );
+        }
+
+        const [pageResults, userRes, histRes, overrideRes, configRes] = await Promise.all([
+          Promise.all(pagePromises),
           supabase
             .from('users')
             .select('total_pulls, pity_count')
@@ -307,6 +326,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             .select('key, value'),
         ]);
 
+        const allCards: CloudSyncCollectionItem[] = [];
+        for (const pRes of pageResults) {
+          if (pRes.data) {
+            for (const c of pRes.data) {
+              allCards.push({
+                beatmapId: c.beatmap_id,
+                copies: c.copies,
+                firstPulledAt: c.first_pulled_at,
+                lastPulledAt: c.last_pulled_at,
+                isFavorite: c.is_favorite,
+              });
+            }
+          }
+        }
+
         // Consume energy override if set by admin
         let energyOverrideVal: number | null = null;
         if (overrideRes.data && typeof overrideRes.data.energy_amount === 'number') {
@@ -322,13 +356,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
 
         return {
-          mergedCollection: (colRes.data || []).map((c: any) => ({
-            beatmapId: c.beatmap_id,
-            copies: c.copies,
-            firstPulledAt: c.first_pulled_at,
-            lastPulledAt: c.last_pulled_at,
-            isFavorite: c.is_favorite,
-          })),
+          mergedCollection: allCards,
           mergedHistory: (histRes.data || []).map((h: any) => ({
             id: h.id,
             beatmapId: h.beatmap_id,

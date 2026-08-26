@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { isAdmin } from '../config/admin';
 import { MAINTENANCE_CONFIG } from '../config/maintenance';
 import { sfx } from '../audio/sfx';
+import { supabase } from '../lib/supabase';
 import {
   Wrench,
   Disc,
@@ -17,26 +18,50 @@ import {
 } from 'lucide-react';
 
 interface MaintenancePageProps {
+  config?: {
+    enabled?: boolean;
+    title?: string;
+    headline?: string;
+    message?: string;
+    estimatedTime?: string;
+  };
   onBypass?: () => void;
 }
 
-export const MaintenancePage: React.FC<MaintenancePageProps> = ({ onBypass }) => {
+export const MaintenancePage: React.FC<MaintenancePageProps> = ({ config, onBypass }) => {
   const { user, isAuthenticated, loginWithOsu, logout } = useAuth();
   const [isChecking, setIsChecking] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const userIsAdmin = isAdmin(user?.username);
 
-  const handleRefreshCheck = () => {
+  const headline = config?.headline || MAINTENANCE_CONFIG.headline;
+  const message = config?.message || MAINTENANCE_CONFIG.message;
+  const estimatedTime = config?.estimatedTime || MAINTENANCE_CONFIG.estimatedTime;
+
+  const handleRefreshCheck = async () => {
     sfx.playClick();
     setIsChecking(true);
     setStatusMessage(null);
+
+    try {
+      const { data } = await supabase.from('admin_config').select('value').eq('key', 'maintenance_mode').maybeSingle();
+      if (data && data.value && data.value.enabled === false) {
+        setStatusMessage('🟢 Maintenance complete! Refreshing game...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        return;
+      }
+    } catch {
+      // ignore
+    }
 
     setTimeout(() => {
       setIsChecking(false);
       setStatusMessage('Maintenance is still ongoing. Thank you for your patience!');
       setTimeout(() => setStatusMessage(null), 4000);
-    }, 1200);
+    }, 1000);
   };
 
   const handleAdminLogin = () => {
@@ -78,15 +103,15 @@ export const MaintenancePage: React.FC<MaintenancePageProps> = ({ onBypass }) =>
               osu!<span className="text-pink-500 font-sans">gacha</span>
             </h1>
             <p className="text-sm sm:text-base font-semibold text-slate-300 mt-1">
-              {MAINTENANCE_CONFIG.headline}
+              {headline}
             </p>
           </div>
         </div>
 
         {/* Informative Card */}
         <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-2xl space-y-5 text-left">
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {MAINTENANCE_CONFIG.message}
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+            {message}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80">
@@ -105,7 +130,7 @@ export const MaintenancePage: React.FC<MaintenancePageProps> = ({ onBypass }) =>
               <div className="text-xs space-y-0.5">
                 <span className="font-bold text-slate-200">Estimated Duration</span>
                 <p className="text-slate-400 leading-tight text-[11px]">
-                  {MAINTENANCE_CONFIG.estimatedTime} • Upgrading system architecture.
+                  {estimatedTime}
                 </p>
               </div>
             </div>

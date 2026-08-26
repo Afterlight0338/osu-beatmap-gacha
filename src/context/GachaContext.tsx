@@ -513,18 +513,23 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const forceCloudSync = useCallback(async () => {
     if (!isAuthenticated || !user || !user.osuId) return;
     try {
-      const syncResult = await syncWithCloud({
-        collection: collectionRecords.map((c) => ({
-          beatmapId: c.beatmapId,
-          copies: c.copies,
-          firstPulledAt: c.firstPulledAt,
-          lastPulledAt: c.lastPulledAt,
-          isFavorite: !!c.isFavorite,
-        })),
-        history,
-        totalPulls,
-        pityCount,
-      });
+      const payload =
+        collectionRecords.length > 0 || totalPulls > 0
+          ? {
+              collection: collectionRecords.map((c) => ({
+                beatmapId: c.beatmapId,
+                copies: c.copies,
+                firstPulledAt: c.firstPulledAt,
+                lastPulledAt: c.lastPulledAt,
+                isFavorite: !!c.isFavorite,
+              })),
+              history,
+              totalPulls,
+              pityCount,
+            }
+          : undefined;
+
+      const syncResult = await syncWithCloud(payload);
 
       if (syncResult && syncResult.mergedCollection) {
         const mergedRecords = await bulkMergeCollectionFromCloud(
