@@ -61,7 +61,17 @@ type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'r
 
 const AdminPage: React.FC = () => {
   const { user } = useAuth();
-  const { pool, energy, adminRefillEnergy, cardOverrides, setCardTierOverride, removeCardTierOverride } = useGacha();
+  const {
+    pool,
+    energy,
+    adminRefillEnergy,
+    cardOverrides,
+    setCardTierOverride,
+    removeCardTierOverride,
+    customBeatmaps,
+    addCustomBeatmap,
+    removeCustomBeatmap,
+  } = useGacha();
 
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -72,11 +82,30 @@ const AdminPage: React.FC = () => {
   const [actionMsg, setActionMsg] = useState<{text:string;ok:boolean}|null>(null);
   const [actionLoading, setActionLoading] = useState(false);
 
+  // Cards Sub-Tab: Tier Assignment vs Add Custom Beatmap
+  const [cardsSubTab, setCardsSubTab] = useState<'tier_assignment' | 'add_beatmap'>('tier_assignment');
+
   // Manual Card Tier & EX Assignment state
   const [cardAssignSearch, setCardAssignSearch] = useState('');
   const [selectedAssignCardId, setSelectedAssignCardId] = useState<number | null>(null);
   const [assignTier, setAssignTier] = useState<RarityTier>('EX');
   const [assignExReason, setAssignExReason] = useState('');
+
+  // Register / Inject Custom Beatmap state
+  const [manualMapId, setManualMapId] = useState('');
+  const [manualSetId, setManualSetId] = useState('');
+  const [manualTitle, setManualTitle] = useState('');
+  const [manualArtist, setManualArtist] = useState('');
+  const [manualCreator, setManualCreator] = useState('');
+  const [manualVersion, setManualVersion] = useState('Extra');
+  const [manualStars, setManualStars] = useState('6.00');
+  const [manualBpm, setManualBpm] = useState('180');
+  const [manualLength, setManualLength] = useState('210');
+  const [manualStatus, setManualStatus] = useState<'ranked' | 'loved' | 'graveyard'>('ranked');
+  const [manualRarity, setManualRarity] = useState<RarityTier>('Epic');
+  const [manualExReason, setManualExReason] = useState('');
+  const [manualCoverUrl, setManualCoverUrl] = useState('');
+  const [manualPreviewUrl, setManualPreviewUrl] = useState('');
 
   // User management state
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
@@ -513,6 +542,93 @@ const AdminPage: React.FC = () => {
       showMsg(`⚡ Energy override of ${amount} queued for ${selectedUsername}`);
     } catch (e: any) {
       showMsg(e.message || 'Failed to set energy override', false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleAutoFillBeatmap = () => {
+    const bId = Number(manualMapId);
+    const sId = Number(manualSetId);
+    if (!bId && !sId) {
+      showMsg('Please enter a Beatmap ID or Set ID first', false);
+      return;
+    }
+    const effectiveSetId = sId || bId;
+    if (!manualCoverUrl) {
+      setManualCoverUrl(`https://assets.ppy.sh/beatmaps/${effectiveSetId}/covers/cover.jpg`);
+    }
+    if (!manualPreviewUrl) {
+      setManualPreviewUrl(`https://b.ppy.sh/preview/${effectiveSetId}.mp3`);
+    }
+    showMsg(`✓ Auto-filled preview artwork and audio URLs for Beatmapset #${effectiveSetId}`);
+  };
+
+  const handleSaveCustomBeatmap = async () => {
+    const bId = Number(manualMapId);
+    const sId = Number(manualSetId) || bId;
+    if (!bId || !manualTitle.trim() || !manualArtist.trim()) {
+      showMsg('Beatmap ID, Title, and Artist are required.', false);
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const cover = manualCoverUrl.trim() || `https://assets.ppy.sh/beatmaps/${sId}/covers/cover.jpg`;
+      const preview = manualPreviewUrl.trim() || `https://b.ppy.sh/preview/${sId}.mp3`;
+      const starsNum = Math.round(Number(manualStars || 5.0) * 100) / 100;
+
+      const newBeatmap: Beatmap = {
+        id: bId,
+        beatmapsetId: sId,
+        title: manualTitle.trim(),
+        artist: manualArtist.trim(),
+        creator: manualCreator.trim() || 'Unknown Mapper',
+        version: manualVersion.trim() || 'Normal',
+        stars: starsNum,
+        bpm: Number(manualBpm) || 120,
+        length: Number(manualLength) || 180,
+        status: manualStatus,
+        playcount: 1000000,
+        favouriteCount: 5000,
+        popularityScore: 1000,
+        rarity: manualRarity,
+        exReason: manualRarity === 'EX' ? manualExReason.trim() : undefined,
+        covers: {
+          cover,
+          card: cover,
+          list: cover,
+          slimcover: cover,
+        },
+        previewUrl: preview,
+      };
+
+      await addCustomBeatmap(newBeatmap);
+      showMsg(`🎉 Successfully registered "${newBeatmap.title}" (#${bId}) into the Global Gacha Pool!`);
+
+      // Reset form
+      setManualMapId('');
+      setManualSetId('');
+      setManualTitle('');
+      setManualArtist('');
+      setManualCreator('');
+      setManualCoverUrl('');
+      setManualPreviewUrl('');
+      setManualExReason('');
+    } catch (e: any) {
+      showMsg('Failed to save custom beatmap: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeleteCustomBeatmap = async (beatmapId: number, title: string) => {
+    if (!confirm(`Remove "${title}" (#${beatmapId}) from the Global Gacha Pool?`)) return;
+    setActionLoading(true);
+    try {
+      await removeCustomBeatmap(beatmapId);
+      showMsg(`✓ Removed "${title}" (#${beatmapId}) from the Global Pool`);
+    } catch (e: any) {
+      showMsg('Failed to remove beatmap: ' + e.message, false);
     } finally {
       setActionLoading(false);
     }
@@ -1551,271 +1667,589 @@ const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* ── CARD TIERS & EX ASSIGNMENT TAB ───────────────────────── */}
+      {/* ── CARD TIERS & POOL MANAGEMENT TAB ───────────────────────── */}
       {activeTab === 'cards' && (
         <div className="space-y-6 animate-fade-in">
-          {/* Header Description */}
-          <div className="p-6 rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-slate-900 border border-purple-800/60 shadow-xl space-y-2">
-            <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40">
-                <Crown className="w-6 h-6 animate-pulse text-purple-400" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black text-white font-display flex items-center space-x-2">
-                  <span>Manual Card Tier & EX Assignment</span>
-                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-purple-900/80 text-purple-200 border border-purple-500/60">
-                    Admin Exclusive
-                  </span>
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300">
-                  Manually assign any beatmap to any rarity tier. Handpicked <strong className="text-purple-300">EX Tier</strong> cards require a lore explanation that will be displayed whenever pulled by players.
-                </p>
-              </div>
-            </div>
+          {/* Sub-Tab Navigation */}
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-800 pb-3">
+            <button
+              onClick={() => setCardsSubTab('tier_assignment')}
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                cardsSubTab === 'tier_assignment'
+                  ? 'bg-purple-950/90 text-purple-200 border border-purple-500/60 shadow-lg shadow-purple-950/50'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <Crown className="w-4 h-4 text-purple-400" />
+              <span>Manual Card Tier & EX Assignment</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-purple-900/60 text-purple-300">
+                {Object.keys(cardOverrides).length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setCardsSubTab('add_beatmap')}
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                cardsSubTab === 'add_beatmap'
+                  ? 'bg-emerald-950/90 text-emerald-200 border border-emerald-500/60 shadow-lg shadow-emerald-950/50'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <PlusCircle className="w-4 h-4 text-emerald-400" />
+              <span>Register / Inject Custom Beatmap</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-emerald-900/60 text-emerald-300">
+                {customBeatmaps.length} Injected
+              </span>
+            </button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left: Card Search & Tier Assignment Form */}
-            <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
-              <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                <Search className="w-4 h-4 text-purple-400" />
-                <span>Search & Select Beatmap</span>
-              </h3>
-
-              {/* Search Input */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-mono text-slate-300">Search by Title, Artist, or Beatmap ID</label>
-                <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
-                  <input
-                    type="text"
-                    value={cardAssignSearch}
-                    onChange={(e) => setCardAssignSearch(e.target.value)}
-                    placeholder="e.g. Freedom Dive, Big Black, 129891..."
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500"
-                  />
-                  {cardAssignSearch && (
-                    <button
-                      onClick={() => setCardAssignSearch('')}
-                      className="absolute right-3 top-2.5 text-slate-400 hover:text-white"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
+          {cardsSubTab === 'tier_assignment' ? (
+            <>
+              {/* Header Description */}
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-slate-900 border border-purple-800/60 shadow-xl space-y-2">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                    <Crown className="w-6 h-6 animate-pulse text-purple-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-black text-white font-display flex items-center space-x-2">
+                      <span>Manual Card Tier & EX Assignment</span>
+                      <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-purple-900/80 text-purple-200 border border-purple-500/60">
+                        Admin Exclusive
+                      </span>
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-300">
+                      Manually assign any beatmap to any rarity tier. Handpicked <strong className="text-purple-300">EX Tier</strong> cards require a lore explanation that will be displayed whenever pulled by players.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Search Suggestions */}
-              {cardAssignSearch.trim() && (
-                <div className="space-y-1 max-h-56 overflow-y-auto rounded-xl bg-slate-950 p-2 border border-slate-800">
-                  {pool
-                    .filter((m) => {
-                      const q = cardAssignSearch.toLowerCase();
-                      return (
-                        String(m.id).includes(q) ||
-                        m.title.toLowerCase().includes(q) ||
-                        m.artist.toLowerCase().includes(q) ||
-                        m.creator.toLowerCase().includes(q)
-                      );
-                    })
-                    .slice(0, 8)
-                    .map((m) => (
-                      <button
-                        key={m.id}
-                        onClick={() => {
-                          setSelectedAssignCardId(m.id);
-                          setAssignTier(m.rarity || 'EX');
-                          setAssignExReason(m.exReason || '');
-                          setCardAssignSearch('');
-                        }}
-                        className="w-full text-left p-2 rounded-lg hover:bg-purple-950/40 border border-transparent hover:border-purple-800/60 flex items-center justify-between transition-colors"
-                      >
-                        <div className="min-w-0 pr-2">
-                          <p className="text-xs font-bold text-white truncate">{m.title}</p>
-                          <p className="text-[11px] text-slate-400 truncate">
-                            {m.artist} [{m.version}] • {m.stars}★ • #{m.id}
-                          </p>
-                        </div>
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${RARITY_COLORS[m.rarity]}`}>
-                          {m.rarity}
-                        </span>
-                      </button>
-                    ))}
-                </div>
-              )}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Left: Card Search & Tier Assignment Form */}
+                <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                    <Search className="w-4 h-4 text-purple-400" />
+                    <span>Search & Select Beatmap</span>
+                  </h3>
 
-              {/* Selected Card Form */}
-              {selectedAssignCardId && (
-                <div className="mt-4 p-4 rounded-xl bg-purple-950/30 border border-purple-800/60 space-y-4 animate-fade-in">
-                  {(() => {
-                    const card = pool.find((m) => m.id === selectedAssignCardId);
-                    if (!card) return <p className="text-xs text-slate-400">Card #{selectedAssignCardId} not found.</p>;
-
-                    return (
-                      <>
-                        <div className="flex items-start justify-between gap-3 border-b border-purple-900/60 pb-3">
-                          <div>
-                            <span className="text-[10px] font-mono text-purple-300 uppercase">Selected Card #{card.id}</span>
-                            <h4 className="text-base font-bold text-white">{card.title}</h4>
-                            <p className="text-xs text-slate-300 font-mono">
-                              {card.artist} • Mapped by {card.creator} • {card.stars}★
-                            </p>
-                          </div>
-                          <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 ${RARITY_COLORS[card.rarity]}`}>
-                            Current: {card.rarity}
-                          </span>
-                        </div>
-
-                        {/* Target Tier Selection */}
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-mono text-slate-300">Assign Target Rarity Tier</label>
-                          <select
-                            value={assignTier}
-                            onChange={(e) => setAssignTier(e.target.value as RarityTier)}
-                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-purple-500"
-                          >
-                            {RARITY_ORDER.map((tier) => (
-                              <option key={tier} value={tier}>
-                                {tier === 'EX' ? '💎 EX Tier (Special Handpick)' : tier === 'GOAT' ? '🐐 GOAT Tier' : tier}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* EX Lore / Reason Field */}
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between">
-                            <label className="text-xs font-mono text-slate-300 flex items-center space-x-1">
-                              <span>Lore / Assignment Reason</span>
-                              {assignTier === 'EX' && <span className="text-rose-400 font-bold">* (Required for EX)</span>}
-                            </label>
-                          </div>
-                          <textarea
-                            rows={3}
-                            value={assignExReason}
-                            onChange={(e) => setAssignExReason(e.target.value)}
-                            placeholder={
-                              assignTier === 'EX'
-                                ? "Explain why this beatmap is an EX tier handpick (e.g. Historic landmark map, first 8* FC in osu! history by Cookiezi)..."
-                                : "Optional note or reason for this manual tier assignment..."
-                            }
-                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500 resize-none"
-                          />
-                        </div>
-
-                        {/* Save Action */}
+                  {/* Search Input */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono text-slate-300">Search by Title, Artist, or Beatmap ID</label>
+                    <div className="relative">
+                      <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
+                      <input
+                        type="text"
+                        value={cardAssignSearch}
+                        onChange={(e) => setCardAssignSearch(e.target.value)}
+                        placeholder="e.g. Freedom Dive, Big Black, 129891..."
+                        className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500"
+                      />
+                      {cardAssignSearch && (
                         <button
-                          onClick={async () => {
-                            if (assignTier === 'EX' && !assignExReason.trim()) {
-                              showMsg('Please provide a reason explaining why this card is an EX tier handpick.', false);
-                              return;
-                            }
-                            setActionLoading(true);
-                            try {
-                              await setCardTierOverride(card.id, assignTier, assignExReason);
-                              showMsg(`✓ Assigned #${card.id} [${card.title}] to ${assignTier} tier!`);
-                            } catch (e: any) {
-                              showMsg('Failed to save tier: ' + e.message, false);
-                            } finally {
-                              setActionLoading(false);
-                            }
-                          }}
-                          disabled={actionLoading}
-                          className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-black text-sm shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center space-x-2"
+                          onClick={() => setCardAssignSearch('')}
+                          className="absolute right-3 top-2.5 text-slate-400 hover:text-white"
                         >
-                          <Crown className="w-4 h-4" />
-                          <span>Save Card Tier Assignment</span>
+                          <X className="w-4 h-4" />
                         </button>
-                      </>
-                    );
-                  })()}
-                </div>
-              )}
-            </div>
+                      )}
+                    </div>
+                  </div>
 
-            {/* Right: Active Manual Overrides & EX Handpicked List */}
-            <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
-              <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                  <Crown className="w-4 h-4 text-amber-400" />
-                  <span>Active Handpicked & Overridden Cards</span>
-                </h3>
-                <span className="text-xs font-mono text-purple-300 font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/40">
-                  {Object.keys(cardOverrides).length} Assigned
-                </span>
-              </div>
-
-              {Object.keys(cardOverrides).length === 0 ? (
-                <div className="p-8 rounded-xl bg-slate-950/60 border border-slate-800 text-center space-y-2">
-                  <Crown className="w-8 h-8 text-slate-600 mx-auto" />
-                  <p className="text-sm font-bold text-slate-300">No Manual Card Overrides Yet</p>
-                  <p className="text-xs text-slate-500 font-mono">
-                    Search for a beatmap on the left to assign it to EX tier or customize its rarity tier!
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
-                  {Object.entries(cardOverrides).map(([bidStr, override]) => {
-                    const bid = Number(bidStr);
-                    const card = pool.find((m) => m.id === bid);
-
-                    return (
-                      <div
-                        key={bidStr}
-                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-800/80 transition-all space-y-2"
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <span className="text-[10px] font-mono text-slate-400">Beatmap #{bid}</span>
-                            <h4 className="text-sm font-bold text-white truncate">
-                              {card?.title || `Beatmap #${bid}`}
-                            </h4>
-                            <p className="text-xs text-slate-400 truncate">
-                              {card ? `${card.artist} [${card.version}] • ${card.stars}★` : 'Custom Assignment'}
-                            </p>
-                          </div>
-
-                          <div className="flex flex-col items-end space-y-1">
-                            <span className={`text-xs font-mono font-black px-2 py-0.5 rounded border border-purple-500/60 ${RARITY_COLORS[override.tier]} bg-purple-950/80`}>
-                              💎 {override.tier}
+                  {/* Search Suggestions */}
+                  {cardAssignSearch.trim() && (
+                    <div className="space-y-1 max-h-56 overflow-y-auto rounded-xl bg-slate-950 p-2 border border-slate-800">
+                      {pool
+                        .filter((m) => {
+                          const q = cardAssignSearch.toLowerCase();
+                          return (
+                            String(m.id).includes(q) ||
+                            m.title.toLowerCase().includes(q) ||
+                            m.artist.toLowerCase().includes(q) ||
+                            m.creator.toLowerCase().includes(q)
+                          );
+                        })
+                        .slice(0, 8)
+                        .map((m) => (
+                          <button
+                            key={m.id}
+                            onClick={() => {
+                              setSelectedAssignCardId(m.id);
+                              setAssignTier(m.rarity || 'EX');
+                              setAssignExReason(m.exReason || '');
+                              setCardAssignSearch('');
+                            }}
+                            className="w-full text-left p-2 rounded-lg hover:bg-purple-950/40 border border-transparent hover:border-purple-800/60 flex items-center justify-between transition-colors"
+                          >
+                            <div className="min-w-0 pr-2">
+                              <p className="text-xs font-bold text-white truncate">{m.title}</p>
+                              <p className="text-[11px] text-slate-400 truncate">
+                                {m.artist} [{m.version}] • {m.stars}★ • #{m.id}
+                              </p>
+                            </div>
+                            <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${RARITY_COLORS[m.rarity]}`}>
+                              {m.rarity}
                             </span>
+                          </button>
+                        ))}
+                    </div>
+                  )}
+
+                  {/* Selected Card Form */}
+                  {selectedAssignCardId && (
+                    <div className="mt-4 p-4 rounded-xl bg-purple-950/30 border border-purple-800/60 space-y-4 animate-fade-in">
+                      {(() => {
+                        const card = pool.find((m) => m.id === selectedAssignCardId);
+                        if (!card) return <p className="text-xs text-slate-400">Card #{selectedAssignCardId} not found.</p>;
+
+                        return (
+                          <>
+                            <div className="flex items-start justify-between gap-3 border-b border-purple-900/60 pb-3">
+                              <div>
+                                <span className="text-[10px] font-mono text-purple-300 uppercase">Selected Card #{card.id}</span>
+                                <h4 className="text-base font-bold text-white">{card.title}</h4>
+                                <p className="text-xs text-slate-300 font-mono">
+                                  {card.artist} [{card.version}] • Mapper: {card.creator}
+                                </p>
+                              </div>
+                              <button
+                                onClick={() => setSelectedAssignCardId(null)}
+                                className="text-slate-400 hover:text-white text-xs font-mono"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+
+                            {/* Target Tier Selection */}
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-mono text-slate-300">Assign Target Rarity Tier</label>
+                              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                                {RARITY_ORDER.map((tier) => (
+                                  <button
+                                    key={tier}
+                                    type="button"
+                                    onClick={() => setAssignTier(tier)}
+                                    className={`py-2 px-2 rounded-xl text-xs font-bold font-mono transition-all border ${
+                                      assignTier === tier
+                                        ? 'bg-purple-600 text-white border-white shadow-lg scale-105'
+                                        : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-700'
+                                    }`}
+                                  >
+                                    {tier === 'EX' ? '👑 EX' : tier}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* EX Tier Lore Explanation Box */}
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-mono text-slate-300 flex items-center justify-between">
+                                <span>{assignTier === 'EX' ? '👑 EX Handpicked Lore Explanation' : 'Optional Override Note'}</span>
+                                {assignTier === 'EX' && <span className="text-amber-400 font-bold">*Required for EX</span>}
+                              </label>
+                              <textarea
+                                rows={3}
+                                value={assignExReason}
+                                onChange={(e) => setAssignExReason(e.target.value)}
+                                placeholder={
+                                  assignTier === 'EX'
+                                    ? "Explain why this beatmap is legendary (e.g. 'Cookiezi 727pp Freedom Dive HDHR play which set osu! history forever.')"
+                                    : 'Optional note explaining this tier override...'
+                                }
+                                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-purple-500 resize-none"
+                              />
+                            </div>
+
+                            {/* Save Action */}
                             <button
                               onClick={async () => {
-                                if (!confirm(`Restore natural rarity tier for beatmap #${bid}?`)) return;
+                                if (assignTier === 'EX' && !assignExReason.trim()) {
+                                  showMsg('Please provide a reason explaining why this card is an EX tier handpick.', false);
+                                  return;
+                                }
                                 setActionLoading(true);
                                 try {
-                                  await removeCardTierOverride(bid);
-                                  showMsg(`✓ Restored natural tier for beatmap #${bid}`);
+                                  await setCardTierOverride(card.id, assignTier, assignExReason);
+                                  showMsg(`✓ Assigned #${card.id} [${card.title}] to ${assignTier} tier!`);
                                 } catch (e: any) {
-                                  showMsg('Failed to restore: ' + e.message, false);
+                                  showMsg('Failed to save tier: ' + e.message, false);
                                 } finally {
                                   setActionLoading(false);
                                 }
                               }}
-                              className="text-[11px] font-mono text-red-400 hover:text-red-300 underline"
+                              disabled={actionLoading}
+                              className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-black text-sm shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center space-x-2"
                             >
-                              Reset
+                              <Crown className="w-4 h-4" />
+                              <span>Save Card Tier Assignment</span>
                             </button>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  )}
+                </div>
+
+                {/* Right: Active Manual Overrides & EX Handpicked List */}
+                <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                      <Crown className="w-4 h-4 text-amber-400" />
+                      <span>Active Handpicked & Overridden Cards</span>
+                    </h3>
+                    <span className="text-xs font-mono text-purple-300 font-bold px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/40">
+                      {Object.keys(cardOverrides).length} Assigned
+                    </span>
+                  </div>
+
+                  {Object.keys(cardOverrides).length === 0 ? (
+                    <div className="p-8 rounded-xl bg-slate-950/60 border border-slate-800 text-center space-y-2">
+                      <Crown className="w-8 h-8 text-slate-600 mx-auto" />
+                      <p className="text-sm font-bold text-slate-300">No Manual Card Overrides Yet</p>
+                      <p className="text-xs text-slate-500 font-mono">
+                        Search for a beatmap on the left to assign it to EX tier or customize its rarity tier!
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+                      {Object.entries(cardOverrides).map(([bidStr, override]) => {
+                        const bid = Number(bidStr);
+                        const card = pool.find((m) => m.id === bid);
+
+                        return (
+                          <div
+                            key={bidStr}
+                            className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-800/80 transition-all space-y-2"
+                          >
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0">
+                                <span className="text-[10px] font-mono text-slate-400">Beatmap #{bid}</span>
+                                <h4 className="text-sm font-bold text-white truncate">
+                                  {card?.title || `Beatmap #${bid}`}
+                                </h4>
+                                <p className="text-xs text-slate-400 truncate">
+                                  {card ? `${card.artist} [${card.version}] • ${card.stars}★` : 'Custom Assignment'}
+                                </p>
+                              </div>
+
+                              <div className="flex flex-col items-end space-y-1">
+                                <span className={`text-xs font-mono font-black px-2 py-0.5 rounded border border-purple-500/60 ${RARITY_COLORS[override.tier]} bg-purple-950/80`}>
+                                  💎 {override.tier}
+                                </span>
+                                <button
+                                  onClick={async () => {
+                                    if (!confirm(`Restore natural rarity tier for beatmap #${bid}?`)) return;
+                                    setActionLoading(true);
+                                    try {
+                                      await removeCardTierOverride(bid);
+                                      showMsg(`✓ Restored natural tier for beatmap #${bid}`);
+                                    } catch (e: any) {
+                                      showMsg('Failed to restore: ' + e.message, false);
+                                    } finally {
+                                      setActionLoading(false);
+                                    }
+                                  }}
+                                  className="text-[11px] font-mono text-red-400 hover:text-red-300 underline"
+                                >
+                                  Reset
+                                </button>
+                              </div>
+                            </div>
+
+                            {override.exReason && (
+                              <div className="p-2.5 rounded-lg bg-purple-950/40 border border-purple-900/60 text-xs text-slate-200 font-sans italic">
+                                "{override.exReason}"
+                              </div>
+                            )}
+
+                            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-900">
+                              <span>Assigned by: {override.assignedBy || 'Admin'}</span>
+                              <span>{override.assignedAt ? formatUserDate(new Date(override.assignedAt).getTime()) : ''}</span>
+                            </div>
                           </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+            /* ── REGISTER / INJECT CUSTOM BEATMAP SUB-TAB ────────────── */
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in">
+              {/* Left: Custom Beatmap Registration Form */}
+              <div className="lg:col-span-6 space-y-5 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-emerald-800/60 shadow-xl">
+                <div className="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    <PlusCircle className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white">Register New Beatmap into Global Pool</h3>
+                    <p className="text-xs text-slate-400 font-mono">
+                      Injected beatmaps will immediately be pullable by all players in gacha summons!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Beatmap ID (Top Diff)</label>
+                    <input
+                      type="number"
+                      value={manualMapId}
+                      onChange={(e) => setManualMapId(e.target.value)}
+                      placeholder="e.g. 129891"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Beatmapset ID</label>
+                    <div className="flex space-x-1.5">
+                      <input
+                        type="number"
+                        value={manualSetId}
+                        onChange={(e) => setManualSetId(e.target.value)}
+                        placeholder="e.g. 39804"
+                        className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAutoFillBeatmap}
+                        className="px-2.5 py-1 rounded-xl bg-emerald-950 border border-emerald-700 hover:bg-emerald-900 text-emerald-300 text-xs font-mono font-bold"
+                        title="Auto-fills artwork & preview links"
+                      >
+                        Auto-Fill
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1 sm:col-span-2">
+                    <label className="text-xs font-mono text-slate-300">Song Title</label>
+                    <input
+                      type="text"
+                      value={manualTitle}
+                      onChange={(e) => setManualTitle(e.target.value)}
+                      placeholder="e.g. FREEDOM DiVE"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Artist</label>
+                    <input
+                      type="text"
+                      value={manualArtist}
+                      onChange={(e) => setManualArtist(e.target.value)}
+                      placeholder="e.g. xi"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Mapper / Creator</label>
+                    <input
+                      type="text"
+                      value={manualCreator}
+                      onChange={(e) => setManualCreator(e.target.value)}
+                      placeholder="e.g. Nakagawa-Kanon"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Difficulty Name</label>
+                    <input
+                      type="text"
+                      value={manualVersion}
+                      onChange={(e) => setManualVersion(e.target.value)}
+                      placeholder="e.g. FOUR DIMENSIONS"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Star Rating (★)</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={manualStars}
+                      onChange={(e) => setManualStars(e.target.value)}
+                      placeholder="e.g. 7.56"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">BPM</label>
+                    <input
+                      type="number"
+                      value={manualBpm}
+                      onChange={(e) => setManualBpm(e.target.value)}
+                      placeholder="e.g. 222"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Length (Seconds)</label>
+                    <input
+                      type="number"
+                      value={manualLength}
+                      onChange={(e) => setManualLength(e.target.value)}
+                      placeholder="e.g. 257"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Leaderboard Status</label>
+                    <select
+                      value={manualStatus}
+                      onChange={(e) => setManualStatus(e.target.value as any)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500"
+                    >
+                      <option value="ranked">Ranked</option>
+                      <option value="loved">Loved</option>
+                      <option value="graveyard">Graveyard / Unranked</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Assigned Rarity Tier</label>
+                    <select
+                      value={manualRarity}
+                      onChange={(e) => setManualRarity(e.target.value as RarityTier)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-emerald-500 font-bold"
+                    >
+                      {RARITY_ORDER.map((r) => (
+                        <option key={r} value={r}>
+                          {r === 'EX' ? '👑 EX Tier' : r}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {manualRarity === 'EX' && (
+                    <div className="space-y-1 sm:col-span-2">
+                      <label className="text-xs font-mono text-purple-300 font-bold">👑 EX Tier Lore Explanation</label>
+                      <textarea
+                        rows={2}
+                        value={manualExReason}
+                        onChange={(e) => setManualExReason(e.target.value)}
+                        placeholder="Explain why this card is in the EX Tier..."
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-purple-700 text-sm text-white font-sans focus:outline-none focus:border-purple-400 resize-none"
+                      />
+                    </div>
+                  )}
+
+                  <div className="space-y-1 sm:col-span-2">
+                    <label className="text-xs font-mono text-slate-300">Cover Artwork URL</label>
+                    <input
+                      type="text"
+                      value={manualCoverUrl}
+                      onChange={(e) => setManualCoverUrl(e.target.value)}
+                      placeholder="https://assets.ppy.sh/beatmaps/.../covers/cover.jpg"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1 sm:col-span-2">
+                    <label className="text-xs font-mono text-slate-300">Audio Preview URL (.mp3)</label>
+                    <input
+                      type="text"
+                      value={manualPreviewUrl}
+                      onChange={(e) => setManualPreviewUrl(e.target.value)}
+                      placeholder="https://b.ppy.sh/preview/....mp3"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleSaveCustomBeatmap}
+                  disabled={actionLoading}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-black text-sm shadow-xl shadow-emerald-600/30 transition-all flex items-center justify-center space-x-2"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>➕ Register & Inject into Global Pool</span>
+                </button>
+              </div>
+
+              {/* Right: Injected Custom Beatmaps List */}
+              <div className="lg:col-span-6 space-y-4 p-5 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                    <Database className="w-4 h-4 text-emerald-400" />
+                    <span>Injected Custom Beatmaps ({customBeatmaps.length})</span>
+                  </h3>
+                  <span className="text-xs font-mono text-emerald-300 font-bold px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-500/40">
+                    Live in Gacha
+                  </span>
+                </div>
+
+                {customBeatmaps.length === 0 ? (
+                  <div className="p-8 rounded-xl bg-slate-950/60 border border-slate-800 text-center space-y-2">
+                    <Database className="w-8 h-8 text-slate-600 mx-auto" />
+                    <p className="text-sm font-bold text-slate-300">No Custom Beatmaps Injected Yet</p>
+                    <p className="text-xs text-slate-500 font-mono">
+                      Use the registration form on the left to add any custom beatmaps to the live summoning pool!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3 max-h-[620px] overflow-y-auto pr-1">
+                    {customBeatmaps.map((map) => (
+                      <div
+                        key={map.id}
+                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-800/80 transition-all space-y-2"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-center space-x-3 min-w-0">
+                            {map.covers?.cover && (
+                              <img
+                                src={map.covers.cover}
+                                alt=""
+                                className="w-12 h-12 rounded-lg object-cover border border-slate-800 flex-shrink-0"
+                              />
+                            )}
+                            <div className="min-w-0">
+                              <div className="flex items-center space-x-1.5">
+                                <h4 className="text-sm font-bold text-white truncate">{map.title}</h4>
+                                <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${RARITY_COLORS[map.rarity] || 'text-slate-400'}`}>
+                                  {map.rarity}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-400 truncate">
+                                {map.artist} [{map.version}] • {map.stars}★ • Mapper: {map.creator}
+                              </p>
+                              <span className="text-[10px] font-mono text-slate-500">
+                                ID #{map.id} · Set #{map.beatmapsetId} · {map.status}
+                              </span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleDeleteCustomBeatmap(map.id, map.title)}
+                            disabled={actionLoading}
+                            className="p-1.5 rounded-lg bg-red-950 hover:bg-red-900 text-red-300 border border-red-800/60 transition-colors flex-shrink-0"
+                            title="Remove from Pool"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
 
-                        {override.exReason && (
-                          <div className="p-2.5 rounded-lg bg-purple-950/40 border border-purple-900/60 text-xs text-slate-200 font-sans italic">
-                            "{override.exReason}"
+                        {map.exReason && (
+                          <div className="p-2 rounded-lg bg-purple-950/40 border border-purple-900/60 text-xs text-slate-200 font-sans italic">
+                            "{map.exReason}"
                           </div>
                         )}
-
-                        <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-900">
-                          <span>Assigned by: {override.assignedBy || 'Admin'}</span>
-                          <span>{override.assignedAt ? formatUserDate(new Date(override.assignedAt).getTime()) : ''}</span>
-                        </div>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
@@ -2163,31 +2597,56 @@ const AdminPage: React.FC = () => {
                   </button>
                 </div>
 
-                {/* Force Stamina */}
+                {/* Force Stamina & Bonus Pulls */}
                 <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
                   <h3 className="font-bold text-white flex items-center space-x-2">
                     <Zap className="w-4 h-4 text-amber-400"/>
-                    <span>Force Stamina</span>
+                    <span>Stamina & Bonus Pulls</span>
                   </h3>
-                  <p className="text-xs text-slate-400 font-mono">
-                    Self stamina: <span className="text-amber-300 font-bold">{energy.current}/{energy.max}</span>
-                  </p>
-                  <input
-                    type="number"
-                    min="1"
-                    max="9999"
-                    placeholder="Energy amount (e.g. 50)"
-                    value={energyInput}
-                    onChange={e => setEnergyInput(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-sm font-mono focus:outline-none focus:border-amber-500/60"
-                  />
-                  <button
-                    onClick={() => handleEnergyOverride(selectedUserId)}
-                    disabled={actionLoading}
-                    className="w-full py-2 rounded-xl bg-amber-700 hover:bg-amber-600 disabled:opacity-50 text-white text-xs sm:text-sm font-semibold"
-                  >
-                    {selectedUserId === user?.osuId ? 'Refill Self Instantly' : 'Queue Energy Override'}
-                  </button>
+                  <div className="text-[11px] font-mono text-slate-400 space-y-0.5">
+                    <p>Self: <span className="text-amber-300 font-bold">{energy.current}/{energy.max}</span> (Main) + <span className="text-sky-300 font-bold">{energy.reserve || 0}</span> (Rsv) + <span className="text-purple-300 font-bold">{energy.bonus || 0}</span> (Bonus)</p>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-mono text-slate-400">Bonus Pulls Amount (+X)</label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="9999"
+                      placeholder="Bonus Pulls (e.g. 100)"
+                      value={energyInput}
+                      onChange={e => setEnergyInput(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-sm font-mono focus:outline-none focus:border-amber-500/60"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => handleEnergyOverride(selectedUserId)}
+                      disabled={actionLoading || !energyInput}
+                      className="py-2 px-2 rounded-xl bg-gradient-to-r from-amber-700 to-orange-600 hover:from-amber-600 hover:to-orange-500 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1"
+                    >
+                      <Zap className="w-3.5 h-3.5" />
+                      <span>{selectedUserId === user?.osuId ? 'Add Bonus Pulls' : 'Queue Bonus'}</span>
+                    </button>
+                    <button
+                      onClick={async () => {
+                        if (selectedUserId === user?.osuId) {
+                          await adminRefillEnergy(50);
+                          showMsg('⚡ Instantly refilled Main Stamina (50/50) & added bonus stamina!');
+                        } else {
+                          await supabase.from('user_energy_overrides').upsert({
+                            osu_id: selectedUserId,
+                            energy_amount: 100,
+                          });
+                          showMsg(`⚡ Queued +100 Stamina gift for ${selectedUsername}`);
+                        }
+                      }}
+                      disabled={actionLoading}
+                      className="py-2 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 text-xs font-semibold transition-all flex items-center justify-center space-x-1"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Full Refill (+100)</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Revoke Sessions */}

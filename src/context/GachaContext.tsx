@@ -75,11 +75,14 @@ interface GachaContextType {
   currentRates: RarityRates;
   countdownSeconds: number;
   timeToFullFormatted: string;
+  customBeatmaps: Beatmap[];
   setActiveBanner: (banner: Banner) => void;
   pull: (count: number) => Promise<PullResult[]>;
   refillEnergy: (amount: number) => Promise<void>;
   addBonusEnergy: (amount: number) => Promise<void>;
   adminRefillEnergy: (amount: number) => Promise<void>;
+  addCustomBeatmap: (beatmap: Beatmap) => Promise<void>;
+  removeCustomBeatmap: (beatmapId: number) => Promise<void>;
   setCardTierOverride: (beatmapId: number, tier: RarityTier, exReason?: string) => Promise<void>;
   removeCardTierOverride: (beatmapId: number) => Promise<void>;
   toggleFavorite: (beatmapId: number) => Promise<boolean>;
@@ -94,6 +97,7 @@ const GachaContext = createContext<GachaContextType | null>(null);
 export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, user, syncWithCloud } = useAuth();
   const [rawPool, setRawPool] = useState<Beatmap[]>([]);
+  const [customBeatmaps, setCustomBeatmaps] = useState<Beatmap[]>([]);
   const [datasetInfo, setDatasetInfo] = useState<DatasetInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [poolError, setPoolError] = useState<string | null>(null);
@@ -114,10 +118,15 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [energy, setEnergy] = useState<PullEnergyState>(DEFAULT_ENERGY_STATE);
   const [countdownSeconds, setCountdownSeconds] = useState<number>(15);
 
-  // Apply manual card tier overrides to pool
+  // Combine raw pool with custom injected beatmaps and apply card tier overrides
   const pool = useMemo(() => {
-    if (Object.keys(cardOverrides).length === 0) return rawPool;
-    return rawPool.map((map) => {
+    const customIds = new Set(customBeatmaps.map((m) => m.id));
+    const combined = [
+      ...customBeatmaps,
+      ...rawPool.filter((m) => !customIds.has(m.id)),
+    ];
+
+    return combined.map((map) => {
       const override = cardOverrides[String(map.id)];
       if (override) {
         return {
@@ -128,7 +137,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       return map;
     });
-  }, [rawPool, cardOverrides]);
+  }, [rawPool, customBeatmaps, cardOverrides]);
 
   const poolMap = useMemo(() => {
     return new Map<number, Beatmap>(pool.map((m: Beatmap) => [m.id, m]));
@@ -191,10 +200,11 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     async function loadCloudConfigs() {
       try {
-        const [evRes, ovRes, stamRes] = await Promise.all([
+        const [evRes, ovRes, stamRes, customRes] = await Promise.all([
           supabase.from('admin_config').select('value').eq('key', 'active_event_preset').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'card_tier_overrides').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'stamina_config').maybeSingle(),
+          supabase.from('admin_config').select('value').eq('key', 'custom_beatmaps').maybeSingle(),
         ]);
 
         if (evRes.data && evRes.data.value && !evRes.error) {
@@ -214,6 +224,10 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         if (stamRes.data && stamRes.data.value && !stamRes.error) {
           setStaminaConfig(stamRes.data.value);
+        }
+
+        if (customRes.data && Array.isArray(customRes.data.value) && !customRes.error) {
+          setCustomBeatmaps(customRes.data.value as Beatmap[]);
         }
       } catch (err) {
         console.warn('Error loading active cloud configs:', err);
@@ -422,19 +436,47 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   }, []);
 
-  /** Admin-only: set energy (large values overflow directly to bonus stamina) */
+  /** Admin-only: refill main stamina and add full bonus stamina */
   const adminRefillEnergy = useCallback(async (amount: number) => {
     setEnergy((prev) => {
       const nextState: PullEnergyState = {
         ...prev,
-        current: Math.min(prev.max, amount),
-        bonus: (prev.bonus || 0) + Math.max(0, amount - prev.max),
+        current: Math.max(prev.current, prev.max),
+        bonus: (prev.bonus || 0) + amount,
         lastRefillTime: Date.now(),
       };
       savePullEnergyState(nextState).catch(() => {});
       return nextState;
     });
   }, []);
+
+  /** Admin: Add or update manual custom beatmap in global pool */
+  const addCustomBeatmap = useCallback(
+    async (map: Beatmap) => {
+      const updated = [map, ...customBeatmaps.filter((m) => m.id !== map.id)];
+      setCustomBeatmaps(updated);
+      await supabase.from('admin_config').upsert({
+        key: 'custom_beatmaps',
+        value: updated,
+        updated_at: new Date().toISOString(),
+      });
+    },
+    [customBeatmaps]
+  );
+
+  /** Admin: Remove manual custom beatmap from global pool */
+  const removeCustomBeatmap = useCallback(
+    async (beatmapId: number) => {
+      const updated = customBeatmaps.filter((m) => m.id !== beatmapId);
+      setCustomBeatmaps(updated);
+      await supabase.from('admin_config').upsert({
+        key: 'custom_beatmaps',
+        value: updated,
+        updated_at: new Date().toISOString(),
+      });
+    },
+    [customBeatmaps]
+  );
 
   /** Admin: Set manual card tier and EX reason */
   const setCardTierOverride = useCallback(
@@ -882,6 +924,9 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     refillEnergy,
     addBonusEnergy,
     adminRefillEnergy,
+    customBeatmaps,
+    addCustomBeatmap,
+    removeCustomBeatmap,
     setCardTierOverride,
     removeCardTierOverride,
     toggleFavorite,
