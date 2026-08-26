@@ -141,8 +141,8 @@ export const StartScreenModal: React.FC<StartScreenModalProps> = ({
               <span className="text-[10px] text-slate-500">Ranked Maps</span>
             </div>
             <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800/80">
-              <span className="block font-mono text-xs font-bold text-purple-400">9 Tiers</span>
-              <span className="text-[10px] text-slate-500">Common to EX</span>
+              <span className="block font-mono text-xs font-bold text-purple-400">10 Tiers</span>
+              <span className="text-[10px] text-slate-500">Common to GOAT</span>
             </div>
             <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800/80">
               <span className="block font-mono text-xs font-bold text-cyan-400">0% P2W</span>
@@ -150,7 +150,7 @@ export const StartScreenModal: React.FC<StartScreenModalProps> = ({
             </div>
           </div>
 
-          {/* Expandable About & Disclaimer Accordion */}
+          {/* Expandable About, AI & Legal Disclaimer Accordion */}
           <div className="rounded-2xl bg-slate-950/80 border border-slate-800 overflow-hidden">
             <button
               onClick={() => {
@@ -160,8 +160,8 @@ export const StartScreenModal: React.FC<StartScreenModalProps> = ({
               className="w-full flex items-center justify-between p-3.5 text-xs text-slate-400 hover:text-slate-200 transition-colors"
             >
               <div className="flex items-center space-x-2 font-mono">
-                <ShieldAlert className="w-4 h-4 text-amber-400" />
-                <span>About, Legal Disclaimer & Fair Play</span>
+                <ShieldAlert className="w-4 h-4 text-cyan-400" />
+                <span>AI Disclaimer, About, Legal & Fair Play</span>
               </div>
               {showDisclaimer ? (
                 <ChevronUp className="w-4 h-4" />
@@ -171,15 +171,25 @@ export const StartScreenModal: React.FC<StartScreenModalProps> = ({
             </button>
 
             {showDisclaimer && (
-              <div className="p-4 pt-1 text-[11px] text-slate-400 space-y-2 border-t border-slate-900 leading-relaxed animate-fade-in font-sans">
+              <div className="p-4 pt-1 text-[11px] text-slate-400 space-y-2.5 border-t border-slate-900 leading-relaxed animate-fade-in font-sans">
+                <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-cyan-200 space-y-1">
+                  <p className="font-bold text-cyan-300 flex items-center space-x-1.5 font-mono text-[11px]">
+                    <span>🤖</span>
+                    <span>AI & Automated Systems Disclaimer</span>
+                  </p>
+                  <p className="text-[10.5px] leading-relaxed text-cyan-200/90 font-sans">
+                    This project utilizes Artificial Intelligence and machine-learning algorithms to assist in code generation, tier calculations, popularity curve modeling, and dynamic gacha balancing. All beatmap data, gameplay concepts, music compositions, and artworks originate from human osu! community mappers, composers, and artists.
+                  </p>
+                </div>
+
                 <p>
-                  <strong>Unofficial Fan Project:</strong> osu! Beatmap Gacha is an open-source demonstration and is not affiliated with, endorsed, or sponsored by osu! or ppy Pty Ltd.
+                  <strong>Unofficial Fan Project:</strong> osu! Beatmap Gacha is an open-source non-profit demonstration and is not affiliated with, endorsed, or sponsored by osu! or ppy Pty Ltd.
                 </p>
                 <p>
-                  <strong>Zero Monetization:</strong> There are no microtransactions or real-world money elements. In-game stamina carries zero monetary value.
+                  <strong>Zero Monetization:</strong> There are no microtransactions or real-world money elements. In-game stamina carries zero monetary value and cannot be purchased.
                 </p>
                 <p>
-                  <strong>Creator Attribution:</strong> All beatmap artwork, audio clips, and metadata remain the property of their respective artists and mappers.
+                  <strong>Creator Attribution:</strong> All beatmap artwork, audio clips, and metadata remain the property of their respective artists and mappers. Previews are streamed directly via official osu! media endpoints.
                 </p>
               </div>
             )}
