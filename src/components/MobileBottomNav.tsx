@@ -30,7 +30,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   };
 
   return (
-    <div className="sm:hidden fixed bottom-0 left-0 right-0 z-50 px-3 py-2 bg-[#0a0a10]/95 backdrop-blur-2xl border-t border-slate-800/90 pb-safe">
+    <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 px-3 py-2 bg-[#0a0a10]/95 backdrop-blur-2xl border-t border-slate-800/90 pb-safe">
       <nav className="flex items-center justify-around">
         {/* Summon / Gacha */}
         <button

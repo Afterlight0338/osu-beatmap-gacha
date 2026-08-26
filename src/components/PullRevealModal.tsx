@@ -244,27 +244,27 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
     >
       {/* Blinding Flashbang Effect on high-rarity drop */}
       {showFlashBang && (
-        <div className="fixed inset-0 z-[60] bg-white pointer-events-none animate-flash-bang" />
+        <div className="fixed inset-0 z-[120] bg-white pointer-events-none animate-flash-bang" />
       )}
 
-      {/* Top Controls: Skip & Close */}
-      <div className="absolute top-4 right-4 z-50 flex items-center space-x-3">
+      {/* Top Controls: Fixed Skip & Close Header (Never hidden behind any bar) */}
+      <div className="fixed top-0 left-0 right-0 z-[110] px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-end space-x-2.5 bg-gradient-to-b from-black/90 via-black/60 to-transparent pointer-events-none">
         {phase === 'revealing' && (
           <button
             onClick={handleSkip}
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 text-xs font-semibold backdrop-blur-md transition-all duration-200"
+            className="pointer-events-auto flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-600/80 text-xs font-semibold backdrop-blur-md transition-all duration-200 shadow-xl"
           >
-            <FastForward className="w-3.5 h-3.5" />
+            <FastForward className="w-3.5 h-3.5 text-pink-400" />
             <span>Skip All</span>
           </button>
         )}
         <button
           onClick={handleClose}
-          className="p-2 rounded-full bg-white/10 hover:bg-rose-600 text-slate-200 hover:text-white border border-white/20 backdrop-blur-md transition-all duration-200"
+          className="pointer-events-auto p-2 rounded-full bg-slate-900/90 hover:bg-rose-600 text-slate-200 hover:text-white border border-slate-600/80 backdrop-blur-md transition-all duration-200 shadow-xl"
         >
           <X className="w-4 h-4" />
         </button>
@@ -330,7 +330,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
       {/* PHASE 2: INDIVIDUAL CARD REVEAL */}
       {phase === 'revealing' && currentPull && (
-        <div className="relative flex flex-col items-center justify-center max-w-sm w-full space-y-5 animate-scale-up z-10">
+        <div className="relative flex flex-col items-center justify-center max-w-sm w-full space-y-5 animate-scale-up z-10 pt-16 pb-24 sm:pb-8">
           {/* Progress Indicator for Multi-Pull */}
           {results.length > 1 && (
             <div className="flex items-center space-x-2">
@@ -379,43 +379,48 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
                 </div>
               )}
 
-              {/* Celestial: Astral Constellation */}
+              {/* Celestial: Cosmic Astral Constellation */}
               {currentRarity === 'Celestial' && (
                 <div className="relative flex items-center justify-center">
-                  <div className="w-56 h-56 rounded-full border-2 border-cyan-400 animate-vortex-fast opacity-75" />
-                  <div className="absolute w-40 h-40 rounded-full blur-2xl bg-cyan-500/80 animate-pulse-glow" />
-                  <div className="absolute w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-600 shadow-[0_0_35px_#06b6d4] flex items-center justify-center">
-                    <Star className="w-10 h-10 text-white animate-spin" />
+                  <div className="w-56 h-56 rounded-full border-4 border-cyan-400 animate-spin-slow opacity-80" />
+                  <div className="absolute w-40 h-40 rounded-full blur-2xl bg-cyan-500/90 animate-pulse-glow" />
+                  <div className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-400 to-indigo-400 shadow-[0_0_35px_#06b6d4] flex items-center justify-center animate-spin">
+                    <Star className="w-10 h-10 text-white" />
                   </div>
                 </div>
               )}
 
-              {/* Mythic: Raging Flame Vortex */}
+              {/* Mythic: Infernal Hellfire Orb */}
               {currentRarity === 'Mythic' && (
                 <div className="relative flex items-center justify-center">
-                  <div className="w-52 h-52 rounded-full border-4 border-dotted border-rose-500 animate-vortex-fast opacity-80" />
-                  <div className="absolute w-36 h-36 rounded-full blur-xl bg-rose-600/90 animate-pulse-glow" />
-                  <div className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-red-600 via-rose-500 to-amber-400 shadow-[0_0_30px_#f43f5e] flex items-center justify-center animate-pulse">
-                    <Flame className="w-10 h-10 text-white" />
+                  <div className="w-52 h-52 rounded-full border-4 border-rose-500 animate-reverse-spin opacity-80" />
+                  <div className="absolute w-36 h-36 rounded-full blur-2xl bg-rose-600/90 animate-pulse-glow" />
+                  <div className="absolute w-18 h-18 rounded-full bg-gradient-to-tr from-rose-600 to-orange-500 shadow-[0_0_30px_#ef4444] flex items-center justify-center animate-pulse">
+                    <Flame className="w-9 h-9 text-yellow-300" />
                   </div>
                 </div>
               )}
 
-              {/* Legendary: Crimson Pulse */}
+              {/* Legendary: Golden Dragon Aura */}
               {currentRarity === 'Legendary' && (
                 <div className="relative flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-full border-2 border-red-500 animate-vortex-slow opacity-80" />
-                  <div className="absolute w-32 h-32 rounded-full blur-lg bg-red-600/80 animate-pulse-glow" />
-                  <div className="absolute w-16 h-16 rounded-full bg-red-600 shadow-[0_0_25px_#ef4444] flex items-center justify-center">
-                    <Zap className="w-8 h-8 text-white animate-bounce" />
+                  <div className="w-48 h-48 rounded-full border-2 border-red-400 animate-spin opacity-80" />
+                  <div className="absolute w-32 h-32 rounded-full blur-xl bg-red-600/80 animate-pulse-glow" />
+                  <div className="absolute w-16 h-16 rounded-full bg-gradient-to-tr from-red-600 to-rose-400 shadow-[0_0_25px_#ef4444] flex items-center justify-center">
+                    <Zap className="w-8 h-8 text-white" />
                   </div>
                 </div>
               )}
 
+              {/* Text Warning */}
               <div className="text-center space-y-1">
-                <span className="text-xs font-mono font-black uppercase tracking-widest text-amber-300 animate-pulse">
-                  ⚡ HIGH-ENERGY FREQUENCY CONVERGING...
+                <span
+                  className="font-display font-black text-lg uppercase tracking-widest animate-pulse"
+                  style={{ color: RARITY_CONFIGS[currentRarity].color }}
+                >
+                  ✦ {currentRarity} SIGNATURE INCOMING ✦
                 </span>
+                <p className="text-[11px] font-mono text-slate-400">Brace for high-impact beatmap arrival...</p>
               </div>
             </div>
           ) : (
@@ -471,7 +476,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
               {/* Next / Continue Action */}
               <button
                 onClick={handleNext}
-                className="w-full max-w-xs py-3.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold text-sm tracking-wider uppercase shadow-lg shadow-pink-600/30 flex items-center justify-center space-x-2 transition-all duration-200 hover:scale-[1.02]"
+                className="w-full max-w-xs py-3.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 text-white font-bold text-sm tracking-wider uppercase shadow-lg shadow-pink-600/30 flex items-center justify-center space-x-2 transition-all duration-200 hover:scale-[1.02] active:scale-95"
               >
                 <span>{currentIndex + 1 < results.length ? 'Next Beatmap' : 'View Results'}</span>
                 <ChevronRight className="w-4 h-4" />
@@ -483,7 +488,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
       {/* PHASE 3: MULTI-PULL / FINAL SUMMARY GRID */}
       {phase === 'summary' && (
-        <div className="flex flex-col items-center justify-center max-w-5xl w-full space-y-6 py-6 animate-scale-up">
+        <div className="flex flex-col items-center justify-center max-w-5xl w-full space-y-6 pt-16 pb-28 sm:pb-12 animate-scale-up z-10">
           {/* Header */}
           <div className="text-center space-y-1">
             <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wider font-display">
@@ -499,11 +504,11 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
           {/* Results Grid with Optimized Responsive Sizing */}
           <div
-            className={`grid gap-3 w-full ${
+            className={`grid gap-2.5 sm:gap-3 w-full ${
               results.length === 1
                 ? 'grid-cols-1 max-w-xs mx-auto'
                 : results.length === 5
-                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 max-w-5xl'
+                ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-5 max-w-5xl'
                 : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-6xl'
             }`}
           >
@@ -521,10 +526,10 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           </div>
 
           {/* Actions: Pull Again 1x, 5x, 10x, Close */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 border-t border-slate-800 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-4 pb-4 border-t border-slate-800/80 w-full">
             <button
               onClick={() => handlePullAgain(1)}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs flex items-center space-x-1.5 transition-all hover:scale-105"
+              className="px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs flex items-center space-x-1.5 transition-all hover:scale-105 active:scale-95 shadow-md"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Pull 1x (⚡1)</span>
@@ -532,7 +537,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
             <button
               onClick={() => handlePullAgain(5)}
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs border border-purple-500/60 flex items-center space-x-1.5 transition-all hover:scale-105 shadow-md shadow-purple-900/30"
+              className="px-3.5 sm:px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs border border-purple-500/60 flex items-center space-x-1.5 transition-all hover:scale-105 active:scale-95 shadow-md shadow-purple-900/30"
             >
               <Sparkles className="w-3.5 h-3.5 text-purple-300" />
               <span>Pull 5x (⚡5)</span>
@@ -540,7 +545,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
             <button
               onClick={() => handlePullAgain(10)}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-pink-600/30 flex items-center space-x-1.5 transition-all hover:scale-105"
+              className="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-pink-600/30 flex items-center space-x-1.5 transition-all hover:scale-105 active:scale-95"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Pull 10x (⚡10)</span>
@@ -548,7 +553,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
             <button
               onClick={handleClose}
-              className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold text-xs transition-all"
+              className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs transition-all hover:border-slate-500 active:scale-95 shadow-md"
             >
               Done / Return
             </button>
