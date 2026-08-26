@@ -17,7 +17,7 @@ import { RARITY_ORDER } from './rarity';
  * Sum: Exactly 100.0%
  */
 export const DEFAULT_RARITY_RATES: RarityRates = {
-  Common: 0.3080,    // 30.80%
+  Common: 0.3082,    // 30.82%
   Uncommon: 0.2900,  // 29.00%
   'Uncommon+': 0.2600, // 26.00%
   Rare: 0.1000,      // 10.00%
@@ -26,15 +26,15 @@ export const DEFAULT_RARITY_RATES: RarityRates = {
   Mythic: 0.0025,    // 0.25%
   Celestial: 0.0010, // 0.10%
   Divine: 0.0005,    // 0.05%
+  EX: 0.0002,        // 0.02%
   GOAT: 0.0001,      // 0.01%
-  EX: 0.0004,        // 0.04%
 };
 
 /**
  * 100-Pull Pity System:
  * - Pulls 0-79: Standard Base Rates
  * - Pulls 80-99 (Soft Pity): Ramping up Legendary or higher probability on each pull
- * - Pull 100 (Hard Pity): 100% Guaranteed Legendary or higher (Legendary, Mythic, Celestial, Divine, GOAT, EX)
+ * - Pull 100 (Hard Pity): 100% Guaranteed Legendary or higher (Legendary, Mythic, Celestial, Divine, EX, GOAT)
  */
 export function getPityRates(pityCount: number, baseRates: RarityRates = DEFAULT_RARITY_RATES): RarityRates {
   // Hard pity at 100 pulls (pityCount >= 99 when 0-indexed)
@@ -47,10 +47,10 @@ export function getPityRates(pityCount: number, baseRates: RarityRates = DEFAULT
       Epic: 0,
       Legendary: 0.6300,
       Mythic: 0.2100,
-      Celestial: 0.0850,
-      Divine: 0.0450,
+      Celestial: 0.0900,
+      Divine: 0.0550,
+      EX: 0.0050,
       GOAT: 0.0100,
-      EX: 0.0200,
     };
   }
 

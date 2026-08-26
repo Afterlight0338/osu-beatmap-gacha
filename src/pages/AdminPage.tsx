@@ -18,7 +18,7 @@ import { giftingService, PlayerTransaction } from '../services/giftingService';
 import { tradingService, PlayerTrade } from '../services/tradingService';
 import { fetchBeatmapMetadata } from '../services/beatmapFetchService';
 
-const RARITY_ORDER: RarityTier[] = ['EX','GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
+const RARITY_ORDER: RarityTier[] = ['GOAT','EX','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
   EX:'text-purple-300', GOAT:'text-yellow-300', Divine:'text-purple-300', Celestial:'text-cyan-300',
   Mythic:'text-pink-300', Legendary:'text-orange-300', Epic:'text-violet-300',

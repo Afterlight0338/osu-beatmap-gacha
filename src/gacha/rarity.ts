@@ -24,8 +24,8 @@ export const RARITY_ORDER: RarityTier[] = [
   'Mythic',
   'Celestial',
   'Divine',
-  'GOAT',
   'EX',
+  'GOAT',
 ];
 
 export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
@@ -39,7 +39,7 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-slate-500/50',
     bgGradient: 'from-slate-700/40 via-slate-800/60 to-slate-950/80',
     percentileThreshold: 0.70,
-    pullProbability: 0.3084,    // 30.84%
+    pullProbability: 0.3082,    // 30.82%
     soundPitch: 1.0,
   },
   Uncommon: {
@@ -157,11 +157,11 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     bgGradient: 'from-amber-600/60 via-yellow-950/80 to-slate-950/95',
     percentileThreshold: 0.0,
     pullProbability: 0.0001,    // 0.01%
-    soundPitch: 2.8,
+    soundPitch: 3.0,
   },
   EX: {
     tier: 'EX',
-    stars: 10,
+    stars: 9.5,
     label: 'EX SPECIAL',
     color: '#c084fc',
     glowColor: 'rgba(192, 132, 252, 1)',
@@ -169,8 +169,8 @@ export const RARITY_CONFIGS: Record<RarityTier, RarityConfig> = {
     borderColor: 'border-purple-400',
     bgGradient: 'from-purple-900/80 via-pink-950/80 to-slate-950/95',
     percentileThreshold: 0.0,
-    pullProbability: 0.0004,    // 0.04%
-    soundPitch: 3.0,
+    pullProbability: 0.0002,    // 0.02%
+    soundPitch: 2.7,
   },
 };
 
