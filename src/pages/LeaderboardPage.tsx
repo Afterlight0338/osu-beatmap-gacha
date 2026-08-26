@@ -43,26 +43,39 @@ export const LeaderboardPage: React.FC = () => {
   const loadLeaderboardData = async () => {
     setIsLoading(true);
     try {
-      const [usersRes, colRes] = await Promise.all([
+      // PostgREST limits single requests to 1000 rows. Fetch collection in parallel chunks.
+      const rangeChunks = [
+        [0, 999], [1000, 1999], [2000, 2999], [3000, 3999],
+        [4000, 4999], [5000, 5999], [6000, 6999], [7000, 7999],
+        [8000, 8999], [9000, 9999], [10000, 10999], [11000, 11999],
+        [12000, 12999], [13000, 13999], [14000, 14999], [15000, 15999],
+        [16000, 16999], [17000, 17999], [18000, 19999]
+      ];
+
+      const [usersRes, ...chunkResponses] = await Promise.all([
         supabase
           .from('users')
           .select('osu_id, username, avatar_url, country_code, global_rank, total_pulls, last_login')
           .eq('is_banned', false)
           .order('total_pulls', { ascending: false }),
-        supabase
-          .from('user_collection')
-          .select('osu_id, beatmap_id, copies, is_favorite')
-          .limit(50000),
+        ...rangeChunks.map(([from, to]) =>
+          supabase
+            .from('user_collection')
+            .select('osu_id, beatmap_id, copies, is_favorite')
+            .range(from, to)
+        ),
       ]);
 
       if (usersRes.data) {
         const collectionsByUser = new Map<number, Array<{ beatmap_id: number; copies: number }>>();
 
-        if (colRes.data) {
-          for (const item of colRes.data) {
-            const list = collectionsByUser.get(item.osu_id) || [];
-            list.push(item);
-            collectionsByUser.set(item.osu_id, list);
+        for (const chunk of chunkResponses) {
+          if (chunk.data) {
+            for (const item of chunk.data) {
+              const list = collectionsByUser.get(item.osu_id) || [];
+              list.push(item);
+              collectionsByUser.set(item.osu_id, list);
+            }
           }
         }
 

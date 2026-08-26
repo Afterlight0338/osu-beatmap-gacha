@@ -22,6 +22,10 @@ import {
   History,
   ShieldCheck,
   Disc,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react';
 
 export interface LeaderboardUser {
@@ -59,6 +63,9 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   const [selectedRarity, setSelectedRarity] = useState<string>('ALL');
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [isPlayingRarest, setIsPlayingRarest] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const ITEMS_PER_PAGE = 24;
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -71,21 +78,38 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     }
   }, [isOpen, user]);
 
-  // Fetch full user collection & history from Supabase when user changes
+  // Fetch full user collection using multi-chunk pagination to get all records (fixes PostgREST 1000 limit)
   useEffect(() => {
     if (!isOpen || !user) return;
 
     let isMounted = true;
     setIsLoading(true);
+    setCurrentPage(1);
 
     async function fetchUserData() {
       try {
-        const [colRes, histRes] = await Promise.all([
+        // Fetch up to 5,000 collection records in parallel chunks
+        const [c1, c2, c3, c4, histRes] = await Promise.all([
           supabase
             .from('user_collection')
             .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
             .eq('osu_id', user!.osu_id)
-            .limit(10000),
+            .range(0, 999),
+          supabase
+            .from('user_collection')
+            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
+            .eq('osu_id', user!.osu_id)
+            .range(1000, 1999),
+          supabase
+            .from('user_collection')
+            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
+            .eq('osu_id', user!.osu_id)
+            .range(2000, 2999),
+          supabase
+            .from('user_collection')
+            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
+            .eq('osu_id', user!.osu_id)
+            .range(3000, 4999),
           supabase
             .from('user_history')
             .select('id, beatmap_id, rarity, pulled_at')
@@ -95,17 +119,23 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         ]);
 
         if (isMounted) {
-          if (colRes.data) {
-            const records: CollectionRecord[] = colRes.data.map((c) => ({
-              osuId: c.osu_id,
-              beatmapId: c.beatmap_id,
-              copies: c.copies,
-              isFavorite: c.is_favorite,
-              firstPulledAt: c.first_pulled_at,
-              lastPulledAt: c.last_pulled_at,
-            }));
-            setCollectionRecords(records);
-          }
+          const allRows = [
+            ...(c1.data || []),
+            ...(c2.data || []),
+            ...(c3.data || []),
+            ...(c4.data || []),
+          ];
+
+          const records: CollectionRecord[] = allRows.map((c) => ({
+            osuId: c.osu_id,
+            beatmapId: c.beatmap_id,
+            copies: c.copies,
+            isFavorite: c.is_favorite,
+            firstPulledAt: c.first_pulled_at,
+            lastPulledAt: c.last_pulled_at,
+          }));
+
+          setCollectionRecords(records);
 
           if (histRes.data) {
             setUserHistory(
@@ -166,7 +196,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     };
   }, [collectionRecords, poolMap]);
 
-  // Listen to audio player for rarest card
+  // Audio player synchronization
   useEffect(() => {
     if (!rarestCard) return;
     const unsub = previewPlayer.subscribe((playing, currentId) => {
@@ -175,7 +205,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
     return unsub;
   }, [rarestCard]);
 
-  // Filter collection
+  // Filtered collection with memoization
   const filteredCollection = useMemo(() => {
     return populatedCards.filter(({ beatmap }) => {
       if (selectedRarity !== 'ALL' && beatmap.rarity !== selectedRarity) return false;
@@ -191,6 +221,20 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
       return true;
     });
   }, [populatedCards, selectedRarity, searchQuery]);
+
+  // Paginated chunk (Prevents rendering thousands of cards at once!)
+  const totalPages = Math.max(1, Math.ceil(filteredCollection.length / ITEMS_PER_PAGE));
+  const validPage = Math.min(currentPage, totalPages);
+
+  const paginatedCollection = useMemo(() => {
+    const start = (validPage - 1) * ITEMS_PER_PAGE;
+    return filteredCollection.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredCollection, validPage]);
+
+  const handlePageChange = (page: number) => {
+    sfx.playClick();
+    setCurrentPage(Math.max(1, Math.min(totalPages, page)));
+  };
 
   if (!isOpen || !user) return null;
 
@@ -326,7 +370,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Full Collection ({collectionRecords.length})</span>
+              <span>Full Collection ({collectionRecords.length.toLocaleString()})</span>
             </button>
 
             <button
@@ -351,7 +395,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-16 space-y-3">
               <div className="w-10 h-10 rounded-full border-4 border-pink-500/30 border-t-pink-500 animate-spin" />
-              <p className="text-xs font-mono text-slate-400">Loading {user.username}&apos;s cards from Supabase...</p>
+              <p className="text-xs font-mono text-slate-400">Loading {user.username}&apos;s collection...</p>
             </div>
           ) : (
             <>
@@ -455,7 +499,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 </div>
               )}
 
-              {/* TAB 2: FULL COLLECTION */}
+              {/* TAB 2: FULL COLLECTION (Fast 24-Card Paginated Grid) */}
               {activeTab === 'collection' && (
                 <div className="space-y-4">
                   {/* Search and Filters */}
@@ -466,17 +510,23 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                         type="text"
                         placeholder="Search player's collection by title, artist, mapper..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          setCurrentPage(1);
+                        }}
                         className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500"
                       />
                     </div>
 
                     {/* Rarity filter */}
                     <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-                      {['ALL', 'GOAT', 'Divine', 'Celestial', 'Mythic', 'Legendary', 'Epic', 'Rare'].map((r) => (
+                      {['ALL', 'GOAT', 'Divine', 'Celestial', 'Mythic', 'Legendary', 'Epic', 'Rare', 'Common'].map((r) => (
                         <button
                           key={r}
-                          onClick={() => setSelectedRarity(r)}
+                          onClick={() => {
+                            setSelectedRarity(r);
+                            setCurrentPage(1);
+                          }}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-bold font-mono whitespace-nowrap transition-all ${
                             selectedRarity === r
                               ? 'bg-pink-600 text-white shadow-md'
@@ -489,10 +539,18 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                     </div>
                   </div>
 
-                  {/* Collection Grid */}
-                  {filteredCollection.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3 max-h-[50vh] overflow-y-auto p-1">
-                      {filteredCollection.map(({ beatmap, record }) => (
+                  {/* Summary Bar */}
+                  <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-1">
+                    <span>Showing {filteredCollection.length.toLocaleString()} cards</span>
+                    {totalPages > 1 && (
+                      <span>Page {validPage} of {totalPages}</span>
+                    )}
+                  </div>
+
+                  {/* Paginated 24-card Grid */}
+                  {paginatedCollection.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3">
+                      {paginatedCollection.map(({ beatmap, record }) => (
                         <BeatmapCard
                           key={beatmap.id}
                           beatmap={beatmap}
@@ -506,6 +564,51 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   ) : (
                     <div className="p-8 rounded-2xl bg-slate-900/40 border border-slate-800 text-center text-slate-500 font-mono text-xs">
                       No matching cards found in {user.username}&apos;s collection.
+                    </div>
+                  )}
+
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center space-x-2 py-4 select-none font-mono text-xs">
+                      <button
+                        disabled={validPage === 1}
+                        onClick={() => handlePageChange(1)}
+                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800"
+                        title="First Page"
+                      >
+                        <ChevronsLeft className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        disabled={validPage === 1}
+                        onClick={() => handlePageChange(validPage - 1)}
+                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800"
+                        title="Previous Page"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+
+                      <span className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-pink-400 font-bold">
+                        {validPage} / {totalPages}
+                      </span>
+
+                      <button
+                        disabled={validPage === totalPages}
+                        onClick={() => handlePageChange(validPage + 1)}
+                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800"
+                        title="Next Page"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        disabled={validPage === totalPages}
+                        onClick={() => handlePageChange(totalPages)}
+                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800"
+                        title="Last Page"
+                      >
+                        <ChevronsRight className="w-4 h-4" />
+                      </button>
                     </div>
                   )}
                 </div>
