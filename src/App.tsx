@@ -43,6 +43,7 @@ const MainApp: React.FC = () => {
     return sessionStorage.getItem('admin_maintenance_bypassed') === 'true';
   });
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
+  const [isStartScreenOpen, setIsStartScreenOpen] = useState<boolean>(false);
   const [incomingGift, setIncomingGift] = useState<PlayerTransaction | null>(null);
   const [incomingTrade, setIncomingTrade] = useState<PlayerTrade | null>(null);
   const [allUsers, setAllUsers] = useState<{ osu_id: number; username: string; avatar_url?: string; country_code?: string }[]>([]);
@@ -320,6 +321,13 @@ const MainApp: React.FC = () => {
         {/* Legal & Policy Links */}
         <div className="flex items-center justify-center space-x-3 text-[11px] font-mono text-slate-400">
           <button
+            onClick={() => setIsStartScreenOpen(true)}
+            className="hover:text-cyan-300 transition-colors underline decoration-slate-700 underline-offset-4 text-cyan-400 font-bold"
+          >
+            🤖 AI Disclaimer & Welcome
+          </button>
+          <span>•</span>
+          <button
             onClick={() => setLegalModalTab('terms')}
             className="hover:text-pink-400 transition-colors underline decoration-slate-700 underline-offset-4"
           >
@@ -375,7 +383,10 @@ const MainApp: React.FC = () => {
       />
 
       {/* First-Time User Onboarding & Start Screen */}
-      <StartScreenModal />
+      <StartScreenModal
+        forceOpen={isStartScreenOpen}
+        onClose={() => setIsStartScreenOpen(false)}
+      />
 
       {/* Global Realtime Chat & Player Presence Drawer */}
       <GlobalChatDrawer allUsers={allUsers} />

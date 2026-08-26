@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { sfx } from '../audio/sfx';
 import { KofiIcon, SociabuzzIcon } from './DonationIcons';
 
-const HAS_SEEN_WELCOME_KEY = 'osu_gacha_has_seen_welcome_v1';
+const HAS_SEEN_WELCOME_KEY = 'osu_gacha_has_seen_welcome_v2';
 
 interface StartScreenModalProps {
   forceOpen?: boolean;
@@ -18,7 +18,7 @@ export const StartScreenModal: React.FC<StartScreenModalProps> = ({
 }) => {
   const { user, loginWithOsu, isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showDisclaimer, setShowDisclaimer] = useState<boolean>(false);
+  const [showDisclaimer, setShowDisclaimer] = useState<boolean>(true);
 
   useEffect(() => {
     if (forceOpen) {
