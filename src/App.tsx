@@ -8,6 +8,7 @@ import { GachaPage } from './pages/GachaPage';
 import { CollectionPage } from './pages/CollectionPage';
 import { StatsPage } from './pages/StatsPage';
 import { ChangelogPage } from './pages/ChangelogPage';
+import { AboutPage } from './pages/AboutPage';
 import AdminPage from './pages/AdminPage';
 import { MaintenancePage } from './pages/MaintenancePage';
 import { SettingsModal } from './components/SettingsModal';
@@ -21,7 +22,7 @@ import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog' | 'admin'>('gacha');
+  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
@@ -100,6 +101,7 @@ const MainApp: React.FC = () => {
         {activeTab === 'changelog' && (
           <ChangelogPage onSelectBeatmap={(map) => setSelectedMapForDetail(map)} />
         )}
+        {activeTab === 'about' && <AboutPage />}
         {activeTab === 'admin' && <AdminPage />}
       </main>
 

@@ -122,7 +122,7 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
             <div className="flex items-center space-x-1 text-[10px] font-mono text-slate-400">
               <Cloud className={`w-2.5 h-2.5 ${isSyncing ? 'text-amber-400 animate-spin' : pendingSyncCount > 0 ? 'text-orange-400' : 'text-emerald-400'}`} />
               <span>
-                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} pending` : 'Cloud D1'}
+                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} pending` : 'Cloud Sync'}
               </span>
             </div>
           </div>
@@ -169,21 +169,21 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
             <div className="flex items-center justify-between text-slate-400 text-[11px]">
               <span className="flex items-center space-x-1">
                 <ShieldCheck className={`w-3 h-3 ${pendingSyncCount > 0 ? 'text-orange-400' : 'text-emerald-400'}`} />
-                <span>Cloud Sync (D1)</span>
+                <span>Cloud Synchronization</span>
               </span>
               <span className={
                 isSyncing ? 'text-amber-400 animate-pulse' :
                 pendingSyncCount > 0 ? 'text-orange-400 font-bold' :
                 'text-emerald-400 font-bold'
               }>
-                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} queued` : 'Connected'}
+                {isSyncing ? 'Syncing...' : pendingSyncCount > 0 ? `${pendingSyncCount} queued` : 'Active'}
               </span>
             </div>
 
             {pendingSyncCount > 0 && (
               <p className="text-[10px] text-orange-300/80 leading-relaxed">
                 ⚠ {pendingSyncCount} local batch{pendingSyncCount !== 1 ? 'es' : ''} stored offline.
-                Will auto-sync when D1 is reachable.
+                Will auto-sync when online.
               </p>
             )}
 
@@ -199,7 +199,7 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
               className="w-full mt-1 flex items-center justify-center space-x-1.5 py-1 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-pink-300 text-[11px] border border-slate-700/60 transition-colors"
             >
               <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin text-amber-400' : ''}`} />
-              <span>{isSyncing ? 'Syncing with D1...' : 'Sync Collection Now'}</span>
+              <span>{isSyncing ? 'Syncing with Cloud...' : 'Sync Collection Now'}</span>
             </button>
           </div>
 

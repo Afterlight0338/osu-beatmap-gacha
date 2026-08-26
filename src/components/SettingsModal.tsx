@@ -213,10 +213,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             </div>
           </div>
 
-          {/* osu! Cloud Account & D1 Sync */}
+          {/* osu! Cloud Account & Sync */}
           <div className="space-y-3">
             <h3 className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider flex items-center justify-between">
-              <span>osu! Cloud Account (D1 Database)</span>
+              <span>osu! Cloud Account</span>
               {isAuthenticated && (
                 <span className="text-[10px] text-emerald-400 font-bold flex items-center space-x-1">
                   <ShieldCheck className="w-3 h-3" />
@@ -262,7 +262,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                     className="flex-1 flex items-center justify-center space-x-1.5 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-pink-300 text-xs font-semibold border border-slate-700 transition-colors"
                   >
                     <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-amber-400' : 'text-cyan-400'}`} />
-                    <span>{isSyncing ? 'Syncing...' : 'Sync Cloud D1'}</span>
+                    <span>{isSyncing ? 'Syncing...' : 'Sync Cloud'}</span>
                   </button>
 
                   <button
@@ -277,7 +277,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             ) : (
               <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5">
                 <p className="text-xs text-slate-300 leading-relaxed font-sans">
-                  Sign in with your official <strong className="text-pink-400">osu! account</strong> to automatically back up and synchronize your pulled beatmaps across your PC and mobile devices via Cloudflare D1.
+                  Sign in with your official <strong className="text-pink-400">osu! account</strong> to automatically back up and synchronize your pulled beatmaps across your PC and mobile devices.
                 </p>
                 <button
                   onClick={() => loginWithOsu()}

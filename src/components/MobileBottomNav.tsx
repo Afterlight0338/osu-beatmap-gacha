@@ -9,11 +9,12 @@ import {
   BarChart3,
   History,
   ShieldAlert,
+  Info,
 } from 'lucide-react';
 
 interface MobileBottomNavProps {
-  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin';
-  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin') => void;
+  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin';
+  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin') => void;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
@@ -24,7 +25,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   const { user } = useAuth();
   const showAdmin = isAdmin(user?.username);
 
-  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'admin') => {
+  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin') => {
     sfx.playClick();
     setActiveTab(tab);
   };
@@ -119,6 +120,27 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <History className="w-5 h-5" />
           </div>
           <span className="text-[10px] tracking-tight mt-0.5">Logs</span>
+        </button>
+
+        {/* About / Disclaimers */}
+        <button
+          onClick={() => handleTabClick('about')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeTab === 'about'
+              ? 'text-pink-400 font-bold'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <div
+            className={`p-1.5 rounded-xl transition-all ${
+              activeTab === 'about'
+                ? 'bg-gradient-to-tr from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-600/40 scale-110'
+                : 'bg-transparent'
+            }`}
+          >
+            <Info className="w-5 h-5" />
+          </div>
+          <span className="text-[10px] tracking-tight mt-0.5">About</span>
         </button>
 
         {/* Admin (Only for RyoYamada) */}
