@@ -10,11 +10,12 @@ import {
   History,
   ShieldAlert,
   Info,
+  Trophy,
 } from 'lucide-react';
 
 interface MobileBottomNavProps {
-  activeTab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin';
-  setActiveTab: (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin') => void;
+  activeTab: 'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin';
+  setActiveTab: (tab: 'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin') => void;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
@@ -25,7 +26,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   const { user } = useAuth();
   const showAdmin = isAdmin(user?.username);
 
-  const handleTabClick = (tab: 'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin') => {
+  const handleTabClick = (tab: 'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin') => {
     sfx.playClick();
     setActiveTab(tab);
   };
@@ -78,6 +79,27 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               {stats.uniqueOwned > 999 ? '999+' : stats.uniqueOwned}
             </span>
           )}
+        </button>
+
+        {/* Leaderboard */}
+        <button
+          onClick={() => handleTabClick('leaderboard')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeTab === 'leaderboard'
+              ? 'text-amber-400 font-bold'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <div
+            className={`p-1.5 rounded-xl transition-all ${
+              activeTab === 'leaderboard'
+                ? 'bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950 shadow-lg shadow-amber-500/40 scale-110'
+                : 'bg-transparent'
+            }`}
+          >
+            <Trophy className="w-5 h-5" />
+          </div>
+          <span className="text-[10px] tracking-tight mt-0.5">Rank</span>
         </button>
 
         {/* Stats */}

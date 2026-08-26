@@ -6,6 +6,7 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { GachaPage } from './pages/GachaPage';
 import { CollectionPage } from './pages/CollectionPage';
+import { LeaderboardPage } from './pages/LeaderboardPage';
 import { StatsPage } from './pages/StatsPage';
 import { ChangelogPage } from './pages/ChangelogPage';
 import { AboutPage } from './pages/AboutPage';
@@ -22,7 +23,7 @@ import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
+  const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
@@ -97,6 +98,7 @@ const MainApp: React.FC = () => {
         {/* Tab Pages */}
         {activeTab === 'gacha' && <GachaPage />}
         {activeTab === 'collection' && <CollectionPage />}
+        {activeTab === 'leaderboard' && <LeaderboardPage />}
         {activeTab === 'stats' && <StatsPage />}
         {activeTab === 'changelog' && (
           <ChangelogPage onSelectBeatmap={(map) => setSelectedMapForDetail(map)} />
