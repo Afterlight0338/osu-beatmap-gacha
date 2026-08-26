@@ -240,27 +240,9 @@ class GiftingService {
       updated_at: new Date().toISOString(),
     });
 
-    // If it was already claimed, reverse it!
+    // If it was already claimed: Deduct from recipient
     if (wasClaimed) {
       if (tx.type === 'card' && tx.cardData) {
-        // Return to sender
-        const { data: senderCard } = await supabase
-          .from('user_collection')
-          .select('copies')
-          .eq('osu_id', tx.senderId)
-          .eq('beatmap_id', tx.cardData.id)
-          .maybeSingle();
-
-        await supabase.from('user_collection').upsert({
-          osu_id: tx.senderId,
-          beatmap_id: tx.cardData.id,
-          copies: (senderCard?.copies || 0) + 1,
-          first_pulled_at: Date.now(),
-          last_pulled_at: Date.now(),
-          is_favorite: false,
-        });
-
-        // Remove from recipient
         const { data: recCard } = await supabase
           .from('user_collection')
           .select('copies')
@@ -276,6 +258,25 @@ class GiftingService {
           }
         }
       }
+    }
+
+    // Always restore the card to the sender (since it was deducted from the sender at send time)
+    if (tx.type === 'card' && tx.cardData) {
+      const { data: senderCard } = await supabase
+        .from('user_collection')
+        .select('copies')
+        .eq('osu_id', tx.senderId)
+        .eq('beatmap_id', tx.cardData.id)
+        .maybeSingle();
+
+      await supabase.from('user_collection').upsert({
+        osu_id: tx.senderId,
+        beatmap_id: tx.cardData.id,
+        copies: (senderCard?.copies || 0) + 1,
+        first_pulled_at: Date.now(),
+        last_pulled_at: Date.now(),
+        is_favorite: false,
+      });
     }
 
     return { success: true };
