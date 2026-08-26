@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { GachaProvider, useGacha } from './context/GachaContext';
 import { Navbar } from './components/Navbar';
 import { ParticleCanvas } from './components/ParticleCanvas';
@@ -8,18 +8,30 @@ import { CollectionPage } from './pages/CollectionPage';
 import { StatsPage } from './pages/StatsPage';
 import { ChangelogPage } from './pages/ChangelogPage';
 import AdminPage from './pages/AdminPage';
+import { MaintenancePage } from './pages/MaintenancePage';
 import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
 import { Beatmap } from './types/beatmap';
-import { Disc, AlertCircle } from 'lucide-react';
+import { isAdmin } from './config/admin';
+import { MAINTENANCE_MODE } from './config/maintenance';
+import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite } = useGacha();
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'stats' | 'changelog' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
+  const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
+
+  const userIsAdmin = isAdmin(user?.username);
+
+  // If maintenance mode is active and the visitor is not the admin (or is previewing), show Maintenance Page
+  if (MAINTENANCE_MODE && (!userIsAdmin || previewMaintenance)) {
+    return <MaintenancePage onBypass={() => setPreviewMaintenance(false)} />;
+  }
 
   if (isLoading) {
     return (
@@ -51,6 +63,25 @@ const MainApp: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 z-10">
+        {/* Admin Maintenance Mode Notification */}
+        {MAINTENANCE_MODE && userIsAdmin && (
+          <div className="max-w-7xl mx-auto mb-6 p-3 sm:p-4 rounded-2xl bg-amber-950/70 border border-amber-500/60 text-amber-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-amber-950/40">
+            <div className="flex items-center space-x-2.5">
+              <Wrench className="w-4 h-4 text-amber-400 flex-shrink-0 animate-bounce" />
+              <span>
+                <strong className="text-amber-300 font-mono font-bold uppercase">Maintenance Mode is Active.</strong> Public visitors are currently viewing the maintenance page. You have bypassed it as <strong className="text-white">RyoYamada</strong>.
+              </span>
+            </div>
+            <button
+              onClick={() => setPreviewMaintenance(true)}
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-900/60 hover:bg-amber-800/60 border border-amber-700/60 text-amber-300 text-xs font-semibold transition-colors flex-shrink-0"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>Preview Maintenance Page</span>
+            </button>
+          </div>
+        )}
+
         {/* Warning notification if running fallback dataset */}
         {poolError && isFallbackDataset && (
           <div className="max-w-4xl mx-auto mb-6 p-3 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs flex items-center space-x-2">

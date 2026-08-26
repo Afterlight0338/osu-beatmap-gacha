@@ -9,7 +9,7 @@ import { RarityRates } from '../types/gacha';
 import {
   ShieldAlert, Users, Database, RefreshCw, Trash2, Activity, TrendingUp,
   Star, Clock, AlertTriangle, ChevronDown, ChevronUp, Search, Crown,
-  Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X,
+  Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X, Wrench,
 } from 'lucide-react';
 
 const RARITY_ORDER: RarityTier[] = ['GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
@@ -534,6 +534,27 @@ const AdminPage: React.FC = () => {
       {/* ── CONFIG TAB ────────────────────────────── */}
       {activeTab === 'config' && (
         <div className="space-y-6">
+          {/* Maintenance Mode Card */}
+          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="font-bold text-white text-lg flex items-center space-x-2">
+                <Wrench className="w-5 h-5 text-amber-400" />
+                <span>Site Maintenance Status</span>
+              </h2>
+              <span className="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500/60 text-amber-300 font-mono font-bold text-xs">
+                MAINTENANCE ACTIVE
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              The public site is currently <strong>locked in maintenance mode</strong>. All non-admin visitors visiting <code className="text-pink-300 bg-slate-800 px-1.5 py-0.5 rounded">gacha.vivlos.dev</code> will see the dedicated Maintenance Page. As the verified admin (<strong className="text-white">RyoYamada</strong>), you retain full access to test, pull, and manage the system.
+            </p>
+            <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
+              <div><span className="text-slate-500">Config file:</span> <code className="text-pink-300">src/config/maintenance.ts</code></div>
+              <div><span className="text-slate-500">Status:</span> <code className="text-amber-400 font-bold">MAINTENANCE_MODE = true</code></div>
+              <div><span className="text-slate-500">Visitor view:</span> Displays maintenance notice with cloud backup guarantee.</div>
+            </div>
+          </div>
+
           {/* Rates */}
           <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
             <div className="flex items-center justify-between">
