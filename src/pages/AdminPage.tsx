@@ -120,6 +120,9 @@ const AdminPage: React.FC = () => {
   const [selectedUsername, setSelectedUsername] = useState<string>('');
   const [userColl, setUserColl] = useState<UserCollCard[]>([]);
   const [userCollLoading, setUserCollLoading] = useState(false);
+  const [userCollSearch, setUserCollSearch] = useState('');
+  const [userCollRarity, setUserCollRarity] = useState<string>('All');
+  const [userCollPage, setUserCollPage] = useState(1);
   const [pullsInput, setPullsInput] = useState('');
   const [pullsMode, setPullsMode] = useState<'set'|'add'>('add');
   const [energyInput, setEnergyInput] = useState('50');
@@ -521,6 +524,7 @@ const AdminPage: React.FC = () => {
         }
 
         setUserColl(cards);
+        setUserCollPage(1);
       } catch (e: any) {
         showMsg(e.message || 'Failed to load collection', false);
       } finally {
@@ -529,6 +533,32 @@ const AdminPage: React.FC = () => {
     },
     [poolMap]
   );
+
+  const filteredUserColl = useMemo(() => {
+    let list = userColl;
+    if (userCollRarity !== 'All') {
+      list = list.filter((c) => c.rarity === userCollRarity);
+    }
+    if (userCollSearch.trim()) {
+      const q = userCollSearch.trim().toLowerCase();
+      list = list.filter((c) => {
+        return (
+          String(c.beatmapId).includes(q) ||
+          c.title.toLowerCase().includes(q) ||
+          c.artist.toLowerCase().includes(q) ||
+          c.version.toLowerCase().includes(q)
+        );
+      });
+    }
+    return list;
+  }, [userColl, userCollRarity, userCollSearch]);
+
+  const USER_COLL_PAGE_SIZE = 50;
+  const totalUserCollPages = Math.max(1, Math.ceil(filteredUserColl.length / USER_COLL_PAGE_SIZE));
+  const paginatedUserColl = useMemo(() => {
+    const start = (userCollPage - 1) * USER_COLL_PAGE_SIZE;
+    return filteredUserColl.slice(start, start + USER_COLL_PAGE_SIZE);
+  }, [filteredUserColl, userCollPage]);
 
   const handleSetPulls = async (osuId: number) => {
     if (!pullsInput) return;
@@ -1964,7 +1994,7 @@ const AdminPage: React.FC = () => {
                   {selectedAssignCardId && (
                     <div className="mt-4 p-4 rounded-xl bg-purple-950/30 border border-purple-800/60 space-y-4 animate-fade-in">
                       {(() => {
-                        const card = pool.find((m) => m.id === selectedAssignCardId);
+                        const card = poolMap.get(selectedAssignCardId);
                         if (!card) return <p className="text-xs text-slate-400">Card #{selectedAssignCardId} not found.</p>;
 
                         return (
@@ -2079,7 +2109,7 @@ const AdminPage: React.FC = () => {
                     <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
                       {Object.entries(cardOverrides).map(([bidStr, override]) => {
                         const bid = Number(bidStr);
-                        const card = pool.find((m) => m.id === bid);
+                        const card = poolMap.get(bid);
 
                         return (
                           <div
@@ -3052,90 +3082,166 @@ const AdminPage: React.FC = () => {
                 )}
               </div>
 
-              {/* User Collection Table */}
+              {/* User Collection Table with Search & Pagination */}
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <h3 className="font-bold text-white flex items-center space-x-2">
-                    <Database className="w-4 h-4 text-cyan-400"/>
-                    <span>Collection ({userColl.length} cards)</span>
+                    <Database className="w-4 h-4 text-cyan-400" />
+                    <span>
+                      Collection ({userColl.length} cards
+                      {filteredUserColl.length !== userColl.length ? ` · ${filteredUserColl.length} filtered` : ''})
+                    </span>
                   </h3>
-                  <button
-                    onClick={() => fetchUserColl(selectedUserId)}
-                    className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700"
-                  >
-                    <RefreshCw className={`w-3.5 h-3.5 text-slate-400 ${userCollLoading ? 'animate-spin' : ''}`}/>
-                  </button>
+
+                  <div className="flex items-center space-x-2">
+                    {/* Search Bar */}
+                    <div className="relative flex-1 sm:w-48">
+                      <input
+                        type="text"
+                        value={userCollSearch}
+                        onChange={(e) => {
+                          setUserCollSearch(e.target.value);
+                          setUserCollPage(1);
+                        }}
+                        placeholder="Filter cards..."
+                        className="w-full px-2.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+
+                    {/* Rarity Filter */}
+                    <select
+                      value={userCollRarity}
+                      onChange={(e) => {
+                        setUserCollRarity(e.target.value);
+                        setUserCollPage(1);
+                      }}
+                      className="px-2 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-cyan-500"
+                    >
+                      <option value="All">All Tiers</option>
+                      {RARITY_ORDER.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button
+                      onClick={() => fetchUserColl(selectedUserId)}
+                      className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700"
+                      title="Refresh Collection"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 text-slate-400 ${userCollLoading ? 'animate-spin' : ''}`} />
+                    </button>
+                  </div>
                 </div>
-                <div className="rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden max-h-96 overflow-y-auto divide-y divide-slate-800/60">
+
+                <div className="rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden divide-y divide-slate-800/60">
                   {userCollLoading && (
                     <div className="flex justify-center p-8">
-                      <RefreshCw className="w-6 h-6 text-pink-400 animate-spin"/>
+                      <RefreshCw className="w-6 h-6 text-pink-400 animate-spin" />
                     </div>
                   )}
-                  {!userCollLoading && userColl.map(c => {
-                    const map = pool.find(m => m.id === c.beatmapId);
-                    const isEditing = editingCard?.beatmapId === c.beatmapId;
-                    return (
-                      <div key={c.beatmapId} className="flex items-center space-x-3 px-4 py-2.5 hover:bg-slate-800/30">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center space-x-2">
-                            {map && (
-                              <span className={`text-[10px] font-mono font-bold flex-shrink-0 ${RARITY_COLORS[map.rarity]||'text-slate-400'}`}>
-                                {map.rarity}
+
+                  {!userCollLoading &&
+                    paginatedUserColl.map((c) => {
+                      const isEditing = editingCard?.beatmapId === c.beatmapId;
+                      return (
+                        <div
+                          key={c.beatmapId}
+                          className="flex items-center space-x-3 px-4 py-2.5 hover:bg-slate-800/30 transition-colors"
+                        >
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center space-x-2">
+                              <span
+                                className={`text-[10px] font-mono font-bold flex-shrink-0 ${
+                                  RARITY_COLORS[c.rarity] || 'text-slate-400'
+                                }`}
+                              >
+                                {c.rarity}
                               </span>
-                            )}
-                            <span className="text-xs sm:text-sm text-slate-200 truncate font-semibold">
-                              {map ? `${map.artist} — ${map.title}` : `Beatmap #${c.beatmapId}`}
-                            </span>
+                              <span className="text-xs sm:text-sm text-slate-200 truncate font-semibold">
+                                {c.artist} — {c.title}
+                              </span>
+                            </div>
+                            <div className="text-[10px] font-mono text-slate-500">
+                              ID {c.beatmapId} · ★{c.stars.toFixed(2)} · {c.version} · {c.isFavorite ? '★ fav · ' : ''}
+                              {formatUserDate(c.lastPulledAt)}
+                            </div>
                           </div>
-                          <div className="text-[10px] font-mono text-slate-500">
-                            ID {c.beatmapId} · {c.isFavorite ? '★ fav · ' : ''}{formatUserDate(c.lastPulledAt)}
-                          </div>
+                          {isEditing ? (
+                            <div className="flex items-center space-x-1">
+                              <input
+                                type="number"
+                                min="0"
+                                value={editingCard.copies}
+                                onChange={(e) =>
+                                  setEditingCard({ ...editingCard, copies: parseInt(e.target.value) || 0 })
+                                }
+                                className="w-16 px-2 py-1 rounded-lg bg-slate-700 border border-slate-600 text-white text-xs font-mono"
+                              />
+                              <button
+                                onClick={() => handleEditCard(selectedUserId, c.beatmapId, editingCard.copies)}
+                                className="p-1.5 rounded-lg bg-emerald-700 text-white"
+                              >
+                                <Save className="w-3 h-3" />
+                              </button>
+                              <button
+                                onClick={() => setEditingCard(null)}
+                                className="p-1.5 rounded-lg bg-slate-700 text-slate-300"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex items-center space-x-2">
+                              <span className="text-xs sm:text-sm font-bold text-white font-mono">×{c.copies}</span>
+                              <button
+                                onClick={() => setEditingCard({ beatmapId: c.beatmapId, copies: c.copies })}
+                                className="p-1.5 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-white"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteCard(selectedUserId, c.beatmapId)}
+                                className="p-1.5 rounded-lg hover:bg-red-900/50 text-slate-500 hover:text-red-400"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          )}
                         </div>
-                        {isEditing ? (
-                          <div className="flex items-center space-x-1">
-                            <input
-                              type="number"
-                              min="0"
-                              value={editingCard.copies}
-                              onChange={e => setEditingCard({...editingCard, copies: parseInt(e.target.value)||0})}
-                              className="w-16 px-2 py-1 rounded-lg bg-slate-700 border border-slate-600 text-white text-xs font-mono"
-                            />
-                            <button
-                              onClick={() => handleEditCard(selectedUserId, c.beatmapId, editingCard.copies)}
-                              className="p-1.5 rounded-lg bg-emerald-700 text-white"
-                            >
-                              <Save className="w-3 h-3"/>
-                            </button>
-                            <button
-                              onClick={() => setEditingCard(null)}
-                              className="p-1.5 rounded-lg bg-slate-700 text-slate-300"
-                            >
-                              <X className="w-3 h-3"/>
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex items-center space-x-2">
-                            <span className="text-xs sm:text-sm font-bold text-white font-mono">×{c.copies}</span>
-                            <button
-                              onClick={() => setEditingCard({beatmapId: c.beatmapId, copies: c.copies})}
-                              className="p-1.5 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-white"
-                            >
-                              <Edit3 className="w-3.5 h-3.5"/>
-                            </button>
-                            <button
-                              onClick={() => handleDeleteCard(selectedUserId, c.beatmapId)}
-                              className="p-1.5 rounded-lg hover:bg-red-900/50 text-slate-500 hover:text-red-400"
-                            >
-                              <Trash2 className="w-3.5 h-3.5"/>
-                            </button>
-                          </div>
-                        )}
+                      );
+                    })}
+
+                  {!userCollLoading && paginatedUserColl.length === 0 && (
+                    <div className="py-8 text-center text-slate-500 font-mono text-sm">
+                      {userColl.length === 0 ? 'No cards in collection' : 'No matching cards found'}
+                    </div>
+                  )}
+
+                  {/* Pagination Footer */}
+                  {!userCollLoading && totalUserCollPages > 1 && (
+                    <div className="p-3 bg-slate-950/60 flex items-center justify-between text-xs font-mono text-slate-400 border-t border-slate-800/60">
+                      <span>
+                        Page {userCollPage} of {totalUserCollPages} ({filteredUserColl.length} cards)
+                      </span>
+                      <div className="flex items-center space-x-1.5">
+                        <button
+                          disabled={userCollPage <= 1}
+                          onClick={() => setUserCollPage((p) => Math.max(1, p - 1))}
+                          className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white"
+                        >
+                          Prev
+                        </button>
+                        <button
+                          disabled={userCollPage >= totalUserCollPages}
+                          onClick={() => setUserCollPage((p) => Math.min(totalUserCollPages, p + 1))}
+                          className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white"
+                        >
+                          Next
+                        </button>
                       </div>
-                    );
-                  })}
-                  {!userCollLoading && userColl.length === 0 && (
-                    <div className="py-8 text-center text-slate-500 font-mono text-sm">No cards in collection</div>
+                    </div>
                   )}
                 </div>
               </div>
