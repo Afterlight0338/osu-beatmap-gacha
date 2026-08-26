@@ -1,6 +1,7 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { CollectionRecord, UserSettings, CollectionExportData, PullEnergyState } from '../types/collection';
 import { PullResult } from '../types/gacha';
+import { RarityTier } from '../types/beatmap';
 
 const DB_NAME = 'osu_beatmap_gacha_db';
 const DB_VERSION = 2; // bumped to add pendingSync store
@@ -131,12 +132,14 @@ export async function savePullResults(results: PullResult[]): Promise<void> {
 
   for (const pull of results) {
     const existing = await tx.objectStore('collection').get(pull.beatmap.id);
+    const lockedRarity = pull.beatmap.rarity === 'EX' || existing?.lockedRarity === 'EX' ? 'EX' : existing?.lockedRarity;
     const newRecord: CollectionRecord = {
       beatmapId: pull.beatmap.id,
       copies: (existing?.copies || 0) + 1,
       firstPulledAt: existing?.firstPulledAt || pull.pulledAt,
       lastPulledAt: pull.pulledAt,
       isFavorite: existing?.isFavorite || false,
+      lockedRarity,
     };
     await tx.objectStore('collection').put(newRecord);
 
@@ -189,6 +192,7 @@ export async function addCollectionRecord(record: {
   beatmapId: number;
   copies?: number;
   isFavorite?: boolean;
+  lockedRarity?: RarityTier;
 }): Promise<CollectionRecord> {
   const db = await getDB();
   const tx = db.transaction('collection', 'readwrite');
@@ -202,6 +206,7 @@ export async function addCollectionRecord(record: {
     firstPulledAt: existing?.firstPulledAt || Date.now(),
     lastPulledAt: Date.now(),
     isFavorite: existing?.isFavorite || Boolean(record.isFavorite),
+    lockedRarity: record.lockedRarity || existing?.lockedRarity,
   };
 
   await store.put(newRecord);
@@ -572,6 +577,7 @@ export async function bulkMergeCollectionFromCloud(
     firstPulledAt: number;
     lastPulledAt: number;
     isFavorite: boolean;
+    lockedRarity?: RarityTier;
   }[],
   cloudTotalPulls?: number,
   cloudPityCount?: number,
@@ -610,13 +616,14 @@ export async function bulkMergeCollectionFromCloud(
   for (const local of localRecords) {
     const cloudItem = cloudMap.get(local.beatmapId);
     if (cloudItem) {
-      // Authoritative cloud copies with preserved favorite marker
+      // Authoritative cloud copies with preserved favorite marker and locked rarity
       await colStore.put({
         beatmapId: local.beatmapId,
         copies: cloudItem.copies,
         firstPulledAt: Math.min(local.firstPulledAt || cloudItem.firstPulledAt, cloudItem.firstPulledAt),
         lastPulledAt: Math.max(local.lastPulledAt || cloudItem.lastPulledAt, cloudItem.lastPulledAt),
         isFavorite: Boolean(local.isFavorite || cloudItem.isFavorite),
+        lockedRarity: cloudItem.lockedRarity || local.lockedRarity,
       });
     } else {
       // Card was traded away, gifted, or revoked on cloud: remove from local DB
@@ -634,6 +641,7 @@ export async function bulkMergeCollectionFromCloud(
         firstPulledAt: cloudItem.firstPulledAt || Date.now(),
         lastPulledAt: cloudItem.lastPulledAt || Date.now(),
         isFavorite: Boolean(cloudItem.isFavorite),
+        lockedRarity: cloudItem.lockedRarity,
       });
     }
   }

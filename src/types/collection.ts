@@ -6,6 +6,7 @@ export interface CollectionRecord {
   firstPulledAt: number;
   lastPulledAt: number;
   isFavorite?: boolean;
+  lockedRarity?: RarityTier;
 }
 
 export interface CollectionItemWithMap extends CollectionRecord {

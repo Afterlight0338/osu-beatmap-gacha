@@ -11,6 +11,8 @@ export interface FetchedBeatmapMetadata {
   bpm: number;
   length: number;
   status: 'ranked' | 'approved' | 'loved' | 'graveyard' | 'qualified' | 'pending';
+  playcount?: number;
+  favouriteCount?: number;
   coverUrl: string;
   previewUrl: string;
   suggestedRarity?: RarityTier;
@@ -79,6 +81,9 @@ export async function fetchBeatmapMetadata(input: string): Promise<FetchedBeatma
           ? (s.preview_url.startsWith('//') ? `https:${s.preview_url}` : s.preview_url)
           : `https://b.ppy.sh/preview/${setId}.mp3`;
 
+        const playcount = Number(j.playcount || s.play_count || 10000);
+        const favouriteCount = Number(s.favourite_count || j.favourite_count || 100);
+
         return {
           id: j.id || bId,
           beatmapsetId: setId,
@@ -90,6 +95,8 @@ export async function fetchBeatmapMetadata(input: string): Promise<FetchedBeatma
           bpm: Math.round(j.bpm || s.bpm || 120),
           length: j.total_length || 180,
           status,
+          playcount,
+          favouriteCount,
           coverUrl,
           previewUrl,
           suggestedRarity: suggestRarityFromStars(stars),
@@ -114,6 +121,9 @@ export async function fetchBeatmapMetadata(input: string): Promise<FetchedBeatma
       if (rs === 4) status = 'loved';
       else if (rs === -2 || rs === -1 || rs === 0) status = 'graveyard';
 
+      const playcount = Number(j.Playcount || j.Plays || 10000);
+      const favouriteCount = Number(j.FavouriteCount || 100);
+
       return {
         id: Number(mapId),
         beatmapsetId: Number(setId),
@@ -125,6 +135,8 @@ export async function fetchBeatmapMetadata(input: string): Promise<FetchedBeatma
         bpm: Math.round(j.BPM || 120),
         length: j.TotalLength || 180,
         status,
+        playcount,
+        favouriteCount,
         coverUrl: `https://assets.ppy.sh/beatmaps/${setId}/covers/cover.jpg`,
         previewUrl: `https://b.ppy.sh/preview/${setId}.mp3`,
         suggestedRarity: suggestRarityFromStars(stars),

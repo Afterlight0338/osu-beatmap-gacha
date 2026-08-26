@@ -1,3 +1,5 @@
+import { RarityTier } from './beatmap';
+
 export interface OsuAuthUser {
   osuId: number;
   username: string;
@@ -18,6 +20,7 @@ export interface CloudSyncCollectionItem {
   firstPulledAt: number;
   lastPulledAt: number;
   isFavorite: boolean;
+  lockedRarity?: RarityTier;
 }
 
 export interface CloudSyncHistoryItem {

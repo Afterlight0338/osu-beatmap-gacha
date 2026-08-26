@@ -598,7 +598,8 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const addCardToCollection = useCallback(
     async (beatmap: Beatmap, count: number = 1) => {
-      await addCollectionRecord({ beatmapId: beatmap.id, copies: count });
+      const lockedRarity = beatmap.rarity === 'EX' ? 'EX' : undefined;
+      await addCollectionRecord({ beatmapId: beatmap.id, copies: count, lockedRarity });
       await refreshCollection();
 
       // If authenticated, also update Supabase user_collection
@@ -639,6 +640,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 firstPulledAt: c.firstPulledAt,
                 lastPulledAt: c.lastPulledAt,
                 isFavorite: !!c.isFavorite,
+                lockedRarity: c.lockedRarity,
               })),
               history,
               totalPulls,
@@ -837,12 +839,14 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const updatedMap = new Map(collectionMap);
       for (const res of results) {
         const prev = updatedMap.get(res.beatmap.id);
+        const lockedRarity = res.beatmap.rarity === 'EX' || prev?.lockedRarity === 'EX' ? 'EX' : prev?.lockedRarity;
         updatedMap.set(res.beatmap.id, {
           beatmapId: res.beatmap.id,
           copies: res.currentCopies,
           firstPulledAt: prev ? prev.firstPulledAt : res.pulledAt,
           lastPulledAt: res.pulledAt,
           isFavorite: prev ? prev.isFavorite : false,
+          lockedRarity,
         });
       }
       setCollectionMap(updatedMap);
@@ -935,6 +939,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             firstPulledAt: entry ? entry.firstPulledAt : r.pulledAt,
             lastPulledAt: r.pulledAt,
             isFavorite: entry ? Boolean(entry.isFavorite) : false,
+            lockedRarity: entry?.lockedRarity,
           };
         });
 
@@ -1043,8 +1048,8 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     let mostCopiesMap: { beatmap: Beatmap; copies: number } | null = null;
     let highestRarityObtained: RarityTier | null = null;
     const RARITY_WEIGHT: Record<RarityTier, number> = {
-      EX: 11,
-      GOAT: 10,
+      GOAT: 11,
+      EX: 10,
       Divine: 9,
       Celestial: 8,
       Mythic: 7,
@@ -1060,8 +1065,9 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const map = poolMap.get(rec.beatmapId);
       if (!map) continue;
 
+      const effectiveRarity = rec.lockedRarity || map.rarity;
       totalCopies += rec.copies;
-      rarityCounts[map.rarity] = (rarityCounts[map.rarity] || 0) + 1;
+      rarityCounts[effectiveRarity] = (rarityCounts[effectiveRarity] || 0) + 1;
       totalStars += map.stars;
 
       if (!mostCopiesMap || rec.copies > mostCopiesMap.copies) {
@@ -1070,9 +1076,9 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       if (
         !highestRarityObtained ||
-        (RARITY_WEIGHT[map.rarity] || 0) > (RARITY_WEIGHT[highestRarityObtained] || 0)
+        (RARITY_WEIGHT[effectiveRarity] || 0) > (RARITY_WEIGHT[highestRarityObtained] || 0)
       ) {
-        highestRarityObtained = map.rarity;
+        highestRarityObtained = effectiveRarity;
       }
     }
 

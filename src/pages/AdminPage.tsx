@@ -107,6 +107,8 @@ const AdminPage: React.FC = () => {
   const [manualStars, setManualStars] = useState('6.00');
   const [manualBpm, setManualBpm] = useState('180');
   const [manualLength, setManualLength] = useState('210');
+  const [manualPlaycount, setManualPlaycount] = useState('10000');
+  const [manualFavouriteCount, setManualFavouriteCount] = useState('100');
   const [manualStatus, setManualStatus] = useState<'ranked' | 'loved' | 'graveyard'>('ranked');
   const [manualRarity, setManualRarity] = useState<RarityTier>('Epic');
   const [manualExReason, setManualExReason] = useState('');
@@ -588,6 +590,8 @@ const AdminPage: React.FC = () => {
       if (data.stars) setManualStars(String(data.stars));
       if (data.bpm) setManualBpm(String(data.bpm));
       if (data.length) setManualLength(String(data.length));
+      if (data.playcount !== undefined) setManualPlaycount(String(data.playcount));
+      if (data.favouriteCount !== undefined) setManualFavouriteCount(String(data.favouriteCount));
       if (data.status) {
         if (data.status === 'ranked' || data.status === 'approved') setManualStatus('ranked');
         else if (data.status === 'loved') setManualStatus('loved');
@@ -598,7 +602,7 @@ const AdminPage: React.FC = () => {
       if (data.suggestedRarity) {
         setManualRarity(data.suggestedRarity);
       }
-      showMsg(`✓ Auto-filled "${data.title || data.id}" by ${data.artist || 'Unknown'} (★${data.stars} · ${data.version})!`);
+      showMsg(`✓ Auto-filled "${data.title || data.id}" by ${data.artist || 'Unknown'} (★${data.stars} · ${data.version} · ${Number(data.playcount || 0).toLocaleString()} plays)!`);
       setAutofillUrlInput('');
     } catch (e: any) {
       showMsg('Autofill error: ' + e.message, false);
@@ -619,6 +623,9 @@ const AdminPage: React.FC = () => {
       const cover = manualCoverUrl.trim() || `https://assets.ppy.sh/beatmaps/${sId}/covers/cover.jpg`;
       const preview = manualPreviewUrl.trim() || `https://b.ppy.sh/preview/${sId}.mp3`;
       const starsNum = Math.round(Number(manualStars || 5.0) * 100) / 100;
+      const playcountNum = Number(manualPlaycount) || 10000;
+      const favCountNum = Number(manualFavouriteCount) || 100;
+      const popScore = Math.round(Math.log10(playcountNum + 1) * 10 + Math.sqrt(favCountNum));
 
       const newBeatmap: Beatmap = {
         id: bId,
@@ -631,9 +638,9 @@ const AdminPage: React.FC = () => {
         bpm: Number(manualBpm) || 120,
         length: Number(manualLength) || 180,
         status: manualStatus,
-        playcount: 1000000,
-        favouriteCount: 5000,
-        popularityScore: 1000,
+        playcount: playcountNum,
+        favouriteCount: favCountNum,
+        popularityScore: popScore,
         rarity: manualRarity,
         exReason: manualRarity === 'EX' ? manualExReason.trim() : undefined,
         covers: {
@@ -2290,6 +2297,28 @@ const AdminPage: React.FC = () => {
                       value={manualLength}
                       onChange={(e) => setManualLength(e.target.value)}
                       placeholder="e.g. 257"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Play Count</label>
+                    <input
+                      type="number"
+                      value={manualPlaycount}
+                      onChange={(e) => setManualPlaycount(e.target.value)}
+                      placeholder="e.g. 250000"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-slate-300">Favorites (♥)</label>
+                    <input
+                      type="number"
+                      value={manualFavouriteCount}
+                      onChange={(e) => setManualFavouriteCount(e.target.value)}
+                      placeholder="e.g. 1500"
                       className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
                     />
                   </div>

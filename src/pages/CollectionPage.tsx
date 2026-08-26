@@ -33,19 +33,27 @@ export const CollectionPage: React.FC = () => {
     if (filters.ownership === 'owned') {
       baseList = pool
         .filter((map) => collectionMap.has(map.id))
-        .map((beatmap) => ({
-          beatmap,
-          record: collectionMap.get(beatmap.id),
-          isOwned: true,
-        }));
+        .map((rawMap) => {
+          const record = collectionMap.get(rawMap.id);
+          const beatmap = record?.lockedRarity ? { ...rawMap, rarity: record.lockedRarity } : rawMap;
+          return {
+            beatmap,
+            record,
+            isOwned: true,
+          };
+        });
     } else if (filters.ownership === 'favorites') {
       baseList = pool
         .filter((map) => collectionMap.get(map.id)?.isFavorite)
-        .map((beatmap) => ({
-          beatmap,
-          record: collectionMap.get(beatmap.id),
-          isOwned: true,
-        }));
+        .map((rawMap) => {
+          const record = collectionMap.get(rawMap.id);
+          const beatmap = record?.lockedRarity ? { ...rawMap, rarity: record.lockedRarity } : rawMap;
+          return {
+            beatmap,
+            record,
+            isOwned: true,
+          };
+        });
     } else if (filters.ownership === 'unowned') {
       baseList = pool
         .filter((map) => !collectionMap.has(map.id))
@@ -56,8 +64,9 @@ export const CollectionPage: React.FC = () => {
         }));
     } else {
       // 'all'
-      baseList = pool.map((beatmap) => {
-        const record = collectionMap.get(beatmap.id);
+      baseList = pool.map((rawMap) => {
+        const record = collectionMap.get(rawMap.id);
+        const beatmap = record?.lockedRarity ? { ...rawMap, rarity: record.lockedRarity } : rawMap;
         return {
           beatmap,
           record,
