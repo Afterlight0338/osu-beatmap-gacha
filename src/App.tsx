@@ -17,6 +17,7 @@ import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
 import { MiniBroadcastToast } from './components/MiniBroadcastToast';
 import { EventAura } from './components/EventAura';
+import { LegalModal, LegalTabType } from './components/LegalModal';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
@@ -30,6 +31,7 @@ const MainApp: React.FC = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
+  const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
 
   const userIsAdmin = isAdmin(user?.username);
 
@@ -116,10 +118,35 @@ const MainApp: React.FC = () => {
       <MobileBottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Footer */}
-      <footer className="w-full border-t border-slate-900 bg-[#0d0d15]/90 py-8 px-4 sm:px-6 z-10 text-center text-xs text-slate-500 space-y-2">
+      <footer className="w-full border-t border-slate-900 bg-[#0d0d15]/90 py-8 px-4 sm:px-6 z-10 text-center text-xs text-slate-500 space-y-3">
         <p className="font-mono">
           osu! Beatmap Gacha • Built with React, TypeScript, Vite & IndexedDB
         </p>
+
+        {/* Legal & Policy Links */}
+        <div className="flex items-center justify-center space-x-3 text-[11px] font-mono text-slate-400">
+          <button
+            onClick={() => setLegalModalTab('terms')}
+            className="hover:text-pink-400 transition-colors underline decoration-slate-700 underline-offset-4"
+          >
+            Terms of Service
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => setLegalModalTab('privacy')}
+            className="hover:text-pink-400 transition-colors underline decoration-slate-700 underline-offset-4"
+          >
+            Privacy Policy
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => setLegalModalTab('cookies')}
+            className="hover:text-pink-400 transition-colors underline decoration-slate-700 underline-offset-4"
+          >
+            Cookies & Storage
+          </button>
+        </div>
+
         <p className="max-w-2xl mx-auto text-[11px] text-slate-600 leading-relaxed">
           osu! Beatmap Gacha is an unofficial fan project and is not affiliated with, endorsed, or sponsored by osu! or ppy Pty Ltd.
           All beatmap artwork, audio previews, and metadata remain the property of their respective artists, mappers, and rights holders.
@@ -144,6 +171,13 @@ const MainApp: React.FC = () => {
         isOpen={selectedMapForDetail !== null}
         onClose={() => setSelectedMapForDetail(null)}
         onToggleFavorite={toggleFavorite}
+      />
+
+      {/* Terms of Service, Privacy Policy & Cookies Modal */}
+      <LegalModal
+        isOpen={legalModalTab !== null}
+        initialTab={legalModalTab}
+        onClose={() => setLegalModalTab(null)}
       />
 
       {/* Floating Mini Side Broadcast Notification */}
