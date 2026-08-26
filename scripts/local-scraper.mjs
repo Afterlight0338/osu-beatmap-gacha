@@ -161,6 +161,15 @@ function processBeatmapset(set) {
 
   const totalPlays = set.play_count || stdMaps.reduce((sum, b) => sum + (b.playcount || 0), 0);
   const totalFavs = set.favourite_count || 0;
+  const status = (set.status || 'ranked').toLowerCase();
+
+  // Graveyarded / Pending maps condition: ONLY include if plays exceed 250k!
+  const isGraveyardOrUnranked =
+    status === 'graveyard' || status === 'pending' || status === 'wip' || status === 'unranked';
+  if (isGraveyardOrUnranked && totalPlays < 250000) {
+    return null; // Exclude graveyarded maps with less than 250k plays
+  }
+
   const popularityScore = totalPlays * 0.6 + totalFavs * 400;
 
   // Cover artwork URL
@@ -194,7 +203,7 @@ function processBeatmapset(set) {
     playcount: totalPlays,
     favourite_count: totalFavs,
     popularityScore: Math.round(popularityScore),
-    status: set.status || 'ranked',
+    status: isGraveyardOrUnranked ? 'graveyard' : status,
     rankedDate: set.ranked_date || set.submitted_date || null,
     genre: set.genre?.name || 'Unspecified',
     language: set.language?.name || 'Unspecified',
@@ -376,14 +385,21 @@ async function main() {
     }
   }
 
-  // 5. Letter search prefixes
+  // 5. Graveyarded & Pending maps (Top plays & Top Favourites with >=250k plays)
+  for (const status of ['graveyard', 'pending']) {
+    for (const sort of ['plays_desc', 'favourites_desc']) {
+      searchQueries.push({ status, sort, label: `${status} (>=250k plays) / ${sort}` });
+    }
+  }
+
+  // 6. Letter search prefixes
   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
   for (const letter of letters) {
     searchQueries.push({ q: letter, sort: 'plays_desc', status: 'ranked', label: `Letter ${letter}` });
   }
 
   console.log(`📋 Total Crawl Strategy Queues: ${searchQueries.length}`);
-  console.log(`🎯 Collecting 100% of all unique ranked & loved song sets...\n`);
+  console.log(`🎯 Collecting 100% of all unique ranked, loved, & popular graveyarded (>=250k plays) song sets...\n`);
 
   const startTime = Date.now();
   let lastSaveCount = mapPool.size;

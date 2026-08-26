@@ -203,7 +203,19 @@ export const BeatmapDetailModal: React.FC<BeatmapDetailModalProps> = ({
 
             <div>
               <span className="text-xs font-mono uppercase text-slate-500">Status</span>
-              <p className="text-sm font-bold uppercase text-blue-400">{beatmap.status}</p>
+              <p
+                className={`text-sm font-bold uppercase ${
+                  beatmap.status === 'loved'
+                    ? 'text-pink-400'
+                    : beatmap.status === 'qualified'
+                    ? 'text-blue-400'
+                    : beatmap.status === 'graveyard' || beatmap.status === 'unranked'
+                    ? 'text-slate-400'
+                    : 'text-emerald-400'
+                }`}
+              >
+                {beatmap.status}
+              </p>
             </div>
 
             {isOwned && (

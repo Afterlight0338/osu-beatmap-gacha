@@ -112,6 +112,8 @@ export const BeatmapCard: React.FC<BeatmapCardProps> = ({
       ? 'bg-pink-600/80 text-pink-100 border-pink-400/40'
       : beatmap.status === 'qualified'
       ? 'bg-blue-600/80 text-blue-100 border-blue-400/40'
+      : beatmap.status === 'graveyard' || beatmap.status === 'unranked' || beatmap.status === 'pending' || beatmap.status === 'wip'
+      ? 'bg-slate-700/80 text-slate-200 border-slate-500/40'
       : 'bg-emerald-600/80 text-emerald-100 border-emerald-400/40';
 
   const starRange = getMapsetStarRange(beatmap.beatmapsetId, beatmap.stars);

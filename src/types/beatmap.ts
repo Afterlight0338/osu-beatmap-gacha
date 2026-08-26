@@ -11,7 +11,15 @@ export type RarityTier =
   | 'GOAT'
   | 'EX';
 
-export type BeatmapStatus = 'ranked' | 'approved' | 'qualified' | 'loved' | 'unranked';
+export type BeatmapStatus =
+  | 'ranked'
+  | 'approved'
+  | 'qualified'
+  | 'loved'
+  | 'unranked'
+  | 'graveyard'
+  | 'pending'
+  | 'wip';
 
 export interface BeatmapCovers {
   cover: string;
