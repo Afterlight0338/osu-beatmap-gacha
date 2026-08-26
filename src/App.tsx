@@ -28,7 +28,7 @@ import { ClaimGiftModal } from './components/ClaimGiftModal';
 import { IncomingTradeModal } from './components/IncomingTradeModal';
 import { giftingService, PlayerTransaction } from './services/giftingService';
 import { tradingService, PlayerTrade } from './services/tradingService';
-import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
+import { Disc, AlertCircle, Wrench, Eye, CheckCircle2 } from 'lucide-react';
 
 const MainApp: React.FC = () => {
   const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite, activeEvent } = useGacha();
@@ -38,6 +38,9 @@ const MainApp: React.FC = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
+  const [adminBypassed, setAdminBypassed] = useState<boolean>(() => {
+    return sessionStorage.getItem('admin_maintenance_bypassed') === 'true';
+  });
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
   const [incomingGift, setIncomingGift] = useState<PlayerTransaction | null>(null);
   const [incomingTrade, setIncomingTrade] = useState<PlayerTrade | null>(null);
@@ -51,6 +54,22 @@ const MainApp: React.FC = () => {
   }>({ enabled: false });
 
   const userIsAdmin = isAdmin(user?.username);
+
+  const handleDisableMaintenance = async () => {
+    try {
+      await supabase.from('admin_config').upsert({
+        key: 'maintenance_mode',
+        value: {
+          enabled: false,
+          updated_at: new Date().toISOString(),
+          updated_by: user?.username || 'RyoYamada',
+        },
+        updated_at: new Date().toISOString(),
+      });
+      setCloudMaintenance((prev) => ({ ...prev, enabled: false }));
+      sessionStorage.removeItem('admin_maintenance_bypassed');
+    } catch {}
+  };
 
   // Real-time Cloud Force-Refresh & Maintenance Listener
   useEffect(() => {
@@ -125,10 +144,21 @@ const MainApp: React.FC = () => {
     };
   }, []);
 
-  // If maintenance mode is active and the visitor is not the admin (or is previewing), show Maintenance Page
+  // If maintenance mode is active and the visitor is not the admin (or is previewing/not bypassed), show Maintenance Page
   const isCurrentlyInMaintenance = typeof cloudMaintenance.enabled === 'boolean' ? cloudMaintenance.enabled : MAINTENANCE_MODE;
-  if (isCurrentlyInMaintenance && (!userIsAdmin || previewMaintenance)) {
-    return <MaintenancePage config={cloudMaintenance} onBypass={() => setPreviewMaintenance(false)} />;
+  if (isCurrentlyInMaintenance && (!userIsAdmin || !adminBypassed || previewMaintenance)) {
+    return (
+      <MaintenancePage
+        config={cloudMaintenance}
+        onBypass={() => {
+          setPreviewMaintenance(false);
+          setAdminBypassed(true);
+          sessionStorage.setItem('admin_maintenance_bypassed', 'true');
+          setActiveTab('admin');
+        }}
+        onDisableMaintenance={handleDisableMaintenance}
+      />
+    );
   }
 
   // Load users & listen for incoming gifts and trades for the authenticated player
@@ -213,21 +243,37 @@ const MainApp: React.FC = () => {
         <EventAura event={activeEvent} />
 
         {/* Admin Maintenance Mode Notification */}
-        {MAINTENANCE_MODE && userIsAdmin && (
-          <div className="max-w-7xl mx-auto mb-6 p-3 sm:p-4 rounded-2xl bg-amber-950/70 border border-amber-500/60 text-amber-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-amber-950/40">
+        {isCurrentlyInMaintenance && userIsAdmin && (
+          <div className="max-w-7xl mx-auto mb-6 p-3.5 sm:p-4 rounded-2xl bg-amber-950/90 border border-amber-500/70 text-amber-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-amber-950/40 animate-fade-in">
             <div className="flex items-center space-x-2.5">
-              <Wrench className="w-4 h-4 text-amber-400 flex-shrink-0 animate-bounce" />
-              <span>
-                <strong className="text-amber-300 font-mono font-bold uppercase">Maintenance Mode is Active.</strong> Public visitors are currently viewing the maintenance page. You have bypassed it as <strong className="text-white">RyoYamada</strong>.
-              </span>
+              <Wrench className="w-5 h-5 text-amber-400 flex-shrink-0 animate-bounce" />
+              <div>
+                <span className="font-bold text-amber-300 font-display">🚨 Emergency Maintenance Mode is ACTIVE</span>
+                <p className="text-amber-400/80 text-[11px] font-mono">
+                  All visitors & non-admins are viewing the Maintenance Screen. You have bypassed it as <strong className="text-white">RyoYamada</strong>.
+                </p>
+              </div>
             </div>
-            <button
-              onClick={() => setPreviewMaintenance(true)}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-900/60 hover:bg-amber-800/60 border border-amber-700/60 text-amber-300 text-xs font-semibold transition-colors flex-shrink-0"
-            >
-              <Eye className="w-3.5 h-3.5" />
-              <span>Preview Maintenance Page</span>
-            </button>
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <button
+                onClick={() => {
+                  setAdminBypassed(false);
+                  sessionStorage.removeItem('admin_maintenance_bypassed');
+                  setPreviewMaintenance(true);
+                }}
+                className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-mono font-bold transition-all flex items-center space-x-1"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>View Maintenance Screen</span>
+              </button>
+              <button
+                onClick={handleDisableMaintenance}
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold transition-all shadow-md shadow-emerald-600/30 flex items-center space-x-1"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Turn Off Maintenance</span>
+              </button>
+            </div>
           </div>
         )}
 

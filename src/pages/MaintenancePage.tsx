@@ -26,11 +26,13 @@ interface MaintenancePageProps {
     estimatedTime?: string;
   };
   onBypass?: () => void;
+  onDisableMaintenance?: () => Promise<void> | void;
 }
 
-export const MaintenancePage: React.FC<MaintenancePageProps> = ({ config, onBypass }) => {
+export const MaintenancePage: React.FC<MaintenancePageProps> = ({ config, onBypass, onDisableMaintenance }) => {
   const { user, isAuthenticated, loginWithOsu, logout } = useAuth();
   const [isChecking, setIsChecking] = useState(false);
+  const [isDisabling, setIsDisabling] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const userIsAdmin = isAdmin(user?.username);
@@ -183,13 +185,32 @@ export const MaintenancePage: React.FC<MaintenancePageProps> = ({ config, onBypa
           <div>
             {isAuthenticated ? (
               userIsAdmin ? (
-                <button
-                  onClick={onBypass}
-                  className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/30 transition-transform hover:scale-105"
-                >
-                  <span>Bypass to Admin Panel</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                <div className="flex items-center space-x-2">
+                  {onDisableMaintenance && (
+                    <button
+                      onClick={async () => {
+                        sfx.playClaim();
+                        setIsDisabling(true);
+                        await onDisableMaintenance();
+                        setIsDisabling(false);
+                      }}
+                      disabled={isDisabling}
+                      className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-mono font-bold shadow-md shadow-emerald-600/30 transition-transform hover:scale-105"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${isDisabling ? 'animate-spin' : ''}`} />
+                      <span>{isDisabling ? 'Restoring Live…' : '🟢 Turn Off Maintenance'}</span>
+                    </button>
+                  )}
+                  {onBypass && (
+                    <button
+                      onClick={onBypass}
+                      className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-mono font-bold shadow-md transition-transform hover:scale-105"
+                    >
+                      <span>Admin Panel</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               ) : (
                 <button
                   onClick={() => {
