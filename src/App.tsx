@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { GachaProvider, useGacha } from './context/GachaContext';
 import { Navbar } from './components/Navbar';
@@ -22,6 +22,7 @@ import { StartScreenModal } from './components/StartScreenModal';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
+import { supabase } from './lib/supabase';
 import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 
 const MainApp: React.FC = () => {
@@ -35,6 +36,60 @@ const MainApp: React.FC = () => {
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
 
   const userIsAdmin = isAdmin(user?.username);
+
+  // Real-time Cloud Force-Refresh & Maintenance Listener
+  useEffect(() => {
+    const sessionStartTime = Date.now();
+    let lastRefreshTimestamp = Number(sessionStorage.getItem('last_forced_refresh_ts') || sessionStartTime);
+
+    const checkRemoteCommands = async () => {
+      try {
+        const { data } = await supabase
+          .from('admin_config')
+          .select('key, value')
+          .in('key', ['force_client_refresh', 'maintenance_mode']);
+
+        if (data) {
+          for (const item of data) {
+            if (item.key === 'force_client_refresh' && item.value?.timestamp) {
+              const remoteTs = Number(item.value.timestamp);
+              if (remoteTs > lastRefreshTimestamp) {
+                sessionStorage.setItem('last_forced_refresh_ts', String(remoteTs));
+                window.location.reload();
+                return;
+              }
+            }
+          }
+        }
+      } catch {
+        // silent
+      }
+    };
+
+    const interval = setInterval(checkRemoteCommands, 3000);
+
+    const channel = supabase
+      .channel('realtime_admin_commands')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'admin_config' },
+        (payload: any) => {
+          if (payload.new?.key === 'force_client_refresh') {
+            const remoteTs = Number(payload.new.value?.timestamp || 0);
+            if (remoteTs > lastRefreshTimestamp) {
+              sessionStorage.setItem('last_forced_refresh_ts', String(remoteTs));
+              window.location.reload();
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      clearInterval(interval);
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // If maintenance mode is active and the visitor is not the admin (or is previewing), show Maintenance Page
   if (MAINTENANCE_MODE && (!userIsAdmin || previewMaintenance)) {
