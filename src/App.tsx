@@ -15,6 +15,7 @@ import { MaintenancePage } from './pages/MaintenancePage';
 import { SettingsModal } from './components/SettingsModal';
 import { PullHistoryModal } from './components/PullHistoryModal';
 import { BeatmapDetailModal } from './components/BeatmapDetailModal';
+import { MiniBroadcastToast } from './components/MiniBroadcastToast';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
@@ -140,6 +141,9 @@ const MainApp: React.FC = () => {
         onClose={() => setSelectedMapForDetail(null)}
         onToggleFavorite={toggleFavorite}
       />
+
+      {/* Floating Mini Side Broadcast Notification */}
+      <MiniBroadcastToast />
     </div>
   );
 };

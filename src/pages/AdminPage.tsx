@@ -124,6 +124,14 @@ const AdminPage: React.FC = () => {
   const [annDurationHours, setAnnDurationHours] = useState(48);
   const [activeAnnData, setActiveAnnData] = useState<any>(null);
 
+  // Mini Broadcast state
+  const [miniMsg, setMiniMsg] = useState('');
+  const [miniBadge, setMiniBadge] = useState('ADMIN NOTE');
+  const [miniType, setMiniType] = useState<'info' | 'success' | 'warning' | 'tip' | 'event'>('info');
+  const [miniLinkUrl, setMiniLinkUrl] = useState('');
+  const [miniLinkText, setMiniLinkText] = useState('');
+  const [activeMiniBroadcast, setActiveMiniBroadcast] = useState<any>(null);
+
   // Config state
   const [configRates, setConfigRates] = useState<RarityRates>({...DEFAULT_RARITY_RATES});
   const [configStamina, setConfigStamina] = useState<{max:number;regenSeconds:number}>({max:50,regenSeconds:15});
@@ -404,9 +412,10 @@ const AdminPage: React.FC = () => {
   // Load event and announcement from Supabase
   const loadEventAndAnnouncement = useCallback(async () => {
     try {
-      const [evRes, annRes] = await Promise.all([
+      const [evRes, annRes, miniRes] = await Promise.all([
         supabase.from('admin_config').select('value').eq('key', 'active_event_preset').maybeSingle(),
         supabase.from('admin_config').select('value').eq('key', 'active_announcement').maybeSingle(),
+        supabase.from('admin_config').select('value').eq('key', 'mini_broadcast').maybeSingle(),
       ]);
       if (evRes.data && evRes.data.value && evRes.data.value.active) {
         setActiveEventData(evRes.data.value);
@@ -414,8 +423,11 @@ const AdminPage: React.FC = () => {
       if (annRes.data && annRes.data.value && annRes.data.value.active) {
         setActiveAnnData(annRes.data.value);
       }
+      if (miniRes.data && miniRes.data.value && miniRes.data.value.active) {
+        setActiveMiniBroadcast(miniRes.data.value);
+      }
     } catch (e) {
-      console.warn('Error loading admin events/announcements:', e);
+      console.warn('Error loading admin configs:', e);
     }
   }, []);
 
@@ -545,6 +557,57 @@ const AdminPage: React.FC = () => {
       showMsg('✓ Active announcement deactivated.');
     } catch (e: any) {
       showMsg('Failed: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handlePublishMiniBroadcast = async () => {
+    if (!miniMsg.trim()) {
+      showMsg('Please enter a mini broadcast message', false);
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const payload = {
+        id: `mini-${Date.now()}`,
+        message: miniMsg.trim(),
+        badge: miniBadge.trim() || 'ADMIN NOTE',
+        type: miniType,
+        linkUrl: miniLinkUrl.trim() || undefined,
+        linkText: miniLinkText.trim() || undefined,
+        active: true,
+        publishedAt: new Date().toISOString(),
+      };
+
+      await supabase.from('admin_config').upsert({
+        key: 'mini_broadcast',
+        value: payload,
+        updated_at: new Date().toISOString(),
+      });
+
+      setActiveMiniBroadcast(payload);
+      showMsg('🚀 Floating Mini Broadcast published to all players!');
+    } catch (e: any) {
+      showMsg('Failed to publish mini broadcast: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeactivateMiniBroadcast = async () => {
+    if (!confirm('Clear the floating side broadcast notification?')) return;
+    setActionLoading(true);
+    try {
+      await supabase.from('admin_config').upsert({
+        key: 'mini_broadcast',
+        value: { active: false, deactivatedAt: new Date().toISOString() },
+        updated_at: new Date().toISOString(),
+      });
+      setActiveMiniBroadcast(null);
+      showMsg('✓ Mini Broadcast cleared.');
+    } catch (e: any) {
+      showMsg('Failed to clear: ' + e.message, false);
     } finally {
       setActionLoading(false);
     }
@@ -1385,6 +1448,108 @@ const AdminPage: React.FC = () => {
               >
                 <Send className="w-4 h-4" />
                 <span>📢 Broadcast Global Announcement to All Players</span>
+              </button>
+            </div>
+          </div>
+
+          {/* ── Mini Floating Side Broadcast Composer ──────────────── */}
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950/40 border border-cyan-800/60 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="font-bold text-white text-base flex items-center space-x-2">
+                  <Bell className="w-4 h-4 text-cyan-400" />
+                  <span>Floating Side Notification (Mini Broadcast)</span>
+                </h3>
+                <p className="text-xs text-slate-400 font-mono">
+                  Displays a stylish non-intrusive floating toast in the corner of all players' screens.
+                </p>
+              </div>
+
+              {activeMiniBroadcast && activeMiniBroadcast.active && (
+                <div className="flex items-center space-x-2">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500 font-bold">
+                    ● SIDE TOAST ACTIVE
+                  </span>
+                  <button
+                    onClick={handleDeactivateMiniBroadcast}
+                    disabled={actionLoading}
+                    className="px-2.5 py-1 rounded-lg bg-red-950 hover:bg-red-900 text-red-300 text-xs font-bold transition-colors"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Badge Label</label>
+                  <input
+                    type="text"
+                    value={miniBadge}
+                    onChange={(e) => setMiniBadge(e.target.value)}
+                    placeholder="e.g. ADMIN NOTE, QUICK TIP, NOTICE"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Toast Style</label>
+                  <select
+                    value={miniType}
+                    onChange={(e) => setMiniType(e.target.value as any)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="info">🔵 Cyan (Info / Notice)</option>
+                    <option value="success">🟢 Emerald (Success / Gift)</option>
+                    <option value="event">🟣 Purple (Event / Special)</option>
+                    <option value="warning">🟡 Amber (Warning / Alert)</option>
+                    <option value="tip">✨ Sparkle (Tip / Guide)</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Optional Action Link URL</label>
+                  <input
+                    type="text"
+                    value={miniLinkUrl}
+                    onChange={(e) => setMiniLinkUrl(e.target.value)}
+                    placeholder="e.g. https://discord.gg/..."
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-slate-300">Link Button Label</label>
+                  <input
+                    type="text"
+                    value={miniLinkText}
+                    onChange={(e) => setMiniLinkText(e.target.value)}
+                    placeholder="e.g. Learn More, Check It Out"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-mono text-slate-300">Side Toast Message</label>
+                <textarea
+                  rows={2}
+                  value={miniMsg}
+                  onChange={(e) => setMiniMsg(e.target.value)}
+                  placeholder="e.g. Rhythm Math Quiz has been updated with a 5 per hour cap! Enjoy bonus stamina."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-cyan-500 resize-none"
+                />
+              </div>
+
+              <button
+                onClick={handlePublishMiniBroadcast}
+                disabled={actionLoading}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs sm:text-sm shadow-xl shadow-cyan-600/20 transition-all flex items-center justify-center space-x-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>🚀 Send Floating Side Notification to All Users</span>
               </button>
             </div>
           </div>

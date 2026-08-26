@@ -74,6 +74,28 @@ function generateQuestion(): Question {
   }
 }
 
+const MAX_HOURLY_ATTEMPTS = 5;
+const ATTEMPT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function getRecentAttempts(): number[] {
+  try {
+    const raw = localStorage.getItem('math_quiz_attempts');
+    if (!raw) return [];
+    const list: number[] = JSON.parse(raw);
+    const cutoff = Date.now() - ATTEMPT_WINDOW_MS;
+    return list.filter((t) => typeof t === 'number' && t > cutoff);
+  } catch {
+    return [];
+  }
+}
+
+function recordAttempt(): number[] {
+  const recent = getRecentAttempts();
+  recent.push(Date.now());
+  localStorage.setItem('math_quiz_attempts', JSON.stringify(recent));
+  return recent;
+}
+
 export const MathQuizModal: React.FC<MathQuizModalProps> = ({
   isOpen,
   onClose,
@@ -83,12 +105,16 @@ export const MathQuizModal: React.FC<MathQuizModalProps> = ({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [attempts, setAttempts] = useState<number[]>([]);
+  const [cooldownRemaining, setCooldownRemaining] = useState<number>(0);
 
-  // Lock scroll
+  // Lock scroll & check attempts
   useEffect(() => {
     if (isOpen) {
       const original = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+      const recent = getRecentAttempts();
+      setAttempts(recent);
       setQuestion(generateQuestion());
       setSelectedOption(null);
       setIsAnswered(false);
@@ -99,13 +125,43 @@ export const MathQuizModal: React.FC<MathQuizModalProps> = ({
     }
   }, [isOpen]);
 
-  if (!isOpen || !question) return null;
+  // Cooldown countdown effect
+  useEffect(() => {
+    if (!isOpen || attempts.length < MAX_HOURLY_ATTEMPTS) return;
+
+    const interval = setInterval(() => {
+      const recent = getRecentAttempts();
+      setAttempts(recent);
+      if (recent.length >= MAX_HOURLY_ATTEMPTS) {
+        const msLeft = Math.max(0, recent[0] + ATTEMPT_WINDOW_MS - Date.now());
+        setCooldownRemaining(Math.ceil(msLeft / 1000));
+      } else {
+        setCooldownRemaining(0);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isOpen, attempts]);
+
+  if (!isOpen) return null;
+
+  const attemptsRemaining = Math.max(0, MAX_HOURLY_ATTEMPTS - attempts.length);
+  const isRateLimited = attemptsRemaining === 0 && !isAnswered;
+
+  const formatCooldown = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m}m ${s < 10 ? '0' : ''}${s}s`;
+  };
 
   const handleSelect = (opt: number) => {
-    if (isAnswered) return;
+    if (isAnswered || isRateLimited || !question) return;
     sfx.playClick();
     setSelectedOption(opt);
     setIsAnswered(true);
+
+    const updated = recordAttempt();
+    setAttempts(updated);
 
     if (opt === question.correctAnswer) {
       setIsCorrect(true);
@@ -117,6 +173,12 @@ export const MathQuizModal: React.FC<MathQuizModalProps> = ({
   };
 
   const handleNext = () => {
+    const recent = getRecentAttempts();
+    setAttempts(recent);
+    if (recent.length >= MAX_HOURLY_ATTEMPTS) {
+      setIsAnswered(false);
+      return;
+    }
     sfx.playClick();
     setQuestion(generateQuestion());
     setSelectedOption(null);
@@ -134,9 +196,14 @@ export const MathQuizModal: React.FC<MathQuizModalProps> = ({
               <Calculator className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base font-display">
-                Rhythm Math Quiz
-              </h3>
+              <div className="flex items-center space-x-2">
+                <h3 className="font-bold text-white text-base font-display">
+                  Rhythm Math Quiz
+                </h3>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-950 border border-purple-500/50 text-purple-300">
+                  {attemptsRemaining}/5 this hr
+                </span>
+              </div>
               <p className="text-[11px] text-slate-400 font-mono">
                 Answer correctly to earn <span className="text-amber-400 font-bold">+15 Bonus Stamina</span>
               </p>
@@ -150,83 +217,115 @@ export const MathQuizModal: React.FC<MathQuizModalProps> = ({
           </button>
         </div>
 
-        {/* Question Text */}
-        <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1 text-center">
-          <span className="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider">
-            osu! Quick Challenge
-          </span>
-          <p className="text-sm sm:text-base font-bold text-slate-100 leading-relaxed font-sans">
-            {question.text}
-          </p>
-        </div>
-
-        {/* Options */}
-        <div className="grid grid-cols-2 gap-2.5">
-          {question.options.map((opt, i) => {
-            let btnStyle = 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-white';
-            if (isAnswered) {
-              if (opt === question.correctAnswer) {
-                btnStyle = 'bg-emerald-600/30 border-emerald-500 text-emerald-300 font-bold';
-              } else if (opt === selectedOption) {
-                btnStyle = 'bg-rose-600/30 border-rose-500 text-rose-300';
-              } else {
-                btnStyle = 'opacity-40 bg-slate-950 border-slate-900 text-slate-500';
-              }
-            }
-
-            return (
-              <button
-                key={i}
-                disabled={isAnswered}
-                onClick={() => handleSelect(opt)}
-                className={`p-3.5 rounded-xl border text-sm font-mono transition-all font-bold ${btnStyle}`}
-              >
-                {opt}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Answer Feedback */}
-        {isAnswered && (
-          <div
-            className={`p-3.5 rounded-xl border text-xs font-mono flex items-start space-x-2 animate-fade-in ${
-              isCorrect
-                ? 'bg-emerald-950/60 border-emerald-500 text-emerald-200'
-                : 'bg-rose-950/60 border-rose-500 text-rose-200'
-            }`}
-          >
-            {isCorrect ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-            ) : (
-              <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
-            )}
-            <div className="space-y-0.5">
-              <p className="font-bold">
-                {isCorrect ? '🎉 Correct! +15 Bonus Stamina added!' : '❌ Incorrect!'}
-              </p>
-              <p className="text-[11px] text-slate-400 font-sans">{question.explanation}</p>
+        {/* Rate Limited Card */}
+        {isRateLimited ? (
+          <div className="p-6 rounded-xl bg-slate-950/80 border border-purple-800/60 text-center space-y-3 animate-fade-in">
+            <div className="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center mx-auto">
+              <Calculator className="w-6 h-6 animate-pulse" />
             </div>
-          </div>
-        )}
-
-        {/* Action button */}
-        {isAnswered && (
-          <div className="flex space-x-2 pt-1">
-            <button
-              onClick={handleNext}
-              className="flex-1 py-2 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-colors shadow-md"
-            >
-              Next Question
-            </button>
+            <div className="space-y-1">
+              <h4 className="text-sm font-bold text-white">Hourly Limit Reached (5/5)</h4>
+              <p className="text-xs text-slate-400 font-sans">
+                You've completed all 5 rhythm math challenges for this hour.
+              </p>
+            </div>
+            <div className="p-3 rounded-lg bg-purple-950/60 border border-purple-500/40 text-xs font-mono text-purple-200 inline-block">
+              Next question available in: <strong className="text-amber-300 font-bold">{formatCooldown(cooldownRemaining || 60)}</strong>
+            </div>
             <button
               onClick={onClose}
-              className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors"
+              className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
             >
-              Done
+              Close
             </button>
           </div>
-        )}
+        ) : question ? (
+          <>
+            {/* Question Text */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1 text-center">
+              <span className="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider">
+                osu! Quick Challenge
+              </span>
+              <p className="text-sm sm:text-base font-bold text-slate-100 leading-relaxed font-sans">
+                {question.text}
+              </p>
+            </div>
+
+            {/* Options */}
+            <div className="grid grid-cols-2 gap-2.5">
+              {question.options.map((opt, i) => {
+                let btnStyle = 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-white';
+                if (isAnswered) {
+                  if (opt === question.correctAnswer) {
+                    btnStyle = 'bg-emerald-600/30 border-emerald-500 text-emerald-300 font-bold';
+                  } else if (opt === selectedOption) {
+                    btnStyle = 'bg-rose-600/30 border-rose-500 text-rose-300';
+                  } else {
+                    btnStyle = 'opacity-40 bg-slate-950 border-slate-900 text-slate-500';
+                  }
+                }
+
+                return (
+                  <button
+                    key={i}
+                    disabled={isAnswered}
+                    onClick={() => handleSelect(opt)}
+                    className={`p-3.5 rounded-xl border text-sm font-mono transition-all font-bold ${btnStyle}`}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Answer Feedback */}
+            {isAnswered && (
+              <div
+                className={`p-3.5 rounded-xl border text-xs font-mono flex items-start space-x-2 animate-fade-in ${
+                  isCorrect
+                    ? 'bg-emerald-950/60 border-emerald-500 text-emerald-200'
+                    : 'bg-rose-950/60 border-rose-500 text-rose-200'
+                }`}
+              >
+                {isCorrect ? (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
+                )}
+                <div className="space-y-0.5">
+                  <p className="font-bold">
+                    {isCorrect ? '🎉 Correct! +15 Bonus Stamina added!' : '❌ Incorrect!'}
+                  </p>
+                  <p className="text-[11px] text-slate-400 font-sans">{question.explanation}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Action button */}
+            {isAnswered && (
+              <div className="flex space-x-2 pt-1">
+                {attemptsRemaining > 0 ? (
+                  <button
+                    onClick={handleNext}
+                    className="flex-1 py-2 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-colors shadow-md"
+                  >
+                    Next Question ({attemptsRemaining} left)
+                  </button>
+                ) : (
+                  <div className="flex-1 text-center py-2 text-xs font-mono text-purple-300">
+                    Hourly Limit (5/5) reached!
+                  </div>
+                )}
+                <button
+                  onClick={onClose}
+                  className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors"
+                >
+                  Done
+                </button>
+              </div>
+            )}
+          </>
+        ) : null}
       </div>
     </div>,
     document.body
