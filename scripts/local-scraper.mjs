@@ -299,7 +299,15 @@ async function main() {
       const existingMaps = JSON.parse(fs.readFileSync(MAPS_FILE, 'utf8'));
       if (Array.isArray(existingMaps)) {
         for (const m of existingMaps) {
-          if (m && m.setId) mapPool.set(m.setId, m);
+          const sId = m.setId || m.beatmapsetId;
+          if (sId) {
+            mapPool.set(sId, {
+              ...m,
+              setId: sId,
+              coverUrl: m.coverUrl || m.covers?.cover || `https://assets.ppy.sh/beatmaps/${sId}/covers/cover.jpg`,
+              favourite_count: m.favourite_count || m.favouriteCount || 0,
+            });
+          }
         }
         console.log(`📦 Loaded ${mapPool.size.toLocaleString()} existing unique songs from public/data/maps.json!`);
       }
@@ -315,8 +323,14 @@ async function main() {
       if (Array.isArray(checkpointMaps)) {
         let addedFromCheckpoint = 0;
         for (const m of checkpointMaps) {
-          if (m && m.setId && !mapPool.has(m.setId)) {
-            mapPool.set(m.setId, m);
+          const sId = m.setId || m.beatmapsetId;
+          if (sId && !mapPool.has(sId)) {
+            mapPool.set(sId, {
+              ...m,
+              setId: sId,
+              coverUrl: m.coverUrl || m.covers?.cover || `https://assets.ppy.sh/beatmaps/${sId}/covers/cover.jpg`,
+              favourite_count: m.favourite_count || m.favouriteCount || 0,
+            });
             addedFromCheckpoint++;
           }
         }
