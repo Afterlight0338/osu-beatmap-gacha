@@ -147,8 +147,6 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
     }
   }, [isOpen, audioElem]);
 
-  if (!isOpen) return null;
-
   const handleRerollBounties = () => {
     sfx.playClick();
     if (pool.length === 0) return;
@@ -299,6 +297,8 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
     if (selectedDifficulty === 'All') return bounties;
     return bounties.filter((b) => b.difficulty === selectedDifficulty);
   }, [bounties, selectedDifficulty]);
+
+  if (!isOpen) return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-xl animate-fade-in">
