@@ -21,38 +21,40 @@ export const BannerView: React.FC<BannerViewProps> = ({ onSelectBanner }) => {
 
   return (
     <div className="w-full space-y-4">
-      {/* Banner Selector Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {BANNERS.map((b) => {
-          const isActive = activeBanner.id === b.id;
-          return (
-            <button
-              key={b.id}
-              onClick={() => handleBannerClick(b)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold tracking-wide transition-all border select-none ${
-                isActive
-                  ? 'bg-slate-900 text-white shadow-lg scale-[1.02]'
-                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
-              }`}
-              style={{
-                borderColor: isActive ? b.themeColor : undefined,
-                boxShadow: isActive ? `0 0 20px ${b.themeColor}33` : undefined,
-              }}
-            >
-              {b.id === 'standard' ? (
-                <Sparkles className="w-4 h-4 text-pink-400" />
-              ) : b.id === 'aimslop' ? (
-                <Target className="w-4 h-4 text-pink-500" />
-              ) : b.id === 'stream' ? (
-                <Zap className="w-4 h-4 text-cyan-400" />
-              ) : (
-                <Flame className="w-4 h-4 text-amber-400" />
-              )}
-              <span>{b.name}</span>
-            </button>
-          );
-        })}
-      </div>
+      {/* Banner Selector Tabs (if multiple banners active) */}
+      {BANNERS.length > 1 && (
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {BANNERS.map((b) => {
+            const isActive = activeBanner.id === b.id;
+            return (
+              <button
+                key={b.id}
+                onClick={() => handleBannerClick(b)}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold tracking-wide transition-all border select-none ${
+                  isActive
+                    ? 'bg-slate-900 text-white shadow-lg scale-[1.02]'
+                    : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                }`}
+                style={{
+                  borderColor: isActive ? b.themeColor : undefined,
+                  boxShadow: isActive ? `0 0 20px ${b.themeColor}33` : undefined,
+                }}
+              >
+                {b.id === 'standard' ? (
+                  <Sparkles className="w-4 h-4 text-pink-400" />
+                ) : b.id === 'aimslop' ? (
+                  <Target className="w-4 h-4 text-pink-500" />
+                ) : b.id === 'stream' ? (
+                  <Zap className="w-4 h-4 text-cyan-400" />
+                ) : (
+                  <Flame className="w-4 h-4 text-amber-400" />
+                )}
+                <span>{b.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Main Banner Billboard / Showcase Card */}
       <div
