@@ -19,6 +19,7 @@ import confetti from 'canvas-confetti';
 import { useGacha } from '../context/GachaContext';
 import { useAuth } from '../context/AuthContext';
 import { sfx } from '../audio/sfx';
+import { previewPlayer } from '../audio/previewPlayer';
 import { Bounty, ActiveBounty, CompletedBounty, BountyDifficulty, OsuScoreData } from '../types/bounty';
 import {
   generateRandomBounties,
@@ -93,8 +94,14 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   } | null>(null);
 
   // Audio Preview State
-  const [playingMapId, setPlayingMapId] = useState<number | null>(null);
-  const [audioElem, setAudioElem] = useState<HTMLAudioElement | null>(null);
+  const [playingSetId, setPlayingSetId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const unsub = previewPlayer.subscribe((isPlaying, setId) => {
+      setPlayingSetId(isPlaying ? setId : null);
+    });
+    return unsub;
+  }, []);
 
   // Time elapsed state for active bounty
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
@@ -140,12 +147,10 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = original;
-        if (audioElem) {
-          audioElem.pause();
-        }
+        previewPlayer.pause();
       };
     }
-  }, [isOpen, audioElem]);
+  }, [isOpen]);
 
   const handleRerollBounties = () => {
     sfx.playClick();
@@ -179,26 +184,8 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
     }
   };
 
-  const handleToggleAudio = (mapId: number, previewUrl?: string) => {
-    if (!previewUrl) return;
-    if (playingMapId === mapId) {
-      if (audioElem) {
-        audioElem.pause();
-      }
-      setPlayingMapId(null);
-      return;
-    }
-
-    if (audioElem) {
-      audioElem.pause();
-    }
-
-    const audio = new Audio(previewUrl);
-    audio.volume = 0.4;
-    audio.play().catch(() => {});
-    audio.onended = () => setPlayingMapId(null);
-    setAudioElem(audio);
-    setPlayingMapId(mapId);
+  const handleToggleAudio = (setId: number, previewUrl?: string) => {
+    previewPlayer.toggle(setId, previewUrl);
   };
 
   const handleVerifyScore = async (e: React.FormEvent) => {
@@ -439,14 +426,14 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                       <button
                         onClick={() =>
                           handleToggleAudio(
-                            activeBounty.bounty.beatmap.id,
+                            activeBounty.bounty.beatmap.beatmapsetId || activeBounty.bounty.beatmap.id,
                             activeBounty.bounty.beatmap.previewUrl
                           )
                         }
                         className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
                         title="Preview Song"
                       >
-                        {playingMapId === activeBounty.bounty.beatmap.id ? (
+                        {playingSetId === (activeBounty.bounty.beatmap.beatmapsetId || activeBounty.bounty.beatmap.id) ? (
                           <Pause className="w-3.5 h-3.5 text-pink-400" />
                         ) : (
                           <Play className="w-3.5 h-3.5" />
@@ -653,11 +640,11 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
 
                       <div className="flex items-center space-x-2">
                         <button
-                          onClick={() => handleToggleAudio(b.beatmap.id, b.beatmap.previewUrl)}
+                          onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
                           className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
                           title="Preview Audio"
                         >
-                          {playingMapId === b.beatmap.id ? (
+                          {playingSetId === (b.beatmap.beatmapsetId || b.beatmap.id) ? (
                             <Pause className="w-3.5 h-3.5 text-pink-400" />
                           ) : (
                             <Play className="w-3.5 h-3.5" />

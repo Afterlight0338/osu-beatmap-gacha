@@ -4,7 +4,7 @@ import { RARITY_CONFIGS } from '../gacha/rarity';
 class SoundEffectsManager {
   private ctx: AudioContext | null = null;
   private enabled: boolean = true;
-  private volume: number = 0.7;
+  private volume: number = 0.35;
 
   private getAudioContext(): AudioContext | null {
     if (typeof window === 'undefined') return null;
@@ -29,7 +29,7 @@ class SoundEffectsManager {
   }
 
   /**
-   * Quick click / hit-sound on UI buttons.
+   * Quick click / hit-sound on UI buttons (soft & gentle).
    */
   public playClick() {
     if (!this.enabled) return;
@@ -40,17 +40,17 @@ class SoundEffectsManager {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(480, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.08);
+      osc.frequency.setValueAtTime(420, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.06);
 
-      gain.gain.setValueAtTime(0.3 * this.volume, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.12 * this.volume, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start();
-      osc.stop(ctx.currentTime + 0.09);
+      osc.stop(ctx.currentTime + 0.07);
     } catch {
       // AudioContext failure recovery
     }
@@ -67,24 +67,24 @@ class SoundEffectsManager {
     try {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sawtooth';
+      osc.type = 'sine';
       osc.frequency.setValueAtTime(180, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.8);
+      osc.frequency.exponentialRampToValueAtTime(640, ctx.currentTime + 0.7);
 
-      gain.gain.setValueAtTime(0.05 * this.volume, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.4 * this.volume, ctx.currentTime + 0.7);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.85);
+      gain.gain.setValueAtTime(0.02 * this.volume, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.15 * this.volume, ctx.currentTime + 0.6);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.75);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start();
-      osc.stop(ctx.currentTime + 0.86);
+      osc.stop(ctx.currentTime + 0.76);
     } catch {}
   }
 
   /**
-   * Distinct chord & chime reveal tailored to the card's rarity tier!
+   * Distinct chord & chime reveal tailored to the card's rarity tier (gentle harmonics).
    */
   public playRarityReveal(rarity: RarityTier) {
     if (!this.enabled) return;
@@ -107,25 +107,25 @@ class SoundEffectsManager {
       chordNotes.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = rarity === 'Divine' || rarity === 'Celestial' || rarity === 'Mythic' ? 'sine' : 'triangle';
+        osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now + idx * 0.05);
 
         const startTime = now + idx * 0.05;
         const duration =
           rarity === 'GOAT'
-            ? 2.2
-            : rarity === 'Divine'
             ? 1.8
+            : rarity === 'Divine'
+            ? 1.5
             : rarity === 'Celestial'
-            ? 1.6
+            ? 1.3
             : rarity === 'Mythic'
-            ? 1.4
-            : rarity === 'Legendary'
             ? 1.1
-            : 0.6;
+            : rarity === 'Legendary'
+            ? 0.9
+            : 0.5;
 
         gain.gain.setValueAtTime(0.001, startTime);
-        gain.gain.linearRampToValueAtTime(0.25 * this.volume, startTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0.12 * this.volume, startTime + 0.04);
         gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
 
         osc.connect(gain);
@@ -135,22 +135,22 @@ class SoundEffectsManager {
         osc.stop(startTime + duration + 0.05);
       });
 
-      // Special bass drop impact for Legendary, Mythic, Celestial, Divine, GOAT
+      // Soft low warmth impact for high rarities
       if (rarity === 'Legendary' || rarity === 'Mythic' || rarity === 'Celestial' || rarity === 'Divine' || rarity === 'GOAT') {
         const subOsc = ctx.createOscillator();
         const subGain = ctx.createGain();
         subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(140, now);
-        subOsc.frequency.exponentialRampToValueAtTime(35, now + 0.5);
+        subOsc.frequency.setValueAtTime(120, now);
+        subOsc.frequency.exponentialRampToValueAtTime(40, now + 0.4);
 
-        subGain.gain.setValueAtTime(0.5 * this.volume, now);
-        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        subGain.gain.setValueAtTime(0.18 * this.volume, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
 
         subOsc.connect(subGain);
         subGain.connect(ctx.destination);
 
         subOsc.start(now);
-        subOsc.stop(now + 0.65);
+        subOsc.stop(now + 0.5);
       }
     } catch {}
   }
@@ -170,14 +170,14 @@ class SoundEffectsManager {
       osc.frequency.setValueAtTime(520, ctx.currentTime);
       osc.frequency.setValueAtTime(650, ctx.currentTime + 0.08);
 
-      gain.gain.setValueAtTime(0.2 * this.volume, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.08 * this.volume, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start();
-      osc.stop(ctx.currentTime + 0.22);
+      osc.stop(ctx.currentTime + 0.2);
     } catch {}
   }
 
@@ -193,14 +193,14 @@ class SoundEffectsManager {
       [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now + i * 0.08);
-        gain.gain.setValueAtTime(0.2 * this.volume, now + i * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.3);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.07);
+        gain.gain.setValueAtTime(0.09 * this.volume, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.25);
         osc.connect(gain);
         gain.connect(ctx.destination);
-        osc.start(now + i * 0.08);
-        osc.stop(now + i * 0.08 + 0.32);
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.26);
       });
     } catch {}
   }
@@ -216,15 +216,15 @@ class SoundEffectsManager {
       const now = ctx.currentTime;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(160, now);
-      osc.frequency.setValueAtTime(120, now + 0.1);
-      gain.gain.setValueAtTime(0.25 * this.volume, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.setValueAtTime(130, now + 0.08);
+      gain.gain.setValueAtTime(0.1 * this.volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.26);
+      osc.stop(now + 0.22);
     } catch {}
   }
 }

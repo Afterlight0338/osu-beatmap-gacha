@@ -3,7 +3,8 @@ class BeatmapPreviewPlayer {
   private currentBeatmapsetId: number | null = null;
   private isPlaying: boolean = false;
   private listeners: Set<(isPlaying: boolean, beatmapsetId: number | null) => void> = new Set();
-  private volume: number = 0.5;
+  private volume: number = 0.2;
+  private fadeInterval: any = null;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -30,7 +31,7 @@ class BeatmapPreviewPlayer {
 
   public setVolume(volume: number) {
     this.volume = Math.max(0, Math.min(1, volume));
-    if (this.audio) {
+    if (this.audio && !this.fadeInterval) {
       this.audio.volume = this.volume;
     }
   }
@@ -46,6 +47,10 @@ class BeatmapPreviewPlayer {
   }
 
   public pause() {
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
     if (!this.audio) return;
     this.audio.pause();
     this.isPlaying = false;
@@ -68,12 +73,18 @@ class BeatmapPreviewPlayer {
       return;
     }
 
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+
     // Official osu! preview CDN URL
     const streamUrl = previewUrl || `https://b.ppy.sh/preview/${beatmapsetId}.mp3`;
 
     try {
       this.audio.pause();
       this.audio.currentTime = 0;
+      this.audio.volume = 0.02; // Start very soft
       this.audio.src = streamUrl;
       this.currentBeatmapsetId = beatmapsetId;
       this.isPlaying = true;
@@ -81,11 +92,33 @@ class BeatmapPreviewPlayer {
 
       const playPromise = this.audio.play();
       if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Audio play was interrupted or blocked by autoplay policy:', err);
-          this.isPlaying = false;
-          this.notify();
-        });
+        playPromise
+          .then(() => {
+            // Smooth fade-in over 350ms to target volume
+            const targetVol = this.volume;
+            let currentVol = 0.02;
+            const step = (targetVol - currentVol) / 7;
+            this.fadeInterval = setInterval(() => {
+              if (!this.audio || !this.isPlaying) {
+                if (this.fadeInterval) clearInterval(this.fadeInterval);
+                this.fadeInterval = null;
+                return;
+              }
+              currentVol += step;
+              if (currentVol >= targetVol) {
+                this.audio.volume = targetVol;
+                clearInterval(this.fadeInterval);
+                this.fadeInterval = null;
+              } else {
+                this.audio.volume = Math.max(0.01, Math.min(1, currentVol));
+              }
+            }, 50);
+          })
+          .catch((err) => {
+            console.warn('Audio play was interrupted or blocked by autoplay policy:', err);
+            this.isPlaying = false;
+            this.notify();
+          });
       }
     } catch (err) {
       console.warn('Audio error during play():', err);
