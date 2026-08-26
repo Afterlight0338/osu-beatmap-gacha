@@ -38,6 +38,7 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
   const [selectedTradeTarget, setSelectedTradeTarget] = useState<OnlinePlayer | null>(null);
   const [isTradeModalOpen, setIsTradeModalOpen] = useState<boolean>(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
+  const lastReadTimestampRef = useRef<number>(Date.now());
 
   const userIsAdmin = user?.username === 'RyoYamada' || user?.osuId === 14671577;
 
@@ -69,7 +70,13 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
     const unsubMessages = chatService.onMessages((msgs) => {
       setMessages(msgs);
       if (!isOpen) {
-        setUnreadCount((prev) => Math.min(99, prev + 1));
+        const unread = msgs.filter(
+          (m) => m.createdAt > lastReadTimestampRef.current && m.osuId !== user?.osuId
+        ).length;
+        setUnreadCount(unread);
+      } else {
+        lastReadTimestampRef.current = Date.now();
+        setUnreadCount(0);
       }
     });
 
@@ -81,10 +88,11 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
       unsubMessages();
       unsubPresence();
     };
-  }, [user?.osuId, user?.username, user?.avatarUrl, user?.countryCode, totalPulls, collectionRecords.length]);
+  }, [user?.osuId, user?.username, user?.avatarUrl, user?.countryCode, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
+      lastReadTimestampRef.current = Date.now();
       setUnreadCount(0);
       scrollToBottom();
     }
