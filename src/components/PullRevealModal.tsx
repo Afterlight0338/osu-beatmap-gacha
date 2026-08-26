@@ -263,7 +263,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-start p-3 sm:p-4 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto ${screenShake}`}
     >
       {/* Blinding Flashbang Effect on high-rarity drop */}
       {showFlashBang && (
@@ -291,7 +291,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
       {/* PHASE 1: CHARGING ORB / DRAMATIC MULTI-RING SUMMON VORTEX */}
       {phase === 'charging' && (
-        <div className="flex flex-col items-center justify-center text-center p-8 space-y-8 animate-scale-up">
+        <div className="my-auto flex flex-col items-center justify-center text-center p-8 space-y-8 animate-scale-up">
           <div className="relative flex items-center justify-center">
             {/* Outer Rotating Cosmic Halo 1 */}
             <div
@@ -349,7 +349,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
       {/* PHASE 2: INDIVIDUAL CARD REVEAL */}
       {phase === 'revealing' && currentPull && (
-        <div className="relative flex flex-col items-center justify-center max-w-sm w-full space-y-5 animate-scale-up z-10 pt-16 pb-24 sm:pb-8">
+        <div className="my-auto relative flex flex-col items-center justify-center max-w-sm w-full space-y-5 animate-scale-up z-10 pt-16 pb-24 sm:pb-8">
           {/* Progress Indicator for Multi-Pull */}
           {results.length > 1 && (
             <div className="flex items-center space-x-2">
@@ -531,7 +531,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
       {/* PHASE 3: MULTI-PULL / FINAL SUMMARY GRID */}
       {phase === 'summary' && (
-        <div className="flex flex-col items-center justify-center max-w-5xl w-full space-y-6 pt-16 pb-28 sm:pb-12 animate-scale-up z-10">
+        <div className="my-auto flex flex-col items-center justify-center max-w-5xl w-full space-y-6 pt-16 pb-28 sm:pb-12 animate-scale-up z-10">
           {/* Header */}
           <div className="text-center space-y-1">
             <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wider font-display">
