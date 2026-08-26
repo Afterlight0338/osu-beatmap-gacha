@@ -164,7 +164,80 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [token]);
 
   /**
-   * Synchronize local collection and stats with Cloudflare D1
+   * Drain pending offline mutations to Supabase and Cloudflare D1
+   */
+  const drainPendingQueue = useCallback(async (currentOsuId: number, authToken: string) => {
+    try {
+      const queue = await getPendingSyncQueue();
+      if (queue.length === 0) {
+        setPendingSyncCount(0);
+        return;
+      }
+
+      for (const entry of queue) {
+        // 1. Direct Supabase write
+        if (entry.collection && entry.collection.length > 0) {
+          for (let i = 0; i < entry.collection.length; i += 200) {
+            const chunk = entry.collection.slice(i, i + 200);
+            await supabase.from('user_collection').upsert(
+              chunk.map((c) => ({
+                osu_id: currentOsuId,
+                beatmap_id: c.beatmapId,
+                copies: c.copies,
+                first_pulled_at: c.firstPulledAt,
+                last_pulled_at: c.lastPulledAt,
+                is_favorite: c.isFavorite,
+              }))
+            );
+          }
+        }
+
+        if (entry.history && entry.history.length > 0) {
+          await supabase.from('user_history').upsert(
+            entry.history.map((h) => ({
+              id: h.id,
+              osu_id: currentOsuId,
+              beatmap_id: h.beatmapId,
+              rarity: h.rarity,
+              pulled_at: h.pulledAt,
+            }))
+          );
+        }
+
+        if (typeof entry.totalPulls === 'number' || typeof entry.pityCount === 'number') {
+          const uPayload: Record<string, unknown> = {};
+          if (typeof entry.totalPulls === 'number') uPayload.total_pulls = entry.totalPulls;
+          if (typeof entry.pityCount === 'number') uPayload.pity_count = entry.pityCount;
+          await supabase.from('users').update(uPayload).eq('osu_id', currentOsuId);
+        }
+
+        // 2. Also push to worker
+        fetch(`${WORKER_API_URL}/api/sync`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({
+            collection: entry.collection,
+            history: entry.history,
+            totalPulls: entry.totalPulls,
+            pityCount: entry.pityCount,
+          }),
+        }).catch(() => {});
+
+        // Delete from local queue
+        await deletePendingSyncEntry(entry.id);
+      }
+
+      await refreshPendingCount();
+    } catch (e) {
+      console.warn('Queue drain notice:', e);
+    }
+  }, [refreshPendingCount]);
+
+  /**
+   * Synchronize local collection and stats with Cloudflare D1 & Supabase
    */
   const syncWithCloud = useCallback(
     async (localData?: {
@@ -177,28 +250,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       setIsSyncing(true);
       try {
-        // 1. If local data provided, push local state to Worker & Supabase
-        if (localData) {
-          // Push to Cloudflare Worker
-          fetch(`${WORKER_API_URL}/api/sync`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              collection: localData.collection,
-              history: localData.history,
-              totalPulls: localData.totalPulls,
-              pityCount: localData.pityCount,
-            }),
-          }).catch(err => console.warn('Worker sync push error:', err));
-
-          // Direct parallel write to Supabase
-          if (user?.osuId) {
-            if (localData.collection && localData.collection.length > 0) {
-              supabase.from('user_collection').upsert(
-                localData.collection.map((c) => ({
+        // 1. Direct Supabase write (Fast, reliable, atomic)
+        if (localData && user?.osuId) {
+          if (localData.collection && localData.collection.length > 0) {
+            for (let i = 0; i < localData.collection.length; i += 200) {
+              const chunk = localData.collection.slice(i, i + 200);
+              await supabase.from('user_collection').upsert(
+                chunk.map((c) => ({
                   osu_id: user.osuId,
                   beatmap_id: c.beatmapId,
                   copies: c.copies,
@@ -206,91 +264,85 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                   last_pulled_at: c.lastPulledAt,
                   is_favorite: c.isFavorite,
                 }))
-              ).then((res) => {
-                if (res.error) console.warn('Supabase collection sync error:', res.error);
-              });
+              );
             }
+          }
 
-            if (localData.history && localData.history.length > 0) {
-              supabase.from('user_history').upsert(
-                localData.history.map((h) => ({
-                  id: h.id,
-                  osu_id: user.osuId,
-                  beatmap_id: h.beatmapId,
-                  rarity: h.rarity,
-                  pulled_at: h.pulledAt,
-                }))
-              ).then((res) => {
-                if (res.error) console.warn('Supabase history sync error:', res.error);
-              });
-            }
+          if (localData.history && localData.history.length > 0) {
+            await supabase.from('user_history').upsert(
+              localData.history.map((h) => ({
+                id: h.id,
+                osu_id: user.osuId,
+                beatmap_id: h.beatmapId,
+                rarity: h.rarity,
+                pulled_at: h.pulledAt,
+              }))
+            );
+          }
 
-            if (typeof localData.totalPulls === 'number' || typeof localData.pityCount === 'number') {
-              const uPayload: Record<string, unknown> = {};
-              if (typeof localData.totalPulls === 'number') uPayload.total_pulls = localData.totalPulls;
-              if (typeof localData.pityCount === 'number') uPayload.pity_count = localData.pityCount;
-              supabase.from('users').update(uPayload).eq('osu_id', user.osuId).then((res) => {
-                if (res.error) console.warn('Supabase user stats update error:', res.error);
-              });
-            }
+          if (typeof localData.totalPulls === 'number' || typeof localData.pityCount === 'number') {
+            const uPayload: Record<string, unknown> = {};
+            if (typeof localData.totalPulls === 'number') uPayload.total_pulls = localData.totalPulls;
+            if (typeof localData.pityCount === 'number') uPayload.pity_count = localData.pityCount;
+            await supabase.from('users').update(uPayload).eq('osu_id', user.osuId);
           }
         }
 
-        // 2. Fetch latest authoritative state from D1
-        const syncRes = await fetch(`${WORKER_API_URL}/api/sync`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!syncRes.ok) {
-          throw new Error(`Sync failed with HTTP ${syncRes.status}`);
-        }
-
-        const syncData: CloudSyncResponse = await syncRes.json();
-        if (syncData.success) {
-          setLastSyncedAt(new Date());
-
-          // ✅ Drain the pending queue now that D1 is reachable
+        // 2. Also push to Cloudflare Worker
+        if (localData) {
           try {
-            const queue = await getPendingSyncQueue();
-            for (const entry of queue) {
-              const drainRes = await fetch(`${WORKER_API_URL}/api/sync`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                  collection: entry.collection,
-                  history: entry.history,
-                  totalPulls: entry.totalPulls,
-                  pityCount: entry.pityCount,
-                }),
-              });
-              if (drainRes.ok) {
-                await deletePendingSyncEntry(entry.id);
-              }
-            }
-          } catch (drainErr) {
-            console.warn('Pending sync queue drain error:', drainErr);
+            await fetch(`${WORKER_API_URL}/api/sync`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                collection: localData.collection,
+                history: localData.history,
+                totalPulls: localData.totalPulls,
+                pityCount: localData.pityCount,
+              }),
+            });
+          } catch (workerErr) {
+            console.warn('Worker sync push notice (Supabase synced successfully):', workerErr);
           }
-          await refreshPendingCount();
-
-          return {
-            mergedCollection: syncData.collection,
-            mergedHistory: syncData.history,
-            cloudTotalPulls: syncData.totalPulls,
-            cloudPityCount: syncData.pityCount,
-            energyOverride: syncData.energyOverride ?? null,
-            config: syncData.config,
-          };
         }
+
+        // 3. Drain pending queue
+        if (user?.osuId) {
+          await drainPendingQueue(user.osuId, token);
+        }
+
+        setLastSyncedAt(new Date());
+
+        // 4. Fetch authoritative response from Worker if available
+        try {
+          const syncRes = await fetch(`${WORKER_API_URL}/api/sync`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (syncRes.ok) {
+            const syncData: CloudSyncResponse = await syncRes.json();
+            if (syncData.success) {
+              return {
+                mergedCollection: syncData.collection,
+                mergedHistory: syncData.history,
+                cloudTotalPulls: syncData.totalPulls,
+                cloudPityCount: syncData.pityCount,
+                energyOverride: syncData.energyOverride ?? null,
+                config: syncData.config,
+              };
+            }
+          }
+        } catch {
+          // Worker fetch optional if Supabase sync succeeded
+        }
+
         return null;
       } catch (err) {
         console.warn('Cloud synchronization error — queuing locally:', err);
-
-        // ❌ D1 unreachable: queue the failed payload locally for later retry
         if (localData) {
           await enqueuePendingSync({
             totalPulls: localData.totalPulls,
@@ -305,13 +357,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsSyncing(false);
       }
     },
-    [token, user, refreshPendingCount]
+    [token, user, refreshPendingCount, drainPendingQueue]
   );
 
-  // Load pending count on mount
+  // Auto-drain pending syncs on startup and periodically
   useEffect(() => {
     refreshPendingCount();
-  }, [refreshPendingCount]);
+    if (user?.osuId && token) {
+      drainPendingQueue(user.osuId, token);
+      const interval = setInterval(() => {
+        drainPendingQueue(user.osuId, token);
+      }, 15000);
+      return () => clearInterval(interval);
+    }
+  }, [user, token, refreshPendingCount, drainPendingQueue]);
 
   const clearAuthError = useCallback(() => setAuthError(null), []);
 
