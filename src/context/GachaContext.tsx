@@ -259,7 +259,14 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       let cur = savedEnergy.current;
       let res = savedEnergy.reserve || 0;
-      const bon = savedEnergy.bonus || 0;
+      let bon = savedEnergy.bonus || 0;
+
+      // Post-Maintenance 500 Bonus Pulls Distribution (just this once)
+      const maintenanceGiftKey = 'maintenance_compensation_500_pulls';
+      if (!localStorage.getItem(maintenanceGiftKey)) {
+        bon += 500;
+        localStorage.setItem(maintenanceGiftKey, 'true');
+      }
 
       if (pullsToAdd > 0) {
         if (cur < MAX_MAIN_ENERGY) {
