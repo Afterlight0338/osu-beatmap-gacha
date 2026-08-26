@@ -878,6 +878,55 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           });
         } catch {}
 
+        // Ultra-Rare Pull Check (GOAT, EX, Divine) -> Broadcast to global ticker
+        const ultraRareDrops = results.filter(
+          (r) => r.beatmap.rarity === 'GOAT' || r.beatmap.rarity === 'EX' || r.beatmap.rarity === 'Divine'
+        );
+
+        if (ultraRareDrops.length > 0) {
+          for (const drop of ultraRareDrops) {
+            try {
+              const dropEvent = {
+                id: `drop_${Date.now()}_${drop.beatmap.id}_${Math.random().toString(36).substring(2, 6)}`,
+                username: user.username,
+                osuId: user.osuId,
+                avatarUrl: user.avatarUrl,
+                beatmap: {
+                  id: drop.beatmap.id,
+                  beatmapsetId: drop.beatmap.beatmapsetId,
+                  title: drop.beatmap.title,
+                  artist: drop.beatmap.artist,
+                  version: drop.beatmap.version,
+                  rarity: drop.beatmap.rarity,
+                  stars: drop.beatmap.stars,
+                  coverUrl: drop.beatmap.covers?.cover || `https://assets.ppy.sh/beatmaps/${drop.beatmap.beatmapsetId}/covers/cover.jpg`,
+                },
+                pulledAt: Date.now(),
+              };
+
+              const chatChan = supabase.channel('global_chat_channel');
+              chatChan.send({
+                type: 'broadcast',
+                event: 'ultra_rare_pull',
+                payload: dropEvent,
+              });
+
+              (async () => {
+                try {
+                  const { data } = await supabase.from('admin_config').select('value').eq('key', 'rare_drop_ticker').maybeSingle();
+                  const existing = data?.value && Array.isArray(data.value) ? data.value : [];
+                  const updated = [dropEvent, ...existing.filter((d: any) => d.id !== dropEvent.id)].slice(0, 30);
+                  await supabase.from('admin_config').upsert({
+                    key: 'rare_drop_ticker',
+                    value: updated,
+                    updated_at: new Date().toISOString(),
+                  });
+                } catch {}
+              })();
+            } catch {}
+          }
+        }
+
         const pulledDiff = results.map((r) => {
           const entry = updatedMap.get(r.beatmap.id);
           return {

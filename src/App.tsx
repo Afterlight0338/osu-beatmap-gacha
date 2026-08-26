@@ -19,6 +19,7 @@ import { MiniBroadcastToast } from './components/MiniBroadcastToast';
 import { EventAura } from './components/EventAura';
 import { LegalModal, LegalTabType } from './components/LegalModal';
 import { StartScreenModal } from './components/StartScreenModal';
+import { UltraRareMarquee } from './components/UltraRareMarquee';
 import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
@@ -241,6 +242,9 @@ const MainApp: React.FC = () => {
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenHistory={() => setIsHistoryOpen(true)}
       />
+
+      {/* Global Ultra-Rare Lucky Drops Marquee (EX Special / GOAT / Divine) */}
+      <UltraRareMarquee onSelectBeatmap={(map) => setSelectedMapForDetail(map)} />
 
       {/* Main Content Area */}
       <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-6 z-10 pb-24 sm:pb-8">
