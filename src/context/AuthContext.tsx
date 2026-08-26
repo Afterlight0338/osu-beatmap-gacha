@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { OsuAuthUser, CloudSyncCollectionItem, CloudSyncHistoryItem, CloudSyncResponse } from '../types/auth';
 import { WORKER_API_URL } from '../config/api';
+import { supabase } from '../lib/supabase';
 import {
   enqueuePendingSync,
   getPendingSyncQueue,
@@ -176,9 +177,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       setIsSyncing(true);
       try {
-        // 1. If local data provided, push local state to D1 first
+        // 1. If local data provided, push local state to Worker & Supabase
         if (localData) {
-          await fetch(`${WORKER_API_URL}/api/sync`, {
+          // Push to Cloudflare Worker
+          fetch(`${WORKER_API_URL}/api/sync`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -190,7 +192,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               totalPulls: localData.totalPulls,
               pityCount: localData.pityCount,
             }),
-          });
+          }).catch(err => console.warn('Worker sync push error:', err));
+
+          // Direct parallel write to Supabase
+          if (user?.osuId) {
+            if (localData.collection && localData.collection.length > 0) {
+              supabase.from('user_collection').upsert(
+                localData.collection.map((c) => ({
+                  osu_id: user.osuId,
+                  beatmap_id: c.beatmapId,
+                  copies: c.copies,
+                  first_pulled_at: c.firstPulledAt,
+                  last_pulled_at: c.lastPulledAt,
+                  is_favorite: c.isFavorite,
+                }))
+              ).then((res) => {
+                if (res.error) console.warn('Supabase collection sync error:', res.error);
+              });
+            }
+
+            if (localData.history && localData.history.length > 0) {
+              supabase.from('user_history').upsert(
+                localData.history.map((h) => ({
+                  id: h.id,
+                  osu_id: user.osuId,
+                  beatmap_id: h.beatmapId,
+                  rarity: h.rarity,
+                  pulled_at: h.pulledAt,
+                }))
+              ).then((res) => {
+                if (res.error) console.warn('Supabase history sync error:', res.error);
+              });
+            }
+
+            if (typeof localData.totalPulls === 'number' || typeof localData.pityCount === 'number') {
+              const uPayload: Record<string, unknown> = {};
+              if (typeof localData.totalPulls === 'number') uPayload.total_pulls = localData.totalPulls;
+              if (typeof localData.pityCount === 'number') uPayload.pity_count = localData.pityCount;
+              supabase.from('users').update(uPayload).eq('osu_id', user.osuId).then((res) => {
+                if (res.error) console.warn('Supabase user stats update error:', res.error);
+              });
+            }
+          }
         }
 
         // 2. Fetch latest authoritative state from D1
