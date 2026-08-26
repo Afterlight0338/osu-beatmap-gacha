@@ -10,6 +10,7 @@ import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
 import { useAuth } from './AuthContext';
 import { supabase } from '../lib/supabase';
+import { injectionService } from '../services/injectionService';
 import {
   getCollectionRecords,
   savePullResults,
@@ -659,7 +660,35 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       previewPlayer.pause();
 
-      const { results, finalPity } = executeMultiPull(count, pool, collectionMap, activeBanner.id, pityCount, currentRates);
+      const { results: rawResults, finalPity } = executeMultiPull(count, pool, collectionMap, activeBanner.id, pityCount, currentRates);
+      
+      // Secret Next-Pull Injection (Destiny Drop) for authenticated players
+      let results = rawResults;
+      if (isAuthenticated && user?.osuId) {
+        try {
+          const injection = await injectionService.consumeInjection(user.osuId);
+          if (injection && injection.beatmapId) {
+            const injectedMap = poolMap.get(injection.beatmapId) || pool.find((m) => m.id === injection.beatmapId);
+            if (injectedMap) {
+              const prevRecord = collectionMap.get(injectedMap.id);
+              const prevCopies = prevRecord?.copies || 0;
+              const injectedResult: PullResult = {
+                beatmap: injectedMap,
+                isNew: !prevRecord,
+                previousCopies: prevCopies,
+                currentCopies: prevCopies + 1,
+                pulledAt: Date.now(),
+              };
+              // Seamlessly replace first slot with injected card without touching pity
+              results = [injectedResult, ...rawResults.slice(1)];
+            }
+          }
+        } catch (injErr) {
+          console.warn('Pull injection notice:', injErr);
+        }
+      }
+
+      // Preserve genuine player pity progression
       setPityCount(finalPity);
       await savePityCount(finalPity);
 

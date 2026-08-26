@@ -9,10 +9,12 @@ import {
   ShieldAlert, Users, Database, RefreshCw, Trash2, Activity, TrendingUp,
   Star, Clock, AlertTriangle, ChevronDown, ChevronUp, Search, Crown,
   Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X, Wrench, Gift, Table,
-  CheckCircle2, Bell, Sparkles, Send,
+  CheckCircle2, Bell, Sparkles, Send, ArrowLeftRight, Target, Undo2,
 } from 'lucide-react';
 import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 import { supabase } from '../lib/supabase';
+import { injectionService, PullInjection } from '../services/injectionService';
+import { giftingService, PlayerTransaction } from '../services/giftingService';
 
 const RARITY_ORDER: RarityTier[] = ['EX','GOAT','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -57,7 +59,7 @@ interface UserCollCard {
   isFavorite: boolean;
 }
 
-type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'rewards' | 'inspector' | 'config';
+type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'transactions' | 'rewards' | 'inspector' | 'config';
 
 const AdminPage: React.FC = () => {
   const { user } = useAuth();
@@ -174,6 +176,17 @@ const AdminPage: React.FC = () => {
   const [maintenanceSaving, setMaintenanceSaving] = useState(false);
   const [dbRepairing, setDbRepairing] = useState(false);
   const [dbRepairResults, setDbRepairResults] = useState<string | null>(null);
+
+  // Player Transactions & Gifts state
+  const [transactions, setTransactions] = useState<PlayerTransaction[]>([]);
+  const [txSearch, setTxSearch] = useState<string>('');
+  const [txFilter, setTxFilter] = useState<'all' | 'pending' | 'claimed' | 'revoked'>('all');
+  const [txLoading, setTxLoading] = useState<boolean>(false);
+
+  // Secret Pull Injections (Destiny Drop) state
+  const [injections, setInjections] = useState<Record<string, PullInjection>>({});
+  const [injectSearch, setInjectSearch] = useState<string>('');
+  const [selectedInjectBeatmap, setSelectedInjectBeatmap] = useState<Beatmap | null>(null);
 
   if (!isAdmin(user?.username)) {
     return (
@@ -1102,6 +1115,98 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  // ─── Player Transactions & Revoke Handler ───────────────────
+  const fetchTransactionsData = useCallback(async () => {
+    setTxLoading(true);
+    try {
+      const txs = await giftingService.fetchTransactions();
+      setTransactions(txs);
+    } catch (e: any) {
+      showMsg('Failed to load transactions: ' + e.message, false);
+    } finally {
+      setTxLoading(false);
+    }
+  }, []);
+
+  const handleRevokeTransaction = async (tx: PlayerTransaction) => {
+    if (!confirm(`Revoke transaction ${tx.id} from ${tx.senderUsername} to ${tx.recipientUsername}? This will reverse the transferred item.`)) return;
+    setActionLoading(true);
+    try {
+      const res = await giftingService.revokeTransaction(tx.id);
+      if (!res.success) {
+        showMsg(res.error || 'Failed to revoke transaction', false);
+      } else {
+        showMsg(`✓ Transaction ${tx.id} revoked & reversed successfully!`);
+        await fetchTransactionsData();
+      }
+    } catch (e: any) {
+      showMsg('Failed to revoke: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  // ─── Secret Next-Pull Injections Handler ─────────────────────
+  const fetchInjectionsData = useCallback(async () => {
+    try {
+      const injs = await injectionService.getInjections();
+      setInjections(injs);
+    } catch {}
+  }, []);
+
+  const handleSetPullInjection = async (targetOsuId: number) => {
+    if (!selectedInjectBeatmap) {
+      showMsg('Please select a beatmap to inject.', false);
+      return;
+    }
+    setActionLoading(true);
+    try {
+      const res = await injectionService.setInjection({
+        osuId: targetOsuId,
+        beatmapId: selectedInjectBeatmap.id,
+        injectedBy: user?.username || 'Admin',
+      });
+      if (!res.success) {
+        showMsg(res.error || 'Failed to set injection', false);
+      } else {
+        showMsg(`🎯 Injected "${selectedInjectBeatmap.title}" into ${selectedUsername}'s next summon! (Pity will be preserved safely)`);
+        setSelectedInjectBeatmap(null);
+        setInjectSearch('');
+        await fetchInjectionsData();
+      }
+    } catch (e: any) {
+      showMsg('Failed: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRemovePullInjection = async (targetOsuId: number) => {
+    setActionLoading(true);
+    try {
+      const res = await injectionService.removeInjection(targetOsuId);
+      if (!res.success) {
+        showMsg(res.error || 'Failed to cancel injection', false);
+      } else {
+        showMsg(`✓ Cancelled next-pull injection for osu! ID #${targetOsuId}`);
+        await fetchInjectionsData();
+      }
+    } catch (e: any) {
+      showMsg('Failed: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'transactions') {
+      fetchTransactionsData();
+    }
+    if (activeTab === 'users') {
+      fetchInjectionsData();
+    }
+  }, [activeTab, fetchTransactionsData, fetchInjectionsData]);
+
   // ─── Render ──────────────────────────────────────────────────
   return (
     <div className="space-y-6 pb-20 animate-fade-in">
@@ -1144,7 +1249,8 @@ const AdminPage: React.FC = () => {
           ['events','Event Presets',<Sparkles className="w-4 h-4 text-amber-400"/>],
           ['cards','Card Tiers & EX',<Crown className="w-4 h-4 text-purple-400"/>],
           ['announcements','Announcements',<Bell className="w-4 h-4 text-cyan-400"/>],
-          ['users','Users',<Users className="w-4 h-4"/>],
+          ['users','Users & Destiny Drop',<Users className="w-4 h-4"/>],
+          ['transactions','Transactions & Gifts',<ArrowLeftRight className="w-4 h-4 text-emerald-400"/>],
           ['rewards','Mass Rewards',<Gift className="w-4 h-4"/>],
           ['inspector','DB Inspector',<Table className="w-4 h-4"/>],
           ['config','Config',<Sliders className="w-4 h-4"/>],
@@ -2738,6 +2844,99 @@ const AdminPage: React.FC = () => {
                 </div>
               </div>
 
+              {/* Secret Next-Pull Injector (Destiny Drop) */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 via-slate-900 to-indigo-950/60 border border-purple-800/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-white flex items-center space-x-2">
+                    <Target className="w-4 h-4 text-purple-400" />
+                    <span>Secret Next-Pull Injector ("Destiny Drop")</span>
+                  </h3>
+                  <span className="text-[10px] font-mono text-purple-300 px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/40">
+                    Undetectable · Pity Preserved
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 font-mono">
+                  Inject any beatmap into <strong className="text-white">{selectedUsername}</strong>'s next summon (Single or 10x). Pity count will be authentically preserved with zero clues shown to the player.
+                </p>
+
+                {injections[String(selectedUserId)] && !injections[String(selectedUserId)].consumed ? (
+                  <div className="p-3.5 rounded-xl bg-purple-950/80 border border-purple-500/80 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-mono text-emerald-400 font-bold block">
+                        ● ACTIVE INJECTION QUEUED
+                      </span>
+                      <p className="text-sm font-bold text-white truncate">
+                        {poolMap.get(injections[String(selectedUserId)].beatmapId)?.title || `Beatmap #${injections[String(selectedUserId)].beatmapId}`}
+                      </p>
+                      <p className="text-xs text-slate-400 truncate">
+                        {poolMap.get(injections[String(selectedUserId)].beatmapId)?.artist} • {poolMap.get(injections[String(selectedUserId)].beatmapId)?.rarity}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleRemovePullInjection(selectedUserId)}
+                      disabled={actionLoading}
+                      className="px-3 py-1.5 rounded-xl bg-red-950 hover:bg-red-900 text-red-300 border border-red-800/60 text-xs font-mono font-bold flex-shrink-0"
+                    >
+                      Cancel Injection
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Search beatmap from 38,696 pool to inject..."
+                        value={injectSearch}
+                        onChange={(e) => {
+                          setInjectSearch(e.target.value);
+                          setSelectedInjectBeatmap(null);
+                        }}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-slate-200 text-xs sm:text-sm font-mono focus:outline-none focus:border-purple-500"
+                      />
+                      {injectSearch.trim() && !selectedInjectBeatmap && (
+                        <div className="absolute z-30 top-full left-0 right-0 mt-1 rounded-xl bg-slate-900 border border-slate-700 overflow-hidden shadow-2xl max-h-48 overflow-y-auto">
+                          {pool
+                            .filter(
+                              (m) =>
+                                m.title.toLowerCase().includes(injectSearch.toLowerCase()) ||
+                                m.artist.toLowerCase().includes(injectSearch.toLowerCase()) ||
+                                String(m.id).includes(injectSearch)
+                            )
+                            .slice(0, 15)
+                            .map((m) => (
+                              <button
+                                key={m.id}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedInjectBeatmap(m);
+                                  setInjectSearch(`${m.artist} — ${m.title} [${m.version}] (${m.rarity})`);
+                                }}
+                                className="w-full p-2.5 hover:bg-slate-800 text-left border-b border-slate-800/60 flex items-center justify-between text-xs font-mono"
+                              >
+                                <span className="text-white truncate mr-2">
+                                  {m.artist} - {m.title} [{m.version}]
+                                </span>
+                                <span className={`text-[10px] font-bold ${RARITY_COLORS[m.rarity]}`}>
+                                  {m.rarity}
+                                </span>
+                              </button>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      onClick={() => handleSetPullInjection(selectedUserId)}
+                      disabled={actionLoading || !selectedInjectBeatmap}
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 disabled:opacity-50 text-white text-xs sm:text-sm font-bold shadow-md shadow-purple-900/30 flex items-center justify-center space-x-1.5"
+                    >
+                      <Target className="w-4 h-4" />
+                      <span>Inject into {selectedUsername}'s Next Summon 🎯</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* User Collection Table */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -2827,6 +3026,169 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* ── TRANSACTIONS & GIFTS TAB ────────────────── */}
+      {activeTab === 'transactions' && (
+        <div className="space-y-6 animate-fade-in">
+          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <h2 className="text-lg font-bold text-white flex items-center space-x-2 font-display">
+                  <ArrowLeftRight className="w-5 h-5 text-emerald-400" />
+                  <span>Player Transactions & Gifts Audit</span>
+                </h2>
+                <p className="text-xs text-slate-400 font-mono mt-0.5">
+                  Live ledger of all card and stamina transfers between players with 1-click revocation.
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={fetchTransactionsData}
+                  disabled={txLoading}
+                  className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-300 flex items-center space-x-1.5"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${txLoading ? 'animate-spin' : ''}`} />
+                  <span>Refresh Ledger</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filters & Search */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800 w-full sm:w-fit">
+                {[
+                  { id: 'all', label: 'All Transactions' },
+                  { id: 'pending', label: 'Pending Claim' },
+                  { id: 'claimed', label: 'Claimed' },
+                  { id: 'revoked', label: 'Revoked' },
+                ].map((f) => (
+                  <button
+                    key={f.id}
+                    onClick={() => setTxFilter(f.id as any)}
+                    className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                      txFilter === f.id
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="relative w-full sm:w-72">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={txSearch}
+                  onChange={(e) => setTxSearch(e.target.value)}
+                  placeholder="Search sender, recipient, song..."
+                  className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Transactions List */}
+            {transactions.length === 0 ? (
+              <div className="p-8 text-center bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
+                <ArrowLeftRight className="w-8 h-8 text-slate-600 mx-auto" />
+                <p className="text-sm font-bold text-slate-300">No Player Transactions Recorded</p>
+                <p className="text-xs text-slate-500 font-mono">Gifts and player interactions will be logged here in real time.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {transactions
+                  .filter((t) => {
+                    if (txFilter !== 'all' && t.status !== txFilter) return false;
+                    if (!txSearch.trim()) return true;
+                    const q = txSearch.toLowerCase();
+                    return (
+                      t.senderUsername.toLowerCase().includes(q) ||
+                      t.recipientUsername.toLowerCase().includes(q) ||
+                      (t.cardData && t.cardData.title.toLowerCase().includes(q)) ||
+                      String(t.senderId).includes(q) ||
+                      String(t.recipientId).includes(q)
+                    );
+                  })
+                  .map((t) => {
+                    const timeStr = formatUserDateTime(t.createdAt);
+                    const isCard = t.type === 'card' && t.cardData;
+
+                    return (
+                      <div
+                        key={t.id}
+                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      >
+                        <div className="flex items-start space-x-3 min-w-0">
+                          {isCard && t.cardData?.coverUrl ? (
+                            <img
+                              src={t.cardData.coverUrl}
+                              alt=""
+                              className="w-12 h-12 rounded-lg object-cover border border-slate-800 flex-shrink-0"
+                            />
+                          ) : (
+                            <div className="w-12 h-12 rounded-lg bg-amber-950/60 border border-amber-800/60 flex items-center justify-center flex-shrink-0">
+                              <Zap className="w-5 h-5 text-amber-400" />
+                            </div>
+                          )}
+
+                          <div className="min-w-0 space-y-0.5">
+                            <div className="flex items-center space-x-2 text-xs font-mono">
+                              <strong className="text-pink-300">{t.senderUsername}</strong>
+                              <span className="text-slate-500">➔</span>
+                              <strong className="text-cyan-300">{t.recipientUsername}</strong>
+                              <span className="text-[10px] text-slate-500">• {timeStr}</span>
+                            </div>
+
+                            <p className="text-sm font-bold text-white truncate">
+                              {isCard
+                                ? `${t.cardData?.title} [${t.cardData?.version}] (${t.cardData?.rarity})`
+                                : `+${t.staminaAmount || 25} Bonus Stamina / Pulls`}
+                            </p>
+
+                            {t.message && (
+                              <p className="text-xs text-slate-400 font-sans italic">
+                                "{t.message}"
+                              </p>
+                            )}
+
+                            <div className="flex items-center space-x-2 text-[10px] font-mono">
+                              <span className="text-slate-500">ID: {t.id}</span>
+                              <span>•</span>
+                              <span
+                                className={`px-1.5 py-0.2 rounded font-bold uppercase ${
+                                  t.status === 'claimed'
+                                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/50'
+                                    : t.status === 'revoked'
+                                    ? 'bg-red-950 text-red-300 border border-red-500/50'
+                                    : 'bg-amber-950 text-amber-300 border border-amber-500/50'
+                                }`}
+                              >
+                                {t.status}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {t.status !== 'revoked' && (
+                          <button
+                            onClick={() => handleRevokeTransaction(t)}
+                            disabled={actionLoading}
+                            className="px-3 py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-800/80 text-red-300 text-xs font-mono font-bold transition-all flex items-center justify-center space-x-1.5 flex-shrink-0 self-end sm:self-center shadow-md"
+                          >
+                            <Undo2 className="w-3.5 h-3.5" />
+                            <span>Revoke Transfer</span>
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </div>
         </div>
       )}
 

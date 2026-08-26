@@ -23,6 +23,9 @@ import { Beatmap } from './types/beatmap';
 import { isAdmin } from './config/admin';
 import { MAINTENANCE_MODE } from './config/maintenance';
 import { supabase } from './lib/supabase';
+import { GlobalChatDrawer } from './components/GlobalChatDrawer';
+import { ClaimGiftModal } from './components/ClaimGiftModal';
+import { giftingService, PlayerTransaction } from './services/giftingService';
 import { Disc, AlertCircle, Wrench, Eye } from 'lucide-react';
 
 const MainApp: React.FC = () => {
@@ -34,6 +37,8 @@ const MainApp: React.FC = () => {
   const [selectedMapForDetail, setSelectedMapForDetail] = useState<Beatmap | null>(null);
   const [previewMaintenance, setPreviewMaintenance] = useState<boolean>(false);
   const [legalModalTab, setLegalModalTab] = useState<LegalTabType | null>(null);
+  const [incomingGift, setIncomingGift] = useState<PlayerTransaction | null>(null);
+  const [allUsers, setAllUsers] = useState<{ osu_id: number; username: string; avatar_url?: string; country_code?: string }[]>([]);
   const [cloudMaintenance, setCloudMaintenance] = useState<{
     enabled: boolean;
     title?: string;
@@ -122,6 +127,44 @@ const MainApp: React.FC = () => {
   if (isCurrentlyInMaintenance && (!userIsAdmin || previewMaintenance)) {
     return <MaintenancePage config={cloudMaintenance} onBypass={() => setPreviewMaintenance(false)} />;
   }
+
+  // Load users & listen for incoming gifts for the authenticated player
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const { data } = await supabase.from('users').select('osu_id, username, avatar_url, country_code');
+        if (data) setAllUsers(data);
+      } catch {}
+    };
+    fetchUsers();
+
+    if (!user?.osuId) return;
+
+    const checkGifts = async () => {
+      try {
+        const txs = await giftingService.fetchTransactions();
+        const pending = txs.find((t) => t.recipientId === user.osuId && t.status === 'pending');
+        if (pending) {
+          setIncomingGift(pending);
+        }
+      } catch {}
+    };
+    checkGifts();
+    const interval = setInterval(checkGifts, 10000);
+
+    const channel = supabase.channel('gift_listener_' + user.osuId);
+    channel.on('broadcast', { event: 'gift_received' }, (payload: { payload: PlayerTransaction }) => {
+      if (payload?.payload && payload.payload.recipientId === user.osuId && payload.payload.status === 'pending') {
+        setIncomingGift(payload.payload);
+      }
+    });
+    channel.subscribe();
+
+    return () => {
+      clearInterval(interval);
+      supabase.removeChannel(channel);
+    };
+  }, [user?.osuId]);
 
   if (isLoading) {
     return (
@@ -265,6 +308,15 @@ const MainApp: React.FC = () => {
 
       {/* First-Time User Onboarding & Start Screen */}
       <StartScreenModal />
+
+      {/* Global Realtime Chat & Player Presence Drawer */}
+      <GlobalChatDrawer allUsers={allUsers} />
+
+      {/* Incoming Gift Notification & Claim Modal */}
+      <ClaimGiftModal
+        gift={incomingGift}
+        onClose={() => setIncomingGift(null)}
+      />
 
       {/* Floating Mini Side Broadcast Notification */}
       <MiniBroadcastToast />
