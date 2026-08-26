@@ -180,13 +180,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </nav>
 
-        {/* Right Tools & Buttons (Guaranteed No Overflow) */}
-        <div className="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+        {/* Right Tools & Buttons (Guaranteed No Overflow on Mobile) */}
+        <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
           {/* Quick 3-Tier Stamina Pill */}
           <div
             onClick={() => setIsQuizOpen(true)}
             title={`Main: ${energy.current}/50 | Reserve: ${energy.reserve || 0}/100 | Bonus: ${energy.bonus || 0} | Click for Math Quiz!`}
-            className="cursor-pointer group flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/50 font-mono text-xs transition-all select-none"
+            className="cursor-pointer group flex items-center space-x-1 px-2 sm:px-2.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/50 font-mono text-xs transition-all select-none flex-shrink-0"
           >
             <Zap className={`w-3.5 h-3.5 ${totalEnergy > 0 ? 'text-amber-400 animate-pulse' : 'text-slate-600'}`} />
             <span className="text-amber-300 font-extrabold">{energy.current}</span>
@@ -198,14 +198,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* Math Quiz Bonus Stamina Button */}
+          {/* Math Quiz Bonus Stamina Button (hidden on mobile, accessible via stamina pill) */}
           <button
             onClick={() => {
               sfx.playClick();
               setIsQuizOpen(true);
             }}
             title="Answer quick math question for +15 Bonus Stamina!"
-            className="p-2 rounded-xl bg-purple-950/50 hover:bg-purple-900/60 text-purple-300 hover:text-purple-100 border border-purple-500/40 transition-colors"
+            className="hidden sm:flex p-2 rounded-xl bg-purple-950/50 hover:bg-purple-900/60 text-purple-300 hover:text-purple-100 border border-purple-500/40 transition-colors flex-shrink-0"
           >
             <Calculator className="w-4 h-4 text-purple-400" />
           </button>
@@ -217,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               setIsAnnouncementOpen(true);
             }}
             title="View Announcements & Events"
-            className="p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition-colors relative"
+            className="p-1.5 sm:p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition-colors relative flex-shrink-0"
           >
             <Bell className="w-4 h-4" />
           </button>
@@ -229,16 +229,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               onOpenHistory();
             }}
             title="View Pull History"
-            className="hidden sm:flex p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-colors"
+            className="hidden sm:flex p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-colors flex-shrink-0"
           >
             <History className="w-4 h-4" />
           </button>
 
-          {/* Audio Mute Toggle */}
+          {/* Audio Mute Toggle (hidden on small mobile, accessible in settings) */}
           <button
             onClick={handleMuteToggle}
             title={settings.soundEnabled ? 'Mute Sound' : 'Unmute Sound'}
-            className="p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-pink-400 border border-slate-800 transition-colors"
+            className="hidden md:flex p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-pink-400 border border-slate-800 transition-colors flex-shrink-0"
           >
             {settings.soundEnabled ? (
               <Volume2 className="w-4 h-4 text-pink-400" />
@@ -254,7 +254,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onOpenSettings();
             }}
             title="Settings & Backup"
-            className="p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors flex-shrink-0"
           >
             <Sliders className="w-4 h-4" />
           </button>

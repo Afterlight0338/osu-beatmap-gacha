@@ -68,13 +68,16 @@ export const UserAuthButton: React.FC<UserAuthButtonProps> = ({ onForceSync, com
       <button
         onClick={handleLoginClick}
         title="Sign in with your osu! account to sync your collection across all devices"
-        className="group relative flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 via-pink-500 to-purple-600 text-white text-xs sm:text-sm font-bold shadow-md shadow-pink-600/25 hover:shadow-pink-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all select-none border border-pink-400/40"
+        className="group relative flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 via-pink-500 to-purple-600 text-white text-xs sm:text-sm font-bold shadow-md shadow-pink-600/25 hover:shadow-pink-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all select-none border border-pink-400/40 flex-shrink-0"
       >
-        <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-45 transition-transform">
+        <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-45 transition-transform flex-shrink-0">
           <Disc className="w-3.5 h-3.5 text-white" />
         </div>
-        <span className="font-display tracking-tight">Login with osu!</span>
-        <LogIn className="w-3.5 h-3.5 text-pink-200 group-hover:translate-x-0.5 transition-transform" />
+        <span className="font-display tracking-tight whitespace-nowrap">
+          <span className="inline sm:hidden">Login</span>
+          <span className="hidden sm:inline">Login with osu!</span>
+        </span>
+        <LogIn className="w-3.5 h-3.5 text-pink-200 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
       </button>
     );
   }

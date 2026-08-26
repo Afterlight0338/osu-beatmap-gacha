@@ -476,28 +476,65 @@ const AdminPage: React.FC = () => {
 
   // ─── Mass Rewards Dispatcher ────────────────────────────────
   const handleDispatchMassReward = async () => {
-    if (!confirm(`Confirm mass distribution of ${rewardType} to ALL users?`)) return;
+    if (!confirm(`Confirm mass distribution of ${rewardType} to ALL users in Supabase?`)) return;
     setActionLoading(true);
     try {
-      let body: Record<string, unknown> = { type: rewardType };
+      const { data: users, error: uErr } = await supabase.from('users').select('osu_id, username');
+      if (uErr || !users || users.length === 0) throw new Error('No registered users found in Supabase.');
+
       if (rewardType === 'stamina' || rewardType === 'pulls') {
-        body.amount = Number(rewardAmount);
+        const amount = Math.max(1, Number(rewardAmount) || 50);
+        for (const u of users) {
+          await supabase.from('user_energy_overrides').upsert({
+            osu_id: u.osu_id,
+            energy_amount: amount,
+          });
+        }
+
+        // Also publish an active announcement gift
+        await supabase.from('admin_config').upsert({
+          key: 'active_announcement',
+          value: {
+            id: `gift-${Date.now()}`,
+            title: `🎁 Mass Gift: +${amount} Free Summons!`,
+            message: `The administrator has dispatched a global reward of +${amount} stamina/pulls to all summoners! Enjoy your rolls!`,
+            type: 'giveaway',
+            bonusStamina: amount,
+            active: true,
+            publishedAt: new Date().toISOString(),
+            expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString(),
+          },
+          updated_at: new Date().toISOString(),
+        });
+
+        if (user?.osuId) {
+          await adminRefillEnergy(amount);
+        }
+
+        showMsg(`🎉 Successfully dispatched +${amount} pulls to all ${users.length} registered users in Supabase!`);
       } else if (rewardType === 'card') {
         const bid = Number(rewardCardId || rewardCardSearch);
         if (!bid) throw new Error('Please select a valid beatmap ID');
-        body.beatmapId = bid;
-        body.copies = Number(rewardCardCopies) || 1;
-        body.rarity = rewardCardRarity;
+        const copies = Math.max(1, Number(rewardCardCopies) || 1);
+        const now = Date.now();
+
+        for (const u of users) {
+          await supabase.from('user_collection').upsert({
+            osu_id: u.osu_id,
+            beatmap_id: bid,
+            copies: copies,
+            first_pulled_at: now,
+            last_pulled_at: now,
+            is_favorite: false,
+          });
+        }
+
+        showMsg(`🎉 Successfully gifted Beatmap #${bid} (×${copies}) to all ${users.length} registered users!`);
       }
 
-      const res = await api('POST', '/admin/mass-reward', body);
-      showMsg(`🎉 ${(res as any).message || 'Mass reward distributed successfully!'}`);
-      if (rewardType === 'stamina' && user?.osuId) {
-        await adminRefillEnergy(Number(rewardAmount));
-      }
       fetchStats();
-    } catch (e) {
-      showMsg(e instanceof Error ? e.message : 'Mass reward dispatch failed', false);
+    } catch (e: any) {
+      showMsg(e.message || 'Mass reward dispatch failed', false);
     } finally {
       setActionLoading(false);
     }
