@@ -31,7 +31,7 @@ import { tradingService, PlayerTrade } from './services/tradingService';
 import { Disc, AlertCircle, Wrench, Eye, CheckCircle2 } from 'lucide-react';
 
 const MainApp: React.FC = () => {
-  const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite, activeEvent } = useGacha();
+  const { isLoading, poolError, activeBanner, isFallbackDataset, collectionMap, toggleFavorite, activeEvent, forceCloudSync } = useGacha();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'gacha' | 'collection' | 'leaderboard' | 'stats' | 'changelog' | 'about' | 'admin'>('gacha');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
@@ -184,13 +184,18 @@ const MainApp: React.FC = () => {
         setIncomingTrade(payload.payload);
       }
     });
+    channel.on('broadcast', { event: 'trade_accepted' }, (payload: { payload: PlayerTrade }) => {
+      if (payload?.payload && (payload.payload.senderId === currentOsuId || payload.payload.recipientId === currentOsuId)) {
+        forceCloudSync();
+      }
+    });
     channel.subscribe();
 
     return () => {
       clearInterval(interval);
       supabase.removeChannel(channel);
     };
-  }, [user?.osuId]);
+  }, [user?.osuId, forceCloudSync]);
 
   // If maintenance mode is active and the visitor is not the admin (or is previewing/not bypassed), show Maintenance Page
   const isCurrentlyInMaintenance = typeof cloudMaintenance.enabled === 'boolean' ? cloudMaintenance.enabled : MAINTENANCE_MODE;

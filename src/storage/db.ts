@@ -599,18 +599,35 @@ export async function bulkMergeCollectionFromCloud(
     await metaStore.put(cloudPityCount, 'pityCount');
   }
 
-  // Union-merge collection records
-  for (const cloudItem of cloudCollection) {
-    const existing = await colStore.get(cloudItem.beatmapId);
-    if (existing) {
+  // Authoritatively reconcile collection against cloud collection
+  const cloudMap = new Map<number, typeof cloudCollection[0]>();
+  for (const c of cloudCollection) {
+    cloudMap.set(c.beatmapId, c);
+  }
+
+  // 1. Reconcile existing local records: update count or delete if removed on cloud
+  const localRecords = await colStore.getAll();
+  for (const local of localRecords) {
+    const cloudItem = cloudMap.get(local.beatmapId);
+    if (cloudItem) {
+      // Authoritative cloud copies with preserved favorite marker
       await colStore.put({
-        beatmapId: cloudItem.beatmapId,
-        copies: Math.max(existing.copies, cloudItem.copies),
-        firstPulledAt: Math.min(existing.firstPulledAt, cloudItem.firstPulledAt || existing.firstPulledAt),
-        lastPulledAt: Math.max(existing.lastPulledAt, cloudItem.lastPulledAt || existing.lastPulledAt),
-        isFavorite: Boolean(existing.isFavorite || cloudItem.isFavorite),
+        beatmapId: local.beatmapId,
+        copies: cloudItem.copies,
+        firstPulledAt: Math.min(local.firstPulledAt || cloudItem.firstPulledAt, cloudItem.firstPulledAt),
+        lastPulledAt: Math.max(local.lastPulledAt || cloudItem.lastPulledAt, cloudItem.lastPulledAt),
+        isFavorite: Boolean(local.isFavorite || cloudItem.isFavorite),
       });
     } else {
+      // Card was traded away, gifted, or revoked on cloud: remove from local DB
+      await colStore.delete(local.beatmapId);
+    }
+  }
+
+  // 2. Add any cloud items that were not yet in local records
+  const localIds = new Set(localRecords.map((l) => l.beatmapId));
+  for (const cloudItem of cloudCollection) {
+    if (!localIds.has(cloudItem.beatmapId)) {
       await colStore.put({
         beatmapId: cloudItem.beatmapId,
         copies: cloudItem.copies,
