@@ -789,6 +789,89 @@ export default {
         return jsonResponse({ success: true, key, message: `Config "${key}" updated.` }, 200, request, env);
       }
 
+      // ---------------------------------------------------------
+      // 18. POST /admin/mass-reward  —  Distribute gifts to ALL users
+      // ---------------------------------------------------------
+      if (path === '/admin/mass-reward' && request.method === 'POST') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const body = await request.json() as {
+          type: 'stamina' | 'pulls' | 'card';
+          amount?: number;
+          beatmapId?: number;
+          copies?: number;
+          rarity?: string;
+        };
+
+        if (body.type === 'pulls') {
+          const delta = Math.max(1, body.amount ?? 10);
+          await env.osu_gacha_db.prepare(`UPDATE users SET total_pulls = total_pulls + ?`).bind(delta).run();
+          return jsonResponse({ success: true, message: `Gifted +${delta} total pulls to all registered users!` }, 200, request, env);
+        }
+
+        if (body.type === 'stamina') {
+          const amount = Math.max(1, Math.min(9999, body.amount ?? 50));
+          const allUsers = await env.osu_gacha_db.prepare(`SELECT osu_id FROM users`).all<{ osu_id: number }>();
+          for (const u of allUsers.results) {
+            await env.osu_gacha_db.prepare(
+              `INSERT INTO user_energy_overrides (osu_id, energy_amount, set_at)
+               VALUES (?, ?, datetime('now'))
+               ON CONFLICT(osu_id) DO UPDATE SET energy_amount = excluded.energy_amount, set_at = excluded.set_at`
+            ).bind(u.osu_id, amount).run();
+          }
+          return jsonResponse({ success: true, message: `Dispatched stamina override (${amount} energy) to ${allUsers.results.length} users!` }, 200, request, env);
+        }
+
+        if (body.type === 'card') {
+          if (!body.beatmapId) return errorResponse('beatmapId required', 400, request, env);
+          const copies = Math.max(1, body.copies ?? 1);
+          const now = Date.now();
+          const allUsers = await env.osu_gacha_db.prepare(`SELECT osu_id FROM users`).all<{ osu_id: number }>();
+          for (const u of allUsers.results) {
+            await env.osu_gacha_db.prepare(
+              `INSERT INTO user_collection (osu_id, beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite)
+               VALUES (?, ?, ?, ?, ?, 0)
+               ON CONFLICT(osu_id, beatmap_id) DO UPDATE SET copies = copies + excluded.copies, last_pulled_at = excluded.last_pulled_at`
+            ).bind(u.osu_id, body.beatmapId, copies, now, now).run();
+
+            if (body.rarity) {
+              await env.osu_gacha_db.prepare(
+                `INSERT OR IGNORE INTO user_history (id, osu_id, beatmap_id, rarity, pulled_at) VALUES (?, ?, ?, ?, ?)`
+              ).bind(`gift-${now}-${body.beatmapId}`, u.osu_id, body.beatmapId, body.rarity, now).run();
+            }
+          }
+          return jsonResponse({ success: true, message: `Gifted beatmap #${body.beatmapId} (×${copies}) to all ${allUsers.results.length} registered users!` }, 200, request, env);
+        }
+
+        return errorResponse('Invalid reward type', 400, request, env);
+      }
+
+      // ---------------------------------------------------------
+      // 19. GET /admin/table  —  Database Raw Table Inspector
+      // ---------------------------------------------------------
+      if (path === '/admin/table' && request.method === 'GET') {
+        const { auth, forbidden } = await requireAdmin();
+        if (!auth) return forbidden!;
+        const tableName = url.searchParams.get('name') || 'users';
+        const allowed = ['users', 'user_sessions', 'user_collection', 'user_history', 'admin_config', 'user_energy_overrides'];
+        if (!allowed.includes(tableName)) return errorResponse(`Invalid table name. Allowed: ${allowed.join(', ')}`, 400, request, env);
+
+        const limit = Math.min(100, parseInt(url.searchParams.get('limit') || '50', 10));
+        const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10));
+
+        const totalCount = await env.osu_gacha_db.prepare(`SELECT COUNT(*) as count FROM ${tableName}`).first<{ count: number }>();
+        const rows = await env.osu_gacha_db.prepare(`SELECT * FROM ${tableName} LIMIT ? OFFSET ?`).bind(limit, offset).all();
+
+        return jsonResponse({
+          success: true,
+          table: tableName,
+          total: totalCount?.count ?? 0,
+          limit,
+          offset,
+          rows: rows.results,
+        }, 200, request, env);
+      }
+
       // 404 Not Found
       return errorResponse('Endpoint not found', 404, request, env);
     } catch (err: unknown) {

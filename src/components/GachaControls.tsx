@@ -101,59 +101,59 @@ export const GachaControls: React.FC<GachaControlsProps> = ({ onPull, isPulling 
       </div>
 
       {/* Pull Action Buttons (1x, 5x, 10x) */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3.5 w-full max-w-xl">
         {/* Single Pull (1x) */}
         <button
           disabled={isPulling || energy.current < 1}
           onClick={() => handlePullClick(1)}
-          className={`py-3.5 px-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
+          className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
             isPulling || energy.current < 1
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
-              : 'bg-slate-900/90 hover:bg-slate-800 text-slate-100 border-slate-700 hover:border-pink-500 shadow-slate-950/50 hover:scale-105'
+              : 'bg-slate-900/90 hover:bg-slate-800 active:scale-95 text-slate-100 border-slate-700 hover:border-pink-500 shadow-slate-950/50 hover:scale-105'
           }`}
         >
-          <div className="flex items-center space-x-1.5">
-            <Sparkles className="w-4 h-4 text-pink-400" />
-            <span>PULL 1x</span>
+          <div className="flex items-center space-x-1 sm:space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pink-400" />
+            <span>1x</span>
           </div>
-          <span className="text-[10px] font-mono text-amber-400 font-normal">Cost: ⚡1</span>
+          <span className="text-[10px] font-mono text-amber-400 font-normal">⚡1</span>
         </button>
 
         {/* Medium Pull (5x) */}
         <button
           disabled={isPulling || energy.current < 5}
           onClick={() => handlePullClick(5)}
-          className={`py-3.5 px-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
+          className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-lg ${
             isPulling || energy.current < 5
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
-              : 'bg-gradient-to-r from-purple-900/80 to-indigo-900/80 hover:from-purple-800 hover:to-indigo-800 text-white border-purple-500/60 shadow-purple-950/50 hover:scale-105'
+              : 'bg-gradient-to-r from-purple-900/80 to-indigo-900/80 hover:from-purple-800 hover:to-indigo-800 active:scale-95 text-white border-purple-500/60 shadow-purple-950/50 hover:scale-105'
           }`}
         >
-          <div className="flex items-center space-x-1.5">
-            <Sparkles className="w-4 h-4 text-purple-300" />
-            <span>PULL 5x</span>
+          <div className="flex items-center space-x-1 sm:space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-300" />
+            <span>5x</span>
           </div>
-          <span className="text-[10px] font-mono text-amber-300 font-normal">Cost: ⚡5</span>
+          <span className="text-[10px] font-mono text-amber-300 font-normal">⚡5</span>
         </button>
 
         {/* Multi Pull (10x) */}
         <button
           disabled={isPulling || energy.current < 10}
           onClick={() => handlePullClick(10)}
-          className={`py-3.5 px-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-xl relative overflow-hidden group ${
+          className={`py-3 sm:py-3.5 px-2 sm:px-4 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 select-none flex flex-col items-center justify-center space-y-0.5 border shadow-xl relative overflow-hidden group ${
             isPulling || energy.current < 10
               ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-500 border-slate-800'
-              : 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 text-white border-pink-400/50 shadow-pink-600/30 hover:scale-105'
+              : 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 active:scale-95 text-white border-pink-400/50 shadow-pink-600/30 hover:scale-105'
           }`}
         >
           {/* Shimmer light bar */}
           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
-          <div className="flex items-center space-x-1.5">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            <span>PULL 10x</span>
+          <div className="flex items-center space-x-1 sm:space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 animate-pulse" />
+            <span>10x</span>
           </div>
-          <span className="text-[10px] font-mono text-amber-200 font-normal">Cost: ⚡10</span>
+          <span className="text-[10px] font-mono text-amber-200 font-normal">⚡10</span>
         </button>
       </div>
 

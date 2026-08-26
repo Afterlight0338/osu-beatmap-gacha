@@ -102,14 +102,14 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
         </div>
       </div>
 
-      {/* Rarity Tier Filter Pills */}
-      <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-xs font-mono uppercase text-slate-500 mr-1 hidden sm:inline">
+      {/* Rarity Tier Filter Pills (Horizontal scrolling on mobile) */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 sm:flex-wrap scrollbar-none">
+        <span className="text-xs font-mono uppercase text-slate-500 mr-1 hidden sm:inline flex-shrink-0">
           Rarity:
         </span>
         <button
           onClick={() => handleRarityChange('All')}
-          className={`px-3 py-1 rounded-full text-xs font-bold font-mono transition-all border ${
+          className={`px-3 py-1 rounded-full text-xs font-bold font-mono transition-all border flex-shrink-0 ${
             filters.rarity === 'All'
               ? 'bg-slate-200 text-slate-900 border-white'
               : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
@@ -125,7 +125,7 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
             <button
               key={tier}
               onClick={() => handleRarityChange(tier)}
-              className={`px-2.5 py-1 rounded-full text-xs font-bold font-mono transition-all border ${
+              className={`px-2.5 py-1 rounded-full text-xs font-bold font-mono transition-all border flex-shrink-0 ${
                 isSelected
                   ? 'border-white shadow-md text-white'
                   : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:border-slate-700'

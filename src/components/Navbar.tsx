@@ -69,8 +69,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Center Tabs */}
-        <nav className="flex items-center space-x-1 sm:space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex-shrink-0">
+        {/* Center Tabs (Desktop) */}
+        <nav className="hidden md:flex items-center space-x-1 sm:space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex-shrink-0">
           <button
             onClick={() => handleTabClick('gacha')}
             className={`flex items-center space-x-1.5 px-2.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all select-none ${

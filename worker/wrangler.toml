@@ -5,6 +5,8 @@ compatibility_date = "2024-04-01"
 # Environment Variables (Non-sensitive)
 [vars]
 FRONTEND_URL = "https://gacha.vivlos.dev"
+SUPABASE_URL = "https://hkrdlnwhnwapvxztsuls.supabase.co"
+SUPABASE_ANON_KEY = "sb_publishable_gOpmxgqn5sxV98-LiN1kZQ_tOCZAysI"
 
 # D1 Database Binding
 # Replace `database_id` with your Cloudflare D1 Database UUID after running `wrangler d1 create osu-gacha-db`

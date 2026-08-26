@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { GachaProvider, useGacha } from './context/GachaContext';
 import { Navbar } from './components/Navbar';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { GachaPage } from './pages/GachaPage';
 import { CollectionPage } from './pages/CollectionPage';
@@ -62,7 +63,7 @@ const MainApp: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 z-10">
+      <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-6 z-10 pb-24 sm:pb-8">
         {/* Admin Maintenance Mode Notification */}
         {MAINTENANCE_MODE && userIsAdmin && (
           <div className="max-w-7xl mx-auto mb-6 p-3 sm:p-4 rounded-2xl bg-amber-950/70 border border-amber-500/60 text-amber-200 text-xs flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-amber-950/40">
@@ -101,6 +102,9 @@ const MainApp: React.FC = () => {
         )}
         {activeTab === 'admin' && <AdminPage />}
       </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <MobileBottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Footer */}
       <footer className="w-full border-t border-slate-900 bg-[#0d0d15]/90 py-8 px-4 sm:px-6 z-10 text-center text-xs text-slate-500 space-y-2">
