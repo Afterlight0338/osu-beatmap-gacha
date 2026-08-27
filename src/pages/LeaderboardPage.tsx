@@ -69,7 +69,30 @@ export const LeaderboardPage: React.FC = () => {
 
     setIsLoading(true);
     try {
-      // 2. Get exact total collection rows count to fetch all pages dynamically
+      // 2. Check cloud precomputed summary cache first (avoids scanning 50,000 collection rows on Supabase)
+      if (!forceRefresh) {
+        try {
+          const { data: cloudSummary } = await supabase
+            .from('admin_config')
+            .select('value, updated_at')
+            .eq('key', 'leaderboard_summary_v1')
+            .maybeSingle();
+
+          if (cloudSummary && cloudSummary.value && Array.isArray(cloudSummary.value.users)) {
+            const updatedAtMs = new Date(cloudSummary.updated_at || 0).getTime();
+            if (Date.now() - updatedAtMs < 15 * 60 * 1000) { // Fresh within 15 minutes
+              setUsers(cloudSummary.value.users);
+              setLastRefreshedAt(updatedAtMs);
+              sessionStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(cloudSummary.value.users));
+              sessionStorage.setItem(LEADERBOARD_TIME_KEY, String(updatedAtMs));
+              setIsLoading(false);
+              return;
+            }
+          }
+        } catch {}
+      }
+
+      // 3. Fallback to direct calculation if cache is missing or expired
       const countRes = await supabase
         .from('user_collection')
         .select('*', { count: 'exact', head: true });
@@ -159,10 +182,19 @@ export const LeaderboardPage: React.FC = () => {
         setUsers(calculatedUsers);
         const now = Date.now();
         setLastRefreshedAt(now);
-        try {
-          sessionStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(calculatedUsers));
-          sessionStorage.setItem(LEADERBOARD_TIME_KEY, String(now));
-        } catch {}
+
+        // Update caches
+        sessionStorage.setItem(LEADERBOARD_CACHE_KEY, JSON.stringify(calculatedUsers));
+        sessionStorage.setItem(LEADERBOARD_TIME_KEY, String(now));
+
+        // Save precomputed summary to admin_config for all other players
+        Promise.resolve(
+          supabase.from('admin_config').upsert({
+            key: 'leaderboard_summary_v1',
+            value: { users: calculatedUsers, generatedAt: now },
+            updated_at: new Date().toISOString(),
+          })
+        ).catch(() => {});
       }
     } catch (err) {
       console.warn('Error loading leaderboard:', err);

@@ -30,6 +30,8 @@ function updateStarRanges(maps: Beatmap[]) {
  * Loads the beatmap pool dataset from public/data/maps.json.
  * Falls back gracefully to bundled seed dataset if loading fails.
  */
+import { getDB } from '../storage/db';
+
 export async function loadBeatmapDataset(): Promise<LoaderResult> {
   if (cachedBeatmaps && cachedInfo) {
     return {
@@ -39,18 +41,45 @@ export async function loadBeatmapDataset(): Promise<LoaderResult> {
     };
   }
 
+  // 1. Try reading persistent dataset from IndexedDB for instant 10ms startup
+  let dbCachedMaps: Beatmap[] | null = null;
+  let dbCachedInfo: DatasetInfo | null = null;
+  try {
+    const db = await getDB();
+    const cachedEntry = await db.get('meta', 'cached_maps_dataset');
+    if (cachedEntry && Array.isArray(cachedEntry.maps) && cachedEntry.maps.length > 5000) {
+      dbCachedMaps = cachedEntry.maps;
+      dbCachedInfo = cachedEntry.info || generateInfoFromMaps(cachedEntry.maps);
+    }
+  } catch {}
+
   const baseUrl = import.meta.env.BASE_URL || '/';
   const dataUrl = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}data/maps.json`;
   const infoUrl = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}data/dataset-info.json`;
 
   try {
+    // If we have valid local cache, we can load it instantly
+    if (dbCachedMaps && dbCachedInfo) {
+      cachedBeatmaps = dbCachedMaps;
+      cachedInfo = dbCachedInfo;
+      mapLookupCache.clear();
+      dbCachedMaps.forEach((m) => mapLookupCache.set(m.id, m));
+      updateStarRanges(dbCachedMaps);
+    }
+
     const res = await fetch(dataUrl, { cache: 'no-cache' });
     if (!res.ok) {
+      if (dbCachedMaps && dbCachedInfo) {
+        return { maps: dbCachedMaps, info: dbCachedInfo, isFallback: false };
+      }
       throw new Error(`HTTP ${res.status} when fetching maps.json`);
     }
 
     const mapsData: Beatmap[] = await res.json();
     if (!Array.isArray(mapsData) || mapsData.length === 0) {
+      if (dbCachedMaps && dbCachedInfo) {
+        return { maps: dbCachedMaps, info: dbCachedInfo, isFallback: false };
+      }
       throw new Error('Received empty or invalid maps array');
     }
 
@@ -72,13 +101,26 @@ export async function loadBeatmapDataset(): Promise<LoaderResult> {
     mapsData.forEach((m) => mapLookupCache.set(m.id, m));
     updateStarRanges(mapsData);
 
+    // Save full catalog to IndexedDB asynchronously
+    getDB().then((db) => {
+      db.put('meta', { maps: mapsData, info: infoData, savedAt: Date.now() }, 'cached_maps_dataset').catch(() => {});
+    }).catch(() => {});
+
     return {
       maps: mapsData,
       info: infoData,
       isFallback: false,
     };
   } catch (err: any) {
-    console.warn('Failed to load live maps.json, using bundled seed dataset fallback:', err.message);
+    if (dbCachedMaps && dbCachedInfo) {
+      return {
+        maps: dbCachedMaps,
+        info: dbCachedInfo,
+        isFallback: false,
+      };
+    }
+
+    console.warn('Failed to load live maps.json and no IndexedDB cache, using bundled seed fallback:', err.message);
 
     cachedBeatmaps = SEED_BEATMAPS;
     cachedInfo = SEED_DATASET_INFO;

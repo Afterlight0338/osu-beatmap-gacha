@@ -667,33 +667,38 @@ export async function bulkMergeCollectionFromCloud(
     cloudMap.set(c.beatmapId, c);
   }
 
-  // 1. Reconcile existing local records: update count or delete if removed on cloud
+  // 1. Reconcile collection non-destructively
   const localRecords = await colStore.getAll();
-  for (const local of localRecords) {
-    const cloudItem = cloudMap.get(local.beatmapId);
-    if (cloudItem) {
-      // Authoritative cloud copies with preserved favorite marker and locked rarity
+  const localMap = new Map<number, CollectionRecord>();
+  for (const l of localRecords) {
+    localMap.set(l.beatmapId, l);
+  }
+
+  // Merge each cloud item into local storage using max(local.copies, cloud.copies)
+  for (const cloudItem of cloudCollection) {
+    const local = localMap.get(cloudItem.beatmapId);
+    if (local) {
+      const bestCopies = Math.max(local.copies || 1, cloudItem.copies || 1);
+      const earliestFirst = Math.min(
+        local.firstPulledAt || cloudItem.firstPulledAt || Date.now(),
+        cloudItem.firstPulledAt || local.firstPulledAt || Date.now()
+      );
+      const latestLast = Math.max(
+        local.lastPulledAt || cloudItem.lastPulledAt || Date.now(),
+        cloudItem.lastPulledAt || local.lastPulledAt || Date.now()
+      );
       await colStore.put({
         beatmapId: local.beatmapId,
-        copies: cloudItem.copies,
-        firstPulledAt: Math.min(local.firstPulledAt || cloudItem.firstPulledAt, cloudItem.firstPulledAt),
-        lastPulledAt: Math.max(local.lastPulledAt || cloudItem.lastPulledAt, cloudItem.lastPulledAt),
+        copies: bestCopies,
+        firstPulledAt: earliestFirst,
+        lastPulledAt: latestLast,
         isFavorite: Boolean(local.isFavorite || cloudItem.isFavorite),
         lockedRarity: cloudItem.lockedRarity || local.lockedRarity,
       });
     } else {
-      // Card was traded away, gifted, or revoked on cloud: remove from local DB
-      await colStore.delete(local.beatmapId);
-    }
-  }
-
-  // 2. Add any cloud items that were not yet in local records
-  const localIds = new Set(localRecords.map((l) => l.beatmapId));
-  for (const cloudItem of cloudCollection) {
-    if (!localIds.has(cloudItem.beatmapId)) {
       await colStore.put({
         beatmapId: cloudItem.beatmapId,
-        copies: cloudItem.copies,
+        copies: cloudItem.copies || 1,
         firstPulledAt: cloudItem.firstPulledAt || Date.now(),
         lastPulledAt: cloudItem.lastPulledAt || Date.now(),
         isFavorite: Boolean(cloudItem.isFavorite),
@@ -701,6 +706,9 @@ export async function bulkMergeCollectionFromCloud(
       });
     }
   }
+
+  // NOTE: Local cards that are not yet on the cloud are NEVER deleted!
+  // They are safely retained in local storage.
 
   // Merge history
   if (cloudHistory && Array.isArray(cloudHistory)) {

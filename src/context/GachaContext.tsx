@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Beatmap, RarityTier, DatasetInfo } from '../types/beatmap';
 import { Banner, PullResult, PullHistoryItem, RarityRates } from '../types/gacha';
 import { CollectionRecord, CollectionStats, UserSettings, PullEnergyState } from '../types/collection';
@@ -9,6 +9,7 @@ import { loadBeatmapDataset } from '../data/loader';
 import { previewPlayer } from '../audio/previewPlayer';
 import { sfx } from '../audio/sfx';
 import { useAuth } from './AuthContext';
+import { CloudSyncCollectionItem } from '../types/auth';
 import { supabase } from '../lib/supabase';
 import { injectionService } from '../services/injectionService';
 import {
@@ -833,6 +834,67 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
   }, [isAuthenticated, user?.osuId, isInitialized, forceCloudSync]);
 
+  // Debounced Batch Pull Sync Buffer (aggregates multiple rapid rolls into 1 single network request)
+  const pullSyncBatchRef = useRef<{
+    collection: Map<number, CloudSyncCollectionItem>;
+    history: { id: string; beatmapId: number; rarity: string; pulledAt: number }[];
+    totalPulls: number;
+    pityCount: number;
+    energy: PullEnergyState;
+    timer: any;
+  }>({
+    collection: new Map(),
+    history: [],
+    totalPulls: 0,
+    pityCount: 0,
+    energy: DEFAULT_ENERGY_STATE,
+    timer: null,
+  });
+
+  const flushPullSyncBatch = useCallback(async () => {
+    if (!isAuthenticated || !user?.osuId) return;
+    const batch = pullSyncBatchRef.current;
+    if (batch.timer) {
+      clearTimeout(batch.timer);
+      batch.timer = null;
+    }
+    if (batch.collection.size === 0 && batch.history.length === 0) return;
+
+    const cardsToSync = Array.from(batch.collection.values());
+    const histToSync = [...batch.history];
+    const totalPullsToSync = batch.totalPulls;
+    const pityToSync = batch.pityCount;
+    const energyToSync = batch.energy;
+
+    // Reset buffer
+    batch.collection.clear();
+    batch.history = [];
+
+    try {
+      await syncWithCloud({
+        collection: cardsToSync,
+        history: histToSync,
+        totalPulls: totalPullsToSync,
+        pityCount: pityToSync,
+        energy: energyToSync,
+      });
+    } catch (err) {
+      console.warn('Batch pull sync notice:', err);
+    }
+  }, [isAuthenticated, user?.osuId, syncWithCloud]);
+
+  // Flush on tab close / unload
+  useEffect(() => {
+    const handleUnload = () => {
+      flushPullSyncBatch();
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+      flushPullSyncBatch();
+    };
+  }, [flushPullSyncBatch]);
+
   const pull = useCallback(
     async (count: number): Promise<PullResult[]> => {
       if (pool.length === 0) {
@@ -1021,7 +1083,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           }
         }
 
-        const pulledDiff = results.map((r) => {
+        const pulledDiff: CloudSyncCollectionItem[] = results.map((r) => {
           const entry = updatedMap.get(r.beatmap.id);
           return {
             beatmapId: r.beatmap.id,
@@ -1033,23 +1095,30 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           };
         });
 
-        syncWithCloud({
-          collection: pulledDiff,
-          history: newHistoryItems.map((h) => ({
-            id: h.id,
-            beatmapId: h.beatmapId,
-            rarity: h.rarity,
-            pulledAt: h.pulledAt,
-          })),
-          totalPulls: newTotalPulls,
-          pityCount: finalPity,
-          energy: newEnergyState,
-        }).catch((err) => console.warn('Background pull sync notice:', err));
+        // Accumulate into debounced batch sync buffer
+        const batch = pullSyncBatchRef.current;
+        for (const diff of pulledDiff) {
+          batch.collection.set(diff.beatmapId, diff);
+        }
+        batch.history.push(...newHistoryItems.map((h) => ({
+          id: h.id,
+          beatmapId: h.beatmapId,
+          rarity: h.rarity,
+          pulledAt: h.pulledAt,
+        })));
+        batch.totalPulls = newTotalPulls;
+        batch.pityCount = finalPity;
+        batch.energy = newEnergyState;
+
+        if (batch.timer) clearTimeout(batch.timer);
+        batch.timer = setTimeout(() => {
+          flushPullSyncBatch();
+        }, 3000);
       }
 
       return results;
     },
-    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, history, currentRates, isAuthenticated, user?.osuId, syncWithCloud]
+    [pool, collectionMap, activeBanner.id, energy, pityCount, totalPulls, history, currentRates, isAuthenticated, user?.osuId, flushPullSyncBatch]
   );
 
   const toggleFavorite = useCallback(
