@@ -330,6 +330,15 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       let res = savedEnergy.reserve || 0;
       let bon = savedEnergy.bonus || 0;
 
+      // One-time deduplication clamp for duplicate 727 grant (cleans up stale localStorage)
+      const dedupeKey = 'stamina_dedupe_727_v4';
+      if (!localStorage.getItem(dedupeKey)) {
+        if (bon > 727) {
+          bon = Math.max(0, bon - 727);
+        }
+        localStorage.setItem(dedupeKey, 'true');
+      }
+
       if (pullsToAdd > 0) {
         if (cur < MAX_MAIN_ENERGY) {
           const needed = MAX_MAIN_ENERGY - cur;

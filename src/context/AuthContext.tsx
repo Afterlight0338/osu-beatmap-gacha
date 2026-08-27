@@ -291,8 +291,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             const existingCloudEnergy = existingCloudRes?.value as PullEnergyState | undefined;
             const cloudBonus = typeof existingCloudEnergy?.bonus === 'number' ? existingCloudEnergy.bonus : 0;
-            const localBonus = typeof localData.energy.bonus === 'number' ? localData.energy.bonus : 0;
-            const bestBonus = Math.max(cloudBonus, localBonus);
+            const localBonus = typeof localData.energy.bonus === 'number' ? localData.energy.bonus : cloudBonus;
+            const bestBonus = localBonus;
 
             const isCloudNewer = Boolean(
               existingCloudEnergy?.updatedAt &&
@@ -326,7 +326,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         setLastSyncedAt(new Date());
 
-        // Fast path: if this was a background pull save (localData was provided), avoid re-downloading entire 5000+ collection
+        // Fast path: if this was a background pull save (localData was provided), avoid re-downloading entire collection
         if (localData && (localData.collection || localData.history || localData.energy)) {
           return {
             cloudTotalPulls: localData.totalPulls,
@@ -335,29 +335,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           };
         }
 
-        // 3. Full sync path (initial mount or manual sync): Fetch collection using parallel auto-pagination
-        const pageSize = 1000;
-        const countQuery = await supabase
-          .from('user_collection')
-          .select('*', { count: 'exact', head: true })
-          .eq('osu_id', user.osuId);
-
-        const totalCardsCount = countQuery.count || 0;
-        const totalPages = Math.max(1, Math.ceil(totalCardsCount / pageSize));
-        const pagePromises = [];
-
-        for (let page = 0; page < totalPages; page++) {
-          pagePromises.push(
-            supabase
-              .from('user_collection')
-              .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
-              .eq('osu_id', user.osuId)
-              .range(page * pageSize, (page + 1) * pageSize - 1)
-          );
-        }
-
-        const [pageResults, userRes, histRes, overrideRes, configRes] = await Promise.all([
-          Promise.all(pagePromises),
+        // 3. Server-side load reduction: Fetch only the Top 100 cards from server on initial sync
+        // (Full user collection is safely retained in IndexedDB without data loss)
+        const [topCardsRes, userRes, histRes, overrideRes, configRes] = await Promise.all([
+          supabase
+            .from('user_collection')
+            .select('beatmap_id, copies, first_pulled_at, last_pulled_at, is_favorite')
+            .eq('osu_id', user.osuId)
+            .order('copies', { ascending: false })
+            .limit(100),
           supabase
             .from('users')
             .select('total_pulls, pity_count')
@@ -379,20 +365,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             .select('key, value'),
         ]);
 
-        const allCards: CloudSyncCollectionItem[] = [];
-        for (const pRes of pageResults) {
-          if (pRes.data) {
-            for (const c of pRes.data) {
-              allCards.push({
-                beatmapId: c.beatmap_id,
-                copies: c.copies,
-                firstPulledAt: c.first_pulled_at,
-                lastPulledAt: c.last_pulled_at,
-                isFavorite: c.is_favorite,
-              });
-            }
-          }
-        }
+        const allCards: CloudSyncCollectionItem[] = (topCardsRes.data || []).map((c) => ({
+          beatmapId: c.beatmap_id,
+          copies: c.copies,
+          firstPulledAt: c.first_pulled_at,
+          lastPulledAt: c.last_pulled_at,
+          isFavorite: c.is_favorite,
+        }));
 
         // Consume energy override if set by admin
         let energyOverrideVal: number | null = null;
