@@ -29,6 +29,7 @@ import { previewPlayer } from '../audio/previewPlayer';
 import { Bounty, ActiveBounty, CompletedBounty, BountyDifficulty, OsuScoreData, BountyPack, CompletedPackRecord } from '../types/bounty';
 import { Beatmap } from '../types/beatmap';
 import { BeatmapDetailModal } from './BeatmapDetailModal';
+import { getBeatmapStats } from '../utils/beatmapStats';
 import {
   generateRandomBounties,
   loadSavedBounties,
@@ -527,18 +528,35 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                         {activeBounty.bounty.beatmap.artist} [{activeBounty.bounty.beatmap.version}]
                       </p>
 
-                      {/* Beatmap Attributes Bar */}
-                      <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-300 pt-0.5">
-                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
-                          ⚡ {activeBounty.bounty.beatmap.bpm} BPM
-                        </span>
-                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
-                          ⏱️ {Math.floor(activeBounty.bounty.beatmap.length / 60)}:{String(activeBounty.bounty.beatmap.length % 60).padStart(2, '0')}
-                        </span>
-                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300 truncate max-w-[130px]" title={`Mapped by ${activeBounty.bounty.beatmap.creator}`}>
-                          👤 {activeBounty.bounty.beatmap.creator}
-                        </span>
-                      </div>
+                      {/* Beatmap Attributes Bar (AR, CS, OD, HP, BPM, Length) */}
+                      {(() => {
+                        const stats = getBeatmapStats(activeBounty.bounty.beatmap);
+                        return (
+                          <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono font-bold pt-0.5">
+                            <span className="px-1.5 py-0.5 rounded bg-pink-950/90 border border-pink-500/50 text-pink-300">
+                              AR {stats.ar}
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-blue-950/90 border border-blue-500/50 text-blue-300">
+                              CS {stats.cs}
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-purple-950/90 border border-purple-500/50 text-purple-300">
+                              OD {stats.od}
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-emerald-950/90 border border-emerald-500/50 text-emerald-300">
+                              HP {stats.hp}
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
+                              ⚡ {activeBounty.bounty.beatmap.bpm} BPM
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
+                              ⏱️ {Math.floor(activeBounty.bounty.beatmap.length / 60)}:{String(activeBounty.bounty.beatmap.length % 60).padStart(2, '0')}
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-400 font-normal truncate max-w-[120px]" title={`Mapped by ${activeBounty.bounty.beatmap.creator}`}>
+                              👤 {activeBounty.bounty.beatmap.creator}
+                            </span>
+                          </div>
+                        );
+                      })()}
 
                       <div className="pt-1 flex items-center space-x-2 text-[11px] font-mono text-cyan-300">
                         <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
@@ -835,18 +853,32 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                                 {b.beatmap.artist} [{b.beatmap.version}]
                               </p>
 
-                              {/* Stats Bar */}
-                              <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-300 pt-0.5">
-                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-amber-300">
-                                  ⚡ {b.beatmap.bpm} BPM
-                                </span>
-                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-slate-300">
-                                  ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
-                                </span>
-                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-slate-300 truncate max-w-[130px]" title={`Mapped by ${b.beatmap.creator}`}>
-                                  👤 {b.beatmap.creator}
-                                </span>
-                              </div>
+                              {/* Stats Bar (AR, CS, OD, HP, BPM, Length) */}
+                              {(() => {
+                                const stats = getBeatmapStats(b.beatmap);
+                                return (
+                                  <div className="flex flex-wrap items-center gap-1 text-[9px] font-mono font-bold pt-0.5">
+                                    <span className="px-1.5 py-0.5 rounded bg-pink-950/90 border border-pink-500/50 text-pink-300">
+                                      AR {stats.ar}
+                                    </span>
+                                    <span className="px-1.5 py-0.5 rounded bg-blue-950/90 border border-blue-500/50 text-blue-300">
+                                      CS {stats.cs}
+                                    </span>
+                                    <span className="px-1.5 py-0.5 rounded bg-purple-950/90 border border-purple-500/50 text-purple-300">
+                                      OD {stats.od}
+                                    </span>
+                                    <span className="px-1.5 py-0.5 rounded bg-emerald-950/90 border border-emerald-500/50 text-emerald-300">
+                                      HP {stats.hp}
+                                    </span>
+                                    <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-amber-300">
+                                      ⚡ {b.beatmap.bpm}
+                                    </span>
+                                    <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-slate-300">
+                                      ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
+                                    </span>
+                                  </div>
+                                );
+                              })()}
                             </div>
                           </div>
 
@@ -998,18 +1030,32 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                               {b.beatmap.artist} [{b.beatmap.version}]
                             </p>
 
-                            {/* Beatmap Attributes Bar */}
-                            <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-400 pt-0.5">
-                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
-                                ⚡ {b.beatmap.bpm} BPM
-                              </span>
-                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
-                                ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
-                              </span>
-                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300 truncate max-w-[110px]" title={`Mapped by ${b.beatmap.creator}`}>
-                                👤 {b.beatmap.creator}
-                              </span>
-                            </div>
+                            {/* Beatmap Attributes Bar (AR, CS, OD, HP, BPM, Length) */}
+                            {(() => {
+                              const stats = getBeatmapStats(b.beatmap);
+                              return (
+                                <div className="flex flex-wrap items-center gap-1 text-[9px] font-mono font-bold pt-0.5">
+                                  <span className="px-1.5 py-0.5 rounded bg-pink-950/80 border border-pink-500/40 text-pink-300">
+                                    AR {stats.ar}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-blue-950/80 border border-blue-500/40 text-blue-300">
+                                    CS {stats.cs}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-purple-950/80 border border-purple-500/40 text-purple-300">
+                                    OD {stats.od}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
+                                    HP {stats.hp}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
+                                    ⚡ {b.beatmap.bpm}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
+                                    ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
+                                  </span>
+                                </div>
+                              );
+                            })()}
                           </div>
                         </div>
 
@@ -1220,12 +1266,27 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                                   </p>
                                   <p className="text-[10px] text-slate-400 truncate">[{pb.beatmap.version}]</p>
 
-                                  {/* Stats */}
-                                  <div className="flex items-center space-x-1.5 text-[9px] font-mono text-slate-400 pt-0.5">
-                                    <span>⚡ {pb.beatmap.bpm} BPM</span>
-                                    <span>·</span>
-                                    <span>⏱️ {Math.floor(pb.beatmap.length / 60)}:{String(pb.beatmap.length % 60).padStart(2, '0')}</span>
-                                  </div>
+                                  {/* Stats (AR, CS, OD, HP, BPM, Length) */}
+                                  {(() => {
+                                    const stats = getBeatmapStats(pb.beatmap);
+                                    return (
+                                      <div className="flex flex-wrap items-center gap-1 text-[9px] font-mono font-bold pt-0.5">
+                                        <span className="px-1 py-0.2 rounded bg-pink-950/80 border border-pink-500/40 text-pink-300">
+                                          AR {stats.ar}
+                                        </span>
+                                        <span className="px-1 py-0.2 rounded bg-blue-950/80 border border-blue-500/40 text-blue-300">
+                                          CS {stats.cs}
+                                        </span>
+                                        <span className="px-1 py-0.2 rounded bg-purple-950/80 border border-purple-500/40 text-purple-300">
+                                          OD {stats.od}
+                                        </span>
+                                        <span className="px-1 py-0.2 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
+                                          HP {stats.hp}
+                                        </span>
+                                        <span className="text-slate-400 font-normal">⚡{pb.beatmap.bpm}</span>
+                                      </div>
+                                    );
+                                  })()}
                                 </div>
                               </div>
 
