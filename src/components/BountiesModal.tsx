@@ -39,7 +39,7 @@ import {
   loadCompletedPacks,
   saveCompletedPack,
 } from '../services/bountyService';
-import { fetchScoreDetails, verifyScoreForBounty } from '../services/scoreService';
+import { fetchScoreDetails, verifyScoreForBounty, formatRankDisplay } from '../services/scoreService';
 
 interface BountiesModalProps {
   isOpen: boolean;
@@ -573,7 +573,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                   </h4>
                   <p className="text-xs text-emerald-300 font-mono">
                     Score #{verifySuccess.score.id} verified for player {verifySuccess.score.username} (
-                    {verifySuccess.score.rank} Rank · {verifySuccess.score.accuracy.toFixed(2)}% ·{' '}
+                    {formatRankDisplay(verifySuccess.score.rank)} Rank · {verifySuccess.score.accuracy.toFixed(2)}% ·{' '}
                     {verifySuccess.score.pp.toFixed(1)}pp).
                   </p>
                   {verifySuccess.packBonus && (

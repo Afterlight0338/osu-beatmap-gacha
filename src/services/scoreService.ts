@@ -67,16 +67,29 @@ export interface ScoreVerificationResult {
   score?: OsuScoreData;
 }
 
+export function formatRankDisplay(rank: string): string {
+  if (!rank) return 'F';
+  const upper = rank.toUpperCase();
+  if (upper === 'X') return 'SS';
+  if (upper === 'XH') return 'SS (Silver)';
+  if (upper === 'SSH') return 'SS (Silver)';
+  if (upper === 'SH') return 'S (Silver)';
+  return upper;
+}
+
 const RANK_HIERARCHY: Record<string, number> = {
   F: 0,
+  FAIL: 0,
   D: 1,
   C: 2,
   B: 3,
   A: 4,
   S: 5,
-  SH: 5,
+  SH: 5,   // Silver S (Hidden / Flashlight)
   SS: 6,
-  SSH: 6,
+  SSH: 6,  // Silver SS (Hidden / Flashlight)
+  X: 6,    // osu! API standard SS
+  XH: 6,   // osu! API Silver SS (Hidden / Flashlight)
 };
 
 export function verifyScoreForBounty(
@@ -153,12 +166,13 @@ export function verifyScoreForBounty(
   // 6. Check Rank Requirement
   const reqRank = bounty.requirements.minRank;
   if (reqRank !== 'Pass') {
-    const minWeight = RANK_HIERARCHY[reqRank] || 4;
-    const scoreWeight = RANK_HIERARCHY[score.rank] || 0;
+    const minWeight = RANK_HIERARCHY[reqRank.toUpperCase()] || 4;
+    const scoreRankKey = (score.rank || '').toUpperCase();
+    const scoreWeight = RANK_HIERARCHY[scoreRankKey] !== undefined ? RANK_HIERARCHY[scoreRankKey] : 0;
     if (scoreWeight < minWeight) {
       return {
         valid: false,
-        error: `Required minimum Grade is ${reqRank}, but your score achieved Grade ${score.rank}.`,
+        error: `Required minimum Grade is ${reqRank}, but your score achieved Grade ${formatRankDisplay(score.rank)}.`,
         score,
       };
     }
