@@ -18,6 +18,8 @@ import {
   Flame,
   Package,
   Sparkles,
+  Eye,
+  Info,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useGacha } from '../context/GachaContext';
@@ -25,6 +27,8 @@ import { useAuth } from '../context/AuthContext';
 import { sfx } from '../audio/sfx';
 import { previewPlayer } from '../audio/previewPlayer';
 import { Bounty, ActiveBounty, CompletedBounty, BountyDifficulty, OsuScoreData, BountyPack, CompletedPackRecord } from '../types/bounty';
+import { Beatmap } from '../types/beatmap';
+import { BeatmapDetailModal } from './BeatmapDetailModal';
 import {
   generateRandomBounties,
   loadSavedBounties,
@@ -89,9 +93,10 @@ const DIFFICULTY_STYLES: Record<
 };
 
 export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose }) => {
-  const { pool, addBonusEnergy } = useGacha();
+  const { pool, addBonusEnergy, toggleFavorite } = useGacha();
   const { user, isAuthenticated, loginWithOsu } = useAuth();
 
+  const [selectedDetailBeatmap, setSelectedDetailBeatmap] = useState<Beatmap | null>(null);
   const [bounties, setBounties] = useState<Bounty[]>([]);
   const [bossBounties, setBossBounties] = useState<Bounty[]>([]);
   const [bountyPacks, setBountyPacks] = useState<BountyPack[]>([]);
@@ -473,11 +478,24 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                 {/* Beatmap & Mission Requirements */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                   <div className="md:col-span-2 flex items-center space-x-4">
-                    <img
-                      src={activeBounty.bounty.beatmap.covers.card || activeBounty.bounty.beatmap.covers.cover}
-                      alt="Cover"
-                      className="w-20 h-20 rounded-2xl object-cover border border-slate-700 shadow-md flex-shrink-0"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sfx.playClick();
+                        setSelectedDetailBeatmap(activeBounty.bounty.beatmap);
+                      }}
+                      className="group/thumb relative rounded-2xl overflow-hidden flex-shrink-0"
+                      title="Click to view full card stats (AR, CS, HP, OD)"
+                    >
+                      <img
+                        src={activeBounty.bounty.beatmap.covers.card || activeBounty.bounty.beatmap.covers.cover}
+                        alt="Cover"
+                        className="w-20 h-20 rounded-2xl object-cover border border-slate-700 shadow-md group-hover/thumb:scale-105 transition-transform"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
+                        <Eye className="w-5 h-5 text-white" />
+                      </div>
+                    </button>
                     <div className="min-w-0 space-y-1">
                       <div className="flex items-center space-x-2">
                         <span
@@ -490,13 +508,38 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                         <span className="text-xs font-mono text-amber-400 font-bold">
                           ★ {activeBounty.bounty.beatmap.stars.toFixed(2)}
                         </span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[10px] font-mono text-cyan-300">
+                          {activeBounty.bounty.beatmap.rarity}
+                        </span>
                       </div>
-                      <h3 className="text-base sm:text-lg font-bold text-white truncate font-sans">
-                        {activeBounty.bounty.beatmap.title}
+                      <h3
+                        onClick={() => {
+                          sfx.playClick();
+                          setSelectedDetailBeatmap(activeBounty.bounty.beatmap);
+                        }}
+                        className="text-base sm:text-lg font-bold text-white truncate font-sans cursor-pointer hover:text-cyan-300 transition-colors flex items-center space-x-1.5"
+                        title="Click to view full card stats"
+                      >
+                        <span>{activeBounty.bounty.beatmap.title}</span>
+                        <Info className="w-3.5 h-3.5 text-slate-400 inline-block" />
                       </h3>
                       <p className="text-xs text-slate-300 truncate font-mono">
                         {activeBounty.bounty.beatmap.artist} [{activeBounty.bounty.beatmap.version}]
                       </p>
+
+                      {/* Beatmap Attributes Bar */}
+                      <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-300 pt-0.5">
+                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
+                          ⚡ {activeBounty.bounty.beatmap.bpm} BPM
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
+                          ⏱️ {Math.floor(activeBounty.bounty.beatmap.length / 60)}:{String(activeBounty.bounty.beatmap.length % 60).padStart(2, '0')}
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300 truncate max-w-[130px]" title={`Mapped by ${activeBounty.bounty.beatmap.creator}`}>
+                          👤 {activeBounty.bounty.beatmap.creator}
+                        </span>
+                      </div>
+
                       <div className="pt-1 flex items-center space-x-2 text-[11px] font-mono text-cyan-300">
                         <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
                         <span>Objective: {activeBounty.bounty.description}</span>
@@ -509,6 +552,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                     <a
                       href={`osu://b/${activeBounty.bounty.beatmap.id}`}
                       className="px-3 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold font-mono text-center flex items-center justify-center space-x-1.5 shadow-md shadow-pink-900/40 transition-all hover:scale-[1.02]"
+                      title="Open directly in osu! client"
                     >
                       <Zap className="w-3.5 h-3.5 fill-white" />
                       <span>Direct osu! Launch</span>
@@ -519,10 +563,23 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                         target="_blank"
                         rel="noreferrer"
                         className="flex-1 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-mono text-center flex items-center justify-center space-x-1 transition-colors"
+                        title="View beatmap listing on osu.ppy.sh"
                       >
                         <ExternalLink className="w-3 h-3" />
-                        <span>Beatmap Page</span>
+                        <span>osu! Page</span>
                       </a>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          sfx.playClick();
+                          setSelectedDetailBeatmap(activeBounty.bounty.beatmap);
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/60 text-cyan-300 text-xs font-mono text-center flex items-center justify-center space-x-1 transition-colors"
+                        title="View stats & download options"
+                      >
+                        <Eye className="w-3 h-3" />
+                        <span>Stats</span>
+                      </button>
                       <button
                         onClick={() =>
                           handleToggleAudio(
@@ -730,27 +787,66 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                           }`}
                         >
                           <div className="flex items-start space-x-3.5">
-                            <img
-                              src={b.beatmap.covers.card || b.beatmap.covers.cover}
-                              alt="Boss Cover"
-                              className="w-20 h-20 rounded-2xl object-cover border-2 border-red-500/50 flex-shrink-0"
-                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                sfx.playClick();
+                                setSelectedDetailBeatmap(b.beatmap);
+                              }}
+                              className="group/thumb relative rounded-2xl overflow-hidden flex-shrink-0"
+                              title="Click to view full card stats (AR, CS, HP, OD)"
+                            >
+                              <img
+                                src={b.beatmap.covers.card || b.beatmap.covers.cover}
+                                alt="Boss Cover"
+                                className="w-20 h-20 rounded-2xl object-cover border-2 border-red-500/50 group-hover/thumb:scale-105 transition-transform"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
+                                <Eye className="w-5 h-5 text-white" />
+                              </div>
+                            </button>
                             <div className="min-w-0 flex-1 space-y-1">
                               <div className="flex items-center justify-between">
                                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md shadow-red-900/50 flex items-center space-x-1">
                                   <Crown className="w-3 h-3 fill-current" />
                                   <span>RAID BOSS</span>
                                 </span>
-                                <span className="text-xs font-mono text-amber-300 font-black">
-                                  ★ {b.beatmap.stars.toFixed(2)}
-                                </span>
+                                <div className="flex items-center space-x-1.5">
+                                  <span className="text-xs font-mono text-amber-300 font-black">
+                                    ★ {b.beatmap.stars.toFixed(2)}
+                                  </span>
+                                  <span className="px-1.5 py-0.5 rounded bg-red-950 border border-red-800 text-[9px] font-mono text-red-200">
+                                    {b.beatmap.rarity}
+                                  </span>
+                                </div>
                               </div>
-                              <h4 className="text-base font-black text-white truncate font-display">
-                                {b.beatmap.title}
+                              <h4
+                                onClick={() => {
+                                  sfx.playClick();
+                                  setSelectedDetailBeatmap(b.beatmap);
+                                }}
+                                className="text-base font-black text-white truncate font-display cursor-pointer hover:text-red-300 transition-colors flex items-center space-x-1"
+                                title="Click to view full card stats"
+                              >
+                                <span>{b.beatmap.title}</span>
+                                <Info className="w-3.5 h-3.5 text-slate-400 inline-block" />
                               </h4>
                               <p className="text-xs text-slate-300 truncate font-mono">
                                 {b.beatmap.artist} [{b.beatmap.version}]
                               </p>
+
+                              {/* Stats Bar */}
+                              <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-300 pt-0.5">
+                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-amber-300">
+                                  ⚡ {b.beatmap.bpm} BPM
+                                </span>
+                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-slate-300">
+                                  ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
+                                </span>
+                                <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-red-900/60 text-slate-300 truncate max-w-[130px]" title={`Mapped by ${b.beatmap.creator}`}>
+                                  👤 {b.beatmap.creator}
+                                </span>
+                              </div>
                             </div>
                           </div>
 
@@ -781,7 +877,29 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                               <span className="text-amber-300 font-extrabold">+{b.rewardPoints || 300} Pts</span>
                             </div>
 
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-1.5">
+                              <a
+                                href={`https://osu.ppy.sh/b/${b.beatmap.id}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                                title="Open beatmap page on osu.ppy.sh"
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  sfx.playClick();
+                                  setSelectedDetailBeatmap(b.beatmap);
+                                }}
+                                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 hover:text-cyan-300 transition-colors"
+                                title="View full card stats (CS, AR, HP, OD)"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                              </button>
+
                               <button
                                 onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
                                 className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
@@ -831,11 +949,24 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                         }`}
                       >
                         <div className="flex items-start space-x-3.5">
-                          <img
-                            src={b.beatmap.covers.card || b.beatmap.covers.cover}
-                            alt="Cover"
-                            className="w-16 h-16 rounded-xl object-cover border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform"
-                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              sfx.playClick();
+                              setSelectedDetailBeatmap(b.beatmap);
+                            }}
+                            className="group/thumb relative rounded-xl overflow-hidden flex-shrink-0"
+                            title="Click to view full card stats (AR, CS, HP, OD)"
+                          >
+                            <img
+                              src={b.beatmap.covers.card || b.beatmap.covers.cover}
+                              alt="Cover"
+                              className="w-16 h-16 rounded-xl object-cover border border-slate-800 group-hover/thumb:scale-105 transition-transform"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
+                              <Eye className="w-4 h-4 text-white" />
+                            </div>
+                          </button>
                           <div className="min-w-0 flex-1 space-y-1">
                             <div className="flex items-center justify-between">
                               <span
@@ -843,16 +974,42 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                               >
                                 {b.difficulty}
                               </span>
-                              <span className="text-xs font-mono text-amber-400 font-bold">
-                                ★ {b.beatmap.stars.toFixed(2)}
-                              </span>
+                              <div className="flex items-center space-x-1.5">
+                                <span className="text-xs font-mono text-amber-400 font-bold">
+                                  ★ {b.beatmap.stars.toFixed(2)}
+                                </span>
+                                <span className="px-1.5 py-0.5 rounded bg-slate-950 border border-slate-800 text-[9px] font-mono text-cyan-300">
+                                  {b.beatmap.rarity}
+                                </span>
+                              </div>
                             </div>
-                            <h4 className="text-sm font-bold text-white truncate font-sans group-hover:text-cyan-300 transition-colors">
-                              {b.beatmap.title}
+                            <h4
+                              onClick={() => {
+                                sfx.playClick();
+                                setSelectedDetailBeatmap(b.beatmap);
+                              }}
+                              className="text-sm font-bold text-white truncate font-sans cursor-pointer hover:text-cyan-300 transition-colors flex items-center space-x-1"
+                              title="Click to view full card stats"
+                            >
+                              <span>{b.beatmap.title}</span>
+                              <Info className="w-3 h-3 text-slate-400 inline-block" />
                             </h4>
                             <p className="text-xs text-slate-400 truncate font-mono">
                               {b.beatmap.artist} [{b.beatmap.version}]
                             </p>
+
+                            {/* Beatmap Attributes Bar */}
+                            <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-400 pt-0.5">
+                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-amber-300">
+                                ⚡ {b.beatmap.bpm} BPM
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
+                                ⏱️ {Math.floor(b.beatmap.length / 60)}:{String(b.beatmap.length % 60).padStart(2, '0')}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300 truncate max-w-[110px]" title={`Mapped by ${b.beatmap.creator}`}>
+                                👤 {b.beatmap.creator}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
@@ -874,7 +1031,29 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                             <span className="text-cyan-400 font-extrabold">+{b.rewardPoints} Pts</span>
                           </div>
 
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-1.5">
+                            <a
+                              href={`https://osu.ppy.sh/b/${b.beatmap.id}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                              title="Open beatmap page on osu.ppy.sh"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                sfx.playClick();
+                                setSelectedDetailBeatmap(b.beatmap);
+                              }}
+                              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 hover:text-cyan-300 transition-colors"
+                              title="View full card stats (CS, AR, HP, OD)"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+
                             <button
                               onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
                               className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
@@ -995,16 +1174,29 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                           return (
                             <div
                               key={pb.id || idx}
-                              className={`p-3 rounded-2xl bg-slate-950/60 border flex flex-col justify-between space-y-2 ${
+                              className={`p-3 rounded-2xl bg-slate-950/60 border flex flex-col justify-between space-y-2.5 ${
                                 isCleared ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-slate-800'
                               }`}
                             >
                               <div className="flex items-start space-x-2.5">
-                                <img
-                                  src={pb.beatmap.covers.card || pb.beatmap.covers.cover}
-                                  alt="Cover"
-                                  className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
-                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    sfx.playClick();
+                                    setSelectedDetailBeatmap(pb.beatmap);
+                                  }}
+                                  className="group/thumb relative rounded-xl overflow-hidden flex-shrink-0"
+                                  title="Click to view full card stats (AR, CS, HP, OD)"
+                                >
+                                  <img
+                                    src={pb.beatmap.covers.card || pb.beatmap.covers.cover}
+                                    alt="Cover"
+                                    className="w-12 h-12 rounded-xl object-cover group-hover/thumb:scale-105 transition-transform"
+                                  />
+                                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
+                                    <Eye className="w-3.5 h-3.5 text-white" />
+                                  </div>
+                                </button>
                                 <div className="min-w-0 flex-1">
                                   <div className="flex items-center justify-between">
                                     <span className="text-[10px] font-mono text-amber-400 font-bold">
@@ -1016,8 +1208,24 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                                       </span>
                                     )}
                                   </div>
-                                  <p className="text-xs font-bold text-white truncate">{pb.beatmap.title}</p>
+                                  <p
+                                    onClick={() => {
+                                      sfx.playClick();
+                                      setSelectedDetailBeatmap(pb.beatmap);
+                                    }}
+                                    className="text-xs font-bold text-white truncate cursor-pointer hover:text-amber-300 transition-colors"
+                                    title="Click to view full card stats"
+                                  >
+                                    {pb.beatmap.title}
+                                  </p>
                                   <p className="text-[10px] text-slate-400 truncate">[{pb.beatmap.version}]</p>
+
+                                  {/* Stats */}
+                                  <div className="flex items-center space-x-1.5 text-[9px] font-mono text-slate-400 pt-0.5">
+                                    <span>⚡ {pb.beatmap.bpm} BPM</span>
+                                    <span>·</span>
+                                    <span>⏱️ {Math.floor(pb.beatmap.length / 60)}:{String(pb.beatmap.length % 60).padStart(2, '0')}</span>
+                                  </div>
                                 </div>
                               </div>
 
@@ -1030,21 +1238,45 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                                   +{pb.rewardStamina} ⚡ · +{pb.rewardPoints} Pts
                                 </span>
 
-                                {!isCleared && (
-                                  isThisActive ? (
-                                    <span className="px-2.5 py-1 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-300 text-[10px] font-mono font-bold">
-                                      Active
-                                    </span>
-                                  ) : (
-                                    <button
-                                      onClick={() => handleAcceptBounty({ ...pb, packId: pack.id, packName: pack.title })}
-                                      disabled={activeBounty !== null}
-                                      className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-[10px] font-mono font-bold transition-colors"
-                                    >
-                                      Play Map
-                                    </button>
-                                  )
-                                )}
+                                <div className="flex items-center space-x-1">
+                                  <a
+                                    href={`https://osu.ppy.sh/b/${pb.beatmap.id}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                                    title="Open beatmap on osu.ppy.sh"
+                                  >
+                                    <ExternalLink className="w-3 h-3" />
+                                  </a>
+
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      sfx.playClick();
+                                      setSelectedDetailBeatmap(pb.beatmap);
+                                    }}
+                                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-amber-300 transition-colors"
+                                    title="View full card stats"
+                                  >
+                                    <Eye className="w-3 h-3" />
+                                  </button>
+
+                                  {!isCleared && (
+                                    isThisActive ? (
+                                      <span className="px-2.5 py-1 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-300 text-[10px] font-mono font-bold">
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <button
+                                        onClick={() => handleAcceptBounty({ ...pb, packId: pack.id, packName: pack.title })}
+                                        disabled={activeBounty !== null}
+                                        className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-[10px] font-mono font-bold transition-colors shadow-sm"
+                                      >
+                                        Play Map
+                                      </button>
+                                    )
+                                  )}
+                                </div>
                               </div>
                             </div>
                           );
@@ -1115,6 +1347,16 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
           )}
         </div>
       </div>
+
+      {/* Beatmap Full Stats & Detail Modal */}
+      {selectedDetailBeatmap && (
+        <BeatmapDetailModal
+          beatmap={selectedDetailBeatmap}
+          isOpen={selectedDetailBeatmap !== null}
+          onClose={() => setSelectedDetailBeatmap(null)}
+          onToggleFavorite={toggleFavorite}
+        />
+      )}
     </div>,
     document.body
   );
