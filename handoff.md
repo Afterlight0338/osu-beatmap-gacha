@@ -79,13 +79,17 @@
 
 ---
 
-### F. Gacha Fallback & Seed Dataset Architecture (`src/data/seedData.ts`, `src/gacha/rng.ts`)
-* **Balanced Seed Dataset**: Contains 100 balanced offline maps (31% Common, 29% Uncommon, 26% Uncommon+, 10% Rare, 3% Epic, 1% Legendary) with 0 Divine/GOAT/EX to prevent high-tier drops on network fetch failures.
-* **Downwards-Only RNG Fallback**: If a target tier is missing in any active pool, `rng.ts` degrades safely downwards to `Common`/`Uncommon` instead of picking higher tiers.
-
-### G. Cloud Sync & Stamina State Reconciliation (`src/context/GachaContext.tsx`, `src/context/AuthContext.tsx`)
-* **No-Reversion Total Pulls**: Functional state updater `setTotalPulls((prev) => Math.max(prev, ...))` guarantees pull count never flickers down on mount.
-* **Preserved Bonus Stamina**: Cloud energy sync intelligently preserves locally earned bonus stamina (from Rhythm Math Quiz, Bounties, etc.) by taking `Math.max(localBonus, cloudBonus)`.
+### H. Comprehensive Bug Fixes & Resiliency Patches
+* **Admin Stamina & Custom Rates Sync**: Unified `stamina_config` and `rates` loading between `AdminPage.tsx` and `GachaContext.tsx`.
+* **PhD Exam Bonus Stamina**: Rewired `SecretPhDModal.tsx` to credit uncapped `addBonusEnergy` instead of capping at 50.
+* **Auto-Paginated Profile Modal**: `UserProfileModal.tsx` dynamically counts collection and fetches all pages in parallel (fully supporting players with >4,000 cards).
+* **`EX` Dramatic Summon Reveal**: Included `EX` in `PullRevealModal.tsx` with full 2000ms anticipation, flashbang, and heavy screen shake.
+* **Adaptive Bounty Clock Grace Window**: `scoreService.ts` allows at least 3 minutes / song length grace window to accommodate local clock drift.
+* **Preserved Trade & Gift Metadata**: `tradingService.ts` and `giftingService.ts` preserve original `first_pulled_at` and favorite star markers on duplicate card receipts.
+* **Deterministic Leaderboard Pagination**: Added `.order('osu_id').order('beatmap_id')` to all parallel chunk queries in `LeaderboardPage.tsx`.
+* **Collection Grid Page Reset**: Automatically resets `currentPage` to 1 whenever search or rarity filters change.
+* **Backdrop Modal Dismiss**: Enabled backdrop click-to-close on `BeatmapDetailModal.tsx`.
+* **Live Chat Presence Updates**: Included `totalPulls` in `GlobalChatDrawer.tsx` presence subscription dependencies.
 
 ---
 
