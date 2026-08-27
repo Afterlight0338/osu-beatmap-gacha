@@ -19,7 +19,7 @@ try {
   }
   
   execSync(`cp -r dist/* ${tempDir}/`, { stdio: 'inherit' });
-  execSync(`cd ${tempDir} && git add -A && git commit -m "deploy: $(date -u)" && git push origin HEAD:gh-pages`, { stdio: 'inherit' });
+  execSync(`cd ${tempDir} && git add -A && git commit --allow-empty -m "deploy: $(date -u)" && git push origin HEAD:gh-pages`, { stdio: 'inherit' });
   console.log('✓ Successfully deployed to gh-pages!');
 } finally {
   try {
