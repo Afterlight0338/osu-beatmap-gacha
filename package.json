@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "deploy": "node scripts/deploy.mjs",
     "scrape": "node scripts/local-scraper.mjs",
     "generate-demo": "node scripts/generate-demo-data.mjs",
     "update-maps": "node scripts/update-beatmaps.mjs"
