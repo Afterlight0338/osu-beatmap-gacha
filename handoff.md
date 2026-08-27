@@ -51,24 +51,26 @@
 ---
 
 ### B. Bounty Hunter System (`src/components/BountiesModal.tsx`, `src/services/bountyService.ts`, `src/services/scoreService.ts`)
-* **10-Bounty Active Board**: Randomly rolled beatmap challenges.
-* **Difficulty-Scaled Stamina Rewards**:
-  * Beginner (★1.50–★3.99): `+25 ⚡`
-  * Intermediate (★4.00–★5.29): `+50 ⚡`
-  * Advanced (★5.30–★6.49): `+80 ⚡`
-  * Expert (★6.50–★7.99): `+120 ⚡`
-  * Master (★8.00+): `+200 ⚡`
-* **Score Link Verification & Anti-Exploit**:
-  * Verifies score via web scraper API with timestamp comparison (score must be set *after* the bounty was accepted).
-  * Completions sync to Supabase `admin_config` (`key: 'bounties_cleared_by_user'`).
+* **10-Bounty Active Board**: Randomly rolled beatmap challenges with realistic star caps (max cap ★8.20; excludes impossible 10–12★ maps).
+* **Difficulty-Scaled Stamina & Bounty Points**:
+  * Beginner (★2.00–★3.80): `+25 ⚡` · `+10 Pts` (Min Grade A/S)
+  * Intermediate (★3.90–★5.20): `+50 ⚡` · `+25 Pts` (Min Grade A/S, optional HD)
+  * Advanced (★5.30–★6.30): `+80 ⚡` · `+50 Pts` (Min Grade A, optional HD/HR)
+  * Expert (★6.40–★7.40): `+120 ⚡` · `+100 Pts` (Min Grade Pass/B, no absurd 95%+ requirements)
+  * Master (★7.50–★8.20): `+200 ⚡` · `+200 Pts` (Strictly Pass requirement; any D/C/B/A/S passes)
+* **Score Verification & Anti-Cheat**:
+  * Prohibits unranked/automated mods (`RX`, `AP`, `AT`/`Auto`, `Cinema`).
+  * 3-minute adaptive grace window for client clock variations.
+  * Completions sync full score history and points to Supabase `admin_config` (`key: 'bounties_cleared_by_user'`).
 
 ---
 
-### C. Global Leaderboard (`src/pages/LeaderboardPage.tsx`, `src/components/UserProfileModal.tsx`)
-* **Ranking Tabs**: `[ 🎲 Most Pulls ]`, `[ 💎 Rare Cards ]`, and `[ 🎯 Bounties ]`.
-* **1-Hour Cache Strategy**: Rankings are cached in `sessionStorage` for 1 hour to eliminate repetitive queries.
-* **Manual Refresh**: Players can click `🔄 Refresh` to bust the cache and pull live database rankings immediately.
-* **User Profile Modal**: Displays player stats, rarest card, collection tabs, and `Bounties: X 🎯` metric.
+### C. Global Leaderboard & Profile Bounty Showcase (`src/pages/LeaderboardPage.tsx`, `src/components/UserProfileModal.tsx`)
+* **Ranking Tabs**: `[ 🎲 Most Pulls ]`, `[ 💎 Rare Cards ]`, and `[ 🎯 Bounties ]` (ranked by **Bounty Points**).
+* **1-Hour Cache Strategy**: Rankings are cached in `sessionStorage` for 1 hour with manual refresh override.
+* **User Profile Modal**:
+  * Displays player stats, rarest card, and `Bounties: X Pts (Y Clears)` metric.
+  * **Dedicated "🎯 Bounties Cleared" Tab**: Anyone can click to see the exact beatmaps, difficulty tiers, score grades, accuracy %, mods, and completion dates for that player.
 
 ---
 
