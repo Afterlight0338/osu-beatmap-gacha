@@ -435,11 +435,24 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const nextState: PullEnergyState = {
         ...prev,
         bonus: (prev.bonus || 0) + amount,
+        updatedAt: Date.now(),
       };
       savePullEnergyState(nextState).catch(() => {});
+
+      // If user is authenticated, sync bonus stamina to cloud immediately
+      if (user?.osuId) {
+        Promise.resolve(
+          supabase.from('admin_config').upsert({
+            key: `user_energy_${user.osuId}`,
+            value: nextState,
+            updated_at: new Date().toISOString(),
+          })
+        ).catch(() => {});
+      }
+
       return nextState;
     });
-  }, []);
+  }, [user]);
 
   /** Admin-only: refill main stamina and add full bonus stamina */
   const adminRefillEnergy = useCallback(async (amount: number) => {
@@ -668,23 +681,32 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         if (typeof syncResult.cloudTotalPulls === 'number') {
           const totalCopiesFromRecords = mergedRecords.reduce((acc, c) => acc + (c.copies || 1), 0);
-          setTotalPulls(Math.max(syncResult.cloudTotalPulls, totalCopiesFromRecords, mergedRecords.length));
+          setTotalPulls((prev) => Math.max(prev, syncResult.cloudTotalPulls || 0, totalCopiesFromRecords, mergedRecords.length));
         }
         if (typeof syncResult.cloudPityCount === 'number') {
           setPityCount(syncResult.cloudPityCount);
         }
 
-        // Synchronize cloud energy state across devices
+        // Synchronize cloud energy state across devices without wiping locally earned bonus stamina
         if (syncResult.cloudEnergy) {
           const cEnergy = syncResult.cloudEnergy;
-          if (
-            (typeof syncResult.cloudTotalPulls === 'number' && syncResult.cloudTotalPulls > totalPulls) ||
-            (cEnergy.lastRefillTime && cEnergy.lastRefillTime > energy.lastRefillTime) ||
-            cEnergy.current < energy.current
-          ) {
-            setEnergy(cEnergy);
-            await savePullEnergyState(cEnergy);
-          }
+          setEnergy((prev) => {
+            const mergedBonus = Math.max(prev.bonus || 0, cEnergy.bonus || 0);
+            const isCloudNewer = Boolean(cEnergy.updatedAt && cEnergy.updatedAt > (prev.updatedAt || 0));
+            const newCurrent = isCloudNewer ? cEnergy.current : Math.max(prev.current, cEnergy.current);
+            const newReserve = isCloudNewer ? (cEnergy.reserve || 0) : Math.max(prev.reserve || 0, cEnergy.reserve || 0);
+
+            const mergedState: PullEnergyState = {
+              ...prev,
+              current: newCurrent,
+              reserve: newReserve,
+              bonus: mergedBonus,
+              lastRefillTime: Math.max(prev.lastRefillTime || 0, cEnergy.lastRefillTime || 0),
+              updatedAt: Math.max(prev.updatedAt || 0, cEnergy.updatedAt || 0),
+            };
+            savePullEnergyState(mergedState).catch(() => {});
+            return mergedState;
+          });
         }
 
         // Hydrate history

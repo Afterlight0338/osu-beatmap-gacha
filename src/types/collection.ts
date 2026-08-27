@@ -67,6 +67,8 @@ export interface PullEnergyState {
   bonus: number;
   /** Last passive recovery tick timestamp */
   lastRefillTime: number;
+  /** Last state update timestamp */
+  updatedAt?: number;
 }
 
 export interface UserSettings {
