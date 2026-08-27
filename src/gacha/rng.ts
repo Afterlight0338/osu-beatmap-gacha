@@ -94,13 +94,13 @@ export function executeSinglePull(
     mapsInTier = pool.filter((m) => m.rarity === targetTier);
   }
 
-  // Fallback if that tier has no maps in the dataset at all
+  // Fallback if that tier has no maps in the dataset at all (safely fallback downward)
   if (mapsInTier.length === 0) {
-    const availableTiers = Array.from(new Set(pool.map((m) => m.rarity)));
-    if (availableTiers.length > 0) {
-      targetTier = availableTiers[Math.floor(Math.random() * availableTiers.length)];
-      mapsInTier = pool.filter((m) => m.rarity === targetTier);
-    } else {
+    mapsInTier = pool.filter((m) => m.rarity === 'Common');
+    if (mapsInTier.length === 0) {
+      mapsInTier = pool.filter((m) => m.rarity === 'Uncommon');
+    }
+    if (mapsInTier.length === 0) {
       mapsInTier = pool;
     }
   }

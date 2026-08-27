@@ -1,0 +1,1295 @@
+{
+  "affectedUsersSummary": {
+    "7834212": {
+      "username": "Epiphaneia",
+      "totalGlitchedPulls": 10,
+      "sessionsCount": 5,
+      "divineTotal": 3,
+      "goatTotal": 2,
+      "exTotal": 0,
+      "cardIds": [
+        "1787701949946-2201460-6",
+        "1787701949946-2201460-a9ytl",
+        "1787731672828-869197-bh4rk",
+        "1787731672828-2",
+        "1787732868465-29956-vtjq2",
+        "1787732868465-8",
+        "1787738237738-8",
+        "1787738237740-9",
+        "1787788491551-7",
+        "1787788491553-9"
+      ],
+      "beatmapIds": [
+        2201460,
+        2201460,
+        869197,
+        869197,
+        29956,
+        29956,
+        1023042,
+        1489207,
+        735272,
+        136400
+      ]
+    },
+    "11748306": {
+      "username": "AkemiHizami",
+      "totalGlitchedPulls": 2,
+      "sessionsCount": 1,
+      "divineTotal": 0,
+      "goatTotal": 0,
+      "exTotal": 0,
+      "cardIds": [
+        "1787758519837-5",
+        "1787758519837-2444148-46zf4"
+      ],
+      "beatmapIds": [
+        2444148,
+        2444148
+      ]
+    },
+    "14671577": {
+      "username": "RyoYamada",
+      "totalGlitchedPulls": 11,
+      "sessionsCount": 5,
+      "divineTotal": 5,
+      "goatTotal": 1,
+      "exTotal": 1,
+      "cardIds": [
+        "1787676812805-2992705-6",
+        "1787676812805-2992705-sdghg",
+        "1787731435575-9",
+        "1787731435575-725718-wnafr",
+        "1787731961230-0",
+        "1787731961242-5",
+        "1787731963009-3",
+        "1787756419796-5",
+        "1787756422749-6",
+        "1787756459954-0",
+        "1787756459954-1916994-inytr"
+      ],
+      "beatmapIds": [
+        2992705,
+        2992705,
+        725718,
+        725718,
+        2183501,
+        1071416,
+        2535968,
+        1793684,
+        453042,
+        1916994,
+        1916994
+      ]
+    },
+    "18120010": {
+      "username": "RelowDust",
+      "totalGlitchedPulls": 8,
+      "sessionsCount": 4,
+      "divineTotal": 0,
+      "goatTotal": 2,
+      "exTotal": 0,
+      "cardIds": [
+        "1787674875916-1969946-5",
+        "1787674875916-1969946-f1gv7",
+        "1787731833736-1892257-dhh0m",
+        "1787731833736-1",
+        "1787757112529-2",
+        "1787757112529-1262832-jykmw",
+        "1787757197796-9",
+        "1787757197796-1256809-foqzq"
+      ],
+      "beatmapIds": [
+        1969946,
+        1969946,
+        1892257,
+        1892257,
+        1262832,
+        1262832,
+        1256809,
+        1256809
+      ]
+    },
+    "19957490": {
+      "username": "Leeoch",
+      "totalGlitchedPulls": 8,
+      "sessionsCount": 3,
+      "divineTotal": 4,
+      "goatTotal": 0,
+      "exTotal": 0,
+      "cardIds": [
+        "1787730732334-724015-j1exe",
+        "1787730732334-7",
+        "1787733563008-12789-x7ath",
+        "1787733563008-1",
+        "1787733563022-947166-bxaq0",
+        "1787733563022-7",
+        "1787735660854-0",
+        "1787735660854-846259-guxzl"
+      ],
+      "beatmapIds": [
+        724015,
+        724015,
+        12789,
+        12789,
+        947166,
+        947166,
+        846259,
+        846259
+      ]
+    },
+    "20958628": {
+      "username": "Nissan Altima",
+      "totalGlitchedPulls": 6,
+      "sessionsCount": 3,
+      "divineTotal": 4,
+      "goatTotal": 0,
+      "exTotal": 0,
+      "cardIds": [
+        "1787662842150-846259-3o41d",
+        "1787662842150-846259-6",
+        "1787663443489-1385398-2",
+        "1787663443489-1385398-p70yo",
+        "1787670246450-118068-6",
+        "1787670246450-118068-o890f"
+      ],
+      "beatmapIds": [
+        846259,
+        846259,
+        1385398,
+        1385398,
+        118068,
+        118068
+      ]
+    },
+    "21417624": {
+      "username": "koseki1",
+      "totalGlitchedPulls": 31,
+      "sessionsCount": 2,
+      "divineTotal": 15,
+      "goatTotal": 14,
+      "exTotal": 0,
+      "cardIds": [
+        "1787594711690-2404778-5",
+        "1787594711690-2404778-py1i6",
+        "1787793433729-118068-qkrv4",
+        "1787793433729-736215-yia9s",
+        "1787793433729-46628-zihlp",
+        "1787793433729-2060305-cfvxj",
+        "1787793433729-1593361-ugzlc",
+        "1787793433729-1385398-oecoe",
+        "1787793433729-1257298-yaonk",
+        "1787793435890-351189-t28nd",
+        "1787793435890-1442773-lmtad",
+        "1787793435890-1255789-kfkg1",
+        "1787793435890-397535-zu8on",
+        "1787793435890-397535-op6jy",
+        "1787793435890-1595667-36q82",
+        "1787793435890-820619-ij6un",
+        "1787793435890-815857-utica",
+        "1787793435890-69405-5kss8",
+        "1787793437884-2535968-jusz5",
+        "1787793437884-1849273-jb5fh",
+        "1787793437884-1262832-xe0y1",
+        "1787793440126-2025942-8e0u2",
+        "1787793440126-1442773-8bjt9",
+        "1787793440126-110175-ypav9",
+        "1787793440126-64780-dgit6",
+        "1787793440126-2640144-vzs2g",
+        "1787793440126-1799197-4blqr",
+        "1787793442048-1091249-21pnh",
+        "1787793442048-315552-r6h6f",
+        "1787793442048-2535968-77e7p",
+        "1787793442049-1385398-tmhpf"
+      ],
+      "beatmapIds": [
+        2404778,
+        2404778,
+        118068,
+        736215,
+        46628,
+        2060305,
+        1593361,
+        1385398,
+        1257298,
+        351189,
+        1442773,
+        1255789,
+        397535,
+        397535,
+        1595667,
+        820619,
+        815857,
+        69405,
+        2535968,
+        1849273,
+        1262832,
+        2025942,
+        1442773,
+        110175,
+        64780,
+        2640144,
+        1799197,
+        1091249,
+        315552,
+        2535968,
+        1385398
+      ]
+    },
+    "21644726": {
+      "username": "Daitaku Helioz",
+      "totalGlitchedPulls": 6,
+      "sessionsCount": 3,
+      "divineTotal": 2,
+      "goatTotal": 0,
+      "exTotal": 1,
+      "cardIds": [
+        "1787731361286-0",
+        "1787731362460-2",
+        "1787743135327-7",
+        "1787743137039-2",
+        "1787747493385-6",
+        "1787747495905-0"
+      ],
+      "beatmapIds": [
+        1805884,
+        1028733,
+        1793684,
+        4303461,
+        1489207,
+        2044362
+      ]
+    },
+    "24838043": {
+      "username": "ItzVynx",
+      "totalGlitchedPulls": 4,
+      "sessionsCount": 2,
+      "divineTotal": 0,
+      "goatTotal": 1,
+      "exTotal": 0,
+      "cardIds": [
+        "1787579352689-2022409-8lal9",
+        "1787579352689-2022409-2",
+        "1787734246006-6",
+        "1787734247097-3"
+      ],
+      "beatmapIds": [
+        2022409,
+        2022409,
+        1262832,
+        37762
+      ]
+    },
+    "35867142": {
+      "username": "MoonzKurumi",
+      "totalGlitchedPulls": 2,
+      "sessionsCount": 1,
+      "divineTotal": 0,
+      "goatTotal": 0,
+      "exTotal": 1,
+      "cardIds": [
+        "1787745059637-3",
+        "1787745061815-7"
+      ],
+      "beatmapIds": [
+        722238,
+        2183501
+      ]
+    }
+  },
+  "allSuspiciousClusters": [
+    {
+      "osuId": 35867142,
+      "username": "MoonzKurumi",
+      "timestamp": 1787745059637,
+      "dateStr": "2026-08-26T11:50:59.637Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 1,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787745059637-3",
+          "beatmapId": 722238,
+          "title": "Yoru no Kodomo tachi",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787745061815-7",
+          "beatmapId": 2183501,
+          "title": "Friend Shitai",
+          "rarity": "EX",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 7834212,
+      "username": "Epiphaneia",
+      "timestamp": 1787701949946,
+      "dateStr": "2026-08-25T23:52:29.946Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787701949946-2201460-6",
+          "beatmapId": 2201460,
+          "title": "HIKARI (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787701949946-2201460-a9ytl",
+          "beatmapId": 2201460,
+          "title": "HIKARI (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 7834212,
+      "username": "Epiphaneia",
+      "timestamp": 1787731672828,
+      "dateStr": "2026-08-26T08:07:52.828Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 2,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787731672828-869197-bh4rk",
+          "beatmapId": 869197,
+          "title": "Silhouette",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787731672828-2",
+          "beatmapId": 869197,
+          "title": "Silhouette",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 7834212,
+      "username": "Epiphaneia",
+      "timestamp": 1787732868465,
+      "dateStr": "2026-08-26T08:27:48.465Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787732868465-29956-vtjq2",
+          "beatmapId": 29956,
+          "title": "World is Mine",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787732868465-8",
+          "beatmapId": 29956,
+          "title": "World is Mine",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 7834212,
+      "username": "Epiphaneia",
+      "timestamp": 1787738237738,
+      "dateStr": "2026-08-26T09:57:17.738Z",
+      "highTierCount": 2,
+      "divineCount": 1,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787738237738-8",
+          "beatmapId": 1023042,
+          "title": "Paradisus-Paradoxum",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787738237740-9",
+          "beatmapId": 1489207,
+          "title": "Immortal Flame (feat. Anna Yvette)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 7834212,
+      "username": "Epiphaneia",
+      "timestamp": 1787788491551,
+      "dateStr": "2026-08-26T23:54:51.551Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787788491551-7",
+          "beatmapId": 735272,
+          "title": "MIIRO vs. Ai no Scenario",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787788491553-9",
+          "beatmapId": 136400,
+          "title": "Dear You",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 19957490,
+      "username": "Leeoch",
+      "timestamp": 1787730732334,
+      "dateStr": "2026-08-26T07:52:12.334Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787730732334-724015-j1exe",
+          "beatmapId": 724015,
+          "title": "Toumei Elegy",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787730732334-7",
+          "beatmapId": 724015,
+          "title": "Toumei Elegy",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 19957490,
+      "username": "Leeoch",
+      "timestamp": 1787733563008,
+      "dateStr": "2026-08-26T08:39:23.008Z",
+      "highTierCount": 4,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787733563008-12789-x7ath",
+          "beatmapId": 12789,
+          "title": "Cruel Angel's Thesis",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787733563008-1",
+          "beatmapId": 12789,
+          "title": "Cruel Angel's Thesis",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787733563022-947166-bxaq0",
+          "beatmapId": 947166,
+          "title": "Hikaru nara",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787733563022-7",
+          "beatmapId": 947166,
+          "title": "Hikaru nara",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 19957490,
+      "username": "Leeoch",
+      "timestamp": 1787735660854,
+      "dateStr": "2026-08-26T09:14:20.854Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787735660854-0",
+          "beatmapId": 846259,
+          "title": "Marble Soda",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787735660854-846259-guxzl",
+          "beatmapId": 846259,
+          "title": "Marble Soda",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 24838043,
+      "username": "ItzVynx",
+      "timestamp": 1787579352689,
+      "dateStr": "2026-08-24T13:49:12.689Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787579352689-2022409-8lal9",
+          "beatmapId": 2022409,
+          "title": "Dancin (Remix by KRONO)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787579352689-2022409-2",
+          "beatmapId": 2022409,
+          "title": "Dancin (Remix by KRONO)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 24838043,
+      "username": "ItzVynx",
+      "timestamp": 1787734246006,
+      "dateStr": "2026-08-26T08:50:46.006Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 1,
+      "exCount": 0,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787734246006-6",
+          "beatmapId": 1262832,
+          "title": "Hitorigoto -TV MIX-",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787734247097-3",
+          "beatmapId": 37762,
+          "title": "Renai Circulation",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 20958628,
+      "username": "Nissan Altima",
+      "timestamp": 1787662842150,
+      "dateStr": "2026-08-25T13:00:42.150Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787662842150-846259-3o41d",
+          "beatmapId": 846259,
+          "title": "Marble Soda",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787662842150-846259-6",
+          "beatmapId": 846259,
+          "title": "Marble Soda",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 20958628,
+      "username": "Nissan Altima",
+      "timestamp": 1787663443489,
+      "dateStr": "2026-08-25T13:10:43.489Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787663443489-1385398-2",
+          "beatmapId": 1385398,
+          "title": "ILY",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787663443489-1385398-p70yo",
+          "beatmapId": 1385398,
+          "title": "ILY",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 20958628,
+      "username": "Nissan Altima",
+      "timestamp": 1787670246450,
+      "dateStr": "2026-08-25T15:04:06.450Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787670246450-118068-6",
+          "beatmapId": 118068,
+          "title": "Kokou no Sousei",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787670246450-118068-o890f",
+          "beatmapId": 118068,
+          "title": "Kokou no Sousei",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 11748306,
+      "username": "AkemiHizami",
+      "timestamp": 1787758519837,
+      "dateStr": "2026-08-26T15:35:19.837Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787758519837-5",
+          "beatmapId": 2444148,
+          "title": "Imagination (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787758519837-2444148-46zf4",
+          "beatmapId": 2444148,
+          "title": "Imagination (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 14671577,
+      "username": "RyoYamada",
+      "timestamp": 1787676812805,
+      "dateStr": "2026-08-25T16:53:32.805Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787676812805-2992705-6",
+          "beatmapId": 2992705,
+          "title": "Lost Umbrella",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787676812805-2992705-sdghg",
+          "beatmapId": 2992705,
+          "title": "Lost Umbrella",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 14671577,
+      "username": "RyoYamada",
+      "timestamp": 1787731435575,
+      "dateStr": "2026-08-26T08:03:55.575Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787731435575-9",
+          "beatmapId": 725718,
+          "title": "BLUE DRAGON",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787731435575-725718-wnafr",
+          "beatmapId": 725718,
+          "title": "BLUE DRAGON",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 14671577,
+      "username": "RyoYamada",
+      "timestamp": 1787731961230,
+      "dateStr": "2026-08-26T08:12:41.230Z",
+      "highTierCount": 3,
+      "divineCount": 0,
+      "goatCount": 1,
+      "exCount": 1,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787731961230-0",
+          "beatmapId": 2183501,
+          "title": "Friend Shitai",
+          "rarity": "EX",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787731961242-5",
+          "beatmapId": 1071416,
+          "title": "Zen Zen Zense",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787731963009-3",
+          "beatmapId": 2535968,
+          "title": "Yoru ni Kakeru",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 14671577,
+      "username": "RyoYamada",
+      "timestamp": 1787756419796,
+      "dateStr": "2026-08-26T15:00:19.796Z",
+      "highTierCount": 2,
+      "divineCount": 1,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787756419796-5",
+          "beatmapId": 1793684,
+          "title": "unravel (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787756422749-6",
+          "beatmapId": 453042,
+          "title": "IGNITE (TV size ver.)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 14671577,
+      "username": "RyoYamada",
+      "timestamp": 1787756459954,
+      "dateStr": "2026-08-26T15:00:59.954Z",
+      "highTierCount": 2,
+      "divineCount": 2,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787756459954-0",
+          "beatmapId": 1916994,
+          "title": "FLY HIGH!! (TV Size)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787756459954-1916994-inytr",
+          "beatmapId": 1916994,
+          "title": "FLY HIGH!! (TV Size)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 21417624,
+      "username": "koseki1",
+      "timestamp": 1787594711690,
+      "dateStr": "2026-08-24T18:05:11.690Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787594711690-2404778-5",
+          "beatmapId": 2404778,
+          "title": "One by One",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787594711690-2404778-py1i6",
+          "beatmapId": 2404778,
+          "title": "One by One",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 21417624,
+      "username": "koseki1",
+      "timestamp": 1787793433729,
+      "dateStr": "2026-08-27T01:17:13.729Z",
+      "highTierCount": 29,
+      "divineCount": 15,
+      "goatCount": 14,
+      "exCount": 0,
+      "seedMapCount": 29,
+      "cards": [
+        {
+          "id": "1787793433729-118068-qkrv4",
+          "beatmapId": 118068,
+          "title": "Kokou no Sousei",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-736215-yia9s",
+          "beatmapId": 736215,
+          "title": "Highscore",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-46628-zihlp",
+          "beatmapId": 46628,
+          "title": "Blue Bird (TV Size)",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-2060305-cfvxj",
+          "beatmapId": 2060305,
+          "title": "Take a Hint feat. Victoria Justice & Elizabeth Gillies (Speed Up Ver.)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-1593361-ugzlc",
+          "beatmapId": 1593361,
+          "title": "SAD!",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-1385398-oecoe",
+          "beatmapId": 1385398,
+          "title": "ILY",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793433729-1257298-yaonk",
+          "beatmapId": 1257298,
+          "title": "Peace Sign (TV edit.)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-351189-t28nd",
+          "beatmapId": 351189,
+          "title": "Tear Rain",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-1442773-lmtad",
+          "beatmapId": 1442773,
+          "title": "Miracle Sugite Yabai (feat. shully)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-1255789-kfkg1",
+          "beatmapId": 1255789,
+          "title": "Shinzou o Sasageyo! [TV Size]",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-397535-zu8on",
+          "beatmapId": 397535,
+          "title": "My Love",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-397535-op6jy",
+          "beatmapId": 397535,
+          "title": "My Love",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-1595667-36q82",
+          "beatmapId": 1595667,
+          "title": "asphyxia (TV edit)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-820619-ij6un",
+          "beatmapId": 820619,
+          "title": "Get Jinxed",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-815857-utica",
+          "beatmapId": 815857,
+          "title": "Kyouran Hey Kids!!",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793435890-69405-5kss8",
+          "beatmapId": 69405,
+          "title": "MATRYOSHKA",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793437884-2535968-jusz5",
+          "beatmapId": 2535968,
+          "title": "Yoru ni Kakeru",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793437884-1849273-jb5fh",
+          "beatmapId": 1849273,
+          "title": "quaver",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793437884-1262832-xe0y1",
+          "beatmapId": 1262832,
+          "title": "Hitorigoto -TV MIX-",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-2025942-8e0u2",
+          "beatmapId": 2025942,
+          "title": "Mizuoto to Curtain",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-1442773-8bjt9",
+          "beatmapId": 1442773,
+          "title": "Miracle Sugite Yabai (feat. shully)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-110175-ypav9",
+          "beatmapId": 110175,
+          "title": "Rockefeller Street (Nightcore Mix)",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-64780-dgit6",
+          "beatmapId": 64780,
+          "title": "Bad Apple!!",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-2640144-vzs2g",
+          "beatmapId": 2640144,
+          "title": "Kaikai Kitan (TV Size)",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793440126-1799197-4blqr",
+          "beatmapId": 1799197,
+          "title": "ADAMAS (TV Size)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793442048-1091249-21pnh",
+          "beatmapId": 1091249,
+          "title": "Zen Zen Zense (movie ver.)",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793442048-315552-r6h6f",
+          "beatmapId": 315552,
+          "title": "Liquid (Paul Rosenthal Remix)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793442048-2535968-77e7p",
+          "beatmapId": 2535968,
+          "title": "Yoru ni Kakeru",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787793442049-1385398-tmhpf",
+          "beatmapId": 1385398,
+          "title": "ILY",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 21644726,
+      "username": "Daitaku Helioz",
+      "timestamp": 1787731361286,
+      "dateStr": "2026-08-26T08:02:41.286Z",
+      "highTierCount": 2,
+      "divineCount": 1,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787731361286-0",
+          "beatmapId": 1805884,
+          "title": "The Hills",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787731362460-2",
+          "beatmapId": 1028733,
+          "title": "Inferno",
+          "rarity": "Divine",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 21644726,
+      "username": "Daitaku Helioz",
+      "timestamp": 1787743135327,
+      "dateStr": "2026-08-26T11:18:55.327Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 1,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787743135327-7",
+          "beatmapId": 1793684,
+          "title": "unravel (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787743137039-2",
+          "beatmapId": 4303461,
+          "title": "Heat abnormal",
+          "rarity": "EX",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 21644726,
+      "username": "Daitaku Helioz",
+      "timestamp": 1787747493385,
+      "dateStr": "2026-08-26T12:31:33.385Z",
+      "highTierCount": 2,
+      "divineCount": 1,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 1,
+      "cards": [
+        {
+          "id": "1787747493385-6",
+          "beatmapId": 1489207,
+          "title": "Immortal Flame (feat. Anna Yvette)",
+          "rarity": "Divine",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787747495905-0",
+          "beatmapId": 2044362,
+          "title": "JUSTadICE (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 18120010,
+      "username": "RelowDust",
+      "timestamp": 1787674875916,
+      "dateStr": "2026-08-25T16:21:15.916Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787674875916-1969946-5",
+          "beatmapId": 1969946,
+          "title": "Chikatto Chika Chika",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787674875916-1969946-f1gv7",
+          "beatmapId": 1969946,
+          "title": "Chikatto Chika Chika",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 18120010,
+      "username": "RelowDust",
+      "timestamp": 1787731833736,
+      "dateStr": "2026-08-26T08:10:33.736Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787731833736-1892257-dhh0m",
+          "beatmapId": 1892257,
+          "title": "Guess Who Is Back (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787731833736-1",
+          "beatmapId": 1892257,
+          "title": "Guess Who Is Back (TV Size)",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    },
+    {
+      "osuId": 18120010,
+      "username": "RelowDust",
+      "timestamp": 1787757112529,
+      "dateStr": "2026-08-26T15:11:52.529Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 2,
+      "exCount": 0,
+      "seedMapCount": 2,
+      "cards": [
+        {
+          "id": "1787757112529-2",
+          "beatmapId": 1262832,
+          "title": "Hitorigoto -TV MIX-",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        },
+        {
+          "id": "1787757112529-1262832-jykmw",
+          "beatmapId": 1262832,
+          "title": "Hitorigoto -TV MIX-",
+          "rarity": "GOAT",
+          "isSeedMap": true
+        }
+      ]
+    },
+    {
+      "osuId": 18120010,
+      "username": "RelowDust",
+      "timestamp": 1787757197796,
+      "dateStr": "2026-08-26T15:13:17.796Z",
+      "highTierCount": 2,
+      "divineCount": 0,
+      "goatCount": 0,
+      "exCount": 0,
+      "seedMapCount": 0,
+      "cards": [
+        {
+          "id": "1787757197796-9",
+          "beatmapId": 1256809,
+          "title": "Save Me",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        },
+        {
+          "id": "1787757197796-1256809-foqzq",
+          "beatmapId": 1256809,
+          "title": "Save Me",
+          "rarity": "Celestial",
+          "isSeedMap": false
+        }
+      ]
+    }
+  ]
+}
