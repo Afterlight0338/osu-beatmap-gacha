@@ -14,13 +14,17 @@ import {
   Award,
   ShieldCheck,
   Trash2,
+  Crown,
+  Flame,
+  Package,
+  Sparkles,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useGacha } from '../context/GachaContext';
 import { useAuth } from '../context/AuthContext';
 import { sfx } from '../audio/sfx';
 import { previewPlayer } from '../audio/previewPlayer';
-import { Bounty, ActiveBounty, CompletedBounty, BountyDifficulty, OsuScoreData } from '../types/bounty';
+import { Bounty, ActiveBounty, CompletedBounty, BountyDifficulty, OsuScoreData, BountyPack, CompletedPackRecord } from '../types/bounty';
 import {
   generateRandomBounties,
   loadSavedBounties,
@@ -30,6 +34,10 @@ import {
   loadCompletedBounties,
   saveCompletedBounty,
   loadClaimedScoreIds,
+  fetchBossBounties,
+  fetchBountyPacks,
+  loadCompletedPacks,
+  saveCompletedPack,
 } from '../services/bountyService';
 import { fetchScoreDetails, verifyScoreForBounty } from '../services/scoreService';
 
@@ -72,6 +80,12 @@ const DIFFICULTY_STYLES: Record<
     border: 'border-amber-500/30',
     glow: 'shadow-amber-950/40',
   },
+  Boss: {
+    badge: 'bg-gradient-to-r from-red-950 via-rose-950 to-amber-950 text-amber-300 border-red-500/80 shadow-md shadow-red-500/20',
+    text: 'text-amber-300 font-black',
+    border: 'border-red-500/60 shadow-lg shadow-red-950/50',
+    glow: 'shadow-red-950/60',
+  },
 };
 
 export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose }) => {
@@ -79,10 +93,13 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   const { user } = useAuth();
 
   const [bounties, setBounties] = useState<Bounty[]>([]);
+  const [bossBounties, setBossBounties] = useState<Bounty[]>([]);
+  const [bountyPacks, setBountyPacks] = useState<BountyPack[]>([]);
+  const [completedPacks, setCompletedPacks] = useState<CompletedPackRecord[]>([]);
   const [activeBounty, setActiveBounty] = useState<ActiveBounty | null>(null);
   const [completedBounties, setCompletedBounties] = useState<CompletedBounty[]>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('All');
-  const [activeTab, setActiveTab] = useState<'bounties' | 'history'>('bounties');
+  const [activeTab, setActiveTab] = useState<'bounties' | 'packs' | 'history'>('bounties');
 
   // Verification Form State
   const [scoreInput, setScoreInput] = useState<string>('');
@@ -91,6 +108,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   const [verifySuccess, setVerifySuccess] = useState<{
     score: OsuScoreData;
     reward: number;
+    packBonus?: { stamina: number; points: number; title: string };
   } | null>(null);
 
   // Audio Preview State
@@ -109,6 +127,15 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   // Initialize and load saved state
   useEffect(() => {
     if (!isOpen) return;
+
+    // Load Boss Bounties & Bounty Packs from Supabase
+    fetchBossBounties().then((bosses) => {
+      if (bosses) setBossBounties(bosses);
+    });
+    fetchBountyPacks().then((packs) => {
+      if (packs) setBountyPacks(packs.filter((p) => p.active !== false));
+    });
+    setCompletedPacks(loadCompletedPacks());
 
     const saved = loadSavedBounties();
     if (saved && saved.length > 0) {
@@ -248,6 +275,9 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
         completedAt: Date.now(),
         rewardStamina: rewardAmount,
         rewardPoints: rewardPts,
+        isBoss: activeBounty.bounty.isBoss,
+        bossReason: activeBounty.bounty.bossReason,
+        packId: activeBounty.bounty.packId,
       };
 
       await saveCompletedBounty(
@@ -256,9 +286,40 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
       );
       setCompletedBounties((prev) => [completed, ...prev]);
 
+      // 5. Check if completing this bounty finished a Bounty Pack!
+      let packBonusInfo: { stamina: number; points: number; title: string } | undefined;
+      if (activeBounty.bounty.packId) {
+        const pack = bountyPacks.find((p) => p.id === activeBounty.bounty.packId);
+        if (pack) {
+          const allCompletedScores = [completed, ...completedBounties];
+          const packMapsCompleted = pack.bounties.every((pb) =>
+            allCompletedScores.some((c) => c.beatmapId === pb.beatmap.id)
+          );
+          const alreadyClaimed = completedPacks.some((cp) => cp.packId === pack.id);
+
+          if (packMapsCompleted && !alreadyClaimed) {
+            const packRecord: CompletedPackRecord = {
+              packId: pack.id,
+              completedAt: Date.now(),
+              bonusStamina: pack.bonusRewardStamina || 500,
+              bonusPoints: pack.bonusRewardPoints || 500,
+            };
+            saveCompletedPack(packRecord);
+            setCompletedPacks((prev) => [packRecord, ...prev]);
+            await addBonusEnergy(pack.bonusRewardStamina || 500);
+            packBonusInfo = {
+              stamina: pack.bonusRewardStamina || 500,
+              points: pack.bonusRewardPoints || 500,
+              title: pack.title,
+            };
+          }
+        }
+      }
+
       setVerifySuccess({
         score,
         reward: rewardAmount,
+        packBonus: packBonusInfo,
       });
 
       // Clear active bounty & replace from pool
@@ -501,9 +562,9 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
 
           {/* Success Banner (Just Claimed) */}
           {verifySuccess && !activeBounty && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-emerald-950/80 border border-emerald-500/60 text-emerald-200 flex items-center justify-between gap-4 animate-scale-up shadow-xl shadow-emerald-950/50">
-              <div className="flex items-center space-x-3.5">
-                <div className="p-3 rounded-xl bg-emerald-900 text-emerald-300">
+            <div className="p-4 sm:p-5 rounded-2xl bg-emerald-950/80 border border-emerald-500/60 text-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-scale-up shadow-xl shadow-emerald-950/50">
+              <div className="flex items-start sm:items-center space-x-3.5">
+                <div className="p-3 rounded-xl bg-emerald-900 text-emerald-300 flex-shrink-0">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
@@ -515,11 +576,19 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                     {verifySuccess.score.rank} Rank · {verifySuccess.score.accuracy.toFixed(2)}% ·{' '}
                     {verifySuccess.score.pp.toFixed(1)}pp).
                   </p>
+                  {verifySuccess.packBonus && (
+                    <div className="mt-2 p-2 rounded-xl bg-amber-950/80 border border-amber-500/60 text-amber-200 text-xs font-mono font-bold flex items-center space-x-2 animate-bounce">
+                      <Sparkles className="w-4 h-4 text-amber-400" />
+                      <span>
+                        🏆 PACK BONUS UNLOCKED ({verifySuccess.packBonus.title}): +{verifySuccess.packBonus.stamina} ⚡ & +{verifySuccess.packBonus.points} Pts!
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
               <button
                 onClick={() => setVerifySuccess(null)}
-                className="px-3 py-1.5 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-xs font-mono text-emerald-200"
+                className="px-3 py-1.5 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-xs font-mono text-emerald-200 self-end sm:self-auto"
               >
                 Dismiss
               </button>
@@ -529,7 +598,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
           {/* Board Navigation & Controls */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
             {/* Tabs */}
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => {
                   sfx.playClick();
@@ -543,6 +612,22 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
               >
                 Active Board (10 Bounties)
               </button>
+
+              <button
+                onClick={() => {
+                  sfx.playClick();
+                  setActiveTab('packs');
+                }}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold font-display transition-all flex items-center space-x-1.5 ${
+                  activeTab === 'packs'
+                    ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
+                    : 'bg-slate-900 text-slate-400 hover:text-white'
+                }`}
+              >
+                <Package className="w-3.5 h-3.5" />
+                <span>Bounty Packs ({bountyPacks.length})</span>
+              </button>
+
               <button
                 onClick={() => {
                   sfx.playClick();
@@ -568,6 +653,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                   className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 font-mono focus:outline-none focus:border-cyan-500"
                 >
                   <option value="All">All Difficulties</option>
+                  <option value="Boss">👑 Raid Bosses</option>
                   <option value="Beginner">Beginner (★2–★4)</option>
                   <option value="Intermediate">Intermediate (★4–★5.3)</option>
                   <option value="Advanced">Advanced (★5.3–★6.5)</option>
@@ -586,99 +672,356 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
             )}
           </div>
 
-          {/* ── TAB 1: BOUNTIES GRID ──────────────────────────────────────── */}
+          {/* ── TAB 1: BOUNTIES GRID (With Boss Raid Spotlight) ───────────── */}
           {activeTab === 'bounties' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredBounties.map((b) => {
-                const isThisActive = activeBounty?.bounty.id === b.id;
-                const style = DIFFICULTY_STYLES[b.difficulty] || DIFFICULTY_STYLES.Intermediate;
-
-                return (
-                  <div
-                    key={b.id}
-                    className={`group relative rounded-2xl bg-slate-900/80 border hover:border-cyan-500/50 p-4 transition-all duration-200 flex flex-col justify-between space-y-3 overflow-hidden ${
-                      isThisActive ? 'border-cyan-500 shadow-lg shadow-cyan-950/40' : 'border-slate-800'
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3.5">
-                      <img
-                        src={b.beatmap.covers.card || b.beatmap.covers.cover}
-                        alt="Cover"
-                        className="w-16 h-16 rounded-xl object-cover border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform"
-                      />
-                      <div className="min-w-0 flex-1 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold border ${style.badge}`}
-                          >
-                            {b.difficulty}
-                          </span>
-                          <span className="text-xs font-mono text-amber-400 font-bold">
-                            ★ {b.beatmap.stars.toFixed(2)}
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-bold text-white truncate font-sans group-hover:text-cyan-300 transition-colors">
-                          {b.beatmap.title}
-                        </h4>
-                        <p className="text-xs text-slate-400 truncate font-mono">
-                          {b.beatmap.artist} [{b.beatmap.version}]
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Mission Objective */}
-                    <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs space-y-1">
-                      <div className="flex items-center justify-between text-[11px] font-mono">
-                        <span className="text-slate-400">Objective:</span>
-                        <span className="font-bold text-cyan-300">{b.description}</span>
-                      </div>
-                    </div>
-
-                    {/* Footer Actions */}
-                    <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-400">
-                        <div className="flex items-center space-x-1">
-                          <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                          <span>+{b.rewardStamina} ⚡</span>
-                        </div>
-                        <span className="text-cyan-400 font-extrabold">+{b.rewardPoints} Pts</span>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
-                          className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
-                          title="Preview Audio"
-                        >
-                          {playingSetId === (b.beatmap.beatmapsetId || b.beatmap.id) ? (
-                            <Pause className="w-3.5 h-3.5 text-pink-400" />
-                          ) : (
-                            <Play className="w-3.5 h-3.5" />
-                          )}
-                        </button>
-
-                        {isThisActive ? (
-                          <span className="px-3.5 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500 text-cyan-300 text-xs font-mono font-bold">
-                            In Progress
-                          </span>
-                        ) : (
-                          <button
-                            onClick={() => handleAcceptBounty(b)}
-                            disabled={activeBounty !== null}
-                            className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold font-mono transition-all shadow-md shadow-cyan-950/40"
-                          >
-                            Accept
-                          </button>
-                        )}
-                      </div>
-                    </div>
+            <div className="space-y-6">
+              {/* 👑 ACTIVE BOSS RAID BOUNTIES */}
+              {bossBounties.length > 0 && (selectedDifficulty === 'All' || selectedDifficulty === 'Boss') && (
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2 text-xs font-mono font-bold text-red-400 uppercase tracking-wider">
+                    <Flame className="w-4 h-4 text-red-500 animate-pulse" />
+                    <span>👑 ACTIVE RAID BOSS CHALLENGES (+300 ⚡ / +300 Pts)</span>
                   </div>
-                );
-              })}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {bossBounties.map((b) => {
+                      const isThisActive = activeBounty?.bounty.id === b.id;
+                      return (
+                        <div
+                          key={b.id}
+                          className={`relative rounded-3xl bg-gradient-to-b from-red-950/60 via-slate-900/90 to-slate-950 border-2 border-red-500/70 p-5 transition-all duration-200 flex flex-col justify-between space-y-3 overflow-hidden shadow-xl shadow-red-950/40 ${
+                            isThisActive ? 'ring-2 ring-red-400 scale-[1.01]' : 'hover:border-red-400'
+                          }`}
+                        >
+                          <div className="flex items-start space-x-3.5">
+                            <img
+                              src={b.beatmap.covers.card || b.beatmap.covers.cover}
+                              alt="Boss Cover"
+                              className="w-20 h-20 rounded-2xl object-cover border-2 border-red-500/50 flex-shrink-0"
+                            />
+                            <div className="min-w-0 flex-1 space-y-1">
+                              <div className="flex items-center justify-between">
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md shadow-red-900/50 flex items-center space-x-1">
+                                  <Crown className="w-3 h-3 fill-current" />
+                                  <span>RAID BOSS</span>
+                                </span>
+                                <span className="text-xs font-mono text-amber-300 font-black">
+                                  ★ {b.beatmap.stars.toFixed(2)}
+                                </span>
+                              </div>
+                              <h4 className="text-base font-black text-white truncate font-display">
+                                {b.beatmap.title}
+                              </h4>
+                              <p className="text-xs text-slate-300 truncate font-mono">
+                                {b.beatmap.artist} [{b.beatmap.version}]
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Boss Lore Box */}
+                          {b.bossReason && (
+                            <div className="p-3 rounded-2xl bg-red-950/80 border border-red-500/40 text-xs text-amber-200 font-sans space-y-1 shadow-inner">
+                              <div className="flex items-center space-x-1.5 text-[10px] font-mono font-bold text-red-300 uppercase">
+                                <Flame className="w-3 h-3 text-red-400" />
+                                <span>Why this song was chosen:</span>
+                              </div>
+                              <p className="italic leading-relaxed">"{b.bossReason}"</p>
+                            </div>
+                          )}
+
+                          {/* Objective */}
+                          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-red-900/60 text-xs flex items-center justify-between font-mono">
+                            <span className="text-slate-400">Objective:</span>
+                            <span className="font-bold text-amber-300">{b.description}</span>
+                          </div>
+
+                          {/* Footer Actions */}
+                          <div className="flex items-center justify-between pt-1">
+                            <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-400">
+                              <div className="flex items-center space-x-1">
+                                <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                <span>+{b.rewardStamina || 300} ⚡</span>
+                              </div>
+                              <span className="text-amber-300 font-extrabold">+{b.rewardPoints || 300} Pts</span>
+                            </div>
+
+                            <div className="flex items-center space-x-2">
+                              <button
+                                onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
+                                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                                title="Preview Audio"
+                              >
+                                {playingSetId === (b.beatmap.beatmapsetId || b.beatmap.id) ? (
+                                  <Pause className="w-3.5 h-3.5 text-pink-400" />
+                                ) : (
+                                  <Play className="w-3.5 h-3.5" />
+                                )}
+                              </button>
+
+                              {isThisActive ? (
+                                <span className="px-3.5 py-1.5 rounded-xl bg-red-950 border border-red-500 text-red-300 text-xs font-mono font-bold">
+                                  In Progress
+                                </span>
+                              ) : (
+                                <button
+                                  onClick={() => handleAcceptBounty(b)}
+                                  disabled={activeBounty !== null}
+                                  className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-black font-mono transition-all shadow-md shadow-red-950/60"
+                                >
+                                  Accept Raid
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Standard Daily Bounties Grid */}
+              {selectedDifficulty !== 'Boss' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredBounties.map((b) => {
+                    const isThisActive = activeBounty?.bounty.id === b.id;
+                    const style = DIFFICULTY_STYLES[b.difficulty] || DIFFICULTY_STYLES.Intermediate;
+
+                    return (
+                      <div
+                        key={b.id}
+                        className={`group relative rounded-2xl bg-slate-900/80 border hover:border-cyan-500/50 p-4 transition-all duration-200 flex flex-col justify-between space-y-3 overflow-hidden ${
+                          isThisActive ? 'border-cyan-500 shadow-lg shadow-cyan-950/40' : 'border-slate-800'
+                        }`}
+                      >
+                        <div className="flex items-start space-x-3.5">
+                          <img
+                            src={b.beatmap.covers.card || b.beatmap.covers.cover}
+                            alt="Cover"
+                            className="w-16 h-16 rounded-xl object-cover border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform"
+                          />
+                          <div className="min-w-0 flex-1 space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span
+                                className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold border ${style.badge}`}
+                              >
+                                {b.difficulty}
+                              </span>
+                              <span className="text-xs font-mono text-amber-400 font-bold">
+                                ★ {b.beatmap.stars.toFixed(2)}
+                              </span>
+                            </div>
+                            <h4 className="text-sm font-bold text-white truncate font-sans group-hover:text-cyan-300 transition-colors">
+                              {b.beatmap.title}
+                            </h4>
+                            <p className="text-xs text-slate-400 truncate font-mono">
+                              {b.beatmap.artist} [{b.beatmap.version}]
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Mission Objective */}
+                        <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs space-y-1">
+                          <div className="flex items-center justify-between text-[11px] font-mono">
+                            <span className="text-slate-400">Objective:</span>
+                            <span className="font-bold text-cyan-300">{b.description}</span>
+                          </div>
+                        </div>
+
+                        {/* Footer Actions */}
+                        <div className="flex items-center justify-between pt-1">
+                          <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-400">
+                            <div className="flex items-center space-x-1">
+                              <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                              <span>+{b.rewardStamina} ⚡</span>
+                            </div>
+                            <span className="text-cyan-400 font-extrabold">+{b.rewardPoints} Pts</span>
+                          </div>
+
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleToggleAudio(b.beatmap.beatmapsetId || b.beatmap.id, b.beatmap.previewUrl)}
+                              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                              title="Preview Audio"
+                            >
+                              {playingSetId === (b.beatmap.beatmapsetId || b.beatmap.id) ? (
+                                <Pause className="w-3.5 h-3.5 text-pink-400" />
+                              ) : (
+                                <Play className="w-3.5 h-3.5" />
+                              )}
+                            </button>
+
+                            {isThisActive ? (
+                              <span className="px-3.5 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500 text-cyan-300 text-xs font-mono font-bold">
+                                In Progress
+                              </span>
+                            ) : (
+                              <button
+                                onClick={() => handleAcceptBounty(b)}
+                                disabled={activeBounty !== null}
+                                className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold font-mono transition-all shadow-md shadow-cyan-950/40"
+                              >
+                                Accept
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 
-          {/* ── TAB 2: COMPLETED HISTORY ──────────────────────────────────── */}
+          {/* ── TAB 2: BOUNTY PACKS (Playlist Challenges) ─────────────────── */}
+          {activeTab === 'packs' && (
+            <div className="space-y-6">
+              {bountyPacks.length === 0 ? (
+                <div className="p-12 text-center rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-2">
+                  <Package className="w-8 h-8 text-slate-600 mx-auto" />
+                  <p className="text-sm font-bold text-slate-300">No Bounty Packs Available</p>
+                  <p className="text-xs text-slate-500 font-mono max-w-sm mx-auto">
+                    The admin hasn&apos;t published any curated playlist packs yet. Check back soon!
+                  </p>
+                </div>
+              ) : (
+                bountyPacks.map((pack) => {
+                  const completedMapsCount = pack.bounties.filter((pb) =>
+                    completedBounties.some((cb) => cb.beatmapId === pb.beatmap.id)
+                  ).length;
+                  const isPackFullyDone = completedMapsCount === pack.bounties.length;
+                  const isClaimed = completedPacks.some((cp) => cp.packId === pack.id);
+
+                  return (
+                    <div
+                      key={pack.id}
+                      className={`p-5 rounded-3xl bg-slate-900/90 border transition-all space-y-4 ${
+                        isPackFullyDone
+                          ? 'border-amber-500/60 shadow-xl shadow-amber-950/40'
+                          : 'border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      {/* Pack Header */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <span className="px-2.5 py-0.5 rounded-full bg-amber-950 border border-amber-500/60 text-amber-300 font-mono text-[10px] font-bold flex items-center space-x-1">
+                              <Package className="w-3 h-3 text-amber-400" />
+                              <span>BOUNTY PACK</span>
+                            </span>
+                            {pack.badgeTitle && (
+                              <span className="px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/60 text-purple-300 font-mono text-[10px] font-bold">
+                                Title: {pack.badgeTitle}
+                              </span>
+                            )}
+                            {isPackFullyDone && (
+                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-950 border border-emerald-500 text-emerald-300 font-mono text-[10px] font-bold">
+                                {isClaimed ? '✓ BONUS CLAIMED' : '✓ 100% COMPLETE'}
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="text-lg font-black text-white font-display">{pack.title}</h3>
+                          <p className="text-xs text-slate-400 font-sans">{pack.description}</p>
+                        </div>
+
+                        {/* Bonus Rewards */}
+                        <div className="p-3 rounded-2xl bg-slate-950/80 border border-amber-500/40 text-right flex-shrink-0 space-y-0.5">
+                          <span className="text-[10px] font-mono text-amber-300 block uppercase">Pack Completion Bonus:</span>
+                          <span className="text-sm font-mono font-black text-amber-400 block">
+                            +{pack.bonusRewardStamina} ⚡ · +{pack.bonusRewardPoints} Pts
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                          <span>Playlist Progress</span>
+                          <span className="font-bold text-white">
+                            {completedMapsCount} / {pack.bounties.length} Maps Cleared
+                          </span>
+                        </div>
+                        <div className="w-full h-2 rounded-full bg-slate-950 overflow-hidden border border-slate-800">
+                          <div
+                            className="h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-500"
+                            style={{ width: `${(completedMapsCount / Math.max(1, pack.bounties.length)) * 100}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Maps in this pack */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        {pack.bounties.map((pb, idx) => {
+                          const isCleared = completedBounties.some((cb) => cb.beatmapId === pb.beatmap.id);
+                          const isThisActive = activeBounty?.bounty.id === pb.id;
+
+                          return (
+                            <div
+                              key={pb.id || idx}
+                              className={`p-3 rounded-2xl bg-slate-950/60 border flex flex-col justify-between space-y-2 ${
+                                isCleared ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-slate-800'
+                              }`}
+                            >
+                              <div className="flex items-start space-x-2.5">
+                                <img
+                                  src={pb.beatmap.covers.card || pb.beatmap.covers.cover}
+                                  alt="Cover"
+                                  className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-mono text-amber-400 font-bold">
+                                      ★ {pb.beatmap.stars.toFixed(2)}
+                                    </span>
+                                    {isCleared && (
+                                      <span className="text-[10px] font-mono font-bold text-emerald-400">
+                                        ✓ Done
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-xs font-bold text-white truncate">{pb.beatmap.title}</p>
+                                  <p className="text-[10px] text-slate-400 truncate">[{pb.beatmap.version}]</p>
+                                </div>
+                              </div>
+
+                              <p className="text-[11px] font-mono text-slate-300 bg-slate-900/80 p-1.5 rounded-lg">
+                                {pb.description}
+                              </p>
+
+                              <div className="flex items-center justify-between pt-1">
+                                <span className="text-[10px] font-mono font-bold text-emerald-400">
+                                  +{pb.rewardStamina} ⚡ · +{pb.rewardPoints} Pts
+                                </span>
+
+                                {!isCleared && (
+                                  isThisActive ? (
+                                    <span className="px-2.5 py-1 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-300 text-[10px] font-mono font-bold">
+                                      Active
+                                    </span>
+                                  ) : (
+                                    <button
+                                      onClick={() => handleAcceptBounty({ ...pb, packId: pack.id, packName: pack.title })}
+                                      disabled={activeBounty !== null}
+                                      className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-[10px] font-mono font-bold transition-colors"
+                                    >
+                                      Play Map
+                                    </button>
+                                  )
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          )}
+
+          {/* ── TAB 3: COMPLETED HISTORY ──────────────────────────────────── */}
           {activeTab === 'history' && (
             <div className="space-y-3">
               {completedBounties.length === 0 ? (

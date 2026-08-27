@@ -10,13 +10,21 @@ import {
   Star, Clock, AlertTriangle, ChevronDown, ChevronUp, Search, Crown,
   Zap, PlusCircle, Edit3, Sliders, BarChart3, Save, X, Wrench, Gift, Table,
   CheckCircle2, Bell, Sparkles, Send, ArrowLeftRight, Target, Undo2,
+  Flame, Package,
 } from 'lucide-react';
 import { formatUserDateTime, formatUserDate } from '../utils/timeFormat';
 import { supabase } from '../lib/supabase';
 import { injectionService, PullInjection } from '../services/injectionService';
 import { giftingService, PlayerTransaction } from '../services/giftingService';
 import { tradingService, PlayerTrade } from '../services/tradingService';
-import { fetchBeatmapMetadata } from '../services/beatmapFetchService';
+import { fetchBeatmapMetadata, FetchedBeatmapMetadata } from '../services/beatmapFetchService';
+import { Bounty, BountyPack, BountyRankRequirement } from '../types/bounty';
+import {
+  fetchBossBounties,
+  saveBossBounties,
+  fetchBountyPacks,
+  saveBountyPacks,
+} from '../services/bountyService';
 
 const RARITY_ORDER: RarityTier[] = ['GOAT','EX','Divine','Celestial','Mythic','Legendary','Epic','Rare','Uncommon+','Uncommon','Common'];
 const RARITY_COLORS: Record<string, string> = {
@@ -61,7 +69,7 @@ interface UserCollCard {
   isFavorite: boolean;
 }
 
-type AdminTab = 'overview' | 'events' | 'cards' | 'announcements' | 'users' | 'transactions' | 'rewards' | 'inspector' | 'config';
+type AdminTab = 'overview' | 'events' | 'cards' | 'bounties' | 'announcements' | 'users' | 'transactions' | 'rewards' | 'inspector' | 'config';
 
 const AdminPage: React.FC = () => {
   const { user } = useAuth();
@@ -170,6 +178,39 @@ const AdminPage: React.FC = () => {
   const [miniLinkUrl, setMiniLinkUrl] = useState('');
   const [miniLinkText, setMiniLinkText] = useState('');
   const [activeMiniBroadcast, setActiveMiniBroadcast] = useState<any>(null);
+
+  // Bounties & Boss Raids state
+  const [bountiesSubTab, setBountiesSubTab] = useState<'boss_songs' | 'bounty_packs'>('boss_songs');
+  const [bossList, setBossList] = useState<Bounty[]>([]);
+  const [bossUrlInput, setBossUrlInput] = useState('');
+  const [isFetchingBossMeta, setIsFetchingBossMeta] = useState(false);
+  const [bossFetchedMeta, setBossFetchedMeta] = useState<FetchedBeatmapMetadata | null>(null);
+  const [bossLoreReason, setBossLoreReason] = useState('');
+  const [bossObjective, setBossObjective] = useState('');
+  const [bossMinRank, setBossMinRank] = useState<BountyRankRequirement>('Pass');
+  const [bossReqMods, setBossReqMods] = useState('None');
+  const [bossRewardStamina, setBossRewardStamina] = useState('300');
+  const [bossRewardPoints, setBossRewardPoints] = useState('300');
+  const [bossAddToPoolIfMissing, setBossAddToPoolIfMissing] = useState(true);
+  const [bossPoolRarity, setBossPoolRarity] = useState<RarityTier>('EX');
+
+  // Bounty Pack Builder state
+  const [packsList, setPacksList] = useState<BountyPack[]>([]);
+  const [packTitle, setPackTitle] = useState('');
+  const [packDescription, setPackDescription] = useState('');
+  const [packThemeColor, setPackThemeColor] = useState<'red' | 'purple' | 'amber' | 'emerald' | 'cyan'>('amber');
+  const [packBonusStamina, setPackBonusStamina] = useState('500');
+  const [packBonusPoints, setPackBonusPoints] = useState('500');
+  const [packBadgeTitle, setPackBadgeTitle] = useState('');
+  const [packDraftBounties, setPackDraftBounties] = useState<Bounty[]>([]);
+  const [packMapInput, setPackMapInput] = useState('');
+  const [isFetchingPackMap, setIsFetchingPackMap] = useState(false);
+  const [packMapMeta, setPackMapMeta] = useState<FetchedBeatmapMetadata | null>(null);
+  const [packMapObjective, setPackMapObjective] = useState('');
+  const [packMapMinRank, setPackMapMinRank] = useState<BountyRankRequirement>('A');
+  const [packMapReqMods, setPackMapReqMods] = useState('None');
+  const [packMapStamina, setPackMapStamina] = useState('60');
+  const [packMapPoints, setPackMapPoints] = useState('35');
 
   // Config state
   const [configRates, setConfigRates] = useState<RarityRates>({...DEFAULT_RARITY_RATES});
@@ -902,6 +943,310 @@ const AdminPage: React.FC = () => {
     }
   }, [activeTab, selectedTable, fetchTableData]);
 
+  // ─── Bounties & Boss Raids Handlers ─────────────────────────
+  const fetchBountiesData = useCallback(async () => {
+    setActionLoading(true);
+    try {
+      const [bosses, packs] = await Promise.all([
+        fetchBossBounties(),
+        fetchBountyPacks(),
+      ]);
+      if (bosses) setBossList(bosses);
+      if (packs) setPacksList(packs);
+    } catch (e: any) {
+      showMsg(e.message || 'Failed to load bounties data', false);
+    } finally {
+      setActionLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'bounties') {
+      fetchBountiesData();
+    }
+  }, [activeTab, fetchBountiesData]);
+
+  const handleFetchBossMeta = async () => {
+    const query = (bossUrlInput || '').trim();
+    if (!query) {
+      showMsg('Please enter a Beatmap ID, Set ID, or paste an osu! link', false);
+      return;
+    }
+    setIsFetchingBossMeta(true);
+    try {
+      const data = await fetchBeatmapMetadata(query);
+      if (!data) {
+        showMsg('Could not parse or fetch beatmap metadata from that input.', false);
+        return;
+      }
+      setBossFetchedMeta(data);
+      if (!bossObjective) {
+        setBossObjective(`Pass ${data.title} on osu! with any grade`);
+      }
+      showMsg(`✓ Found: ${data.artist} - ${data.title} [${data.version}] (★${data.stars.toFixed(2)})!`, true);
+    } catch (e: any) {
+      showMsg('Fetch error: ' + e.message, false);
+    } finally {
+      setIsFetchingBossMeta(false);
+    }
+  };
+
+  const handlePublishBossBounty = async () => {
+    if (!bossFetchedMeta) {
+      showMsg('Please fetch beatmap metadata first.', false);
+      return;
+    }
+    if (!bossLoreReason.trim()) {
+      showMsg('Please provide a story/reason for why this song is a Boss Bounty.', false);
+      return;
+    }
+
+    setActionLoading(true);
+    try {
+      // 1. Add to custom card pool if missing and option is checked
+      if (bossAddToPoolIfMissing) {
+        const existing = pool.some((m) => m.id === bossFetchedMeta.id);
+        if (!existing) {
+          const newMap: Beatmap = {
+            id: bossFetchedMeta.id,
+            beatmapsetId: bossFetchedMeta.beatmapsetId,
+            title: bossFetchedMeta.title,
+            artist: bossFetchedMeta.artist,
+            version: bossFetchedMeta.version,
+            creator: bossFetchedMeta.creator,
+            stars: bossFetchedMeta.stars,
+            bpm: bossFetchedMeta.bpm,
+            length: bossFetchedMeta.length,
+            status: bossFetchedMeta.status as any,
+            playcount: bossFetchedMeta.playcount || 10000,
+            favouriteCount: bossFetchedMeta.favouriteCount || 100,
+            covers: {
+              cover: bossFetchedMeta.coverUrl,
+              card: bossFetchedMeta.coverUrl,
+              list: bossFetchedMeta.coverUrl,
+              slimcover: bossFetchedMeta.coverUrl,
+            },
+            previewUrl: bossFetchedMeta.previewUrl,
+            rarity: bossPoolRarity,
+            popularityScore: 95,
+            exReason: bossPoolRarity === 'EX' ? bossLoreReason.trim() : undefined,
+          };
+          await addCustomBeatmap(newMap);
+        }
+      }
+
+      // 2. Build Boss Bounty
+      const newBoss: Bounty = {
+        id: `boss-${bossFetchedMeta.id}-${Date.now()}`,
+        beatmap: {
+          id: bossFetchedMeta.id,
+          beatmapsetId: bossFetchedMeta.beatmapsetId,
+          title: bossFetchedMeta.title,
+          artist: bossFetchedMeta.artist,
+          version: bossFetchedMeta.version,
+          creator: bossFetchedMeta.creator,
+          stars: bossFetchedMeta.stars,
+          bpm: bossFetchedMeta.bpm,
+          length: bossFetchedMeta.length,
+          status: bossFetchedMeta.status as any,
+          playcount: bossFetchedMeta.playcount || 10000,
+          favouriteCount: bossFetchedMeta.favouriteCount || 100,
+          covers: {
+            cover: bossFetchedMeta.coverUrl,
+            card: bossFetchedMeta.coverUrl,
+            list: bossFetchedMeta.coverUrl,
+            slimcover: bossFetchedMeta.coverUrl,
+          },
+          previewUrl: bossFetchedMeta.previewUrl,
+          rarity: bossPoolRarity,
+          popularityScore: 99,
+          exReason: bossLoreReason.trim(),
+        },
+        title: `👑 RAID BOSS: ${bossFetchedMeta.title}`,
+        description: bossObjective.trim() || `Pass ${bossFetchedMeta.title} [${bossFetchedMeta.version}] on osu!`,
+        difficulty: 'Boss',
+        requirements: {
+          minRank: bossMinRank,
+          requiredMods: bossReqMods && bossReqMods !== 'None' ? [bossReqMods] : undefined,
+        },
+        rewardStamina: Number(bossRewardStamina) || 300,
+        rewardPoints: Number(bossRewardPoints) || 300,
+        isBoss: true,
+        bossReason: bossLoreReason.trim(),
+        createdAt: Date.now(),
+      };
+
+      const updated = [newBoss, ...bossList.filter((b) => b.beatmap.id !== bossFetchedMeta.id)];
+      const ok = await saveBossBounties(updated);
+      if (ok) {
+        setBossList(updated);
+        setBossUrlInput('');
+        setBossFetchedMeta(null);
+        setBossLoreReason('');
+        setBossObjective('');
+        showMsg(`✓ Boss Raid "${newBoss.beatmap.title}" published successfully (+${newBoss.rewardStamina}⚡ / +${newBoss.rewardPoints} Pts)!`, true);
+      } else {
+        showMsg('Failed to save boss bounty to Supabase.', false);
+      }
+    } catch (e: any) {
+      showMsg('Error publishing boss bounty: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeleteBossBounty = async (id: string, title: string) => {
+    setActionLoading(true);
+    try {
+      const updated = bossList.filter((b) => b.id !== id);
+      const ok = await saveBossBounties(updated);
+      if (ok) {
+        setBossList(updated);
+        showMsg(`✓ Removed boss bounty: ${title}`, true);
+      }
+    } catch (e: any) {
+      showMsg('Error deleting boss bounty: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleFetchPackMapMeta = async () => {
+    const query = (packMapInput || '').trim();
+    if (!query) return;
+    setIsFetchingPackMap(true);
+    try {
+      const data = await fetchBeatmapMetadata(query);
+      if (data) {
+        setPackMapMeta(data);
+        if (!packMapObjective) {
+          setPackMapObjective(`Pass with Grade ${packMapMinRank} or higher`);
+        }
+        showMsg(`✓ Found for Pack: ${data.artist} - ${data.title} [${data.version}]`, true);
+      } else {
+        showMsg('Could not fetch beatmap metadata for pack.', false);
+      }
+    } catch (e: any) {
+      showMsg('Fetch error: ' + e.message, false);
+    } finally {
+      setIsFetchingPackMap(false);
+    }
+  };
+
+  const handleAddMapToPackDraft = () => {
+    if (!packMapMeta) {
+      showMsg('Fetch beatmap metadata first.', false);
+      return;
+    }
+
+    const draftBounty: Bounty = {
+      id: `packmap-${packMapMeta.id}-${Date.now()}`,
+      beatmap: {
+        id: packMapMeta.id,
+        beatmapsetId: packMapMeta.beatmapsetId,
+        title: packMapMeta.title,
+        artist: packMapMeta.artist,
+        version: packMapMeta.version,
+        creator: packMapMeta.creator,
+        stars: packMapMeta.stars,
+        bpm: packMapMeta.bpm,
+        length: packMapMeta.length,
+        status: packMapMeta.status as any,
+        playcount: packMapMeta.playcount || 10000,
+        favouriteCount: packMapMeta.favouriteCount || 100,
+        covers: {
+          cover: packMapMeta.coverUrl,
+          card: packMapMeta.coverUrl,
+          list: packMapMeta.coverUrl,
+          slimcover: packMapMeta.coverUrl,
+        },
+        previewUrl: packMapMeta.previewUrl,
+        rarity: packMapMeta.suggestedRarity || 'Epic',
+        popularityScore: 80,
+      },
+      title: packMapMeta.title,
+      description: packMapObjective.trim() || `Pass ${packMapMeta.title} [${packMapMeta.version}]`,
+      difficulty: 'Advanced',
+      requirements: {
+        minRank: packMapMinRank,
+        requiredMods: packMapReqMods && packMapReqMods !== 'None' ? [packMapReqMods] : undefined,
+      },
+      rewardStamina: Number(packMapStamina) || 60,
+      rewardPoints: Number(packMapPoints) || 35,
+      createdAt: Date.now(),
+    };
+
+    setPackDraftBounties((prev) => [...prev, draftBounty]);
+    setPackMapInput('');
+    setPackMapMeta(null);
+    setPackMapObjective('');
+    showMsg(`✓ Added "${draftBounty.beatmap.title}" to pack draft!`, true);
+  };
+
+  const handleRemoveMapFromPackDraft = (index: number) => {
+    setPackDraftBounties((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleCreateBountyPack = async () => {
+    if (!packTitle.trim()) {
+      showMsg('Please enter a pack title.', false);
+      return;
+    }
+    if (packDraftBounties.length < 2) {
+      showMsg('A bounty pack must contain at least 2 beatmaps.', false);
+      return;
+    }
+
+    setActionLoading(true);
+    try {
+      const newPack: BountyPack = {
+        id: `pack-${Date.now()}`,
+        title: packTitle.trim(),
+        description: packDescription.trim() || 'Complete all maps in this curated challenge playlist!',
+        themeColor: packThemeColor,
+        bounties: packDraftBounties,
+        bonusRewardStamina: Number(packBonusStamina) || 500,
+        bonusRewardPoints: Number(packBonusPoints) || 500,
+        badgeTitle: packBadgeTitle.trim() || undefined,
+        active: true,
+        createdAt: Date.now(),
+      };
+
+      const updatedPacks = [newPack, ...packsList];
+      const ok = await saveBountyPacks(updatedPacks);
+      if (ok) {
+        setPacksList(updatedPacks);
+        setPackTitle('');
+        setPackDescription('');
+        setPackBadgeTitle('');
+        setPackDraftBounties([]);
+        showMsg(`✓ Bounty Pack "${newPack.title}" created with ${newPack.bounties.length} maps!`, true);
+      } else {
+        showMsg('Failed to save bounty pack.', false);
+      }
+    } catch (e: any) {
+      showMsg('Error creating bounty pack: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeleteBountyPack = async (packId: string, title: string) => {
+    setActionLoading(true);
+    try {
+      const updated = packsList.filter((p) => p.id !== packId);
+      const ok = await saveBountyPacks(updated);
+      if (ok) {
+        setPacksList(updated);
+        showMsg(`✓ Deleted bounty pack: ${title}`, true);
+      }
+    } catch (e: any) {
+      showMsg('Error deleting pack: ' + e.message, false);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   // ─── Direct Supabase Config & Rates ─────────────────────────
   const fetchConfig = useCallback(async () => {
     setActionLoading(true);
@@ -1346,6 +1691,7 @@ const AdminPage: React.FC = () => {
           ['overview','Overview',<BarChart3 className="w-4 h-4"/>],
           ['events','Event Presets',<Sparkles className="w-4 h-4 text-amber-400"/>],
           ['cards','Card Tiers & EX',<Crown className="w-4 h-4 text-purple-400"/>],
+          ['bounties','Bounties & Bosses',<Target className="w-4 h-4 text-rose-400"/>],
           ['announcements','Announcements',<Bell className="w-4 h-4 text-cyan-400"/>],
           ['users','Users & Destiny Drop',<Users className="w-4 h-4"/>],
           ['transactions','Transactions & Gifts',<ArrowLeftRight className="w-4 h-4 text-emerald-400"/>],
@@ -2513,7 +2859,617 @@ const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* ── 3. ANNOUNCEMENTS TAB ─────────────────────── */}
+      {/* ── 3. BOUNTIES & BOSS RAIDS TAB ───────────────────── */}
+      {activeTab === 'bounties' && (
+        <div className="space-y-6 animate-fade-in">
+          {/* Sub-Tab Navigation */}
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-800 pb-3">
+            <button
+              onClick={() => setBountiesSubTab('boss_songs')}
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                bountiesSubTab === 'boss_songs'
+                  ? 'bg-red-950/90 text-red-200 border border-red-500/60 shadow-lg shadow-red-950/50'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <Flame className="w-4 h-4 text-red-400" />
+              <span>👑 Boss Raid Song Creator</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-red-900/60 text-red-300">
+                {bossList.length} Active
+              </span>
+            </button>
+
+            <button
+              onClick={() => setBountiesSubTab('bounty_packs')}
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                bountiesSubTab === 'bounty_packs'
+                  ? 'bg-amber-950/90 text-amber-200 border border-amber-500/60 shadow-lg shadow-amber-950/50'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <Package className="w-4 h-4 text-amber-400" />
+              <span>📦 Bounty Pack Builder</span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-amber-900/60 text-amber-300">
+                {packsList.length} Active
+              </span>
+            </button>
+          </div>
+
+          {/* ── SUB-TAB 1: BOSS RAID CREATOR ────────────────── */}
+          {bountiesSubTab === 'boss_songs' && (
+            <div className="space-y-6">
+              {/* Creator Form */}
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-red-900/60 shadow-xl space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center space-x-2 text-sm font-bold text-red-300">
+                    <Flame className="w-4 h-4 text-red-500 animate-pulse" />
+                    <span>Configure & Publish Boss Raid Song</span>
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Rewards default to +300 ⚡ & +300 Pts
+                  </span>
+                </div>
+
+                {/* Autofill input */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-mono text-slate-300 font-bold">
+                    1. osu! Beatmap ID or URL (osu.ppy.sh or hinamizawa.ai)
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="e.g. 555797, or https://osu.ppy.sh/beatmapsets/158023#osu/555797"
+                      value={bossUrlInput}
+                      onChange={(e) => setBossUrlInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleFetchBossMeta()}
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-red-500"
+                    />
+                    <button
+                      onClick={handleFetchBossMeta}
+                      disabled={isFetchingBossMeta || !bossUrlInput.trim()}
+                      className="px-5 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold font-mono transition-all flex items-center space-x-2 shadow-lg shadow-red-950/40"
+                    >
+                      {isFetchingBossMeta ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>Fetching...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="w-4 h-4" />
+                          <span>Autofill Map</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Fetched Beatmap Preview Banner */}
+                {bossFetchedMeta && (
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-red-950/80 via-slate-950 to-slate-950 border border-red-500/60 flex items-center space-x-4 animate-scale-up">
+                    <img
+                      src={bossFetchedMeta.coverUrl}
+                      alt={bossFetchedMeta.title}
+                      className="w-16 h-16 rounded-xl object-cover border border-red-500/40 flex-shrink-0"
+                    />
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="px-2 py-0.5 rounded-md bg-red-950 text-red-300 border border-red-700/50 text-[10px] font-mono font-bold">
+                          ★ {bossFetchedMeta.stars.toFixed(2)}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-400">
+                          {bossFetchedMeta.bpm} BPM · {Math.floor(bossFetchedMeta.length / 60)}m {bossFetchedMeta.length % 60}s
+                        </span>
+                      </div>
+                      <h4 className="text-base font-bold text-white truncate font-display">
+                        {bossFetchedMeta.title}
+                      </h4>
+                      <p className="text-xs text-slate-300 truncate font-mono">
+                        {bossFetchedMeta.artist} [{bossFetchedMeta.version}] · Mapped by {bossFetchedMeta.creator}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Boss Lore / Story input */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-mono text-amber-300 font-bold flex items-center space-x-1">
+                    <Crown className="w-3.5 h-3.5" />
+                    <span>2. Boss Lore & Challenge Story ("Why this song?")</span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder="Tell players why this song is a Boss Bounty! e.g., 'The infamous 240 BPM stamina trial from 2015. Can you pass the final deathstream?'"
+                    value={bossLoreReason}
+                    onChange={(e) => setBossLoreReason(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-sans focus:outline-none focus:border-red-500 leading-relaxed"
+                  />
+                </div>
+
+                {/* Custom Objective & Requirements */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="space-y-1 md:col-span-2">
+                    <label className="block text-[11px] font-mono text-slate-400">Custom Objective Display Text</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Pass on osu! with any grade"
+                      value={bossObjective}
+                      onChange={(e) => setBossObjective(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-red-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Minimum Rank</label>
+                    <select
+                      value={bossMinRank}
+                      onChange={(e) => setBossMinRank(e.target.value as BountyRankRequirement)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-red-500"
+                    >
+                      <option value="Pass">Pass (Any Grade D/C/B/A/S)</option>
+                      <option value="A">Grade A or higher</option>
+                      <option value="S">Grade S or higher</option>
+                      <option value="SS">Grade SS (100% Acc)</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Required Mods</label>
+                    <select
+                      value={bossReqMods}
+                      onChange={(e) => setBossReqMods(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-red-500"
+                    >
+                      <option value="None">None (Any mod or Nomod)</option>
+                      <option value="HD">Hidden (HD)</option>
+                      <option value="HR">HardRock (HR)</option>
+                      <option value="DT">DoubleTime (DT)</option>
+                      <option value="FL">Flashlight (FL)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Rewards & Gacha Pool Checkbox */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-800">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Reward Stamina (⚡)</label>
+                    <input
+                      type="number"
+                      value={bossRewardStamina}
+                      onChange={(e) => setBossRewardStamina(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Reward Points (🎯)</label>
+                    <input
+                      type="number"
+                      value={bossRewardPoints}
+                      onChange={(e) => setBossRewardPoints(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Card Pool Rarity (If Added)</label>
+                    <select
+                      value={bossPoolRarity}
+                      onChange={(e) => setBossPoolRarity(e.target.value as RarityTier)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    >
+                      {RARITY_ORDER.map((r) => (
+                        <option key={r} value={r}>{r}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Auto Add Checkbox */}
+                <label className="flex items-center space-x-2.5 text-xs text-slate-300 font-mono cursor-pointer pt-1">
+                  <input
+                    type="checkbox"
+                    checked={bossAddToPoolIfMissing}
+                    onChange={(e) => setBossAddToPoolIfMissing(e.target.checked)}
+                    className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-red-600 focus:ring-0"
+                  />
+                  <span>Automatically register beatmap into Gacha Card Pool if not already present</span>
+                </label>
+
+                {/* Submit button */}
+                <button
+                  onClick={handlePublishBossBounty}
+                  disabled={actionLoading || !bossFetchedMeta || !bossLoreReason.trim()}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-black font-display transition-all flex items-center justify-center space-x-2 shadow-xl shadow-red-950/60"
+                >
+                  <Flame className="w-4 h-4" />
+                  <span>🔥 Publish Boss Raid Challenge (+{bossRewardStamina}⚡ / +{bossRewardPoints} Pts)</span>
+                </button>
+              </div>
+
+              {/* Active Boss Bounties List */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-xs font-mono font-bold text-slate-300 uppercase">
+                  <Crown className="w-4 h-4 text-amber-400" />
+                  <span>Active Boss Bounties ({bossList.length})</span>
+                </div>
+
+                {bossList.length === 0 ? (
+                  <div className="p-8 text-center rounded-2xl bg-slate-900/40 border border-slate-800 text-xs text-slate-500 font-mono">
+                    No boss raid songs published yet. Use the form above to deploy one!
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {bossList.map((boss) => (
+                      <div
+                        key={boss.id}
+                        className="p-4 rounded-2xl bg-slate-900/80 border border-red-500/50 flex flex-col justify-between space-y-3"
+                      >
+                        <div className="flex items-start space-x-3.5">
+                          <img
+                            src={boss.beatmap.covers.card || boss.beatmap.covers.cover}
+                            alt="Boss"
+                            className="w-16 h-16 rounded-xl object-cover border border-red-500/40 flex-shrink-0"
+                          />
+                          <div className="min-w-0 flex-1 space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-black bg-red-950 border border-red-500 text-red-300">
+                                👑 RAID BOSS
+                              </span>
+                              <span className="text-xs font-mono text-amber-400 font-bold">
+                                ★ {boss.beatmap.stars.toFixed(2)}
+                              </span>
+                            </div>
+                            <h4 className="text-sm font-bold text-white truncate">{boss.beatmap.title}</h4>
+                            <p className="text-xs text-slate-400 truncate font-mono">
+                              {boss.beatmap.artist} [{boss.beatmap.version}]
+                            </p>
+                          </div>
+                        </div>
+
+                        {boss.bossReason && (
+                          <div className="p-2.5 rounded-xl bg-red-950/60 border border-red-900/40 text-xs text-amber-200 font-sans italic">
+                            "{boss.bossReason}"
+                          </div>
+                        )}
+
+                        <div className="p-2 rounded-lg bg-slate-950 text-xs font-mono text-slate-300 flex items-center justify-between">
+                          <span>Objective: {boss.description}</span>
+                          <span className="text-amber-400 font-bold">+{boss.rewardStamina}⚡ / +{boss.rewardPoints} Pts</span>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-1 border-t border-slate-800">
+                          <span className="text-[10px] font-mono text-slate-500">
+                            Created: {new Date(boss.createdAt).toLocaleDateString()}
+                          </span>
+                          <button
+                            onClick={() => handleDeleteBossBounty(boss.id, boss.beatmap.title)}
+                            disabled={actionLoading}
+                            className="p-1.5 rounded-lg bg-red-950 hover:bg-red-900 text-red-300 border border-red-800/60 transition-colors flex items-center space-x-1 text-xs font-mono"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>Remove Boss</span>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── SUB-TAB 2: BOUNTY PACK BUILDER ──────────────── */}
+          {bountiesSubTab === 'bounty_packs' && (
+            <div className="space-y-6">
+              {/* Pack Builder Card */}
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-amber-900/60 shadow-xl space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center space-x-2 text-sm font-bold text-amber-300">
+                    <Package className="w-4 h-4 text-amber-400" />
+                    <span>Create Curated Bounty Playlist Pack</span>
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Players get a huge completion bonus when finishing all maps
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="space-y-1 md:col-span-2">
+                    <label className="block text-xs font-mono text-slate-300 font-bold">Pack Title</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. DragonForce Speed Demon Collection"
+                      value={packTitle}
+                      onChange={(e) => setPackTitle(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-mono text-slate-300 font-bold">Theme Color</label>
+                    <select
+                      value={packThemeColor}
+                      onChange={(e) => setPackThemeColor(e.target.value as any)}
+                      className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white font-mono"
+                    >
+                      <option value="amber">Amber Gold</option>
+                      <option value="red">Crimson Red</option>
+                      <option value="purple">Cosmic Purple</option>
+                      <option value="emerald">Emerald Green</option>
+                      <option value="cyan">Cyber Cyan</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block text-xs font-mono text-slate-300 font-bold">Pack Description / Theme Lore</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Pass all 3 iconic DragonForce maps with Grade A or higher to earn the Dragon Slayer title!"
+                    value={packDescription}
+                    onChange={(e) => setPackDescription(e.target.value)}
+                    className="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-sans focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Bonus Stamina (⚡)</label>
+                    <input
+                      type="number"
+                      value={packBonusStamina}
+                      onChange={(e) => setPackBonusStamina(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Bonus Points (🎯)</label>
+                    <input
+                      type="number"
+                      value={packBonusPoints}
+                      onChange={(e) => setPackBonusPoints(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-mono text-slate-400">Badge Title (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Dragon Slayer"
+                      value={packBadgeTitle}
+                      onChange={(e) => setPackBadgeTitle(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                    />
+                  </div>
+                </div>
+
+                {/* Add Beatmaps to Pack Draft */}
+                <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+                  <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-300">
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Add Beatmaps to this Playlist ({packDraftBounties.length} added)</span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Enter Beatmap ID or link (e.g. 846105)"
+                      value={packMapInput}
+                      onChange={(e) => setPackMapInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleFetchPackMapMeta()}
+                      className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                    />
+                    <button
+                      onClick={handleFetchPackMapMeta}
+                      disabled={isFetchingPackMap || !packMapInput.trim()}
+                      className="px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-600 disabled:opacity-40 text-white text-xs font-mono font-bold transition-colors"
+                    >
+                      {isFetchingPackMap ? 'Fetching...' : 'Fetch Map'}
+                    </button>
+                  </div>
+
+                  {packMapMeta && (
+                    <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/40 space-y-3 animate-fade-in">
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <img
+                          src={packMapMeta.coverUrl}
+                          alt="Cover"
+                          className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-white truncate">{packMapMeta.title}</p>
+                          <p className="text-[10px] text-slate-400 font-mono">
+                            {packMapMeta.artist} [{packMapMeta.version}] · ★ {packMapMeta.stars.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                        <div className="space-y-1 sm:col-span-2">
+                          <label className="block text-[10px] font-mono text-slate-400">Map Objective</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. Pass with Grade A or higher"
+                            value={packMapObjective}
+                            onChange={(e) => setPackMapObjective(e.target.value)}
+                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="block text-[10px] font-mono text-slate-400">Min Rank</label>
+                          <select
+                            value={packMapMinRank}
+                            onChange={(e) => setPackMapMinRank(e.target.value as BountyRankRequirement)}
+                            className="w-full px-2 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                          >
+                            <option value="Pass">Pass</option>
+                            <option value="A">Grade A</option>
+                            <option value="S">Grade S</option>
+                            <option value="SS">Grade SS</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="block text-[10px] font-mono text-slate-400">Required Mods</label>
+                          <select
+                            value={packMapReqMods}
+                            onChange={(e) => setPackMapReqMods(e.target.value)}
+                            className="w-full px-2 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                          >
+                            <option value="None">None</option>
+                            <option value="HD">HD</option>
+                            <option value="HR">HR</option>
+                            <option value="DT">DT</option>
+                            <option value="FL">FL</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-[10px] font-mono text-slate-400">⚡</span>
+                            <input
+                              type="number"
+                              value={packMapStamina}
+                              onChange={(e) => setPackMapStamina(e.target.value)}
+                              className="w-16 px-2 py-1 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                            />
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <span className="text-[10px] font-mono text-slate-400">🎯 Pts</span>
+                            <input
+                              type="number"
+                              value={packMapPoints}
+                              onChange={(e) => setPackMapPoints(e.target.value)}
+                              className="w-16 px-2 py-1 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                            />
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={handleAddMapToPackDraft}
+                          className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold transition-colors"
+                        >
+                          + Add Map to Pack Draft
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Draft playlist list */}
+                  {packDraftBounties.length > 0 && (
+                    <div className="space-y-2 pt-2">
+                      <span className="text-[10px] font-mono text-slate-400 block uppercase">Draft Playlist:</span>
+                      {packDraftBounties.map((db, i) => (
+                        <div
+                          key={db.id || i}
+                          className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs font-mono"
+                        >
+                          <div className="flex items-center space-x-2 min-w-0">
+                            <span className="font-bold text-amber-400">#{i + 1}</span>
+                            <span className="text-white font-bold truncate">{db.beatmap.title}</span>
+                            <span className="text-slate-400 text-[10px]">[{db.beatmap.version}]</span>
+                            <span className="text-amber-400 font-bold">★{db.beatmap.stars.toFixed(2)}</span>
+                          </div>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-emerald-400 font-bold">+{db.rewardStamina}⚡ / +{db.rewardPoints} Pts</span>
+                            <button
+                              onClick={() => handleRemoveMapFromPackDraft(i)}
+                              className="text-red-400 hover:text-red-300"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Create Pack button */}
+                <button
+                  onClick={handleCreateBountyPack}
+                  disabled={actionLoading || !packTitle.trim() || packDraftBounties.length < 2}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-emerald-600 hover:from-amber-500 hover:to-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-black font-display transition-all flex items-center justify-center space-x-2 shadow-xl shadow-amber-950/60"
+                >
+                  <Package className="w-4 h-4" />
+                  <span>📦 Create & Publish Bounty Pack ({packDraftBounties.length} Maps)</span>
+                </button>
+              </div>
+
+              {/* Published Bounty Packs List */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-xs font-mono font-bold text-slate-300 uppercase">
+                  <Package className="w-4 h-4 text-amber-400" />
+                  <span>Active Bounty Packs ({packsList.length})</span>
+                </div>
+
+                {packsList.length === 0 ? (
+                  <div className="p-8 text-center rounded-2xl bg-slate-900/40 border border-slate-800 text-xs text-slate-500 font-mono">
+                    No bounty packs created yet. Build a thematic pack above!
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {packsList.map((pack) => (
+                      <div
+                        key={pack.id}
+                        className="p-5 rounded-2xl bg-slate-900/80 border border-amber-500/40 space-y-3"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                          <div>
+                            <div className="flex items-center space-x-2">
+                              <h4 className="text-base font-black text-white font-display">{pack.title}</h4>
+                              {pack.badgeTitle && (
+                                <span className="px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500/50 text-purple-300 font-mono text-[10px] font-bold">
+                                  Title: {pack.badgeTitle}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-slate-400">{pack.description}</p>
+                          </div>
+
+                          <div className="flex items-center space-x-3">
+                            <span className="text-xs font-mono font-bold text-amber-400">
+                              Bonus: +{pack.bonusRewardStamina}⚡ / +{pack.bonusRewardPoints} Pts
+                            </span>
+                            <button
+                              onClick={() => handleDeleteBountyPack(pack.id, pack.title)}
+                              className="p-2 rounded-lg bg-red-950 hover:bg-red-900 text-red-300 border border-red-800/60 transition-colors"
+                              title="Delete Pack"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Playlist maps preview */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                          {pack.bounties.map((pb, i) => (
+                            <div key={pb.id || i} className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center space-x-2 text-xs font-mono">
+                              <img src={pb.beatmap.covers.card || pb.beatmap.covers.cover} alt="Cover" className="w-8 h-8 rounded-lg object-cover flex-shrink-0" />
+                              <div className="min-w-0 flex-1">
+                                <p className="font-bold text-white truncate">{pb.beatmap.title}</p>
+                                <p className="text-[10px] text-amber-400">★{pb.beatmap.stars.toFixed(2)} · +{pb.rewardStamina}⚡</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── 4. ANNOUNCEMENTS TAB ─────────────────────── */}
       {activeTab === 'announcements' && (
         <div className="space-y-6">
           {/* Active Announcement Preview */}

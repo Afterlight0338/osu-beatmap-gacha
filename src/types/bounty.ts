@@ -1,7 +1,7 @@
 import { Beatmap } from './beatmap';
 
 export type BountyRankRequirement = 'Pass' | 'A' | 'S' | 'SS';
-export type BountyDifficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Master';
+export type BountyDifficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Master' | 'Boss';
 
 export interface BountyRequirement {
   minRank: BountyRankRequirement;
@@ -20,6 +20,10 @@ export interface Bounty {
   rewardStamina: number;
   rewardPoints: number;
   createdAt: number;
+  isBoss?: boolean;
+  bossReason?: string; // Reason / lore why this song was chosen by admin
+  packId?: string; // If part of a curated Bounty Pack
+  packName?: string;
 }
 
 export interface ActiveBounty {
@@ -44,6 +48,30 @@ export interface CompletedBounty {
   completedAt: number;
   rewardStamina: number;
   rewardPoints: number;
+  isBoss?: boolean;
+  bossReason?: string;
+  packId?: string;
+}
+
+export interface BountyPack {
+  id: string;
+  title: string;
+  description: string;
+  themeColor?: string; // 'red' | 'purple' | 'amber' | 'emerald' | 'cyan'
+  bannerUrl?: string;
+  bounties: Bounty[];
+  bonusRewardStamina: number; // e.g. 500
+  bonusRewardPoints: number; // e.g. 500
+  badgeTitle?: string; // e.g. 'Dragon Slayer'
+  active: boolean;
+  createdAt: number;
+}
+
+export interface CompletedPackRecord {
+  packId: string;
+  completedAt: number;
+  bonusStamina: number;
+  bonusPoints: number;
 }
 
 export interface OsuScoreData {

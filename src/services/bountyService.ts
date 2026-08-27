@@ -1,11 +1,12 @@
 import { Beatmap } from '../types/beatmap';
-import { Bounty, BountyDifficulty, BountyRankRequirement, ActiveBounty, CompletedBounty } from '../types/bounty';
+import { Bounty, BountyDifficulty, BountyRankRequirement, ActiveBounty, CompletedBounty, BountyPack, CompletedPackRecord } from '../types/bounty';
 import { supabase } from '../lib/supabase';
 
 const STORAGE_AVAILABLE_BOUNTIES = 'osu_gacha_available_bounties_v1';
 const STORAGE_ACTIVE_BOUNTY = 'osu_gacha_active_bounty_v1';
 const STORAGE_COMPLETED_BOUNTIES = 'osu_gacha_completed_bounties_v1';
 const STORAGE_CLAIMED_SCORE_IDS = 'osu_gacha_claimed_score_ids_v1';
+const STORAGE_COMPLETED_PACKS = 'osu_gacha_completed_packs_v1';
 
 const BOUNTY_TITLES: Record<BountyDifficulty, string[]> = {
   Beginner: [
@@ -46,6 +47,12 @@ const BOUNTY_TITLES: Record<BountyDifficulty, string[]> = {
     'Transcendent Master',
     'Mythic S-Ranker',
   ],
+  Boss: [
+    '👑 RAID BOSS: Apocalyptic Calamity',
+    '👑 RAID BOSS: Final Apex Conqueror',
+    '👑 RAID BOSS: Legendary Ascendant',
+    '👑 RAID BOSS: Abyssal Nightmare',
+  ],
 };
 
 export const BOUNTY_STAMINA_REWARDS: Record<BountyDifficulty, number> = {
@@ -54,6 +61,7 @@ export const BOUNTY_STAMINA_REWARDS: Record<BountyDifficulty, number> = {
   Advanced: 80,
   Expert: 120,
   Master: 200,
+  Boss: 300,
 };
 
 export const BOUNTY_POINTS_REWARDS: Record<BountyDifficulty, number> = {
@@ -62,6 +70,7 @@ export const BOUNTY_POINTS_REWARDS: Record<BountyDifficulty, number> = {
   Advanced: 50,
   Expert: 100,
   Master: 200,
+  Boss: 300,
 };
 
 function pickRandom<T>(arr: T[]): T {
@@ -344,4 +353,91 @@ export async function fetchUserBountyHistory(osuId: number): Promise<CompletedBo
     }
   } catch {}
   return [];
+}
+
+// ── Boss Bounties Management ──────────────────────────────────────────────────
+
+export async function fetchBossBounties(): Promise<Bounty[]> {
+  try {
+    const { data } = await supabase
+      .from('admin_config')
+      .select('value')
+      .eq('key', 'boss_bounties')
+      .maybeSingle();
+
+    if (data?.value && Array.isArray(data.value)) {
+      return data.value as Bounty[];
+    }
+  } catch (err) {
+    console.warn('Failed to load boss bounties from Supabase:', err);
+  }
+  return [];
+}
+
+export async function saveBossBounties(bounties: Bounty[]): Promise<boolean> {
+  try {
+    const { error } = await supabase.from('admin_config').upsert({
+      key: 'boss_bounties',
+      value: bounties,
+      updated_at: new Date().toISOString(),
+    });
+    return !error;
+  } catch (err) {
+    console.warn('Failed to save boss bounties to Supabase:', err);
+    return false;
+  }
+}
+
+// ── Bounty Packs Management ───────────────────────────────────────────────────
+
+export async function fetchBountyPacks(): Promise<BountyPack[]> {
+  try {
+    const { data } = await supabase
+      .from('admin_config')
+      .select('value')
+      .eq('key', 'bounty_packs')
+      .maybeSingle();
+
+    if (data?.value && Array.isArray(data.value)) {
+      return data.value as BountyPack[];
+    }
+  } catch (err) {
+    console.warn('Failed to load bounty packs from Supabase:', err);
+  }
+  return [];
+}
+
+export async function saveBountyPacks(packs: BountyPack[]): Promise<boolean> {
+  try {
+    const { error } = await supabase.from('admin_config').upsert({
+      key: 'bounty_packs',
+      value: packs,
+      updated_at: new Date().toISOString(),
+    });
+    return !error;
+  } catch (err) {
+    console.warn('Failed to save bounty packs to Supabase:', err);
+    return false;
+  }
+}
+
+export function loadCompletedPacks(): CompletedPackRecord[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_COMPLETED_PACKS);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveCompletedPack(packRecord: CompletedPackRecord): void {
+  try {
+    const prev = loadCompletedPacks();
+    const updated = [packRecord, ...prev.filter((p) => p.packId !== packRecord.packId)];
+    localStorage.setItem(STORAGE_COMPLETED_PACKS, JSON.stringify(updated));
+  } catch (err) {
+    console.warn('Failed to save completed pack:', err);
+  }
 }
