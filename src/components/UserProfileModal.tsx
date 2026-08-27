@@ -90,43 +90,42 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
     async function fetchUserData() {
       try {
-        // Fetch up to 5,000 collection records in parallel chunks
-        const [c1, c2, c3, c4, histRes] = await Promise.all([
-          supabase
-            .from('user_collection')
-            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
-            .eq('osu_id', user!.osu_id)
-            .range(0, 999),
-          supabase
-            .from('user_collection')
-            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
-            .eq('osu_id', user!.osu_id)
-            .range(1000, 1999),
-          supabase
-            .from('user_collection')
-            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
-            .eq('osu_id', user!.osu_id)
-            .range(2000, 2999),
-          supabase
-            .from('user_collection')
-            .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
-            .eq('osu_id', user!.osu_id)
-            .range(3000, 4999),
+        const pageSize = 1000;
+        const countQuery = await supabase
+          .from('user_collection')
+          .select('*', { count: 'exact', head: true })
+          .eq('osu_id', user!.osu_id);
+
+        const totalCount = countQuery.count || 0;
+        const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+        const chunkPromises = [];
+
+        for (let i = 0; i < totalPages; i++) {
+          chunkPromises.push(
+            supabase
+              .from('user_collection')
+              .select('osu_id, beatmap_id, copies, is_favorite, first_pulled_at, last_pulled_at')
+              .eq('osu_id', user!.osu_id)
+              .order('beatmap_id', { ascending: true })
+              .range(i * pageSize, (i + 1) * pageSize - 1)
+          );
+        }
+
+        const [histRes, ...chunkResults] = await Promise.all([
           supabase
             .from('user_history')
             .select('id, beatmap_id, rarity, pulled_at')
             .eq('osu_id', user!.osu_id)
             .order('pulled_at', { ascending: false })
             .limit(50),
+          ...chunkPromises,
         ]);
 
         if (isMounted) {
-          const allRows = [
-            ...(c1.data || []),
-            ...(c2.data || []),
-            ...(c3.data || []),
-            ...(c4.data || []),
-          ];
+          const allRows: any[] = [];
+          for (const chunk of chunkResults) {
+            if (chunk.data) allRows.push(...chunk.data);
+          }
 
           const records: CollectionRecord[] = allRows.map((c) => ({
             osuId: c.osu_id,

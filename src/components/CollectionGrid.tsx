@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Beatmap } from '../types/beatmap';
 import { CollectionRecord } from '../types/collection';
 import { BeatmapCard } from './BeatmapCard';
@@ -26,6 +26,11 @@ export const CollectionGrid: React.FC<CollectionGridProps> = ({
   const itemsPerPage = 24;
 
   const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+
+  // Reset to page 1 if items count changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [items.length]);
 
   // Reset to page 1 if items change and current page exceeds total
   const validPage = Math.min(currentPage, totalPages);

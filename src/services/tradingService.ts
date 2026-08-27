@@ -194,10 +194,10 @@ class TradingService {
         await supabase.from('user_collection').delete().eq('osu_id', trade.senderId).eq('beatmap_id', card.beatmapId);
       }
 
-      // Add to recipient
+      // Add to recipient (preserve original first_pulled_at and favorite status if already owned)
       const { data: rData } = await supabase
         .from('user_collection')
-        .select('copies')
+        .select('copies, first_pulled_at, is_favorite')
         .eq('osu_id', trade.recipientId)
         .eq('beatmap_id', card.beatmapId)
         .maybeSingle();
@@ -205,9 +205,9 @@ class TradingService {
         osu_id: trade.recipientId,
         beatmap_id: card.beatmapId,
         copies: (rData?.copies || 0) + 1,
-        first_pulled_at: Date.now(),
+        first_pulled_at: rData?.first_pulled_at || Date.now(),
         last_pulled_at: Date.now(),
-        is_favorite: false,
+        is_favorite: Boolean(rData?.is_favorite),
       });
     }
 
@@ -226,10 +226,10 @@ class TradingService {
         await supabase.from('user_collection').delete().eq('osu_id', trade.recipientId).eq('beatmap_id', card.beatmapId);
       }
 
-      // Add to sender
+      // Add to sender (preserve original first_pulled_at and favorite status if already owned)
       const { data: sData } = await supabase
         .from('user_collection')
-        .select('copies')
+        .select('copies, first_pulled_at, is_favorite')
         .eq('osu_id', trade.senderId)
         .eq('beatmap_id', card.beatmapId)
         .maybeSingle();
@@ -237,9 +237,9 @@ class TradingService {
         osu_id: trade.senderId,
         beatmap_id: card.beatmapId,
         copies: (sData?.copies || 0) + 1,
-        first_pulled_at: Date.now(),
+        first_pulled_at: sData?.first_pulled_at || Date.now(),
         last_pulled_at: Date.now(),
-        is_favorite: false,
+        is_favorite: Boolean(sData?.is_favorite),
       });
     }
 

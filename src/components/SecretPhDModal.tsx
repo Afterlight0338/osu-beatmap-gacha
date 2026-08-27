@@ -457,7 +457,7 @@ const MATH_PROBLEMS: MathProblem[] = [
 const SOLVED_STORAGE_KEY = 'osu_gacha_solved_phd_problems';
 
 export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose }) => {
-  const { refillEnergy } = useGacha();
+  const { addBonusEnergy } = useGacha();
   const [selectedProblemIndex, setSelectedProblemIndex] = useState<number>(0);
   const [answerInput, setAnswerInput] = useState<string>('');
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -518,8 +518,8 @@ export const SecretPhDModal: React.FC<SecretPhDModalProps> = ({ isOpen, onClose 
         localStorage.setItem(SOLVED_STORAGE_KEY, JSON.stringify(updated));
       } catch {}
 
-      // Add energy reward once
-      await refillEnergy(currentProblem.rewardPulls);
+      // Add uncapped bonus stamina reward
+      await addBonusEnergy(currentProblem.rewardPulls);
 
       confetti({
         particleCount: 220,

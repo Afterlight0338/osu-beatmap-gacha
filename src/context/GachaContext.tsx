@@ -162,9 +162,11 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return sec * 1000;
   }, [activeEvent, staminaConfig]);
 
-  // Dynamically computed rates factoring event multipliers and EX tier
+  const [customBaseRates, setCustomBaseRates] = useState<RarityRates | null>(null);
+
+  // Dynamically computed rates factoring custom base rates, event multipliers and EX tier
   const currentRates: RarityRates = useMemo(() => {
-    const base = { ...DEFAULT_RARITY_RATES };
+    const base = customBaseRates ? { ...customBaseRates } : { ...DEFAULT_RARITY_RATES };
     if (!activeEvent || !activeEvent.active) return base;
 
     const mult = activeEvent.rateMultiplier || 1;
@@ -199,17 +201,18 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       GOAT: boostedGOAT,
       EX: boostedEX,
     };
-  }, [activeEvent]);
+  }, [activeEvent, customBaseRates]);
 
-  // Fetch active event, card overrides & dynamic stamina from Supabase
+  // Fetch active event, card overrides, rates & dynamic stamina from Supabase
   useEffect(() => {
     async function loadCloudConfigs() {
       try {
-        const [evRes, ovRes, stamRes, customRes] = await Promise.all([
+        const [evRes, ovRes, stamRes, customRes, ratesRes] = await Promise.all([
           supabase.from('admin_config').select('value').eq('key', 'active_event_preset').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'card_tier_overrides').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'stamina_config').maybeSingle(),
           supabase.from('admin_config').select('value').eq('key', 'custom_beatmaps').maybeSingle(),
+          supabase.from('admin_config').select('value').eq('key', 'rates').maybeSingle(),
         ]);
 
         if (evRes.data && evRes.data.value && !evRes.error) {
@@ -229,6 +232,13 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         if (stamRes.data && stamRes.data.value && !stamRes.error) {
           setStaminaConfig(stamRes.data.value);
+        }
+
+        if (ratesRes.data && ratesRes.data.value && !ratesRes.error) {
+          const r = ratesRes.data.value as RarityRates;
+          if (r && typeof r.Common === 'number' && typeof r.Legendary === 'number') {
+            setCustomBaseRates(r);
+          }
         }
 
         if (customRes.data && Array.isArray(customRes.data.value) && !customRes.error) {

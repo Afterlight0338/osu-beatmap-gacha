@@ -88,7 +88,7 @@ export const GlobalChatDrawer: React.FC<GlobalChatDrawerProps> = ({ allUsers = [
       unsubMessages();
       unsubPresence();
     };
-  }, [user?.osuId, user?.username, user?.avatarUrl, user?.countryCode, isOpen]);
+  }, [user?.osuId, user?.username, user?.avatarUrl, user?.countryCode, totalPulls, isOpen]);
 
   useEffect(() => {
     if (isOpen) {

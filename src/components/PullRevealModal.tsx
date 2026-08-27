@@ -125,7 +125,8 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
         rarity === 'Mythic' ||
         rarity === 'Celestial' ||
         rarity === 'Divine' ||
-        rarity === 'GOAT';
+        rarity === 'GOAT' ||
+        rarity === 'EX';
 
       if (isHighTier) {
         setIsAnticipating(true);
@@ -133,7 +134,9 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
 
         // Tiered anticipation duration
         const delay =
-          rarity === 'GOAT'
+          rarity === 'EX'
+            ? 2000
+            : rarity === 'GOAT'
             ? 1700
             : rarity === 'Divine'
             ? 1350
@@ -147,7 +150,7 @@ export const PullRevealModal: React.FC<PullRevealModalProps> = ({
           setIsAnticipating(false);
           setShowFlashBang(true);
           setScreenShake(
-            rarity === 'GOAT' || rarity === 'Divine' || rarity === 'Mythic'
+            rarity === 'EX' || rarity === 'GOAT' || rarity === 'Divine' || rarity === 'Mythic'
               ? 'animate-shake-heavy'
               : 'animate-shake-light'
           );

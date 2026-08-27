@@ -177,7 +177,7 @@ class GiftingService {
     if (tx.type === 'card' && tx.cardData) {
       const { data: existing } = await supabase
         .from('user_collection')
-        .select('copies')
+        .select('copies, first_pulled_at, is_favorite')
         .eq('osu_id', tx.recipientId)
         .eq('beatmap_id', tx.cardData.id)
         .maybeSingle();
@@ -187,9 +187,9 @@ class GiftingService {
         osu_id: tx.recipientId,
         beatmap_id: tx.cardData.id,
         copies: newCopies,
-        first_pulled_at: Date.now(),
+        first_pulled_at: existing?.first_pulled_at || Date.now(),
         last_pulled_at: Date.now(),
-        is_favorite: false,
+        is_favorite: Boolean(existing?.is_favorite),
       });
 
       // Deduct from sender

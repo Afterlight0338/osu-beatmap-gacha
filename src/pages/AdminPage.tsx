@@ -910,7 +910,9 @@ const AdminPage: React.FC = () => {
       if (data) {
         for (const item of data) {
           if (item.key === 'rates' && item.value) setConfigRates(item.value as RarityRates);
-          if (item.key === 'stamina' && item.value) setConfigStamina(item.value as { max: number; regenSeconds: number });
+          if ((item.key === 'stamina_config' || item.key === 'stamina') && item.value) {
+            setConfigStamina(item.value as { max: number; regenSeconds: number });
+          }
         }
       }
     } catch {
@@ -952,11 +954,18 @@ const AdminPage: React.FC = () => {
   const handleSaveStamina = async () => {
     setActionLoading(true);
     try {
-      await supabase.from('admin_config').upsert({
-        key: 'stamina',
-        value: configStamina,
-        updated_at: new Date().toISOString(),
-      });
+      await Promise.all([
+        supabase.from('admin_config').upsert({
+          key: 'stamina_config',
+          value: configStamina,
+          updated_at: new Date().toISOString(),
+        }),
+        supabase.from('admin_config').upsert({
+          key: 'stamina',
+          value: configStamina,
+          updated_at: new Date().toISOString(),
+        }),
+      ]);
       showMsg('✓ Stamina config saved to Supabase');
     } catch (e: any) {
       showMsg(e.message || 'Failed to save stamina', false);

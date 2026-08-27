@@ -117,9 +117,10 @@ export function verifyScoreForBounty(
   }
 
   // 4. Check Timestamp (Score must have ended AFTER the bounty was started)
-  // Give 15-second grace window for local device clock slight variations
+  // Give 3-minute grace window for local device clock variations / song duration skew
+  const graceWindowMs = Math.max(180000, (bounty.beatmap?.length || 120) * 1000);
   const timeDifferenceMs = score.endedAt - bountyStartedAt;
-  if (timeDifferenceMs < -15000) {
+  if (timeDifferenceMs < -graceWindowMs) {
     const startedDate = new Date(bountyStartedAt).toLocaleTimeString();
     const scoreDate = new Date(score.endedAt).toLocaleTimeString();
     return {

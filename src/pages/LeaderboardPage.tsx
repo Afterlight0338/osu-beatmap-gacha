@@ -84,6 +84,8 @@ export const LeaderboardPage: React.FC = () => {
           supabase
             .from('user_collection')
             .select('osu_id, beatmap_id, copies, is_favorite')
+            .order('osu_id', { ascending: true })
+            .order('beatmap_id', { ascending: true })
             .range(i * pageSize, (i + 1) * pageSize - 1)
         );
       }
