@@ -336,6 +336,13 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         localStorage.setItem(maintenanceGiftKey, 'true');
       }
 
+      // 727 WYSI Bugfix & Stability Compensation Gift (727 Bonus Stamina)
+      const bugfixGiftKey = 'bugfix_compensation_727_pulls_v1';
+      if (!localStorage.getItem(bugfixGiftKey)) {
+        bon += 727;
+        localStorage.setItem(bugfixGiftKey, 'true');
+      }
+
       if (pullsToAdd > 0) {
         if (cur < MAX_MAIN_ENERGY) {
           const needed = MAX_MAIN_ENERGY - cur;

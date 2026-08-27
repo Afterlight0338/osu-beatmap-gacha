@@ -15,6 +15,20 @@ export interface ChangelogVersion {
 
 export const CHANGELOG_VERSIONS: ChangelogVersion[] = [
   {
+    version: "v7.1",
+    date: "August 2026",
+    title: "⚡ Stamina Synchronization Hardening, Full osu! Grade Support (X / XH / SH) & 727 Pulls Bugfix Compensation",
+    highlight: "Comprehensive hotfix eliminating stamina loss on page refresh via dual-layer local-first storage, full osu! API grade verification support for X (SS), XH (Silver SS), and SH (Silver S), and a 727 bonus pulls gift for all players!",
+    details: [
+      "🎁 727 WYSI Bonus Pulls Gift: Distributed 727 free uncapped bonus pulls to all players in celebration of the hotfix!",
+      "⚡ Local-First Stamina Authority: Stamina is now loaded synchronously on frame 1 from localStorage with non-destructive cloud synchronization, permanently preventing stamina resets or wipes upon refreshing.",
+      "🎯 Full osu! Rank Verification Support: Added native verification support for X (SS), XH (Silver SS with Hidden/Flashlight), and SH (Silver S with Hidden/Flashlight) grades in bounties and boss challenges.",
+      "👑 Boss Songs & Lore Challenges: Added Raid Boss beatmaps with custom lore stories, dedicated 'Why this song?' highlights, and +300 ⚡ / +300 Pts rewards.",
+      "📦 Bounty Packs Builder: Curated playlist packs with completion badges, progress tracking, and +500 ⚡ / +500 Pts playlist bonuses.",
+      "🧹 Leaderboard Data Sanitization: Purged orphaned fallback-dataset test cards from the global card rarity leaderboard."
+    ],
+  },
+  {
     version: "v7.0",
     date: "Current Release (August 2026)",
     title: "🎵 38,696 1-Song-1-Card Catalog Expansion, Graveyard Landmark Ingestion & Multi-Factor Pyramid Recalculation",
