@@ -263,33 +263,89 @@ export const DEFAULT_ENERGY_STATE: PullEnergyState = {
   reserveMax: 100,
   bonus: 0,
   lastRefillTime: Date.now(),
+  updatedAt: Date.now(),
 };
 
+export const ENERGY_BACKUP_KEY = 'osu_gacha_pull_energy_v2';
+
 /**
- * Get pull energy state.
+ * Get pull energy state with dual-layer fallback (localStorage + IndexedDB).
  */
 export async function getPullEnergyState(): Promise<PullEnergyState> {
-  const db = await getDB();
-  const val = await db.get('meta', 'pullEnergy');
-  if (!val) {
-    return { ...DEFAULT_ENERGY_STATE, lastRefillTime: Date.now() };
-  }
-  return {
-    current: typeof val.current === 'number' ? val.current : 50,
-    max: typeof val.max === 'number' ? val.max : 50,
-    reserve: typeof val.reserve === 'number' ? val.reserve : 0,
-    reserveMax: typeof val.reserveMax === 'number' ? val.reserveMax : 100,
-    bonus: typeof val.bonus === 'number' ? val.bonus : 0,
-    lastRefillTime: typeof val.lastRefillTime === 'number' ? val.lastRefillTime : Date.now(),
-  };
+  let fallbackState: PullEnergyState | null = null;
+  try {
+    const raw = localStorage.getItem(ENERGY_BACKUP_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (typeof parsed.current === 'number') {
+        fallbackState = {
+          current: parsed.current,
+          max: parsed.max || 50,
+          reserve: parsed.reserve || 0,
+          reserveMax: parsed.reserveMax || 100,
+          bonus: parsed.bonus || 0,
+          lastRefillTime: parsed.lastRefillTime || Date.now(),
+          updatedAt: parsed.updatedAt || Date.now(),
+        };
+      }
+    }
+  } catch {}
+
+  try {
+    const db = await getDB();
+    const val = await db.get('meta', 'pullEnergy');
+    if (val && typeof val.current === 'number') {
+      const dbBonus = typeof val.bonus === 'number' ? val.bonus : 0;
+      const lsBonus = fallbackState ? fallbackState.bonus || 0 : 0;
+      const bestBonus = Math.max(dbBonus, lsBonus);
+
+      const state: PullEnergyState = {
+        current: typeof val.current === 'number' ? val.current : (fallbackState?.current ?? 50),
+        max: typeof val.max === 'number' ? val.max : 50,
+        reserve: typeof val.reserve === 'number' ? val.reserve : (fallbackState?.reserve ?? 0),
+        reserveMax: typeof val.reserveMax === 'number' ? val.reserveMax : 100,
+        bonus: bestBonus,
+        lastRefillTime: typeof val.lastRefillTime === 'number' ? val.lastRefillTime : (fallbackState?.lastRefillTime ?? Date.now()),
+        updatedAt: typeof val.updatedAt === 'number' ? val.updatedAt : (fallbackState?.updatedAt ?? Date.now()),
+      };
+
+      // Keep localStorage in sync
+      try {
+        localStorage.setItem(ENERGY_BACKUP_KEY, JSON.stringify(state));
+      } catch {}
+
+      return state;
+    }
+  } catch {}
+
+  if (fallbackState) return fallbackState;
+  return { ...DEFAULT_ENERGY_STATE, lastRefillTime: Date.now(), updatedAt: Date.now() };
 }
 
 /**
- * Save pull energy state.
+ * Save pull energy state to both localStorage (sync) and IndexedDB (async).
  */
 export async function savePullEnergyState(state: PullEnergyState): Promise<void> {
-  const db = await getDB();
-  await db.put('meta', state, 'pullEnergy');
+  const normalizedState: PullEnergyState = {
+    current: typeof state.current === 'number' ? state.current : 50,
+    max: typeof state.max === 'number' ? state.max : 50,
+    reserve: typeof state.reserve === 'number' ? state.reserve : 0,
+    reserveMax: typeof state.reserveMax === 'number' ? state.reserveMax : 100,
+    bonus: typeof state.bonus === 'number' ? state.bonus : 0,
+    lastRefillTime: typeof state.lastRefillTime === 'number' ? state.lastRefillTime : Date.now(),
+    updatedAt: typeof state.updatedAt === 'number' ? state.updatedAt : Date.now(),
+  };
+
+  try {
+    localStorage.setItem(ENERGY_BACKUP_KEY, JSON.stringify(normalizedState));
+  } catch {}
+
+  try {
+    const db = await getDB();
+    await db.put('meta', normalizedState, 'pullEnergy');
+  } catch (e) {
+    console.warn('Failed to write energy to IndexedDB:', e);
+  }
 }
 
 /**

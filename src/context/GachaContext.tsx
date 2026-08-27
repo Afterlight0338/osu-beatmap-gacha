@@ -120,7 +120,27 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [cardOverrides, setCardOverrides] = useState<CardTierOverridesMap>({});
 
   // 3-Tier Pull Energy: Main (50), Reserve (100), Bonus (uncapped)
-  const [energy, setEnergy] = useState<PullEnergyState>(DEFAULT_ENERGY_STATE);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [energy, setEnergy] = useState<PullEnergyState>(() => {
+    try {
+      const raw = localStorage.getItem('osu_gacha_pull_energy_v2');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (typeof parsed.current === 'number') {
+          return {
+            current: parsed.current,
+            max: parsed.max || 50,
+            reserve: parsed.reserve || 0,
+            reserveMax: parsed.reserveMax || 100,
+            bonus: parsed.bonus || 0,
+            lastRefillTime: parsed.lastRefillTime || Date.now(),
+            updatedAt: parsed.updatedAt || Date.now(),
+          };
+        }
+      }
+    } catch {}
+    return DEFAULT_ENERGY_STATE;
+  });
   const [countdownSeconds, setCountdownSeconds] = useState<number>(15);
 
   // Combine raw pool with custom injected beatmaps and apply card tier overrides
@@ -340,9 +360,11 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         reserveMax: MAX_RESERVE_ENERGY,
         bonus: bon,
         lastRefillTime: newLastRefill,
+        updatedAt: savedEnergy.updatedAt || Date.now(),
       };
       await savePullEnergyState(updatedEnergy);
       setEnergy(updatedEnergy);
+      setIsInitialized(true);
 
       setSettings(userConfig);
       sfx.setEnabled(userConfig.soundEnabled);
@@ -353,6 +375,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setPoolError(err.message || 'Failed to initialize database');
     } finally {
       setIsLoading(false);
+      setIsInitialized(true);
     }
   }, []);
 
@@ -655,7 +678,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!isAuthenticated || !user || !user.osuId) return;
     try {
       const payload =
-        collectionRecords.length > 0 || totalPulls > 0
+        isInitialized && (collectionRecords.length > 0 || totalPulls > 0)
           ? {
               collection: collectionRecords.map((c) => ({
                 beatmapId: c.beatmapId,
@@ -712,7 +735,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               reserve: newReserve,
               bonus: mergedBonus,
               lastRefillTime: Math.max(prev.lastRefillTime || 0, cEnergy.lastRefillTime || 0),
-              updatedAt: Math.max(prev.updatedAt || 0, cEnergy.updatedAt || 0),
+              updatedAt: Math.max(prev.updatedAt || 0, cEnergy.updatedAt || 0, Date.now()),
             };
             savePullEnergyState(mergedState).catch(() => {});
             return mergedState;
@@ -745,13 +768,13 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch (err) {
       console.warn('Direct Supabase cloud sync notice:', err);
     }
-  }, [isAuthenticated, user, rawPool, syncWithCloud, collectionRecords, history, totalPulls, pityCount, energy, adminRefillEnergy]);
+  }, [isAuthenticated, user, rawPool, syncWithCloud, collectionRecords, history, totalPulls, pityCount, energy, isInitialized, adminRefillEnergy]);
 
   // Reactive Cross-Device Auto-Sync (on login, tab focus & visibility change)
   useEffect(() => {
-    if (!isAuthenticated || !user?.osuId) return;
+    if (!isAuthenticated || !user?.osuId || !isInitialized) return;
 
-    // Initial sync upon authenticating
+    // Initial sync upon authenticating & local data initialized
     forceCloudSync();
 
     const handleFocusSync = () => {
@@ -771,8 +794,23 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       (payload: { payload: { energy: PullEnergyState; totalPulls: number; pityCount: number } }) => {
         if (payload?.payload) {
           const { energy: remoteEnergy, totalPulls: remotePulls, pityCount: remotePity } = payload.payload;
-          setEnergy(remoteEnergy);
-          savePullEnergyState(remoteEnergy);
+          setEnergy((prev) => {
+            const mergedBonus = Math.max(prev.bonus || 0, remoteEnergy.bonus || 0);
+            const isRemoteNewer = Boolean(remoteEnergy.updatedAt && remoteEnergy.updatedAt >= (prev.updatedAt || 0));
+            const newCurrent = isRemoteNewer ? remoteEnergy.current : Math.max(prev.current, remoteEnergy.current);
+            const newReserve = isRemoteNewer ? (remoteEnergy.reserve || 0) : Math.max(prev.reserve || 0, remoteEnergy.reserve || 0);
+
+            const merged: PullEnergyState = {
+              ...prev,
+              ...remoteEnergy,
+              current: newCurrent,
+              reserve: newReserve,
+              bonus: mergedBonus,
+              updatedAt: Math.max(prev.updatedAt || 0, remoteEnergy.updatedAt || 0, Date.now()),
+            };
+            savePullEnergyState(merged).catch(() => {});
+            return merged;
+          });
           setTotalPulls((prev) => Math.max(prev, remotePulls));
           setPityCount(remotePity);
           savePityCount(remotePity);
@@ -786,7 +824,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       document.removeEventListener('visibilitychange', handleFocusSync);
       supabase.removeChannel(syncChannel);
     };
-  }, [isAuthenticated, user?.osuId]);
+  }, [isAuthenticated, user?.osuId, isInitialized, forceCloudSync]);
 
   const pull = useCallback(
     async (count: number): Promise<PullResult[]> => {
@@ -862,6 +900,7 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         reserve: newRes,
         bonus: newBon,
         lastRefillTime: energy.current >= energy.max ? now : energy.lastRefillTime,
+        updatedAt: now,
       };
       setEnergy(newEnergyState);
       await savePullEnergyState(newEnergyState);
@@ -900,8 +939,20 @@ export const GachaProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setRecentPulls(results);
 
       if (isAuthenticated && user?.osuId) {
-        // Instant Real-time Broadcast to other open tabs/devices
+        // Direct cloud energy & sync broadcast
         try {
+          Promise.resolve(
+            supabase.from('admin_config').upsert({
+              key: `user_energy_${user.osuId}`,
+              value: {
+                ...newEnergyState,
+                totalPulls: newTotalPulls,
+                pityCount: finalPity,
+              },
+              updated_at: new Date().toISOString(),
+            })
+          ).catch(() => {});
+
           const syncChan = supabase.channel(`player_energy_sync_${user.osuId}`);
           syncChan.send({
             type: 'broadcast',

@@ -280,15 +280,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             await supabase.from('users').update(uPayload).eq('osu_id', user.osuId);
           }
 
-          // Save authoritative energy state to cloud
+          // Save authoritative energy state to cloud (merge non-destructively)
           if (localData.energy) {
+            const energyKey = `user_energy_${user.osuId}`;
+            const { data: existingCloudRes } = await supabase
+              .from('admin_config')
+              .select('value')
+              .eq('key', energyKey)
+              .maybeSingle();
+
+            const existingCloudEnergy = existingCloudRes?.value as PullEnergyState | undefined;
+            const cloudBonus = typeof existingCloudEnergy?.bonus === 'number' ? existingCloudEnergy.bonus : 0;
+            const localBonus = typeof localData.energy.bonus === 'number' ? localData.energy.bonus : 0;
+            const bestBonus = Math.max(cloudBonus, localBonus);
+
+            const isCloudNewer = Boolean(
+              existingCloudEnergy?.updatedAt &&
+              existingCloudEnergy.updatedAt > (localData.energy.updatedAt || 0)
+            );
+
+            const mergedEnergyToSave: PullEnergyState = {
+              current: isCloudNewer && existingCloudEnergy ? existingCloudEnergy.current : localData.energy.current,
+              max: localData.energy.max || 50,
+              reserve: isCloudNewer && existingCloudEnergy ? (existingCloudEnergy.reserve || 0) : (localData.energy.reserve || 0),
+              reserveMax: localData.energy.reserveMax || 100,
+              bonus: bestBonus,
+              lastRefillTime: Math.max(localData.energy.lastRefillTime || 0, existingCloudEnergy?.lastRefillTime || 0),
+              updatedAt: Math.max(localData.energy.updatedAt || 0, existingCloudEnergy?.updatedAt || 0, Date.now()),
+            };
+
             await supabase.from('admin_config').upsert({
-              key: `user_energy_${user.osuId}`,
+              key: energyKey,
               value: {
-                ...localData.energy,
+                ...mergedEnergyToSave,
                 totalPulls: localData.totalPulls,
                 pityCount: localData.pityCount,
-                updatedAt: Date.now(),
               },
               updated_at: new Date().toISOString(),
             });
