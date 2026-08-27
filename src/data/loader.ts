@@ -1,5 +1,6 @@
 import { Beatmap, DatasetInfo, RarityTier } from '../types/beatmap';
 import { SEED_BEATMAPS, SEED_DATASET_INFO } from './seedData';
+import { getDB } from '../storage/db';
 
 let cachedBeatmaps: Beatmap[] | null = null;
 let cachedInfo: DatasetInfo | null = null;
@@ -30,8 +31,6 @@ function updateStarRanges(maps: Beatmap[]) {
  * Loads the beatmap pool dataset from public/data/maps.json.
  * Falls back gracefully to bundled seed dataset if loading fails.
  */
-import { getDB } from '../storage/db';
-
 export async function loadBeatmapDataset(): Promise<LoaderResult> {
   if (cachedBeatmaps && cachedInfo) {
     return {
