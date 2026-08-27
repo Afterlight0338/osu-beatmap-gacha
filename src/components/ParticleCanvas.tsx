@@ -42,6 +42,11 @@ export const ParticleCanvas: React.FC<ParticleCanvasProps> = ({
     }));
 
     const render = () => {
+      if (document.hidden) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
 
       particles.forEach((p) => {

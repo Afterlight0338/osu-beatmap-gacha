@@ -114,7 +114,11 @@ const MainApp: React.FC = () => {
     };
 
     checkRemoteCommands();
-    const interval = setInterval(checkRemoteCommands, 3000);
+    // Use lightweight 60s fallback poll + instant check on window focus
+    const interval = setInterval(() => {
+      if (!document.hidden) checkRemoteCommands();
+    }, 60000);
+    window.addEventListener('focus', checkRemoteCommands);
 
     const channel = supabase
       .channel('realtime_admin_commands')
@@ -144,6 +148,7 @@ const MainApp: React.FC = () => {
 
     return () => {
       clearInterval(interval);
+      window.removeEventListener('focus', checkRemoteCommands);
       supabase.removeChannel(channel);
     };
   }, []);
@@ -175,7 +180,10 @@ const MainApp: React.FC = () => {
       } catch {}
     };
     checkInteractions();
-    const interval = setInterval(checkInteractions, 10000);
+    const interval = setInterval(() => {
+      if (!document.hidden) checkInteractions();
+    }, 60000);
+    window.addEventListener('focus', checkInteractions);
 
     const channel = supabase.channel('interaction_listener_' + currentOsuId);
     channel.on('broadcast', { event: 'gift_received' }, (payload: { payload: PlayerTransaction }) => {
@@ -197,6 +205,7 @@ const MainApp: React.FC = () => {
 
     return () => {
       clearInterval(interval);
+      window.removeEventListener('focus', checkInteractions);
       supabase.removeChannel(channel);
     };
   }, [user?.osuId, forceCloudSync]);

@@ -357,7 +357,13 @@ export async function fetchUserBountyHistory(osuId: number): Promise<CompletedBo
 
 // ── Boss Bounties Management ──────────────────────────────────────────────────
 
-export async function fetchBossBounties(): Promise<Bounty[]> {
+let cachedBossBounties: { data: Bounty[]; fetchedAt: number } | null = null;
+
+export async function fetchBossBounties(force: boolean = false): Promise<Bounty[]> {
+  if (!force && cachedBossBounties && Date.now() - cachedBossBounties.fetchedAt < 5 * 60 * 1000) {
+    return cachedBossBounties.data;
+  }
+
   try {
     const { data } = await supabase
       .from('admin_config')
@@ -366,15 +372,17 @@ export async function fetchBossBounties(): Promise<Bounty[]> {
       .maybeSingle();
 
     if (data?.value && Array.isArray(data.value)) {
+      cachedBossBounties = { data: data.value as Bounty[], fetchedAt: Date.now() };
       return data.value as Bounty[];
     }
   } catch (err) {
     console.warn('Failed to load boss bounties from Supabase:', err);
   }
-  return [];
+  return cachedBossBounties?.data || [];
 }
 
 export async function saveBossBounties(bounties: Bounty[]): Promise<boolean> {
+  cachedBossBounties = { data: bounties, fetchedAt: Date.now() };
   try {
     const { error } = await supabase.from('admin_config').upsert({
       key: 'boss_bounties',
@@ -390,7 +398,13 @@ export async function saveBossBounties(bounties: Bounty[]): Promise<boolean> {
 
 // ── Bounty Packs Management ───────────────────────────────────────────────────
 
-export async function fetchBountyPacks(): Promise<BountyPack[]> {
+let cachedBountyPacks: { data: BountyPack[]; fetchedAt: number } | null = null;
+
+export async function fetchBountyPacks(force: boolean = false): Promise<BountyPack[]> {
+  if (!force && cachedBountyPacks && Date.now() - cachedBountyPacks.fetchedAt < 5 * 60 * 1000) {
+    return cachedBountyPacks.data;
+  }
+
   try {
     const { data } = await supabase
       .from('admin_config')
@@ -399,15 +413,17 @@ export async function fetchBountyPacks(): Promise<BountyPack[]> {
       .maybeSingle();
 
     if (data?.value && Array.isArray(data.value)) {
+      cachedBountyPacks = { data: data.value as BountyPack[], fetchedAt: Date.now() };
       return data.value as BountyPack[];
     }
   } catch (err) {
     console.warn('Failed to load bounty packs from Supabase:', err);
   }
-  return [];
+  return cachedBountyPacks?.data || [];
 }
 
 export async function saveBountyPacks(packs: BountyPack[]): Promise<boolean> {
+  cachedBountyPacks = { data: packs, fetchedAt: Date.now() };
   try {
     const { error } = await supabase.from('admin_config').upsert({
       key: 'bounty_packs',

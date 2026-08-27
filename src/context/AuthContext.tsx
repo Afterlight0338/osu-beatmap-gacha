@@ -326,7 +326,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         setLastSyncedAt(new Date());
 
-        // 3. Fetch full collection using parallel auto-pagination (bypasses PostgREST 1000 row limit)
+        // Fast path: if this was a background pull save (localData was provided), avoid re-downloading entire 5000+ collection
+        if (localData && (localData.collection || localData.history || localData.energy)) {
+          return {
+            cloudTotalPulls: localData.totalPulls,
+            cloudPityCount: localData.pityCount,
+            cloudEnergy: localData.energy,
+          };
+        }
+
+        // 3. Full sync path (initial mount or manual sync): Fetch collection using parallel auto-pagination
         const pageSize = 1000;
         const countQuery = await supabase
           .from('user_collection')
