@@ -56,6 +56,14 @@ export const BOUNTY_STAMINA_REWARDS: Record<BountyDifficulty, number> = {
   Master: 200,
 };
 
+export const BOUNTY_POINTS_REWARDS: Record<BountyDifficulty, number> = {
+  Beginner: 10,
+  Intermediate: 25,
+  Advanced: 50,
+  Expert: 100,
+  Master: 200,
+};
+
 function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -63,24 +71,30 @@ function pickRandom<T>(arr: T[]): T {
 export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bounty[] {
   if (!pool || pool.length === 0) return [];
 
-  // Filter pool by difficulty tiers
-  const beginnerPool = pool.filter((m) => m.stars >= 1.5 && m.stars < 4.0);
-  const intermediatePool = pool.filter((m) => m.stars >= 4.0 && m.stars < 5.3);
-  const advancedPool = pool.filter((m) => m.stars >= 5.3 && m.stars < 6.5);
-  const expertPool = pool.filter((m) => m.stars >= 6.5);
+  // Filter pool by difficulty tiers with realistic star caps (max cap <= 8.2 to prevent impossible 11★ maps)
+  const beginnerPool = pool.filter((m) => m.stars >= 2.0 && m.stars <= 3.8);
+  const intermediatePool = pool.filter((m) => m.stars >= 3.9 && m.stars <= 5.2);
+  const advancedPool = pool.filter((m) => m.stars >= 5.3 && m.stars <= 6.3);
+  const expertPool = pool.filter((m) => m.stars >= 6.4 && m.stars <= 7.4);
+  const masterPool = pool.filter((m) => m.stars >= 7.5 && m.stars <= 8.2);
 
   const bounties: Bounty[] = [];
 
   const tierDistribution: { tier: BountyDifficulty; pool: Beatmap[]; count: number }[] = [
-    { tier: 'Beginner', pool: beginnerPool.length ? beginnerPool : pool, count: 2 },
-    { tier: 'Intermediate', pool: intermediatePool.length ? intermediatePool : pool, count: 3 },
-    { tier: 'Advanced', pool: advancedPool.length ? advancedPool : pool, count: 3 },
-    { tier: 'Expert', pool: expertPool.length ? expertPool : pool, count: 2 },
+    { tier: 'Beginner', pool: beginnerPool.length ? beginnerPool : pool.filter((m) => m.stars < 4.0), count: 2 },
+    { tier: 'Intermediate', pool: intermediatePool.length ? intermediatePool : pool.filter((m) => m.stars >= 3.8 && m.stars < 5.3), count: 3 },
+    { tier: 'Advanced', pool: advancedPool.length ? advancedPool : pool.filter((m) => m.stars >= 5.3 && m.stars < 6.4), count: 3 },
+    { tier: 'Expert', pool: expertPool.length ? expertPool : pool.filter((m) => m.stars >= 6.4 && m.stars <= 7.5), count: masterPool.length ? 1 : 2 },
   ];
 
+  if (masterPool.length > 0) {
+    tierDistribution.push({ tier: 'Master', pool: masterPool, count: 1 });
+  }
+
   for (const group of tierDistribution) {
+    const validGroupPool = group.pool.length ? group.pool : pool;
     for (let i = 0; i < group.count; i++) {
-      const map = pickRandom(group.pool);
+      const map = pickRandom(validGroupPool);
       if (!map) continue;
 
       let minRank: BountyRankRequirement = 'A';
@@ -89,19 +103,23 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
 
       if (group.tier === 'Beginner') {
         minRank = Math.random() > 0.4 ? 'S' : 'A';
-        if (Math.random() > 0.5) minAccuracy = 95.0;
+        if (Math.random() > 0.5) minAccuracy = 94.0;
       } else if (group.tier === 'Intermediate') {
         minRank = Math.random() > 0.3 ? 'S' : 'A';
-        minAccuracy = Math.random() > 0.4 ? 95.5 : undefined;
-        if (Math.random() > 0.7) requiredMods = ['HD'];
+        minAccuracy = Math.random() > 0.4 ? 95.0 : undefined;
+        if (Math.random() > 0.8) requiredMods = ['HD'];
       } else if (group.tier === 'Advanced') {
         minRank = Math.random() > 0.4 ? 'A' : 'S';
-        minAccuracy = Math.random() > 0.3 ? 96.0 : undefined;
-        if (Math.random() > 0.6) requiredMods = Math.random() > 0.5 ? ['HD'] : ['HR'];
+        minAccuracy = Math.random() > 0.4 ? 94.0 : undefined;
+        if (Math.random() > 0.7) requiredMods = Math.random() > 0.5 ? ['HD'] : ['HR'];
+      } else if (group.tier === 'Expert') {
+        // Expert (6.4 - 7.4★): Reasonable requirements (Pass or B/A rank, no absurd 95%+ requirements)
+        minRank = Math.random() > 0.5 ? 'A' : 'Pass';
+        minAccuracy = Math.random() > 0.7 ? 92.0 : undefined;
       } else {
-        // Expert
-        minRank = Math.random() > 0.3 ? 'A' : 'Pass';
-        minAccuracy = Math.random() > 0.5 ? 94.0 : undefined;
+        // Master (7.5 - 8.2★): Simply require PASS
+        minRank = 'Pass';
+        minAccuracy = undefined;
       }
 
       const titleList = BOUNTY_TITLES[group.tier] || BOUNTY_TITLES.Intermediate;
@@ -112,6 +130,7 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
       if (requiredMods && requiredMods.length > 0) desc += ` (+${requiredMods.join(', ')})`;
 
       const rewardStamina = BOUNTY_STAMINA_REWARDS[group.tier] || 50;
+      const rewardPoints = BOUNTY_POINTS_REWARDS[group.tier] || 25;
 
       bounties.push({
         id: `bounty-${map.id}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
@@ -125,6 +144,7 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
           requiredMods,
         },
         rewardStamina,
+        rewardPoints,
         createdAt: Date.now(),
       });
     }
@@ -141,6 +161,7 @@ export function generateRandomBounties(pool: Beatmap[], count: number = 10): Bou
       difficulty: 'Intermediate',
       requirements: { minRank: 'A' },
       rewardStamina: 50,
+      rewardPoints: 25,
       createdAt: Date.now(),
     });
   }
@@ -164,16 +185,14 @@ export function loadSavedBounties(): Bounty[] {
 export function saveAvailableBounties(bounties: Bounty[]): void {
   try {
     localStorage.setItem(STORAGE_AVAILABLE_BOUNTIES, JSON.stringify(bounties));
-  } catch (e) {
-    console.warn('Failed to save available bounties:', e);
-  }
+  } catch {}
 }
 
 export function loadActiveBounty(): ActiveBounty | null {
   try {
     const raw = localStorage.getItem(STORAGE_ACTIVE_BOUNTY);
     if (!raw) return null;
-    return JSON.parse(raw) as ActiveBounty;
+    return JSON.parse(raw);
   } catch {
     return null;
   }
@@ -181,14 +200,12 @@ export function loadActiveBounty(): ActiveBounty | null {
 
 export function saveActiveBounty(active: ActiveBounty | null): void {
   try {
-    if (!active) {
-      localStorage.removeItem(STORAGE_ACTIVE_BOUNTY);
-    } else {
+    if (active) {
       localStorage.setItem(STORAGE_ACTIVE_BOUNTY, JSON.stringify(active));
+    } else {
+      localStorage.removeItem(STORAGE_ACTIVE_BOUNTY);
     }
-  } catch (e) {
-    console.warn('Failed to save active bounty:', e);
-  }
+  } catch {}
 }
 
 export function loadCompletedBounties(): CompletedBounty[] {
@@ -227,22 +244,29 @@ export async function saveCompletedBounty(
 
         const currentMap =
           data?.value && typeof data.value === 'object' && !Array.isArray(data.value)
-            ? (data.value as Record<string, { count: number; username: string; avatarUrl?: string; lastClearedAt: number }>)
+            ? (data.value as Record<string, { count: number; points?: number; username: string; avatarUrl?: string; lastClearedAt: number; recentBounties?: CompletedBounty[] }>)
             : {};
 
         const userKey = String(user.osuId);
         const existing = currentMap[userKey] || {
           count: 0,
+          points: 0,
           username: user.username,
           avatarUrl: user.avatarUrl || undefined,
           lastClearedAt: Date.now(),
+          recentBounties: [],
         };
+
+        const existingHistory = Array.isArray(existing.recentBounties) ? existing.recentBounties : [];
+        const updatedHistory = [completed, ...existingHistory.filter((b) => String(b.scoreId) !== String(completed.scoreId))].slice(0, 50);
 
         currentMap[userKey] = {
           count: (existing.count || 0) + 1,
+          points: (existing.points || 0) + (completed.rewardPoints || 25),
           username: user.username,
           avatarUrl: user.avatarUrl || undefined,
           lastClearedAt: Date.now(),
+          recentBounties: updatedHistory,
         };
 
         await supabase.from('admin_config').upsert({
@@ -270,7 +294,13 @@ export function loadClaimedScoreIds(): Set<string> {
   }
 }
 
-export async function fetchGlobalBountyClears(): Promise<Record<number, number>> {
+export interface GlobalBountyUserStat {
+  count: number;
+  points: number;
+  lastClearedAt: number;
+}
+
+export async function fetchGlobalBountyClears(): Promise<Record<number, GlobalBountyUserStat>> {
   try {
     const { data } = await supabase
       .from('admin_config')
@@ -279,15 +309,39 @@ export async function fetchGlobalBountyClears(): Promise<Record<number, number>>
       .maybeSingle();
 
     if (!data?.value || typeof data.value !== 'object') return {};
-    const result: Record<number, number> = {};
+    const result: Record<number, GlobalBountyUserStat> = {};
     for (const [osuIdStr, val] of Object.entries(data.value as Record<string, any>)) {
       const osuId = Number(osuIdStr);
-      if (osuId && val?.count) {
-        result[osuId] = Number(val.count);
+      if (osuId && val) {
+        const count = Number(val.count || 0);
+        const points = typeof val.points === 'number' ? val.points : count * 25;
+        result[osuId] = {
+          count,
+          points,
+          lastClearedAt: Number(val.lastClearedAt || 0),
+        };
       }
     }
     return result;
   } catch {
     return {};
   }
+}
+
+export async function fetchUserBountyHistory(osuId: number): Promise<CompletedBounty[]> {
+  try {
+    const { data } = await supabase
+      .from('admin_config')
+      .select('value')
+      .eq('key', 'bounties_cleared_by_user')
+      .maybeSingle();
+
+    if (data?.value && typeof data.value === 'object') {
+      const userStat = (data.value as Record<string, any>)[String(osuId)];
+      if (userStat && Array.isArray(userStat.recentBounties)) {
+        return userStat.recentBounties;
+      }
+    }
+  } catch {}
+  return [];
 }

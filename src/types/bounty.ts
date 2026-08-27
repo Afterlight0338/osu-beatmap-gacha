@@ -17,7 +17,8 @@ export interface Bounty {
   description: string;
   difficulty: BountyDifficulty;
   requirements: BountyRequirement;
-  rewardStamina: number; // 50
+  rewardStamina: number;
+  rewardPoints: number;
   createdAt: number;
 }
 
@@ -34,6 +35,7 @@ export interface CompletedBounty {
   beatmapArtist: string;
   beatmapVersion: string;
   stars: number;
+  difficulty?: BountyDifficulty;
   scoreId: number | string;
   scoreRank: string;
   scoreAccuracy: number;
@@ -41,6 +43,7 @@ export interface CompletedBounty {
   scorePp: number;
   completedAt: number;
   rewardStamina: number;
+  rewardPoints: number;
 }
 
 export interface OsuScoreData {

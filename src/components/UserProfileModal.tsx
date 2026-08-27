@@ -26,8 +26,11 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Target,
 } from 'lucide-react';
 import { formatUserShortDateTime } from '../utils/timeFormat';
+import { fetchUserBountyHistory } from '../services/bountyService';
+import { CompletedBounty } from '../types/bounty';
 
 export interface LeaderboardUser {
   osu_id: number;
@@ -42,6 +45,7 @@ export interface LeaderboardUser {
   rareScore?: number;
   rarestBeatmap?: Beatmap | null;
   bountiesCleared?: number;
+  bountyPoints?: number;
 }
 
 interface UserProfileModalProps {
@@ -57,9 +61,10 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [activeTab, setActiveTab] = useState<'spotlight' | 'collection' | 'history'>('spotlight');
+  const [activeTab, setActiveTab] = useState<'spotlight' | 'collection' | 'history' | 'bounties'>('spotlight');
   const [collectionRecords, setCollectionRecords] = useState<CollectionRecord[]>([]);
   const [userHistory, setUserHistory] = useState<Array<{ id: string; beatmapId: number; rarity: string; pulledAt: number }>>([]);
+  const [userBounties, setUserBounties] = useState<CompletedBounty[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedRarity, setSelectedRarity] = useState<string>('ALL');
@@ -111,13 +116,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           );
         }
 
-        const [histRes, ...chunkResults] = await Promise.all([
+        const [histRes, bountiesRes, ...chunkResults] = await Promise.all([
           supabase
             .from('user_history')
             .select('id, beatmap_id, rarity, pulled_at')
             .eq('osu_id', user!.osu_id)
             .order('pulled_at', { ascending: false })
             .limit(50),
+          fetchUserBountyHistory(user!.osu_id),
           ...chunkPromises,
         ]);
 
@@ -137,6 +143,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           }));
 
           setCollectionRecords(records);
+          setUserBounties(bountiesRes || []);
 
           if (histRes.data) {
             setUserHistory(
@@ -340,17 +347,18 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-center min-w-[70px]">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-center min-w-[80px]">
                 <span className="text-[10px] font-mono text-cyan-300 uppercase">Bounties</span>
                 <p className="text-sm sm:text-base font-black text-cyan-400 font-mono">
-                  {(user.bountiesCleared || 0).toLocaleString()} 🎯
+                  {(user.bountyPoints !== undefined ? user.bountyPoints : (user.bountiesCleared || 0) * 25).toLocaleString()}{' '}
+                  <span className="text-[10px] text-cyan-300 font-normal">Pts</span>
                 </p>
               </div>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center space-x-2 mt-4 pt-3 border-t border-slate-800/80">
+          <div className="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-slate-800/80">
             <button
               onClick={() => {
                 sfx.playClick();
@@ -394,6 +402,21 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             >
               <History className="w-3.5 h-3.5" />
               <span>Recent Pulls</span>
+            </button>
+
+            <button
+              onClick={() => {
+                sfx.playClick();
+                setActiveTab('bounties');
+              }}
+              className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                activeTab === 'bounties'
+                  ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
+                  : 'bg-slate-900 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Target className="w-3.5 h-3.5" />
+              <span>Bounties Cleared ({userBounties.length || user.bountiesCleared || 0})</span>
             </button>
           </div>
         </div>
@@ -657,6 +680,76 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                             <RarityBadge rarity={map.rarity} size="sm" showStars={false} />
                             <span className="text-[10px] font-mono text-slate-500">
                               {formatUserShortDateTime(item.pulledAt)}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              )}
+
+              {/* TAB 4: BOUNTIES CLEARED */}
+              {activeTab === 'bounties' && (
+                <div className="space-y-3 max-h-[55vh] overflow-y-auto">
+                  {userBounties.length === 0 ? (
+                    <div className="text-center py-12 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-2">
+                      <Target className="w-8 h-8 text-slate-600 mx-auto" />
+                      <p className="text-sm font-bold text-slate-300">No Bounty Clears Recorded</p>
+                      <p className="text-xs text-slate-500 font-mono max-w-sm mx-auto">
+                        This player hasn&apos;t verified any rhythm bounties in the global registry yet.
+                      </p>
+                    </div>
+                  ) : (
+                    userBounties.map((c) => {
+                      const map = poolMap.get(c.beatmapId);
+                      return (
+                        <div
+                          key={c.id}
+                          className="p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors"
+                        >
+                          <div className="flex items-center space-x-3.5 min-w-0">
+                            <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-950 flex-shrink-0">
+                              {map ? (
+                                <BeatmapCoverImage beatmap={map} alt={map.title} className="w-full h-full" />
+                              ) : (
+                                <Disc className="w-6 h-6 text-slate-500 m-auto" />
+                              )}
+                            </div>
+                            <div className="min-w-0 space-y-1">
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                <span className="px-2 py-0.5 rounded-md bg-emerald-950 text-emerald-300 border border-emerald-700/50 font-mono text-[10px] font-bold">
+                                  ✓ Grade {c.scoreRank}
+                                </span>
+                                <span className="text-xs font-mono text-amber-400 font-bold">
+                                  ★ {c.stars.toFixed(2)}
+                                </span>
+                                {c.difficulty && (
+                                  <span className="px-2 py-0.5 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-700/50 font-mono text-[10px] font-bold">
+                                    {c.difficulty}
+                                  </span>
+                                )}
+                              </div>
+                              <h4 className="text-xs sm:text-sm font-bold text-white truncate font-sans">
+                                {c.beatmapArtist} — {c.beatmapTitle} [{c.beatmapVersion}]
+                              </h4>
+                              <p className="text-[11px] font-mono text-slate-400">
+                                Acc: <strong className="text-pink-400">{c.scoreAccuracy.toFixed(2)}%</strong> · PP:{' '}
+                                <strong>{c.scorePp.toFixed(1)}pp</strong> · Mods:{' '}
+                                <strong>{c.scoreMods.join(', ') || 'Nomod'}</strong>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-800/80 flex-shrink-0 text-right">
+                            <span className="text-xs font-mono font-bold text-cyan-400 block">
+                              +{c.rewardPoints || 25} Pts
+                            </span>
+                            <span className="text-[11px] font-mono text-emerald-400 block">
+                              +{c.rewardStamina || 50} ⚡
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-500">
+                              {new Date(c.completedAt).toLocaleDateString()}
                             </span>
                           </div>
                         </div>

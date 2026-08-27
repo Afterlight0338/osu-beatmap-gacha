@@ -130,11 +130,22 @@ export function verifyScoreForBounty(
     };
   }
 
-  // 5. Check Pass
+  // 5. Check Pass & Unranked / Automated Mods
   if (!score.passed || score.rank === 'F') {
     return {
       valid: false,
       error: 'This score is a failed attempt (Fail / Rank F). You must pass the beatmap to complete the bounty!',
+      score,
+    };
+  }
+
+  // Reject Unranked / Automated / Assist mods (Relax, AutoPilot, Auto, Cinema)
+  const FORBIDDEN_MODS = ['RX', 'AP', 'AT', 'AUTOPLAY', 'AUTO', 'CN', 'CINEMA'];
+  const hasForbiddenMod = (score.mods || []).some((m) => FORBIDDEN_MODS.includes(m.toUpperCase()));
+  if (hasForbiddenMod) {
+    return {
+      valid: false,
+      error: `Unranked / automated mods (Relax, AutoPilot, Auto) are not permitted for bounties. Please play with standard ranked mods!`,
       score,
     };
   }

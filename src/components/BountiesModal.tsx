@@ -227,6 +227,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
       });
 
       const rewardAmount = activeBounty.bounty.rewardStamina || 50;
+      const rewardPts = activeBounty.bounty.rewardPoints || 25;
       await addBonusEnergy(rewardAmount);
 
       // 4. Save to Completed Bounties
@@ -238,6 +239,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
         beatmapArtist: activeBounty.bounty.beatmap.artist,
         beatmapVersion: activeBounty.bounty.beatmap.version,
         stars: activeBounty.bounty.beatmap.stars,
+        difficulty: activeBounty.bounty.difficulty,
         scoreId: score.id,
         scoreRank: score.rank,
         scoreAccuracy: score.accuracy,
@@ -245,6 +247,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
         scorePp: score.pp,
         completedAt: Date.now(),
         rewardStamina: rewardAmount,
+        rewardPoints: rewardPts,
       };
 
       await saveCompletedBounty(
@@ -309,7 +312,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                   <span>osu! Beatmap Bounties</span>
                 </h2>
                 <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold">
-                  +50 Stamina
+                  {activeBounty ? `+${activeBounty.bounty.rewardStamina} ⚡ (+${activeBounty.bounty.rewardPoints} Pts)` : '25–200 ⚡'}
                 </span>
               </div>
               <p className="text-xs text-slate-400 font-sans hidden sm:block">
@@ -473,7 +476,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                       ) : (
                         <>
                           <CheckCircle2 className="w-4 h-4" />
-                          <span>Verify & Claim +50 ⚡</span>
+                          <span>Verify & Claim +{activeBounty.bounty.rewardStamina} ⚡ (+{activeBounty.bounty.rewardPoints} Pts)</span>
                         </>
                       )}
                     </button>
@@ -505,7 +508,7 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                 </div>
                 <div>
                   <h4 className="font-bold text-white font-display text-base">
-                    Bounty Completed! +{verifySuccess.reward} Stamina Awarded!
+                    Bounty Completed! +{verifySuccess.reward} Stamina & Points Awarded!
                   </h4>
                   <p className="text-xs text-emerald-300 font-mono">
                     Score #{verifySuccess.score.id} verified for player {verifySuccess.score.username} (
@@ -633,9 +636,12 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
 
                     {/* Footer Actions */}
                     <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center space-x-1.5 text-xs font-mono font-bold text-amber-400">
-                        <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span>+{b.rewardStamina} Stamina</span>
+                      <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-400">
+                        <div className="flex items-center space-x-1">
+                          <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          <span>+{b.rewardStamina} ⚡</span>
+                        </div>
+                        <span className="text-cyan-400 font-extrabold">+{b.rewardPoints} Pts</span>
                       </div>
 
                       <div className="flex items-center space-x-2">
@@ -695,6 +701,11 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                           ✓ Verified Score #{c.scoreId}
                         </span>
                         <span className="text-xs font-mono text-amber-400 font-bold">★ {c.stars.toFixed(2)}</span>
+                        {c.difficulty && (
+                          <span className="px-2 py-0.5 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-700/50 font-mono text-[10px] font-bold">
+                            {c.difficulty}
+                          </span>
+                        )}
                       </div>
                       <h4 className="text-sm font-bold text-white truncate font-sans">
                         {c.beatmapArtist} — {c.beatmapTitle} [{c.beatmapVersion}]
@@ -710,6 +721,9 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
                     <div className="text-right flex-shrink-0">
                       <span className="text-xs font-mono font-bold text-emerald-400 block">
                         +{c.rewardStamina} ⚡
+                      </span>
+                      <span className="text-[11px] font-mono font-bold text-cyan-400 block">
+                        +{c.rewardPoints || 25} Pts
                       </span>
                       <span className="text-[10px] font-mono text-slate-500">
                         {new Date(c.completedAt).toLocaleDateString()}

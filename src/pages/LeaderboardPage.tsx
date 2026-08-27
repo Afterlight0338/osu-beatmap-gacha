@@ -141,13 +141,18 @@ export const LeaderboardPage: React.FC = () => {
           // Add unique count bonus
           rareScore += userCards.length * 10;
 
+          const userBountyStat = bountyClears[u.osu_id];
+          const bClears = userBountyStat ? userBountyStat.count : 0;
+          const bPoints = userBountyStat ? userBountyStat.points : bClears * 25;
+
           return {
             ...u,
             total_pulls: safeTotalPulls,
             uniqueOwned: userCards.length,
             rareScore,
             rarestBeatmap: rarest,
-            bountiesCleared: bountyClears[u.osu_id] || 0,
+            bountiesCleared: bClears,
+            bountyPoints: bPoints,
           };
         });
 
@@ -176,6 +181,7 @@ export const LeaderboardPage: React.FC = () => {
     const sorted = [...users].sort((a, b) => {
       if (rankingType === 'bounties') {
         return (
+          (b.bountyPoints || 0) - (a.bountyPoints || 0) ||
           (b.bountiesCleared || 0) - (a.bountiesCleared || 0) ||
           b.total_pulls - a.total_pulls ||
           (b.rareScore || 0) - (a.rareScore || 0)
@@ -302,7 +308,7 @@ export const LeaderboardPage: React.FC = () => {
                 </span>
                 <span className="text-[10px] font-mono text-slate-400">
                   {rankingType === 'bounties'
-                    ? `${top3[1].bountiesCleared || 0} Bounties 🎯`
+                    ? `${(top3[1].bountyPoints || (top3[1].bountiesCleared || 0) * 25).toLocaleString()} Pts 🎯`
                     : rankingType === 'pulls'
                     ? `${top3[1].total_pulls.toLocaleString()} Pulls`
                     : `${(top3[1].rareScore || 0).toLocaleString()} Pts`}
@@ -323,7 +329,7 @@ export const LeaderboardPage: React.FC = () => {
                   </p>
                   <p className="text-[11px] font-mono text-slate-400">
                     {rankingType === 'bounties'
-                      ? `${top3[1].bountiesCleared || 0} bounties completed`
+                      ? `${top3[1].bountiesCleared || 0} bounties completed (${top3[1].bountyPoints || 0} pts)`
                       : `${top3[1].uniqueOwned || 0} unique cards`}
                   </p>
                 </div>
@@ -351,7 +357,7 @@ export const LeaderboardPage: React.FC = () => {
                 </span>
                 <span className="text-xs font-mono font-bold text-amber-400">
                   {rankingType === 'bounties'
-                    ? `${top3[0].bountiesCleared || 0} Bounties 🎯`
+                    ? `${(top3[0].bountyPoints || (top3[0].bountiesCleared || 0) * 25).toLocaleString()} Pts 🎯`
                     : rankingType === 'pulls'
                     ? `${top3[0].total_pulls.toLocaleString()} Pulls`
                     : `${(top3[0].rareScore || 0).toLocaleString()} Pts`}
@@ -372,7 +378,7 @@ export const LeaderboardPage: React.FC = () => {
                   </p>
                   <p className="text-xs font-mono text-amber-200/80">
                     {rankingType === 'bounties'
-                      ? `${top3[0].bountiesCleared || 0} bounties completed`
+                      ? `${top3[0].bountiesCleared || 0} bounties completed (${top3[0].bountyPoints || 0} pts)`
                       : `${top3[0].uniqueOwned || 0} unique cards owned`}
                   </p>
                 </div>
@@ -399,7 +405,7 @@ export const LeaderboardPage: React.FC = () => {
                 </span>
                 <span className="text-[10px] font-mono text-slate-400">
                   {rankingType === 'bounties'
-                    ? `${top3[2].bountiesCleared || 0} Bounties 🎯`
+                    ? `${(top3[2].bountyPoints || (top3[2].bountiesCleared || 0) * 25).toLocaleString()} Pts 🎯`
                     : rankingType === 'pulls'
                     ? `${top3[2].total_pulls.toLocaleString()} Pulls`
                     : `${(top3[2].rareScore || 0).toLocaleString()} Pts`}
@@ -420,7 +426,7 @@ export const LeaderboardPage: React.FC = () => {
                   </p>
                   <p className="text-[11px] font-mono text-slate-400">
                     {rankingType === 'bounties'
-                      ? `${top3[2].bountiesCleared || 0} bounties completed`
+                      ? `${top3[2].bountiesCleared || 0} bounties completed (${top3[2].bountyPoints || 0} pts)`
                       : `${top3[2].uniqueOwned || 0} unique cards`}
                   </p>
                 </div>
@@ -537,15 +543,22 @@ export const LeaderboardPage: React.FC = () => {
 
                       {/* Bounties Cleared */}
                       <td className="py-3.5 px-4 text-center font-mono font-bold">
-                        <span
-                          className={`px-2 py-0.5 rounded-full text-xs ${
-                            (u.bountiesCleared || 0) > 0
-                              ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/40'
-                              : 'text-slate-600'
-                          }`}
-                        >
-                          {u.bountiesCleared || 0}
-                        </span>
+                        <div className="flex flex-col items-center">
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-xs ${
+                              (u.bountyPoints || 0) > 0 || (u.bountiesCleared || 0) > 0
+                                ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/40'
+                                : 'text-slate-600'
+                            }`}
+                          >
+                            {(u.bountyPoints || (u.bountiesCleared || 0) * 25).toLocaleString()} Pts
+                          </span>
+                          {(u.bountiesCleared || 0) > 0 && (
+                            <span className="text-[10px] text-slate-500 font-mono mt-0.5">
+                              {u.bountiesCleared} clears
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       {/* Total Lifetime Pulls */}
