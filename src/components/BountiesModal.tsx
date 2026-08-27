@@ -90,7 +90,7 @@ const DIFFICULTY_STYLES: Record<
 
 export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose }) => {
   const { pool, addBonusEnergy } = useGacha();
-  const { user } = useAuth();
+  const { user, isAuthenticated, loginWithOsu } = useAuth();
 
   const [bounties, setBounties] = useState<Bounty[]>([]);
   const [bossBounties, setBossBounties] = useState<Bounty[]>([]);
@@ -189,6 +189,11 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   };
 
   const handleAcceptBounty = (bounty: Bounty) => {
+    if (!isAuthenticated || !user?.osuId) {
+      sfx.playClick();
+      alert('You must be logged in with your osu! account to accept bounties and claim stamina rewards!');
+      return;
+    }
     sfx.playSummonCharge();
     const newActive: ActiveBounty = {
       bounty,
@@ -218,6 +223,12 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
   const handleVerifyScore = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeBounty || !scoreInput.trim()) return;
+
+    if (!isAuthenticated || !user?.osuId) {
+      setVerifyError('You must be logged in with your osu! account to verify and submit scores.');
+      sfx.playClick();
+      return;
+    }
 
     setIsVerifying(true);
     setVerifyError(null);
@@ -397,6 +408,31 @@ export const BountiesModal: React.FC<BountiesModalProps> = ({ isOpen, onClose })
 
         {/* Main Content Area */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+          {/* Unauthenticated Login Prompt Banner */}
+          {!isAuthenticated && (
+            <div className="p-4 rounded-2xl bg-amber-950/80 border border-amber-500/60 text-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg shadow-amber-950/40 animate-fade-in">
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-xl bg-amber-900/80 text-amber-300 flex-shrink-0">
+                  <AlertCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white font-display text-sm">
+                    Login Required for Bounties
+                  </h4>
+                  <p className="text-xs text-amber-300 font-mono">
+                    You must log in with your osu! account to accept bounties, submit scores, and earn stamina & points!
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={loginWithOsu}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-bold text-xs font-display flex-shrink-0 shadow-md transition-transform active:scale-95"
+              >
+                Log In with osu!
+              </button>
+            </div>
+          )}
+
           {/* Active Bounty Banner (If Active) */}
           {activeBounty && (
             <div className="relative rounded-3xl bg-gradient-to-br from-slate-900/95 via-[#121226] to-[#1c1228] border-2 border-cyan-500/60 shadow-xl shadow-cyan-950/40 p-4 sm:p-6 overflow-hidden animate-fade-in">

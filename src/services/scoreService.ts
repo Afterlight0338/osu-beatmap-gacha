@@ -109,8 +109,16 @@ export function verifyScoreForBounty(
     };
   }
 
-  // 2. Check Player Identity
-  if (currentOsuId && score.userId !== currentOsuId) {
+  // 2. Check Player Identity (MUST be logged in)
+  if (!currentOsuId) {
+    return {
+      valid: false,
+      error: 'You must be logged in with your osu! account to verify and claim bounties!',
+      score,
+    };
+  }
+
+  if (score.userId !== currentOsuId) {
     if (!currentUsername || score.username.toLowerCase() !== currentUsername.toLowerCase()) {
       return {
         valid: false,
@@ -143,7 +151,7 @@ export function verifyScoreForBounty(
     };
   }
 
-  // 5. Check Pass & Unranked / Automated Mods
+  // 5. Check Pass & Forbidden Mods (NoFail, Relax, AutoPilot, Auto, Cinema)
   if (!score.passed || score.rank === 'F') {
     return {
       valid: false,
@@ -152,13 +160,16 @@ export function verifyScoreForBounty(
     };
   }
 
-  // Reject Unranked / Automated / Assist mods (Relax, AutoPilot, Auto, Cinema)
-  const FORBIDDEN_MODS = ['RX', 'AP', 'AT', 'AUTOPLAY', 'AUTO', 'CN', 'CINEMA'];
+  // Reject NoFail (NF) and unranked / automated mods (Relax, AutoPilot, Auto, Cinema)
+  const FORBIDDEN_MODS = ['NF', 'NOFAIL', 'RX', 'AP', 'AT', 'AUTOPLAY', 'AUTO', 'CN', 'CINEMA'];
   const hasForbiddenMod = (score.mods || []).some((m) => FORBIDDEN_MODS.includes(m.toUpperCase()));
   if (hasForbiddenMod) {
+    const isNF = (score.mods || []).some((m) => ['NF', 'NOFAIL'].includes(m.toUpperCase()));
     return {
       valid: false,
-      error: `Unranked / automated mods (Relax, AutoPilot, Auto) are not permitted for bounties. Please play with standard ranked mods!`,
+      error: isNF
+        ? 'NoFail (NF) mod is not permitted for bounties and boss raids. You must pass without NoFail!'
+        : 'Unranked / automated mods (Relax, AutoPilot, Auto) are not permitted for bounties. Please play with standard ranked mods!',
       score,
     };
   }
