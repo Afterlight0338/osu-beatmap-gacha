@@ -79,10 +79,13 @@
 
 ---
 
-### E. Gacha Banner Pooling (`src/gacha/banners.ts`, `src/components/BannerView.tsx`)
-* **Current State**: Simplified to a single primary banner: **All-Stars Beatmap Pool** (`standard`).
-* **Sub-banners**: Aim Slop, Stream Focus, and Speed/PP sub-banners are temporarily disabled until future pooling mechanics are established.
-* **Banner Selector**: Automatically hidden when only 1 banner is active.
+### F. Gacha Fallback & Seed Dataset Architecture (`src/data/seedData.ts`, `src/gacha/rng.ts`)
+* **Balanced Seed Dataset**: Contains 100 balanced offline maps (31% Common, 29% Uncommon, 26% Uncommon+, 10% Rare, 3% Epic, 1% Legendary) with 0 Divine/GOAT/EX to prevent high-tier drops on network fetch failures.
+* **Downwards-Only RNG Fallback**: If a target tier is missing in any active pool, `rng.ts` degrades safely downwards to `Common`/`Uncommon` instead of picking higher tiers.
+
+### G. Cloud Sync & Stamina State Reconciliation (`src/context/GachaContext.tsx`, `src/context/AuthContext.tsx`)
+* **No-Reversion Total Pulls**: Functional state updater `setTotalPulls((prev) => Math.max(prev, ...))` guarantees pull count never flickers down on mount.
+* **Preserved Bonus Stamina**: Cloud energy sync intelligently preserves locally earned bonus stamina (from Rhythm Math Quiz, Bounties, etc.) by taking `Math.max(localBonus, cloudBonus)`.
 
 ---
 
